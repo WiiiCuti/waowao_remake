@@ -10,7 +10,7 @@ export type TaskTypeBehaviorMatrixEntry = {
 }
 
 function resolveChainTestByTaskType(taskType: TaskType): string {
-  if (taskType === 'video_panel' || taskType === 'lip_sync') {
+  if (taskType === 'video_panel' || taskType === 'lip_sync' || taskType === 'merge_video') {
     return 'tests/integration/chain/video.chain.test.ts'
   }
   if (taskType === 'voice_line' || taskType === 'voice_design' || taskType === 'asset_hub_voice_design') {
@@ -78,6 +78,7 @@ function resolveApiContractByTaskType(taskType: TaskType): string {
     || taskType === 'image_location'
     || taskType === 'video_panel'
     || taskType === 'lip_sync'
+    || taskType === 'merge_video'
     || taskType === 'voice_line'
     || taskType === 'voice_design'
     || taskType === 'asset_hub_voice_design'

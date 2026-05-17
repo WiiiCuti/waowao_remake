@@ -40,6 +40,7 @@ const cancelTaskMock = vi.hoisted(() => vi.fn())
 const removeTaskJobMock = vi.hoisted(() => vi.fn(async () => true))
 const publishTaskEventMock = vi.hoisted(() => vi.fn(async () => undefined))
 const queryTaskTargetStatesMock = vi.hoisted(() => vi.fn())
+const getSignedObjectUrlMock = vi.hoisted(() => vi.fn(async () => 'https://signed.example/final.mp4'))
 const withPrismaRetryMock = vi.hoisted(() => vi.fn(async <T>(fn: () => Promise<T>) => await fn()))
 const listEventsAfterMock = vi.hoisted(() =>
   vi.fn<typeof import('@/lib/task/publisher').listEventsAfter>(async () => []),
@@ -98,6 +99,10 @@ vi.mock('@/lib/task/publisher', () => ({
 
 vi.mock('@/lib/task/state-service', () => ({
   queryTaskTargetStates: queryTaskTargetStatesMock,
+}))
+
+vi.mock('@/lib/storage', () => ({
+  getSignedObjectUrl: getSignedObjectUrlMock,
 }))
 
 vi.mock('@/lib/prisma-retry', () => ({
@@ -287,6 +292,72 @@ describe('api contract - task infra routes (behavior)', () => {
 
     const payload = await res.json() as { task: TaskRecord }
     expect(payload.task.id).toBe('task-1')
+  })
+
+  it('GET /youtube/merge/[taskId]/status: scopes task to project and returns signed result', async () => {
+    const route = await import('@/app/api/novel-promotion/[projectId]/youtube/merge/[taskId]/status/route')
+    const ctx = { params: Promise.resolve({ projectId: 'project-1', taskId: 'task-1' }) }
+
+    authState.authenticated = false
+    const unauthorizedReq = buildMockRequest({
+      path: '/api/novel-promotion/project-1/youtube/merge/task-1/status',
+      method: 'GET',
+    })
+    const unauthorizedRes = await route.GET(unauthorizedReq, ctx)
+    expect(unauthorizedRes.status).toBe(401)
+
+    authState.authenticated = true
+    getTaskByIdMock.mockResolvedValueOnce({ ...baseTask, projectId: 'other-project' })
+    const wrongProjectReq = buildMockRequest({
+      path: '/api/novel-promotion/project-1/youtube/merge/task-1/status',
+      method: 'GET',
+    })
+    const wrongProjectRes = await route.GET(wrongProjectReq, ctx)
+    expect(wrongProjectRes.status).toBe(404)
+
+    getTaskByIdMock.mockResolvedValueOnce({
+      ...baseTask,
+      status: TASK_STATUS.PROCESSING,
+      progress: 42,
+      payload: { stage: 'merge_panel', current: 2, total: 5 },
+    })
+    const processingReq = buildMockRequest({
+      path: '/api/novel-promotion/project-1/youtube/merge/task-1/status',
+      method: 'GET',
+    })
+    const processingRes = await route.GET(processingReq, ctx)
+    expect(processingRes.status).toBe(200)
+    await expect(processingRes.json()).resolves.toMatchObject({
+      status: TASK_STATUS.PROCESSING,
+      progress: {
+        percent: 42,
+        stage: 'merge_panel',
+        currentPanel: 2,
+        totalPanels: 5,
+      },
+    })
+
+    getTaskByIdMock.mockResolvedValueOnce({
+      ...baseTask,
+      status: TASK_STATUS.COMPLETED,
+      progress: 100,
+      payload: { stage: 'complete' },
+      result: { cosKey: 'youtube/final.mp4' },
+    })
+    getSignedObjectUrlMock.mockResolvedValueOnce('https://signed.example/youtube/final.mp4')
+    const completedReq = buildMockRequest({
+      path: '/api/novel-promotion/project-1/youtube/merge/task-1/status',
+      method: 'GET',
+    })
+    const completedRes = await route.GET(completedReq, ctx)
+    expect(completedRes.status).toBe(200)
+    await expect(completedRes.json()).resolves.toMatchObject({
+      status: TASK_STATUS.COMPLETED,
+      result: {
+        cosKey: 'youtube/final.mp4',
+        cosUrl: 'https://signed.example/youtube/final.mp4',
+      },
+    })
   })
 
   it('GET /api/tasks/[taskId]?includeEvents=1: returns lifecycle events for refresh replay', async () => {

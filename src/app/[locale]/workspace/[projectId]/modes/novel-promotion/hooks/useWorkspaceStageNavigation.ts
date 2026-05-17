@@ -34,6 +34,7 @@ export function useWorkspaceStageNavigation({
         return stageArtifacts.hasStoryboard ? 'ready' : 'empty'
       case 'videos':
       case 'editor':
+      case 'youtube':
         return stageArtifacts.hasVideo ? 'ready' : 'empty'
       case 'voice':
         return stageArtifacts.hasVoice ? 'ready' : 'empty'
@@ -47,6 +48,7 @@ export function useWorkspaceStageNavigation({
     { id: 'script', icon: 'A', label: t('stages.script'), status: getStageStatus('assets') },
     { id: 'storyboard', icon: 'B', label: t('stages.storyboard'), status: getStageStatus('storyboard') },
     { id: 'videos', icon: 'V', label: t('stages.video'), status: getStageStatus('videos') },
+    { id: 'voice', icon: 'O', label: t('stages.voice'), status: getStageStatus('voice') },
     {
       id: 'editor',
       icon: 'E',
@@ -55,5 +57,6 @@ export function useWorkspaceStageNavigation({
       disabled: true,
       disabledLabel: t('stages.editorComingSoon'),
     },
+    { id: 'youtube', icon: 'Y', label: t('stages.youtube'), status: getStageStatus('youtube') },
   ]
 }

@@ -93,6 +93,7 @@ const ROUTE_FILES = [
   'src/app/api/novel-promotion/[projectId]/download-videos/route.ts',
   'src/app/api/novel-promotion/[projectId]/download-voices/route.ts',
   'src/app/api/novel-promotion/[projectId]/editor/route.ts',
+  'src/app/api/novel-promotion/[projectId]/episodes/[episodeId]/narrator/route.ts',
   'src/app/api/novel-promotion/[projectId]/episodes/[episodeId]/route.ts',
   'src/app/api/novel-promotion/[projectId]/episodes/batch/route.ts',
   'src/app/api/novel-promotion/[projectId]/episodes/route.ts',
@@ -138,6 +139,8 @@ const ROUTE_FILES = [
   'src/app/api/novel-promotion/[projectId]/voice-design/route.ts',
   'src/app/api/novel-promotion/[projectId]/voice-generate/route.ts',
   'src/app/api/novel-promotion/[projectId]/voice-lines/route.ts',
+  'src/app/api/novel-promotion/[projectId]/youtube/merge/[taskId]/status/route.ts',
+  'src/app/api/novel-promotion/[projectId]/youtube/merge/route.ts',
   'src/app/api/projects/[projectId]/assets/route.ts',
   'src/app/api/projects/[projectId]/costs/route.ts',
   'src/app/api/projects/[projectId]/data/route.ts',
@@ -220,9 +223,11 @@ function resolveContractGroup(routeFile: string): RouteContractGroup {
     || routeFile.endsWith('/regenerate-single-image/route.ts')
     || routeFile.endsWith('/regenerate-storyboard-text/route.ts')
     || routeFile.endsWith('/voice-generate/route.ts')
+    || routeFile.endsWith('/youtube/merge/route.ts')
   ) {
     return 'direct-submit-routes'
   }
+  if (routeFile.endsWith('/youtube/merge/[taskId]/status/route.ts')) return 'task-infra-routes'
   if (routeFile.startsWith('src/app/api/assets/')) return 'crud-assets-routes'
   if (routeFile.startsWith('src/app/api/asset-hub/')) return 'crud-asset-hub-routes'
   if (routeFile.startsWith('src/app/api/novel-promotion/')) return 'crud-novel-promotion-routes'

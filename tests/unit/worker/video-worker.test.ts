@@ -1,4 +1,5 @@
 import type { Job } from 'bullmq'
+import fs from 'fs'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { TASK_TYPE, type TaskJobData } from '@/lib/task/types'
 
@@ -43,11 +44,28 @@ const concurrencyGateMock = vi.hoisted(() => ({
     run: () => Promise<T>
   }) => await input.run()),
 }))
+const compositorMock = vi.hoisted(() => ({
+  ensureFfmpeg: vi.fn(() => undefined),
+  mergePanel: vi.fn(async (input: { panelId: string }) => ({
+    panelId: input.panelId,
+    tempPath: `temp-${input.panelId}.mp4`,
+    durationS: 3,
+  })),
+  concatAll: vi.fn(async () => ({
+    tempPath: 'merged-final.mp4',
+    durationS: 6,
+  })),
+}))
+const storageMock = vi.hoisted(() => ({
+  generateUniqueKey: vi.fn(() => 'youtube-merge-episode-1/final.mp4'),
+  uploadObject: vi.fn(async () => 'cos/youtube/final.mp4'),
+}))
 
 const prismaMock = vi.hoisted(() => ({
   novelPromotionPanel: {
     findUnique: vi.fn(),
     findFirst: vi.fn(),
+    findMany: vi.fn(),
     update: vi.fn(async () => undefined),
   },
   novelPromotionVoiceLine: {
@@ -98,6 +116,8 @@ vi.mock('@/lib/api-config', () => ({
 }))
 vi.mock('@/lib/config-service', () => configServiceMock)
 vi.mock('@/lib/workers/user-concurrency-gate', () => concurrencyGateMock)
+vi.mock('@/lib/video-compositor', () => compositorMock)
+vi.mock('@/lib/storage', () => storageMock)
 
 function buildPanel(overrides?: Partial<PanelRow>): PanelRow {
   return {
@@ -140,11 +160,24 @@ describe('worker video processor behavior', () => {
 
     prismaMock.novelPromotionPanel.findUnique.mockResolvedValue(buildPanel())
     prismaMock.novelPromotionPanel.findFirst.mockResolvedValue(buildPanel())
+    prismaMock.novelPromotionPanel.findMany.mockResolvedValue([])
     prismaMock.novelPromotionVoiceLine.findUnique.mockResolvedValue({
       id: 'line-1',
       audioUrl: 'cos/line-1.mp3',
       audioDuration: 1200,
     })
+    compositorMock.ensureFfmpeg.mockReturnValue(undefined)
+    compositorMock.mergePanel.mockImplementation(async (input: { panelId: string }) => ({
+      panelId: input.panelId,
+      tempPath: `temp-${input.panelId}.mp4`,
+      durationS: 3,
+    }))
+    compositorMock.concatAll.mockResolvedValue({
+      tempPath: 'merged-final.mp4',
+      durationS: 6,
+    })
+    storageMock.generateUniqueKey.mockReturnValue('youtube-merge-episode-1/final.mp4')
+    storageMock.uploadObject.mockResolvedValue('cos/youtube/final.mp4')
 
     const mod = await import('@/lib/workers/video.worker')
     mod.createVideoWorker()
@@ -275,6 +308,96 @@ describe('worker video processor behavior', () => {
         lipSyncTaskId: null,
       },
     })
+  })
+
+  it('MERGE_VIDEO: merges only panels with video and uploads the final buffer', async () => {
+    const processor = workerState.processor
+    expect(processor).toBeTruthy()
+
+    prismaMock.novelPromotionPanel.findMany.mockResolvedValueOnce([
+      {
+        id: 'panel-a',
+        videoUrl: 'cos/panel-a.mp4',
+        matchedVoiceLines: [
+          { audioUrl: 'cos/dialogue-a.wav', audioDuration: 1200, isNarration: false },
+        ],
+      },
+      {
+        id: 'panel-b',
+        videoUrl: null,
+        matchedVoiceLines: [],
+      },
+      {
+        id: 'panel-c',
+        videoUrl: 'cos/panel-c.mp4',
+        matchedVoiceLines: [
+          { audioUrl: 'cos/narration-c.wav', audioDuration: 900, isNarration: true },
+        ],
+      },
+    ])
+    const readFileSyncSpy = vi.spyOn(fs, 'readFileSync').mockReturnValue(Buffer.from('merged-video'))
+
+    try {
+      const job = buildJob({
+        type: TASK_TYPE.MERGE_VIDEO,
+        payload: { narratorEnabled: false },
+        targetType: 'NovelPromotionEpisode',
+        targetId: 'episode-1',
+      })
+
+      const result = await processor!(job) as { cosKey: string; videoUrl: string }
+
+      expect(compositorMock.ensureFfmpeg).toHaveBeenCalled()
+      expect(compositorMock.mergePanel).toHaveBeenCalledTimes(2)
+      expect(compositorMock.mergePanel).toHaveBeenNthCalledWith(
+        1,
+        expect.objectContaining({
+          panelId: 'panel-a',
+          videoUrl: 'cos/panel-a.mp4',
+          voiceLines: [
+            { audioUrl: 'cos/dialogue-a.wav', audioDuration: 1200, isNarration: false },
+          ],
+        }),
+        false,
+        expect.any(String),
+      )
+      expect(compositorMock.mergePanel).toHaveBeenNthCalledWith(
+        2,
+        expect.objectContaining({
+          panelId: 'panel-c',
+          videoUrl: 'cos/panel-c.mp4',
+        }),
+        false,
+        expect.any(String),
+      )
+      expect(compositorMock.concatAll).toHaveBeenCalledWith(
+        ['temp-panel-a.mp4', 'temp-panel-c.mp4'],
+        expect.any(String),
+      )
+      expect(reportTaskProgressMock).toHaveBeenCalledWith(
+        expect.anything(),
+        8,
+        expect.objectContaining({ stage: 'merge_start', total: 2, skippedCount: 1 }),
+      )
+      expect(reportTaskProgressMock).toHaveBeenCalledWith(
+        expect.anything(),
+        92,
+        expect.objectContaining({ stage: 'concat', total: 2, skippedCount: 1 }),
+      )
+      expect(storageMock.generateUniqueKey).toHaveBeenCalledWith('youtube-merge-episode-1', 'mp4')
+      expect(storageMock.uploadObject).toHaveBeenCalledWith(
+        expect.any(Buffer),
+        'youtube-merge-episode-1/final.mp4',
+        1,
+        'video/mp4',
+      )
+      expect(result).toEqual({
+        cosKey: 'cos/youtube/final.mp4',
+        videoUrl: 'cos/youtube/final.mp4',
+      })
+    } finally {
+      readFileSyncSpy.mockRestore()
+    }
   })
 
   it('未知任务类型: 显式报错', async () => {

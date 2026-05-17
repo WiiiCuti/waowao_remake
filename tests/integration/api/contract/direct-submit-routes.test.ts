@@ -421,6 +421,17 @@ const DIRECT_CASES: ReadonlyArray<DirectRouteCase> = [
     },
   },
   {
+    routeFile: 'src/app/api/novel-promotion/[projectId]/youtube/merge/route.ts',
+    body: { episodeId: 'episode-1', narratorEnabled: true },
+    params: { projectId: 'project-1' },
+    expectedTaskType: TASK_TYPE.MERGE_VIDEO,
+    expectedTargetType: 'NovelPromotionEpisode',
+    expectedProjectId: 'project-1',
+    expectedPayloadSubset: {
+      narratorEnabled: true,
+    },
+  },
+  {
     routeFile: 'src/app/api/novel-promotion/[projectId]/insert-panel/route.ts',
     body: { storyboardId: 'storyboard-1', insertAfterPanelId: 'panel-ins' },
     params: { projectId: 'project-1' },
@@ -561,7 +572,7 @@ describe('api contract - direct submit routes (behavior)', () => {
   })
 
   it('keeps expected coverage size', () => {
-    expect(DIRECT_CASES.length).toBe(20)
+    expect(DIRECT_CASES.length).toBe(21)
   })
 
   for (const routeCase of DIRECT_CASES) {

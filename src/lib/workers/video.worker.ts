@@ -1,4 +1,7 @@
 import { Worker, type Job } from 'bullmq'
+import fs from 'fs'
+import path from 'path'
+import os from 'os'
 import { prisma } from '@/lib/prisma'
 import { queueRedis } from '@/lib/redis'
 import { QUEUE_NAME } from '@/lib/task/queues'
@@ -17,6 +20,8 @@ import {
 import { normalizeToBase64ForGeneration } from '@/lib/media/outbound-image'
 import { resolveBuiltinCapabilitiesByModelKey } from '@/lib/model-capabilities/lookup'
 import { parseModelKeyStrict } from '@/lib/model-config-contract'
+import { mergePanel, concatAll, ensureFfmpeg } from '@/lib/video-compositor'
+import { generateUniqueKey, uploadObject } from '@/lib/storage'
 import { getProviderConfig } from '@/lib/api-config'
 
 type AnyObj = Record<string, unknown>
@@ -293,6 +298,101 @@ async function handleLipSyncTask(job: Job<TaskJobData>) {
   }
 }
 
+async function handleMergeVideoTask(job: Job<TaskJobData>) {
+  const payload = (job.data.payload || {}) as Record<string, unknown>
+  const episodeId = job.data.episodeId
+  if (!episodeId) throw new Error('MERGE_VIDEO task missing episodeId')
+
+  const narratorEnabled = payload.narratorEnabled as boolean
+  const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'waoowaoo-merge-'))
+
+  try {
+    ensureFfmpeg()
+    await reportTaskProgress(job, 5, { stage: 'merge_start', episodeId })
+
+    // Fetch the episode panels in storyboard order.
+    const panels = await prisma.novelPromotionPanel.findMany({
+      where: {
+        storyboard: {
+          episodeId,
+          episode: { novelPromotionProject: { projectId: job.data.projectId } },
+        },
+      },
+      orderBy: [{ storyboard: { createdAt: 'asc' } }, { panelIndex: 'asc' }],
+      include: {
+        matchedVoiceLines: {
+          select: { audioUrl: true, audioDuration: true, isNarration: true },
+          orderBy: { lineIndex: 'asc' },
+        },
+      },
+    })
+
+    if (panels.length === 0) throw new Error('No panels found for episode')
+
+    // Merge each panel with source video and skip storyboard placeholders.
+    type MergePanelRow = (typeof panels)[number] & { videoUrl: string }
+    const panelsWithVideo = panels.filter((panel): panel is MergePanelRow => !!panel.videoUrl)
+    const skippedCount = panels.length - panelsWithVideo.length
+    if (panelsWithVideo.length === 0) {
+      throw new Error('No panels with videoUrl to merge')
+    }
+
+    await reportTaskProgress(job, 8, {
+      stage: 'merge_start',
+      episodeId,
+      total: panelsWithVideo.length,
+      skippedCount,
+    })
+
+    const mergedPaths: string[] = []
+
+    for (let i = 0; i < panelsWithVideo.length; i++) {
+      const p = panelsWithVideo[i]
+
+      await reportTaskProgress(job, 10 + Math.round((i / panelsWithVideo.length) * 80), {
+        stage: 'merge_panel',
+        current: i + 1,
+        total: panelsWithVideo.length,
+        panelId: p.id,
+        skippedCount,
+      })
+
+      // The compositor resolves COS keys to signed URLs, so pass stored keys unchanged.
+      const result = await mergePanel(
+        {
+          panelId: p.id,
+          videoUrl: p.videoUrl,
+          voiceLines: p.matchedVoiceLines.map(vl => ({
+            audioUrl: vl.audioUrl,
+            audioDuration: vl.audioDuration,
+            isNarration: vl.isNarration,
+          })),
+        },
+        narratorEnabled,
+        tempDir,
+      )
+
+      mergedPaths.push(result.tempPath)
+    }
+
+    // Concatenate the panel renders into the final export.
+    await reportTaskProgress(job, 92, { stage: 'concat', total: mergedPaths.length, skippedCount })
+    const final = await concatAll(mergedPaths, tempDir)
+
+    // Upload the local render buffer because local temp paths are not fetchable.
+    await reportTaskProgress(job, 96, { stage: 'uploading' })
+    const buffer = fs.readFileSync(final.tempPath)
+    const key = generateUniqueKey(`youtube-merge-${episodeId}`, 'mp4')
+    const cosKey = await uploadObject(buffer, key, 1, 'video/mp4')
+
+    await reportTaskProgress(job, 100, { stage: 'complete' })
+    return { cosKey, videoUrl: cosKey }
+  } finally {
+    // Clean up temp files even if rendering fails.
+    fs.rmSync(tempDir, { recursive: true, force: true })
+  }
+}
+
 async function processVideoTask(job: Job<TaskJobData>) {
   await reportTaskProgress(job, 5, { stage: 'received' })
 
@@ -301,6 +401,8 @@ async function processVideoTask(job: Job<TaskJobData>) {
       return await handleVideoPanelTask(job)
     case TASK_TYPE.LIP_SYNC:
       return await handleLipSyncTask(job)
+    case TASK_TYPE.MERGE_VIDEO:
+      return await handleMergeVideoTask(job)
     default:
       throw new Error(`Unsupported video task type: ${job.data.type}`)
   }
