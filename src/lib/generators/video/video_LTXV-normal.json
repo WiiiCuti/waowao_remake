@@ -1,0 +1,707 @@
+{
+  "98": {
+    "inputs": {
+      "steps": 8,
+      "max_shift": 2.05,
+      "base_shift": 0.95,
+      "stretch": true,
+      "terminal": 0.42,
+      "latent": [
+        "108",
+        0
+      ]
+    },
+    "class_type": "LTXVScheduler",
+    "_meta": {
+      "title": "LTXVScheduler"
+    }
+  },
+  "100": {
+    "inputs": {
+      "sigmas": "0.8610, 0.7966, 0.6818, 0.421, 0.0000"
+    },
+    "class_type": "ManualSigmas",
+    "_meta": {
+      "title": "ManualSigmas"
+    }
+  },
+  "101": {
+    "inputs": {
+      "model_name": "ltx-2.3-spatial-upscaler-x2-1.1.safetensors"
+    },
+    "class_type": "LatentUpscaleModelLoader",
+    "_meta": {
+      "title": "Load Latent Upscale Model"
+    }
+  },
+  "102": {
+    "inputs": {
+      "positive": [
+        "211",
+        0
+      ],
+      "negative": [
+        "211",
+        1
+      ],
+      "latent": [
+        "235",
+        0
+      ]
+    },
+    "class_type": "LTXVCropGuides",
+    "_meta": {
+      "title": "LTXVCropGuides"
+    }
+  },
+  "103": {
+    "inputs": {
+      "cfg": 1,
+      "model": [
+        "206",
+        0
+      ],
+      "positive": [
+        "218",
+        0
+      ],
+      "negative": [
+        "218",
+        1
+      ]
+    },
+    "class_type": "CFGGuider",
+    "_meta": {
+      "title": "CFGGuider"
+    }
+  },
+  "104": {
+    "inputs": {
+      "upscale_method": "nearest-exact",
+      "scale_by": 0.5,
+      "image": [
+        "111",
+        0
+      ]
+    },
+    "class_type": "ImageScaleBy",
+    "_meta": {
+      "title": "Upscale Image By"
+    }
+  },
+  "105": {
+    "inputs": {
+      "image": [
+        "104",
+        0
+      ]
+    },
+    "class_type": "GetImageSize",
+    "_meta": {
+      "title": "Get Image Size"
+    }
+  },
+  "107": {
+    "inputs": {
+      "frame_rate": [
+        "129",
+        0
+      ],
+      "positive": [
+        "121",
+        0
+      ],
+      "negative": [
+        "110",
+        0
+      ]
+    },
+    "class_type": "LTXVConditioning",
+    "_meta": {
+      "title": "LTXVConditioning"
+    }
+  },
+  "108": {
+    "inputs": {
+      "width": [
+        "105",
+        0
+      ],
+      "height": [
+        "105",
+        1
+      ],
+      "length": [
+        "112",
+        0
+      ],
+      "batch_size": 1
+    },
+    "class_type": "EmptyLTXVLatentVideo",
+    "_meta": {
+      "title": "EmptyLTXVLatentVideo"
+    }
+  },
+  "110": {
+    "inputs": {
+      "text": "oversaturated colors, overexposure, static pose, blurry details, low detail, subtitles, watermark, text, logo, worst quality, low quality, jpeg artifacts, ugly, deformed, disfigured, bad anatomy, malformed limbs, extra fingers, fused fingers, bad hands, bad face, extra legs, three legs, unnatural pose, stiff motion, cluttered background, crowded background, many people in background, inverted movement",
+      "clip": [
+        "192",
+        0
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Prompt)"
+    }
+  },
+  "111": {
+    "inputs": {
+      "width": [
+        "201",
+        0
+      ],
+      "height": [
+        "202",
+        0
+      ],
+      "batch_size": 1,
+      "color": 0
+    },
+    "class_type": "EmptyImage",
+    "_meta": {
+      "title": "EmptyImage"
+    }
+  },
+  "112": {
+    "inputs": {
+      "value": [
+        "214",
+        1
+      ]
+    },
+    "class_type": "PrimitiveInt",
+    "_meta": {
+      "title": "Length"
+    }
+  },
+  "113": {
+    "inputs": {
+      "noise": [
+        "115",
+        0
+      ],
+      "guider": [
+        "128",
+        0
+      ],
+      "sampler": [
+        "135",
+        0
+      ],
+      "sigmas": [
+        "98",
+        0
+      ],
+      "latent_image": [
+        "225",
+        0
+      ]
+    },
+    "class_type": "SamplerCustomAdvanced",
+    "_meta": {
+      "title": "SamplerCustomAdvanced"
+    }
+  },
+  "114": {
+    "inputs": {
+      "noise_seed": 90397853002915
+    },
+    "class_type": "RandomNoise",
+    "_meta": {
+      "title": "RandomNoise"
+    }
+  },
+  "115": {
+    "inputs": {
+      "noise_seed": 1018429733062038
+    },
+    "class_type": "RandomNoise",
+    "_meta": {
+      "title": "RandomNoise"
+    }
+  },
+  "118": {
+    "inputs": {
+      "samples": [
+        "102",
+        2
+      ],
+      "upscale_model": [
+        "101",
+        0
+      ],
+      "vae": [
+        "153",
+        0
+      ]
+    },
+    "class_type": "LTXVLatentUpsampler",
+    "_meta": {
+      "title": "spatial"
+    }
+  },
+  "119": {
+    "inputs": {
+      "noise": [
+        "114",
+        0
+      ],
+      "guider": [
+        "103",
+        0
+      ],
+      "sampler": [
+        "136",
+        0
+      ],
+      "sigmas": [
+        "100",
+        0
+      ],
+      "latent_image": [
+        "236",
+        0
+      ]
+    },
+    "class_type": "SamplerCustomAdvanced",
+    "_meta": {
+      "title": "SamplerCustomAdvanced"
+    }
+  },
+  "121": {
+    "inputs": {
+      "text": [
+        "200",
+        0
+      ],
+      "clip": [
+        "192",
+        0
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Prompt)"
+    }
+  },
+  "128": {
+    "inputs": {
+      "cfg": 1,
+      "model": [
+        "206",
+        0
+      ],
+      "positive": [
+        "211",
+        0
+      ],
+      "negative": [
+        "211",
+        1
+      ]
+    },
+    "class_type": "CFGGuider",
+    "_meta": {
+      "title": "CFGGuider"
+    }
+  },
+  "129": {
+    "inputs": {
+      "value": 24
+    },
+    "class_type": "PrimitiveFloat",
+    "_meta": {
+      "title": "Frame Rate(float)"
+    }
+  },
+  "135": {
+    "inputs": {
+      "sampler_name": "euler_ancestral"
+    },
+    "class_type": "KSamplerSelect",
+    "_meta": {
+      "title": "KSamplerSelect"
+    }
+  },
+  "136": {
+    "inputs": {
+      "sampler_name": "euler_ancestral"
+    },
+    "class_type": "KSamplerSelect",
+    "_meta": {
+      "title": "KSamplerSelect"
+    }
+  },
+  "153": {
+    "inputs": {
+      "vae_name": "LTX23_video_vae_bf16.safetensors",
+      "device": "main_device",
+      "weight_dtype": "bf16"
+    },
+    "class_type": "VAELoaderKJ",
+    "_meta": {
+      "title": "Video VAE"
+    }
+  },
+  "161": {
+    "inputs": {
+      "frame_rate": [
+        "129",
+        0
+      ],
+      "loop_count": 0,
+      "filename_prefix": "LTXV 2.3 v 1.1 t 2 v",
+      "format": "video/h264-mp4",
+      "pix_fmt": "yuv420p",
+      "crf": 19,
+      "save_metadata": true,
+      "trim_to_audio": false,
+      "pingpong": false,
+      "save_output": true,
+      "images": [
+        "178",
+        0
+      ],
+      "audio": [
+        "243",
+        0
+      ]
+    },
+    "class_type": "VHS_VideoCombine",
+    "_meta": {
+      "title": "Video Combine 🎥🅥🅗🅢"
+    }
+  },
+  "178": {
+    "inputs": {
+      "tile_size": 512,
+      "overlap": 64,
+      "temporal_size": 4096,
+      "temporal_overlap": 76,
+      "samples": [
+        "244",
+        2
+      ],
+      "vae": [
+        "153",
+        0
+      ]
+    },
+    "class_type": "VAEDecodeTiled",
+    "_meta": {
+      "title": "VAE Decode (Tiled)"
+    }
+  },
+  "192": {
+    "inputs": {
+      "clip_name1": "gemma_3_12B_it_fp4_mixed.safetensors",
+      "clip_name2": "ltx-2.3_text_projection_bf16.safetensors",
+      "type": "ltxv",
+      "device": "default"
+    },
+    "class_type": "DualCLIPLoader",
+    "_meta": {
+      "title": "DualCLIPLoader"
+    }
+  },
+  "200": {
+    "inputs": {
+      "value": "While scrolling on his phone, his body was suddenly lifted off the bed.\nA beam of light burst from the phone and sucked him inside."
+    },
+    "class_type": "PrimitiveStringMultiline",
+    "_meta": {
+      "title": "$prompt.value!"
+    }
+  },
+  "201": {
+    "inputs": {
+      "value": 1920
+    },
+    "class_type": "easy int",
+    "_meta": {
+      "title": "$width.value"
+    }
+  },
+  "202": {
+    "inputs": {
+      "value": 1080
+    },
+    "class_type": "easy int",
+    "_meta": {
+      "title": "$height.value"
+    }
+  },
+  "203": {
+    "inputs": {
+      "value": 6
+    },
+    "class_type": "INTConstant",
+    "_meta": {
+      "title": "$duration.value"
+    }
+  },
+  "206": {
+    "inputs": {
+      "unet_name": "ltx-2.3-22b-distilled-1.1_transformer_only_mxfp8_block32.safetensors",
+      "weight_dtype": "fp8_e4m3fn_fast"
+    },
+    "class_type": "UNETLoader",
+    "_meta": {
+      "title": "Load Diffusion Model"
+    }
+  },
+  "210": {
+    "inputs": {
+      "image": "ChatGPT Image 14_13_13 3 thg 5, 2026.png"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "$image.value!"
+    }
+  },
+  "211": {
+    "inputs": {
+      "num_guides": "1",
+      "num_guides.frame_idx_1": 0,
+      "num_guides.strength_1": 1,
+      "positive": [
+        "107",
+        0
+      ],
+      "negative": [
+        "107",
+        1
+      ],
+      "vae": [
+        "153",
+        0
+      ],
+      "latent": [
+        "108",
+        0
+      ],
+      "num_guides.image_1": [
+        "254",
+        0
+      ]
+    },
+    "class_type": "LTXVAddGuideMulti",
+    "_meta": {
+      "title": "LTXVAddGuideMulti"
+    }
+  },
+  "213": {
+    "inputs": {
+      "value": 24
+    },
+    "class_type": "INTConstant",
+    "_meta": {
+      "title": "$fps.value"
+    }
+  },
+  "214": {
+    "inputs": {
+      "expression": "(a * b) +1",
+      "values.a": [
+        "213",
+        0
+      ],
+      "values.b": [
+        "203",
+        0
+      ]
+    },
+    "class_type": "ComfyMathExpression",
+    "_meta": {
+      "title": "Math Expression"
+    }
+  },
+  "218": {
+    "inputs": {
+      "num_guides": "1",
+      "num_guides.frame_idx_1": 0,
+      "num_guides.strength_1": 1,
+      "positive": [
+        "102",
+        0
+      ],
+      "negative": [
+        "102",
+        1
+      ],
+      "vae": [
+        "153",
+        0
+      ],
+      "latent": [
+        "118",
+        0
+      ],
+      "num_guides.image_1": [
+        "254",
+        0
+      ]
+    },
+    "class_type": "LTXVAddGuideMulti",
+    "_meta": {
+      "title": "LTXVAddGuideMulti"
+    }
+  },
+  "224": {
+    "inputs": {
+      "vae_name": "LTX23_audio_vae_bf16.safetensors"
+    },
+    "class_type": "VAELoader",
+    "_meta": {
+      "title": "Load VAE"
+    }
+  },
+  "225": {
+    "inputs": {
+      "video_latent": [
+        "211",
+        2
+      ],
+      "audio_latent": [
+        "227",
+        0
+      ]
+    },
+    "class_type": "LTXVConcatAVLatent",
+    "_meta": {
+      "title": "LTXVConcatAVLatent"
+    }
+  },
+  "227": {
+    "inputs": {
+      "frames_number": [
+        "214",
+        1
+      ],
+      "frame_rate": 24,
+      "batch_size": 1,
+      "audio_vae": [
+        "224",
+        0
+      ]
+    },
+    "class_type": "LTXVEmptyLatentAudio",
+    "_meta": {
+      "title": "LTXV Empty Latent Audio"
+    }
+  },
+  "235": {
+    "inputs": {
+      "av_latent": [
+        "113",
+        0
+      ]
+    },
+    "class_type": "LTXVSeparateAVLatent",
+    "_meta": {
+      "title": "LTXVSeparateAVLatent"
+    }
+  },
+  "236": {
+    "inputs": {
+      "video_latent": [
+        "218",
+        2
+      ],
+      "audio_latent": [
+        "235",
+        1
+      ]
+    },
+    "class_type": "LTXVConcatAVLatent",
+    "_meta": {
+      "title": "LTXVConcatAVLatent"
+    }
+  },
+  "240": {
+    "inputs": {
+      "av_latent": [
+        "119",
+        1
+      ]
+    },
+    "class_type": "LTXVSeparateAVLatent",
+    "_meta": {
+      "title": "LTXVSeparateAVLatent"
+    }
+  },
+  "243": {
+    "inputs": {
+      "samples": [
+        "240",
+        1
+      ],
+      "audio_vae": [
+        "224",
+        0
+      ]
+    },
+    "class_type": "LTXVAudioVAEDecode",
+    "_meta": {
+      "title": "LTXV Audio VAE Decode"
+    }
+  },
+  "244": {
+    "inputs": {
+      "positive": [
+        "218",
+        0
+      ],
+      "negative": [
+        "218",
+        1
+      ],
+      "latent": [
+        "240",
+        0
+      ]
+    },
+    "class_type": "LTXVCropGuides",
+    "_meta": {
+      "title": "LTXVCropGuides"
+    }
+  },
+  "248": {
+    "inputs": {
+      "upscale_method": "nearest-exact",
+      "scale_by": 0.5,
+      "image": [
+        "210",
+        0
+      ]
+    },
+    "class_type": "ImageScaleBy",
+    "_meta": {
+      "title": "Upscale Image By"
+    }
+  },
+  "254": {
+    "inputs": {
+      "img_compression": 35,
+      "image": [
+        "248",
+        0
+      ]
+    },
+    "class_type": "LTXVPreprocess",
+    "_meta": {
+      "title": "LTXV Preprocess"
+    }
+  }
+}
