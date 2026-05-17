@@ -1,0 +1,8 @@
+# Start infra (MySQL + Redis + MinIO)
+docker compose -f docker-compose.local.yml up -d
+
+# Stop infra
+docker compose -f docker-compose.local.yml down
+
+# Run app locally (hot reload)
+npm run dev
