@@ -132,7 +132,7 @@
         1
       ],
       "length": [
-        "112",
+        "259",
         0
       ],
       "batch_size": 1
@@ -173,18 +173,6 @@
       "title": "EmptyImage"
     }
   },
-  "112": {
-    "inputs": {
-      "value": [
-        "214",
-        1
-      ]
-    },
-    "class_type": "PrimitiveInt",
-    "_meta": {
-      "title": "Length"
-    }
-  },
   "113": {
     "inputs": {
       "noise": [
@@ -215,7 +203,7 @@
   },
   "114": {
     "inputs": {
-      "noise_seed": 90397853002915
+      "noise_seed": 432107274313383
     },
     "class_type": "RandomNoise",
     "_meta": {
@@ -224,7 +212,7 @@
   },
   "115": {
     "inputs": {
-      "noise_seed": 1018429733062038
+      "noise_seed": 205844219176523
     },
     "class_type": "RandomNoise",
     "_meta": {
@@ -444,11 +432,11 @@
   },
   "203": {
     "inputs": {
-      "value": 6
+      "value": 49
     },
     "class_type": "INTConstant",
     "_meta": {
-      "title": "$duration.value"
+      "title": "$duration_frame.value"
     }
   },
   "206": {
@@ -510,23 +498,6 @@
       "title": "$fps.value"
     }
   },
-  "214": {
-    "inputs": {
-      "expression": "(a * b) +1",
-      "values.a": [
-        "213",
-        0
-      ],
-      "values.b": [
-        "203",
-        0
-      ]
-    },
-    "class_type": "ComfyMathExpression",
-    "_meta": {
-      "title": "Math Expression"
-    }
-  },
   "218": {
     "inputs": {
       "num_guides": "1",
@@ -586,10 +557,13 @@
   "227": {
     "inputs": {
       "frames_number": [
-        "214",
-        1
+        "259",
+        0
       ],
-      "frame_rate": 24,
+      "frame_rate": [
+        "213",
+        0
+      ],
       "batch_size": 1,
       "audio_vae": [
         "224",
@@ -702,6 +676,20 @@
     "class_type": "LTXVPreprocess",
     "_meta": {
       "title": "LTXV Preprocess"
+    }
+  },
+  "259": {
+    "inputs": {
+      "a": [
+        "203",
+        0
+      ],
+      "b": 0,
+      "operation": "add"
+    },
+    "class_type": "easy mathInt",
+    "_meta": {
+      "title": "math_toal_frame"
     }
   }
 }

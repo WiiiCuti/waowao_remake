@@ -115,10 +115,14 @@ export class ComfyUIVideoGenerator extends BaseVideoGenerator {
     const workflow = JSON.parse(JSON.stringify(template))
 
     const fps = 24
-    const duration = (options.duration as number) || 10
+    const durationS = (options.duration as number) || 10
     const dims = resolveComfyDimensions(options)
 
-    console.log(`[ComfyUI Video] buildWorkflow: duration=${options.duration ?? '(not set)'} -> ${duration}s`)   
+    // duration_frame: seconds * 24 → round up to nearest 8n+1
+    const targetFrames = Math.ceil(durationS * 24)
+    const durationFrames = Math.ceil((targetFrames - 1) / 8) * 8 + 1
+
+    console.log(`[ComfyUI Video] buildWorkflow: duration=${durationS}s -> frames=${durationFrames}`)
 
     for (const nodeId in workflow) {
       const node = workflow[nodeId]
@@ -135,8 +139,8 @@ export class ComfyUIVideoGenerator extends BaseVideoGenerator {
         case '$height.value':
           node.inputs.value = dims.height
           break
-        case '$duration.value':
-          node.inputs.value = duration
+        case '$duration_frame.value':
+          node.inputs.value = durationFrames
           break
         case '$fps.value':
           node.inputs.value = fps
