@@ -20,7 +20,6 @@ import {
   pickFirstString,
   resolveNovelData,
 } from './image-task-handler-shared'
-import { buildPrompt, PROMPT_IDS } from '@/lib/prompt-i18n'
 import {
   parseLocationAvailableSlots,
 } from '@/lib/location-available-slots'
@@ -143,18 +142,52 @@ function buildPanelPrompt(params: {
   aspectRatio: string
   styleText: string
   sourceText: string
-  contextJson: string
+  promptContext: ReturnType<typeof buildPanelPromptContext>
 }) {
-  return buildPrompt({
-    promptId: PROMPT_IDS.NP_SINGLE_PANEL_IMAGE,
-    locale: params.locale,
-    variables: {
-      aspect_ratio: params.aspectRatio,
-      storyboard_text_json_input: params.contextJson,
-      source_text: params.sourceText || '无',
-      style: params.styleText,
-    },
+  const { promptContext, styleText } = params
+  const { panel, context } = promptContext
+
+  const photoRules = panel.photography_rules as Record<string, unknown> | null
+  const actingNotes = panel.acting_notes as Record<string, unknown> | null
+  const photoChars = (photoRules?.characters as Array<Record<string, string>>) || []
+  const actingChars = (actingNotes?.characters as Array<Record<string, string>>) || []
+
+  const photoMap = new Map<string, Record<string, string>>()
+  for (const c of photoChars) photoMap.set(c.name.toLowerCase(), c)
+
+  const actingMap = new Map<string, Record<string, string>>()
+  for (const c of actingChars) actingMap.set(c.name.toLowerCase(), c)
+
+  const characterLines = context.character_appearances.map((char) => {
+    const photo = photoMap.get(char.name.toLowerCase())
+    const acting = actingMap.get(char.name.toLowerCase())
+
+    const details: string[] = []
+    if (photo?.screen_position) details.push(`vị trí：${photo.screen_position}`)
+    if (photo?.posture) details.push(photo.posture)
+    if (acting?.acting) details.push(acting.acting)
+
+    const suffix = details.length > 0 ? ` — ${details.join('，')}` : ''
+    return `${char.name}：${char.description}${suffix}`
   })
+
+  const lines: string[] = [...characterLines, '']
+
+  lines.push(`Shot: ${panel.shot_type || ''} | Camera: ${panel.camera_move || ''}`)
+
+  const sceneParts = [panel.location, panel.description].filter(Boolean)
+  if (sceneParts.length > 0) lines.push(`Scene: ${sceneParts.join(' — ')}`)
+
+  const lighting = photoRules?.lighting as Record<string, string> | undefined
+  if (lighting?.direction || lighting?.quality) {
+    lines.push(`Lighting: ${[lighting.direction, lighting.quality].filter(Boolean).join('，')}`)
+  }
+
+  if (photoRules?.depth_of_field) lines.push(`Depth of field: ${photoRules.depth_of_field}`)
+  if (photoRules?.color_tone) lines.push(`Color tone: ${photoRules.color_tone}`)
+  lines.push(`Style: ${styleText}`)
+
+  return lines.join('\n')
 }
 
 export async function handlePanelImageTask(job: Job<TaskJobData>) {
@@ -220,18 +253,24 @@ export async function handlePanelImageTask(job: Job<TaskJobData>) {
     },
     projectData,
   })
-  const contextJson = JSON.stringify(promptContext, null, 2)
   const prompt = buildPanelPrompt({
     locale: job.data.locale,
     aspectRatio,
     styleText: artStyle || '与参考图风格一致',
     sourceText: panel.srtSegment || panel.description || '',
-    contextJson,
+    promptContext,
   })
+  const fs = await import('fs/promises')
+  const path = await import('path')
+  const debugDir = 'temp/prompt-debug'
+  await fs.mkdir(debugDir, { recursive: true })
+  await fs.writeFile(path.join(debugDir, `prompt-${panel.id}.txt`), prompt, 'utf-8')
+
   logger.info({
     message: 'panel image prompt resolved',
     details: {
       promptLength: prompt.length,
+      promptFile: `prompt-${panel.id}.txt`,
     },
   })
 

@@ -30,6 +30,42 @@ type VideoOptionMap = Record<string, VideoOptionValue>
 type VideoGenerationMode = 'normal' | 'firstlastframe'
 type PanelRecord = NonNullable<Awaited<ReturnType<typeof prisma.novelPromotionPanel.findUnique>>>
 
+function parseJsonField<T>(raw: string | null | undefined): T | null {
+  if (!raw) return null
+  try { return JSON.parse(raw) as T } catch { return null }
+}
+
+function buildVideoPrompt(panel: PanelRecord): string | null {
+  const actingNotes = parseJsonField<{ characters: Array<{ name: string; acting: string }> }>(panel.actingNotes)
+  const photoRules = parseJsonField<{ characters: Array<{ name: string; screen_position: string }> }>(panel.photographyRules)
+  const panelChars = parseJsonField<Array<{ name: string }>>(panel.characters)
+
+  if (!actingNotes?.characters?.length) return null
+
+  const photoMap = new Map<string, string>()
+  for (const c of photoRules?.characters || []) {
+    photoMap.set(c.name.toLowerCase(), c.screen_position)
+  }
+
+  const charOrder = (panelChars || []).map(c => c.name.toLowerCase())
+  const sorted = [...actingNotes.characters].sort((a, b) => {
+    const ai = charOrder.indexOf(a.name.toLowerCase())
+    const bi = charOrder.indexOf(b.name.toLowerCase())
+    return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi)
+  })
+
+  const lines = sorted.map(c => {
+    const pos = photoMap.get(c.name.toLowerCase())
+    return `${c.name}${pos ? `（${pos}）` : ''}：${c.acting}`
+  })
+
+  if (panel.cameraMove && panel.cameraMove !== '固定') {
+    lines.push(`Camera: ${panel.cameraMove}`)
+  }
+
+  return lines.join('\n')
+}
+
 /** Convert panel duration (seconds) to milliseconds precisely. No heuristic. */
 function panelDurationToMs(durationSeconds: number | null | undefined): number | undefined {
   if (typeof durationSeconds !== 'number' || !Number.isFinite(durationSeconds) || durationSeconds <= 0) return undefined
@@ -102,10 +138,16 @@ async function generateVideoForPanel(
   const firstLastCustomPrompt = typeof firstLastFramePayload?.customPrompt === 'string' ? firstLastFramePayload.customPrompt : null
   const persistedFirstLastPrompt = firstLastFramePayload ? panel.firstLastFramePrompt : null
   const customPrompt = typeof payload.customPrompt === 'string' ? payload.customPrompt : null
-  const prompt = firstLastCustomPrompt || persistedFirstLastPrompt || customPrompt || panel.videoPrompt || panel.description
+  const prompt = firstLastCustomPrompt || persistedFirstLastPrompt || customPrompt || buildVideoPrompt(panel) || panel.videoPrompt || panel.description
   if (!prompt) {
     throw new Error(`Panel ${panel.id} has no video prompt`)
   }
+
+  const fs = await import('fs/promises')
+  const pathMod = await import('path')
+  const debugDir = 'temp/prompt-debug'
+  await fs.mkdir(debugDir, { recursive: true })
+  await fs.writeFile(pathMod.join(debugDir, `video-prompt-${panel.id}.txt`), prompt, 'utf-8')
 
   const sourceImageUrl = toSignedUrlIfCos(panel.imageUrl, 3600)
   if (!sourceImageUrl) {
