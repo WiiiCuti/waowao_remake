@@ -139,8 +139,8 @@ export const ART_STYLES = [
     value: 'american-comic',
     label: '漫画风',
     preview: '漫',
-    promptZh: '日式动漫风格',
-    promptEn: 'Japanese anime style'
+    promptZh: '美式漫画风格，粗犷有力的线条，鲜明的色彩对比，美式超级英雄漫画质感，高质量2D风格',
+    promptEn: 'American comic book style, bold dynamic line art, vibrant color contrast, superhero comic aesthetic, high-quality 2D style.'
   },
   {
     value: 'chinese-comic',
@@ -162,6 +162,13 @@ export const ART_STYLES = [
     preview: '实',
     promptZh: '真实电影级画面质感，真实现实场景，色彩饱满通透，画面干净精致，真实感',
     promptEn: 'Realistic cinematic look, real-world scene fidelity, rich transparent colors, clean and refined image quality.'
+  },
+  {
+    value: 'vector-cartoon',
+    label: 'Hoạt hình tối giản (Review)',
+    preview: 'Giản',
+    promptZh: '简约2D矢量卡通动画风格，粗线条轮廓，扁平赛璐璐上色, 角色比例略带Q版，低细节度，少色块，故事解说动画风格。',
+    promptEn: 'Minimalist 2D vector cartoon animation style, thick black outlines, flat cel-shading, simple vector illustration, slightly chibi character proportions, low detail, story review animation look.'
   }
 ]
 

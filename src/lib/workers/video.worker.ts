@@ -138,7 +138,7 @@ async function generateVideoForPanel(
   const firstLastCustomPrompt = typeof firstLastFramePayload?.customPrompt === 'string' ? firstLastFramePayload.customPrompt : null
   const persistedFirstLastPrompt = firstLastFramePayload ? panel.firstLastFramePrompt : null
   const customPrompt = typeof payload.customPrompt === 'string' ? payload.customPrompt : null
-  const prompt = firstLastCustomPrompt || persistedFirstLastPrompt || customPrompt || buildVideoPrompt(panel) || panel.videoPrompt || panel.description
+  const prompt = firstLastCustomPrompt || persistedFirstLastPrompt || customPrompt || panel.videoPrompt || buildVideoPrompt(panel) || panel.description
   if (!prompt) {
     throw new Error(`Panel ${panel.id} has no video prompt`)
   }
@@ -464,7 +464,7 @@ export function createVideoWorker() {
     }),
     {
       connection: queueRedis,
-      concurrency: Number.parseInt(process.env.QUEUE_CONCURRENCY_VIDEO || '4', 10) || 4,
+      concurrency: Number.parseInt(process.env.QUEUE_CONCURRENCY_VIDEO || '1', 10) || 1,
     },
   )
 }

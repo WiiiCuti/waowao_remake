@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from 'react'
 import { NovelPromotionStoryboard, NovelPromotionClip } from '@/types/project'
 import { CharacterPickerModal, LocationPickerModal } from '../PanelEditForm'
 import ImageEditModal from './ImageEditModal'
@@ -8,6 +9,7 @@ import ImagePreviewModal from '@/components/ui/ImagePreviewModal'
 import StoryboardStageShell from './StoryboardStageShell'
 import StoryboardToolbar from './StoryboardToolbar'
 import StoryboardCanvas from './StoryboardCanvas'
+import PromptRefinerTab from './PromptRefinerTab'
 import { useStoryboardStageController } from './hooks/useStoryboardStageController'
 import { useStoryboardModalRuntime } from './hooks/useStoryboardModalRuntime'
 
@@ -118,6 +120,8 @@ export default function StoryboardStage({
     handleGenerateAllPanels,
   } = controller
 
+  const [activeTab, setActiveTab] = useState<'canvas' | 'refine'>('canvas')
+
   const modalRuntime = useStoryboardModalRuntime({
     projectId,
     videoRatio,
@@ -164,59 +168,93 @@ export default function StoryboardStage({
           onBack={onBack}
         />
 
-        <StoryboardCanvas
-          sortedStoryboards={sortedStoryboards}
-          videoRatio={videoRatio}
-          expandedClips={expandedClips}
-          submittingStoryboardIds={submittingStoryboardIds}
-          selectingCandidateIds={selectingCandidateIds}
-          submittingStoryboardTextIds={submittingStoryboardTextIds}
-          savingPanels={savingPanels}
-          deletingPanelIds={deletingPanelIds}
-          saveStateByPanel={saveStateByPanel}
-          hasUnsavedByPanel={hasUnsavedByPanel}
-          modifyingPanels={modifyingPanels}
-          submittingPanelImageIds={submittingPanelImageIds}
+        <div className="flex gap-1 rounded-xl bg-[var(--glass-bg-surface-strong)] p-1">
+          <button
+            onClick={() => setActiveTab('canvas')}
+            className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
+              activeTab === 'canvas'
+                ? 'bg-[var(--glass-bg-surface)] text-[var(--glass-text-primary)] shadow-sm'
+                : 'text-[var(--glass-text-tertiary)] hover:text-[var(--glass-text-secondary)]'
+            }`}
+          >
+            Canvas
+          </button>
+          <button
+            onClick={() => setActiveTab('refine')}
+            className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
+              activeTab === 'refine'
+                ? 'bg-[var(--glass-bg-surface)] text-[var(--glass-text-primary)] shadow-sm'
+                : 'text-[var(--glass-text-tertiary)] hover:text-[var(--glass-text-secondary)]'
+            }`}
+          >
+            Refine Prompt
+          </button>
+        </div>
 
-          movingClipId={movingClipId}
-          insertingAfterPanelId={insertingAfterPanelId}
-          submittingVariantPanelId={submittingVariantPanelId}
-          projectId={projectId}
-          episodeId={episodeId}
-          storyboardStartIndex={storyboardStartIndex}
-          getClipInfo={getClipInfo}
-          getTextPanels={getTextPanels}
-          getPanelEditData={getPanelEditData}
-          formatClipTitle={formatClipTitle}
-          onToggleExpandedClip={toggleExpandedClip}
-          onMoveStoryboardGroup={moveStoryboardGroup}
-          onRegenerateStoryboardText={regenerateStoryboardText}
-          onAddPanel={addPanel}
-          onDeleteStoryboard={deleteStoryboard}
-          onGenerateAllIndividually={regenerateAllPanelsIndividually}
-          onPreviewImage={setPreviewImage}
-          onCloseStoryboardError={clearStoryboardError}
-          onPanelUpdate={handlePanelUpdate}
-          onPanelDelete={deletePanel}
-          onOpenCharacterPicker={(panelId) => setAssetPickerPanel({ panelId, type: 'character' })}
-          onOpenLocationPicker={(panelId) => setAssetPickerPanel({ panelId, type: 'location' })}
-          onRemoveCharacter={handleRemoveCharacter}
-          onRemoveLocation={handleRemoveLocation}
-          onRetryPanelSave={retrySave}
-          onRegeneratePanelImage={regeneratePanelImage}
-          onOpenEditModal={(storyboardId, panelIndex) => setEditingPanel({ storyboardId, panelIndex })}
-          onOpenAIDataModal={(storyboardId, panelIndex) => setAIDataPanel({ storyboardId, panelIndex })}
-          getPanelCandidates={getPanelCandidates}
-          onSelectPanelCandidateIndex={selectPanelCandidateIndex}
-          onConfirmPanelCandidate={selectPanelCandidate}
-          onCancelPanelCandidate={cancelPanelCandidate}
+        {activeTab === 'canvas' ? (
+          <StoryboardCanvas
+            sortedStoryboards={sortedStoryboards}
+            videoRatio={videoRatio}
+            expandedClips={expandedClips}
+            submittingStoryboardIds={submittingStoryboardIds}
+            selectingCandidateIds={selectingCandidateIds}
+            submittingStoryboardTextIds={submittingStoryboardTextIds}
+            savingPanels={savingPanels}
+            deletingPanelIds={deletingPanelIds}
+            saveStateByPanel={saveStateByPanel}
+            hasUnsavedByPanel={hasUnsavedByPanel}
+            modifyingPanels={modifyingPanels}
+            submittingPanelImageIds={submittingPanelImageIds}
 
-          onInsertPanel={insertPanel}
-          onPanelVariant={generatePanelVariant}
-          addStoryboardGroup={addStoryboardGroup}
-          addingStoryboardGroup={addingStoryboardGroup}
-          setLocalStoryboards={setLocalStoryboards}
-        />
+            movingClipId={movingClipId}
+            insertingAfterPanelId={insertingAfterPanelId}
+            submittingVariantPanelId={submittingVariantPanelId}
+            projectId={projectId}
+            episodeId={episodeId}
+            storyboardStartIndex={storyboardStartIndex}
+            getClipInfo={getClipInfo}
+            getTextPanels={getTextPanels}
+            getPanelEditData={getPanelEditData}
+            formatClipTitle={formatClipTitle}
+            onToggleExpandedClip={toggleExpandedClip}
+            onMoveStoryboardGroup={moveStoryboardGroup}
+            onRegenerateStoryboardText={regenerateStoryboardText}
+            onAddPanel={addPanel}
+            onDeleteStoryboard={deleteStoryboard}
+            onGenerateAllIndividually={regenerateAllPanelsIndividually}
+            onPreviewImage={setPreviewImage}
+            onCloseStoryboardError={clearStoryboardError}
+            onPanelUpdate={handlePanelUpdate}
+            onPanelDelete={deletePanel}
+            onOpenCharacterPicker={(panelId) => setAssetPickerPanel({ panelId, type: 'character' })}
+            onOpenLocationPicker={(panelId) => setAssetPickerPanel({ panelId, type: 'location' })}
+            onRemoveCharacter={handleRemoveCharacter}
+            onRemoveLocation={handleRemoveLocation}
+            onRetryPanelSave={retrySave}
+            onRegeneratePanelImage={regeneratePanelImage}
+            onOpenEditModal={(storyboardId, panelIndex) => setEditingPanel({ storyboardId, panelIndex })}
+            onOpenAIDataModal={(storyboardId, panelIndex) => setAIDataPanel({ storyboardId, panelIndex })}
+            getPanelCandidates={getPanelCandidates}
+            onSelectPanelCandidateIndex={selectPanelCandidateIndex}
+            onConfirmPanelCandidate={selectPanelCandidate}
+            onCancelPanelCandidate={cancelPanelCandidate}
+
+            onInsertPanel={insertPanel}
+            onPanelVariant={generatePanelVariant}
+            addStoryboardGroup={addStoryboardGroup}
+            addingStoryboardGroup={addingStoryboardGroup}
+            setLocalStoryboards={setLocalStoryboards}
+          />
+        ) : (
+          <PromptRefinerTab
+            projectId={projectId}
+            episodeId={episodeId}
+            storyboards={sortedStoryboards}
+            clips={clips}
+            getClipInfo={getClipInfo}
+            formatClipTitle={formatClipTitle}
+          />
+        )}
 
         {modalRuntime.editingPanel && (
           <ImageEditModal

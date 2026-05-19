@@ -253,13 +253,14 @@ export async function handlePanelImageTask(job: Job<TaskJobData>) {
     },
     projectData,
   })
-  const prompt = buildPanelPrompt({
-    locale: job.data.locale,
-    aspectRatio,
-    styleText: artStyle || '与参考图风格一致',
-    sourceText: panel.srtSegment || panel.description || '',
-    promptContext,
-  })
+  const prompt = panel.imagePrompt
+    || buildPanelPrompt({
+        locale: job.data.locale,
+        aspectRatio,
+        styleText: artStyle || '与参考图风格一致',
+        sourceText: panel.srtSegment || panel.description || '',
+        promptContext,
+      })
   const fs = await import('fs/promises')
   const path = await import('path')
   const debugDir = 'temp/prompt-debug'

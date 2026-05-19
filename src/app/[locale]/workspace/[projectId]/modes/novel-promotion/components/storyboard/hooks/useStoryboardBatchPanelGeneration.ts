@@ -65,7 +65,7 @@ export function useStoryboardBatchPanelGeneration({
 
       _ulogInfo(`[批量生成] 开始生成 ${panelsToGenerate.length} 个分镜图片`)
 
-      const concurrencyLimit = 10
+      const concurrencyLimit = 1
       const results: Array<PromiseSettledResult<unknown>> = []
       for (let index = 0; index < panelsToGenerate.length; index += concurrencyLimit) {
         const batch = panelsToGenerate.slice(index, index + concurrencyLimit)
