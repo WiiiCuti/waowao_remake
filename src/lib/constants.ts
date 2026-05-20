@@ -169,6 +169,27 @@ export const ART_STYLES = [
     preview: 'Giản',
     promptZh: '简约2D矢量卡通动画风格，粗线条轮廓，扁平赛璐璐上色, 角色比例略带Q版，低细节度，少色块，故事解说动画风格。',
     promptEn: 'Minimalist 2D vector cartoon animation style, thick black outlines, flat cel-shading, simple vector illustration, slightly chibi character proportions, low detail, story review animation look.'
+  },
+  {
+    value: 'chibi-kawaii',
+    label: 'Chibi dễ thương',
+    preview: 'Ch',
+    promptZh: 'Chibi风格，大头小身体，Q版角色比例，圆圆的脸蛋大大的眼睛，可爱萌系画风，线条柔和温暖，色彩明亮鲜艳，日本可爱动漫风格，2D动画质感。',
+    promptEn: 'Chibi kawaii style, big head small body, Q-version character proportions, round face with large sparkling eyes, cute and adorable aesthetic, soft warm lines, bright cheerful colors, Japanese cute anime style, 2D animation feel.'
+  },
+  {
+    value: 'korean-webtoon-cute',
+    label: 'Truyện tranh Hàn',
+    preview: 'Kr',
+    promptZh: '韩国webtoon漫画风格，角色比例修长，大眼睛闪亮，五官精致柔和，上色清透光亮，画面干净整洁，少女漫画质感，清新唯美，2D风格。',
+    promptEn: 'Korean webtoon comic style, slender character proportions, large shiny eyes, delicate soft facial features, clear luminous coloring, clean crisp artwork, romantic comic质感, fresh and aesthetic, 2D style.'
+  },
+  {
+    value: 'disney-3d',
+    label: '3D Disney/Pixar',
+    preview: 'D',
+    promptZh: 'Disney Pixar风格3D渲染，角色造型圆润可爱，表情生动丰富，皮肤质感细腻，毛发细节丰富，色彩饱和温暖，灯光柔和自然，卡通写实风格，皮克斯电影质感。',
+    promptEn: 'Disney Pixar style 3D render, round cute character design, expressive lively faces, smooth skin texture, detailed hair, saturated warm colors, soft natural lighting, cartoon realism, Pixar film quality.'
   }
 ]
 

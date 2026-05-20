@@ -1,98 +1,88 @@
-# Hướng dẫn viết truyện để AI panel hóa tốt
+# Hướng dẫn viết truyện thân thiện với AI Panel hóa
 
-## 1. Mỗi hành động = một đoạn riêng
+Tài liệu này không ép bạn phải viết truyện theo kiểu robot. Chỉ là các mẹo nhỏ giúp AI phân tách panel chuẩn xác, không bị trùng góc máy, mất continuity hoặc dựt dựt.
 
-**Nên:**
+---
 
+## 1. Xác định rõ chủ ngữ nói (Speaker Explicit)
+
+Đừng bắt AI đoán ai đang nói dựa vào ngữ cảnh — dễ sai, dễ gộp nhầm panel.
+
+**Nên tránh:**
 ```
-Trần Phong mở cửa bước vào phòng.
-Hắn nhìn quanh một lượt.
-"Lâm tiểu thư có nhà không?" hắn cất tiếng hỏi.
-Từ phòng trong, giọng Lâm Vy Vy vọng ra: "Anh tới làm gì?"
-```
-
-**Không nên:**
-
-```
-Trần Phong mở cửa bước vào phòng, hắn nhìn quanh một lượt rồi cất tiếng hỏi "Lâm tiểu thư có nhà không?" thì từ phòng trong giọng Lâm Vy Vy vọng ra "Anh tới làm gì?"
+"Chúng ta không hợp." Giọng nói lạnh lùng vang lên.
+"Em nghĩ vậy thật sao?" Một tiếng cười nhạt đáp lại.
 ```
 
-## 2. Dialogue luôn format: Tên + dấu câu + "Nội dung"
-
-**Nên:**
-
+**Nên viết:**
 ```
 Lâm Vy Vy lạnh lùng nói: "Chúng ta không hợp."
-Trần Phong nhếch mép cười: "Em nghĩ vậy thật sao?"
-Vương Tử Hào chen vào: "Nghe rõ chưa? Cút đi."
+Trần Phong cười nhạt: "Em nghĩ vậy thật sao?"
 ```
 
-**Không nên:**
+---
 
+## 2. Ngắt đoạn theo nhịp hành động
+
+Không nhồi quá nhiều hành động của nhiều nhân vật vào một câu. Xuống dòng khi đổi trọng tâm hoặc đổi góc máy.
+
+**Nên tránh:**
 ```
-"Chúng ta không hợp" Lâm Vy Vy lạnh lùng nói, Trần Phong nhếch mép cười hỏi lại "Em nghĩ vậy thật sao?" và Vương Tử Hào liền chen vào bảo cút đi.
-```
-
-## 3. Mô tả cảnh/hành động viết rõ ràng
-
-**Nên:**
-
-```
-Hoàng hôn buông xuống, ánh nắng cuối ngày nhuộm đỏ cả góc trời.
-Trần Phong đứng trên ban công, tay vịn lan can, mắt nhìn xa xăm.
-Gió thổi nhẹ làm tà áo anh phần phật.
+Trần Phong đứng dậy khỏi ghế bước đến bên cửa sổ khi ánh hoàng hôn hắt lên gương mặt hắn và hắn hỏi "Nó sẽ tới chứ?" trong khi mắt vẫn nhìn ra xa còn Vương Tử Hào ngồi phía sau tay xoay ly rượu nói "Nó mà không tới thì đã không gọi điện."
 ```
 
-**Không nên:**
-
+**Nên viết:**
 ```
-Một buổi chiều nào đó khá đẹp trời, Trần Phong cảm thấy tâm trạng lẫn lộn khi đứng ở ban công nhìn ra xa.
-```
+Trần Phong đứng dậy khỏi ghế, bước đến bên cửa sổ. Ánh hoàng hôn hắt lên gương mặt hắn. "Nó sẽ tới chứ?" hắn hỏi, mắt vẫn nhìn ra xa.
 
-## 4. Dùng dấu câu dứt khoát
-
-Dùng `.` `!` `?` rõ ràng. Hạn chế `...` vì model thường gộp không cắt được.
-
-## 5. Mỗi đoạn hội thoại tối đa 2 lượt nói
-
-**Nên:**
-
-```
-A nói: "Câu 1"
-B đáp: "Câu 2"
-[Thông báo hệ thống]
-A nói tiếp: "Câu 3"
+Vương Tử Hào ngồi phía sau, tay xoay xoay ly rượu: "Nó mà không tới thì đã không gọi điện."
 ```
 
-## 6. Dùng `[...]` cho âm thanh/thông báo/hiệu ứng
+---
 
-Mỗi `[...]` riêng lẻ. Không gộp `[A][B][C]` vào một dòng.
+## 3. Đan xen hành động vào đoạn tả cảnh/nội tâm
 
-## 7. Scene transition rõ ràng
+Một trang toàn tả cảnh + cảm xúc nội tâm → AI tạo panel na ná nhau.
 
-Khi đổi cảnh, ghi rõ để LLM biết đây là establishing shot:
+Thêm vài hành động nhỏ (thở dài, bật quẹt lửa, nhìn đồng hồ) hoặc câu thoại ngắn giữa đoạn tả cảnh để AI có điểm bám mà cắt panel.
 
-```
-===== Cảnh 2: Biệt thự Vương Tử Hào =====
-```
+---
 
-## 8. Không gom quá nhiều ý vào một câu
+## 4. Đánh dấu chuyển cảnh rõ ràng
 
-**Nên:**
+Khi đổi không gian hoặc thời gian, dùng ký hiệu phân tách để AI hiểu đây là Establishing Shot.
 
 ```
-Hắn đứng dậy.
-Hắn bước đến cửa sổ.
-"Em đi đâu?" anh hỏi.
-Nàng không trả lời.
+---
+Bên kia thành phố, tại biệt thự của Vương Tử Hào.
 ```
 
-**Không nên:**
+---
 
+## 5. Chia nhỏ lời thoại dài
+
+Nếu nhân vật nói một tràng dài nhiều ý, AI sẽ nhét vào một khung hình hoặc cắt sai.
+
+Nếu muốn nhấn mạnh từng cột mốc, tách thoại:
 ```
-Hắn đứng dậy bước đến cửa sổ hỏi "Em đi đâu?" nhưng nàng không trả lời.
+"Ta cho con ba ngày."
+"Ba ngày để thu xếp mọi chuyện."
+"Sau đó, con phải rời khỏi đây."
 ```
 
-## Tóm tắt
+Không cần tách nếu bạn muốn giữ nhịp — AI vẫn xử lý được câu liền, chỉ có điều nó sẽ gộp vào 1 panel.
 
-Viết ngắn, xuống dòng nhiều, ghi rõ ai nói, dùng dấu câu đầy đủ → AI cắt dễ, chất lượng panel tốt hơn.
+---
+
+## 6. Duy trì tính đồng nhất thị giác
+
+Khi nhân vật thay đổi trạng thái ngoại hình, vị trí hoặc hành động, hãy mô tả ngắn gọn bằng tính từ trực quan để prompt sinh ảnh không bị lệch (morphing).
+
+**Thay vì:** `Piko lao đi.`
+**Nên:** `Piko nằm sấp bụng, lao vút đi trên tuyết.`
+
+---
+
+## Nguyên tắc cốt lõi
+
+Viết tự nhiên nhất có thể. Viết xong toàn bộ câu chuyện rồi mới quay lại tinh chỉnh nhẹ theo các mục trên. Đừng để kỹ thuật làm mất đi cái "hồn" của tác phẩm.
