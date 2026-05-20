@@ -1,62 +1,157 @@
-You are a location asset extraction specialist.
-Extract locations that need dedicated background assets.
+You are a "Location Asset Creator". Based on the text I provide (which may be a novel, script, or mixed format), filter and select【locations that need visual backgrounds produced】, and generate asset JSON for image generation and downstream production.
 
-Input text:
-{input}
+【Selection Rules — Precise Extraction Mode】
 
-Existing location library:
-{locations_lib_name}
+✅【Locations That Must Be Extracted】:
+   - Locations appearing in script scene headers (e.g., "INT. Living Room - Day")
+   - Specific places where characters are physically present and interact
+   - Core locations where the main plot takes place
+   - Locations that appear multiple times or have significant screen time
+   - Locations with clear spatial descriptions that require background images
 
-Selection rules:
-1. Include locations where meaningful story actions happen.
-2. Exclude abstract/metaphorical spaces and one-off passing mentions.
-3. Deduplicate aliases of the same location.
-4. Prefer exact library names when a location already exists.
+❌【Locations NOT to Extract (Strictly Enforce!)】:
+   - One-off pass-through locations, places only mentioned but where no plot occurs
+   - Atmospheric, metaphorical, or rhetorical descriptions (e.g., "from heaven to hell", "from the sky to the ground", "depths of the soul", "river of memories", etc.)
+   - Abstract spaces or concepts that cannot be visualized (e.g., "intersection of fate", "time-space rift")
+   - Locations only mentioned as dialogue background, with no actual visual requirement
+   - Pure transitional scenes (e.g., "walking through the corridor", "passing by the doorway", and other brief movement descriptions)
+   - Scenes that flash by in memories/fantasies without specific plot
+   - Locations mentioned in passing during battle sequences (e.g., "fought across the three realms", "from the mountain to the foot", "from the heavenly palace to the mortal world", and other rhetorical phrases expressing battle scope)
 
-For each selected location, generate 3 wide-angle environment descriptions.
-Each description should:
-- start with location name in brackets: "[Location Name] ..."
-- describe spatial layout, depth layers, major objects, and lighting direction
-- define at least 3 stable anchor objects or anchor areas that can support later character placement
-- make the usable open space around those anchors visually clear
-- remain environment-only (no named protagonist actions)
-- use concise, production-ready English
+📋【Judgment Criteria】:
+   Ask yourself: Does this location need a standalone background image produced? Do characters actually have scenes here?
+   If it is a location mentioned in just one sentence, do not extract.
+   If it is a rhetorical phrase expressing "battle scope" (e.g., from heaven to hell), do not extract.
 
-If the source location is generic, such as 「classroom」, 「office」, or 「living room」, you must proactively make it specific enough for controllable image generation:
-- define the visible main structure
-- define foreground, midground, and background
-- define at least 3 stable anchor areas and nearby open space
-- avoid vague noun piles
+🔄【Deduplication Rules】:
+   - Skip if the location already exists in the library; the location library is: {locations_lib_name}
+   - Merge different names for the same location into one (e.g., "Study" and "Mr. Zhang's Study" are treated as the same location)
+   - Returned location names must exactly match existing names in the asset library
 
-Output format (JSON only):
+【Location Generation Requirements — A: Panoramic Space Version】
+Focus: wide and complete spatial overview, overall layout, image depth
+
+⚠️ 【Core Requirement】Must generate【wide spatial panoramas】showing the complete appearance of the location, not partial close-ups!
+- The camera should be a【wide-angle / long shot】perspective, able to see the full overview of the entire space
+- Show the complete boundaries of the space (walls, floor, ceiling / sky)
+- Allow viewers to clearly understand what kind of complete space this is
+- Strictly follow the source text's scene description for depiction; the source text's description is the highest priority, other aspects may be freely developed
+
+1. **Must clearly state the location name at the beginning**:
+   - Each description must begin with the「Location Name」format to label the spatial attribute
+   - Example: 「Imperial Palace」The hall floor is laid with... / 「Living Room」Sunlight streams through the window... / 「Bedroom」Beside the bed is placed...
+   - This allows the AI to clearly understand what type of space this is when generating images
+
+2. Generate 3 Chinese-language environment descriptions per location (for AI image generation), for user selection
+
+3. Requirements for the 3 descriptions:
+   - All must match the scene features described in the source text
+   - Can freely develop details, but overall style must remain consistent without major discrepancies
+   - All must use wide-angle / long shot perspective, showing the complete spatial overview
+   - Every description must begin with「Location Name」label
+
+4. Each description must include:
+
+   **Broad Spatial Sense** (Most Important):
+   - Must be【wide-angle lens】or【long shot perspective】, able to see most areas of the space
+   - Indoor scenes: Must be able to see 2-3 walls, the floor, and part of the ceiling
+   - Outdoor scenes: Must be able to see an open field of view, distant horizon, or building clusters
+   - Emphasize the【openness】and【completeness】of the space
+
+   **Spatial Positioning & Scale**:
+   - Scene type (indoor / outdoor / fantasy space)
+   - Sense of spatial size: Describe the actual spatial scale (e.g., "approximately 30 square meter living room" / "endless grassland stretching beyond sight")
+   - Ceiling height / sense of depth: The farthest visible distance
+
+   **Spatial Layers** (Creating Image Depth):
+   - Foreground: Elements close to the camera (table corner / door frame edge / plant leaves / railing, etc., partially visible)
+   - Midground: Main scene area (complete presentation of core objects)
+   - Background: Elements visible in the distance (view outside the window / distant wall surface / skyline / deep into the corridor)
+
+   **Object Layout**:
+   - Use explicit position words: left / right / center / corner / by the window / in the distance
+   - Describe spatial relationships and depth layers between objects
+   - 5-8 objects, each with a position description
+   - At least 2-3 key objects or areas that can later serve as character placement anchor points must be explicitly written out, such as: beside the table, inside the doorway, wall area beneath the window, in front of the podium, steps before the dragon throne
+
+   **Light Direction**: From which direction the light enters, which areas are illuminated
+
+   **Placeable Space** (Must Reflect):
+   - Must indicate which areas have open space available for characters to stand or appear
+   - These open areas must be adjacent to key anchor points, facilitating later fixed character placement
+   - Prohibited: Filling all anchor points with furniture or obstructions, making subsequent character placement impossible
+
+5. Description Specifications:
+   - Emphasize positional relationship words: in front, in the distance, on the left, in the corner, near, deep within
+   - Length 100-150 characters
+
+   ⚠️【Location Images Must Not Contain Any Characters — Core Rule】:
+
+   Purpose of location images: Location images are pure "background plates"; protagonists and important characters will be composited onto the background via AI in later stages.
+   Therefore, location descriptions must **absolutely not include any named characters**.
+
+   ❌ Incorrect Examples (includes characters):
+      - "Two Monkey Kings stand facing each other with staffs raised" → Wrong! Monkey Kings are characters, cannot appear
+      - "Zhang San stands at the door welcoming" → Wrong! Zhang San is a character, cannot appear
+      - "Sun Wukong and the Six-Eared Macaque fight on the street" → Wrong! Protagonists cannot appear
+
+   ✅ Correct Examples (pure background):
+      - "「Ancient Path」A wide-angle shot reveals the winding yellow-earth ancient path through jagged stone forest, with a few withered pines in the foreground, the road broad and flat in the midground with dust swirling, and rolling mountain ranges in the background."
+      - "「Banquet Hall」In the distance of the hall, two or three guests converse" → Acceptable! These are nameless background crowd
+      - "「Marketplace」Pedestrians come and go on the street" → Acceptable! These are vague crowd of passersby
+
+   📋 When can crowds be written?
+      - Only nameless, vague background crowds may appear (e.g., "guests", "passersby", "pedestrians", "onlookers")
+      - These crowds must not have specific descriptions; only vague terms allowed
+      - If the location is a private space or unpopulated scene, keep it as an empty frame
+
+   - Do not include artistic style descriptions; style is automatically added by the system
+
+6. Location Naming Rule: Chinese "Location_Time/State"
+   - Example: "Living Room_Day" / "Space Station_Night" / "Immortal Palace_Dusk" / "Forest_In Mist"
+
+7. Key elements appearing in the plot must be reflected in the location (e.g., chairs, tables, etc.)
+
+8. Unless otherwise specified, use the user's input language for location generation. For example, if the input is in English, output Western-style locations; if Chinese, output Chinese-style locations. However, the principle is to follow the actual location in the text script.
+
+9. If the source text or user input is overly generic (e.g., 「school classroom」「office」「living room」), you must proactively concretize it into a complete space suitable for controlled image generation:
+   - Define the key structures visible from the main perspective
+   - Define foreground / midground / background
+   - Define at least 3 stable anchor points and their surrounding open spaces
+   - Prohibited: Only outputting vague location noun piles
+
+【Output Specification (Only the following JSON structure allowed; field names in Chinese; no extra text allowed)】
 {
   "locations": [
     {
-      "name": "location_name",
-      "summary": "short usage summary",
-      "has_crowd": false,
-      "crowd_description": "",
+      "name": "Location_Time",
+      "summary": "Brief location description (usage/character association, e.g.: Zhang San's master bedroom, company executive conference room, etc.)",
+      "has_crowd": true/false,
+      "crowd_description": "Crowd type description (only fill when has_crowd is true, e.g.: banquet guests, marketplace crowd, students, etc.)",
       "available_slots": [
-        "the position beneath the throne steps at the center of the palace hall",
-        "the open space between the left column and the long table",
-        "the position against the inner wall beside the rear doorway"
+        "The position in front of the steps below the dragon throne at the center of the imperial palace",
+        "The open space between the left column and the long table",
+        "The position against the wall inside the rear palace doorway on the right"
       ],
       "descriptions": [
-        "[location_name] description 1",
-        "[location_name] description 2",
-        "[location_name] description 3"
+        "「Location Name」Location environment description 1 (include crowd elements if has_crowd is true)",
+        "「Location Name」Location environment description 2",
+        "「Location Name」Location environment description 3"
       ]
     }
   ]
 }
 
-Strict constraints:
-1. JSON only.
-2. If no valid location exists, return: {"locations":[]}.
-3. Each location must include 2-6 `available_slots`.
-4. Each `available_slots` item must be a complete descriptive placement phrase, not a short token and not an object.
-5. Slot descriptions must be concrete and reusable, tied to visible anchors such as the outer side of a desk row, the open floor before the blackboard, the inner side of a doorway, the space beside a window wall.
-6. Do not mention character posture, action, or emotion inside `available_slots`. Describe position only.
-7. Every anchor mentioned in `available_slots` must also appear clearly in the location descriptions.
-8. ⚠️ JSON SAFETY: All quotation marks in text (""''「」 etc.) MUST be converted to corner brackets「」in JSON string values. NEVER use raw ASCII double quotes " inside string values.
-  
+【Strictness】
+- If no locations meet the criteria, the locations array returns [].
+- Each location must generate 2-6 available_slots, and each slot must be specific, reusable, and related to a clear anchor object within the location.
+- Each available_slots element must be a complete location description phrase, not a short word and not a structured object.
+- Slot descriptions must be like "The position in front of the steps below the dragon throne at the center of the imperial palace" or "The position at the outer side of the desk group by the window in the back row of the classroom" — directly stating the anchor object, direction, and specific area.
+- Abstract slots are prohibited, such as "left side", "middle", "corner"; do not write character posture, action, emotion; only describe the position itself.
+- All key anchor points mentioned in available_slots must clearly appear in the descriptions; otherwise, that slot is invalid and cannot be output.
+- Return only the above JSON; do not output markdown code block markers such as ```json, comments, or explanations; do not add undefined fields.
+- Each description must comply with the length limit (100-150 characters); if found to be too long, truncate yourself.
+- Prohibited: English double quotes " appearing in JSON string values. All quotation marks (""'' etc.) in the source text must be uniformly replaced with「」. If English double quotes are indeed needed within a string, they must be escaped as \"
+
+【Source Text Content】
+{input}

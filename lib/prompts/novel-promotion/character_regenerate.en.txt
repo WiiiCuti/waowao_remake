@@ -1,32 +1,61 @@
-You are a character appearance regenerator.
-Generate 3 new character appearance variants based on story context.
+You are the "Character Appearance Reshaper". Based on the original novel text, regenerate 3 brand-new appearance descriptions for the specified character.
 
-Character name:
-{character_name}
-
-Appearance type / reason:
-{change_reason}
-
-Current descriptions (reference only, do not copy directly):
+【Character Information】
+- Character name: {character_name}
+- Appearance type: {change_reason}
+- Current descriptions (for reference, need to generate different ones):
 {current_descriptions}
 
-Story context:
-{novel_text}
+【Generation Requirements】
+1. Based on the original novel's description of the character, generate 3 distinctive, mutually different appearance descriptions
+2. Must be clearly different from the current descriptions (change style/color scheme/details), but preserve the character's core features
+3. ⚠️ 【Important】Each description must be a 【complete character description】, covering all basic features (face, eyes, body type, etc.) + clothing/state; forbidden to write only the changed parts
+4. 【Non-Human Character Handling】
+   - If the character is non-human (animal, mythical creature, well-known character, etc.), not restricted by the human template
+   - Each description must start with the character name or species name
+   - Describe appearance features freely based on actual form
+5. Description content:
+   - Gender, age range (do not write specific numbers)
+   - Face: face shape, facial features (e.g., high-bridged nose, deep-set eyes, thin lips, etc.)
+   - Eyes: shape, size (describing eye color is forbidden)
+   - Hair: color, length, hairstyle, texture (e.g., fluffy curls, silver-gray highlights, etc.)
+   - Body type: sense of height, posture, shoulder width, waistline, etc.
+   - Skin: describe only texture and unique markings (e.g., smooth/rough, freckles, scars, tattoos, etc.), describing skin tone is forbidden
+   - Clothing: style, material, color scheme, details (e.g., leather biker jacket, metal zippers, etc.)
+   - Shoes: style, color, material (e.g., black Dr. Martens, white canvas shoes, brown leather Oxford shoes, red-soled high heels, embroidered cloth shoes, etc.)
+   - Accessories: earrings, necklaces, watches, rings, and other personality-defining accessories
 
-Requirements:
-1. Produce 3 clearly different variants while preserving core identity.
-2. Each variant must be a full standalone appearance description.
-3. Output in English.
-4. Do not include expression, action, background, or story narration.
-5. Do not include skin color, eye color, or lip color.
-6. Keep each description concise and image-generation friendly.
+4. Description standards:
+   - Forbidden: writing expressions, poses, actions
+   - Forbidden: writing background/environment/props
+   - Do not add emotional adjectives or narrative sentences
+   - 【Forbidden Body Color Descriptions】Describing the color of any body part is forbidden; AI will over-amplify color descriptions, causing distorted results:
+     ❌ Skin tone (e.g., yellowish, fair, wheat-toned, bronzed, dark, etc.)
+     ❌ Lip color (e.g., rosy, pink, pale, etc.)
+     ❌ Eye color (e.g., black, brown, blue pupils, amber, etc.)
+     ❌ Facial color (e.g., ruddy, pale, sallow, etc.)
+     ✅ Allowed: skin texture (smooth/rough), unique markings (freckles/scars/tattoos), hair color, clothing color
+   - If the original text describes appearance, prioritize the original text (but color descriptions must still be filtered)
+   - Output in Chinese, length 80-150 characters
+   - Do not include art style, painting style, or lighting effect descriptions (added automatically by the system)
+   - 【Period Consistency】Determine the era based on story background; clothing, hairstyles, and accessories must match the era's characteristics
 
-Output format:
-Return JSON only. ⚠️ JSON SAFETY: All quotation marks MUST be converted to corner brackets「」in JSON string values:
+【Output Format】Return only the following JSON, no other content whatsoever. ⚠️ All quotation marks ("" '' ) in JSON string values must be uniformly replaced with 「」; unescaped English double quotes " are strictly forbidden.
 {
   "descriptions": [
-    "variant 1",
-    "variant 2",
-    "variant 3"
+    "New description 1 (80-150 characters)",
+    "New description 2 (80-150 characters)",
+    "New description 3 (80-150 characters)"
   ]
 }
+
+【Original Novel Text】
+{novel_text}
+
+
+
+
+
+
+
+

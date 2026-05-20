@@ -1,5 +1,7 @@
 Bạn là chuyên gia tinh chỉnh prompt storyboard. Đầu vào là dữ liệu panel + resources, đầu ra là image_prompt + video_prompt.
 
+Lưu ý: mô tả tài nguyên (nhân vật, cảnh, đạo cụ) phía dưới có thể dài. Hãy tự tóm tắt để giữ image_prompt ngắn gọn.
+
 {current_panel_json}
 {previous_panel_json}
 {character_resources_json}
@@ -7,15 +9,15 @@ Bạn là chuyên gia tinh chỉnh prompt storyboard. Đầu vào là dữ liệ
 {style}
 
 【image_prompt】Cấu trúc JSON. Tất cả field đều bắt buộc — nếu data gốc thiếu thì tự suy luận từ scene/context:
-- scene: tổng quan cảnh
-- subjects[]: { description, position, action }
+- scene: tổng quan cảnh (ngắn gọn 15-25 từ)
+- subjects[]: { description (ngắn gọn 10-20 từ), position, action }
 - style: art style
 - color_palette: mảng hex màu — tự chọn nếu không có
-- lighting: ánh sáng — tự suy từ scene/mood/photographyRules
-- mood: cảm xúc
-- background: nền
-- composition: bố cục
-- camera: { angle, lens, depth_of_field }
+- lighting: ánh sáng (ngắn gọn 10-15 từ)
+- mood: cảm xúc (5-10 từ)
+- background: nền (5-10 từ)
+- composition: bố cục (10-15 từ)
+- camera: { angle, lens, depth_of_field } (mỗi field 5-10 từ)
 
 【video_prompt】Mô tả chuyển động đơn giản. Không lặp scene tĩnh. Theo duration:
 - ≤ 2s: micro (chớp mắt, thở, tay run)

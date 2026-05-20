@@ -1,34 +1,78 @@
-You are a professional scene prompt modifier.
-Modify an existing scene description while preserving scene identity.
+Please follow the prompt rules below to execute the user's scene modification request
 
-Location name:
+【Scene Name】
 {location_name}
 
-Current description:
-{location_input}
+【Scene Generation Requirements (for image generation, Chinese description)】
 
-User instruction:
-{user_input}
+1. **The description must begin by clearly stating the scene name**:
+   - The description must start with the format 「{location_name}」 to label the spatial attribute
+   - Examples: 「Imperial Palace」the hall floor is laid with... / 「Living Room」sunlight streams through the window...
+   - This ensures the AI clearly understands what type of space this is when generating the image
 
-Rules:
-1. Keep core scene identity and function.
-2. Apply requested changes with concrete visual details.
-3. Output in English only.
-4. Start with scene name: "[{location_name}] ..."
-5. No protagonist actions, dialogue, or narrative plot.
-6. Make the scene spatially specific enough for controllable image generation, with visible structure, depth, and stable anchors.
-7. Keep at least 3 clear anchor objects or anchor areas visible in the modified scene.
-8. Regenerate 2-6 `available_slots` that stay consistent with the modified scene.
-9. Each `available_slots` item must be one complete descriptive placement phrase, not a short token and not an object.
-10. Do not mention posture, action, or emotion in `available_slots`.
-11. Every anchor mentioned in `available_slots` must also appear in the modified scene description.
+2. Generate 1 Chinese-language environment description per scene for AI image generation
 
-Output format:
-Return JSON only. ⚠️ JSON SAFETY: All quotation marks MUST be converted to corner brackets「」in JSON string values:
+3. Must include specific visual elements, described in the following structure:
+
+   **Spatial Positioning**: clearly specify the scene type
+   - Indoor: living room/bedroom/kitchen/office/hospital room/classroom, etc.
+   - Outdoor: street/alley/park/valley/seaside/square, etc.
+
+   **Main Structure**: describe visible architectural elements
+   - Wall/floor/ceiling material and color (e.g., "white walls"/"wooden floor"/"concrete floor"/"tile floor")
+   - Door and window positions and types (e.g., "large window on the left"/"wooden door on the right"/"floor-to-ceiling window"/"glass door")
+   - Architectural features (e.g., "high ceiling"/"arched doorway"/"brick wall"/"glass curtain wall")
+
+   **Furniture / Props**: list the main objects in the scene
+   - Furniture placement (e.g., "sofa in the center"/"bookshelf against the wall"/"bed by the window"/"office desk")
+   - Characteristic props (e.g., "desk lamp on the table"/"painting on the wall"/"carpet on the floor"/"books on the shelf")
+   - Plants and decorations (e.g., "potted plant on the windowsill"/"green plants in the corner")
+
+   **Lighting Environment**: describe light sources and lighting effects
+   - Natural light: time period + light characteristics
+     * Daytime: sunlight through the window curtains/bright daylight streaming through the window/soft morning light
+     * Nighttime: moonlight shines through the window/night scene outside the window/light outside the window
+   - Artificial light: light source type + position
+     * Ceiling chandelier lighting/wall sconce soft light/desk lamp localized lighting/floor lamp/spotlight
+
+   **Atmosphere Details**: supplementary environmental characteristics
+   - Overall tone: warm tone/cool tone/neutral/bright/dim
+   - Spatial feel: spacious/narrow/deep sense of depth/open/enclosed
+   - Condition characteristics: tidy/messy/aged/modern/minimalist/vintage
+
+4. Description standards:
+   - Use specific nouns, avoid abstract adjectives
+     * ✅ Good: "wooden desk"/"gray fabric sofa"/"white curtains"
+     * ❌ Bad: "elegant furniture"/"comfortable environment"/"warm atmosphere"
+   - Describe fixed elements; do not write protagonist's specific actions or emotions
+   - Must make the spatial structure sufficiently concrete; cannot leave only generic scene labels
+   - Must make foreground/midground/background or near/middle/far relationships clear
+   - Must retain at least 3 clearly visible anchor points or zones usable for subsequent placement
+   - 【Crowd Handling Rules】If the user requests adding a crowd, or the scene itself implies a crowd (e.g., banquet, marketplace, etc.):
+     * May add vague crowd descriptions: "crowd", "guests", "passersby", etc.
+     * Examples: "a few guests chatting in the distance of the hall", "pedestrians walking hurriedly past the street corner"
+   - Length controlled at 60-100 characters
+   - Do not include art style descriptions (e.g., "American comic style"/"watercolor style"); style is added automatically by the system
+   - Do not include lighting effect descriptions (e.g., "dramatic lighting"/"soft gradients"); controlled by style
+
+Your goal is to modify the existing scene description based on the user's modification instruction
+
+At the same time, you must regenerate the scene's fixed available positions:
+- Output 2-6 positions
+- Each position must be a complete position description phrase, not a short word
+- Each position must be anchored to a clear scene anchor object or area
+- Position descriptions are forbidden to include character postures, actions, or emotions; only write the position
+- New positions must be consistent with the modified scene description, and the anchor points mentioned must appear in the scene description
+
+Current scene description: {location_input}
+
+User modification instruction: {user_input}
+
+Send back in JSON format. Return only the following JSON format. Do not return any extraneous content other than JSON, including comments, text, etc. Return only pure JSON without any markdown identifiers. ⚠️ All quotation marks ("" '' ) in JSON string values must be uniformly replaced with 「」; unescaped English double quotes " are strictly forbidden. The JSON format is as follows:
 {
-  "prompt": "modified location description",
-  "available_slots": [
-    "the position beneath the throne steps at the center of the hall",
-    "the open space between the left column and the long table"
+  "prompt":"「SceneName」xxxxx",
+  "available_slots":[
+    "Position on the steps in front of the dragon throne at the center of the imperial palace",
+    "Vacant space between the left pillar and the long table"
   ]
 }

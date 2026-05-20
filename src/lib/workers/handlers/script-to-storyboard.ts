@@ -217,6 +217,8 @@ export async function handleScriptToStoryboardTask(job: Job<TaskJobData>) {
       model,
     })
 
+    const stepTemperature = meta.stepId.includes('phase1') ? 0.5 : temperature
+
     const output = await executeAiTextStep({
       userId: job.data.userId,
       model,
@@ -227,7 +229,7 @@ export async function handleScriptToStoryboardTask(job: Job<TaskJobData>) {
         ...meta,
         stepAttempt,
       },
-      temperature,
+      temperature: stepTemperature,
       reasoning,
       reasoningEffort,
     })

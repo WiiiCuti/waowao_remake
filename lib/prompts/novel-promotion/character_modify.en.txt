@@ -1,22 +1,52 @@
-You are a professional character prompt modifier.
-Modify an existing character description based on user instruction.
+Please follow the rules below to execute the user's character generation prompt modification request
+1: Modify character according to the following rules
+【Character Generation Requirements (for image generation, Chinese description)】
 
-Current description:
-{character_input}
+1. Generate 1 detailed Chinese-language appearance description for AI image generation
 
-User instruction:
-{user_input}
+2. The description should highlight character features with detailed texture:
+   - Gender, age range (write specific age ranges, e.g., "approximately twenty-five years old", "forty to forty-five years old", "around fifty years old")
+   - Face: face shape, facial features (specific features such as high-bridged nose, deep-set eyes, thin lips, etc.)
+   - Eyes: shape, size (describing eye color is forbidden)
+   - Hair: color, length, hairstyle, texture (e.g., fluffy curls, silver-gray highlights, slightly curled ends, etc.)
+   - Body type: sense of height, posture, shoulder width, waistline, etc.
+   - Skin: describe only texture and unique markings (e.g., smooth/rough, freckles, birthmarks, scars, tattoos, etc.), describing skin tone is forbidden
+   - Clothing: style, material, color scheme, details (e.g., leather biker jacket, ripped jeans, metal zippers, embroidery patterns, etc.)
+   - Shoes: style, color, material (e.g., black Dr. Martens, white canvas shoes, brown leather Oxford shoes, red-soled high heels, embroidered cloth shoes, etc.)
+   - Accessories: earrings, necklaces, watches, rings, and other personality-defining accessories
 
-Rules:
-1. Keep identity consistency.
-2. Apply only requested edits, keep other valid details.
-3. Return one complete rewritten prompt, not partial fragments.
-4. Output in English only.
-5. Do not describe expression, action, background, scene, or props.
-6. Do not mention skin color, eye color, or lip color.
+3. Description standards:
+   - Forbidden: writing expressions, poses, actions
+   - Forbidden: writing background/environment/props
+   - Do not add emotional adjectives or narrative sentences
+   - 【Forbidden Body Color Descriptions】Describing the color of any body part is forbidden; AI will over-amplify color descriptions, causing distorted results:
+     ❌ Skin tone (e.g., yellowish, fair, wheat-toned, bronzed, dark, etc.)
+     ❌ Lip color (e.g., rosy, pink, pale, etc.)
+     ❌ Eye color (e.g., black, brown, blue pupils, amber, etc.)
+     ❌ Facial color (e.g., ruddy, pale, sallow, etc.)
+     ✅ Allowed: skin texture (smooth/rough), unique markings (freckles/scars/tattoos), hair color, clothing color
+   - If the original text describes appearance, prioritize the original text (but color descriptions must still be filtered)
+   - Output in Chinese, length 80-150 characters
+   - Do not include art style, painting style, or lighting effect descriptions (added automatically by the system)
+   - 【Period Consistency】Determine the era based on story background (ancient/early modern/modern/futuristic, etc.); character clothing, hairstyles, and accessories must match the era's characteristics
+   - 【Forbidden Uncertain Descriptions】Forbidden to use uncertain words such as "or", "possibly", "maybe", "approximately"; each appearance feature must be explicit and specific
+     ❌ Wrong: "wearing rimless or gold-framed glasses", "height possibly around 1.7 meters"
+     ✅ Correct: "wearing thin gold-framed glasses", "tall stature approximately 1.75 meters"
+   - 【Forbidden Abstract Demeanor Descriptions】Forbidden to describe non-visualizable abstract demeanor, aura, expression, or feeling
+     ❌ Wrong: "exudes an air of wealth with every gesture", "powerful presence", "mature and steady aura"
+     ✅ Correct: describe only directly visible appearance features
+   - 【Shoes Required】Every complete character description must include a shoe description; do not omit
+   - 【Non-Human Character Handling】If the current character is non-human (animal, mythical creature, well-known character, etc.):
+     * Not restricted by the human appearance template; describe based on actual form
+     * The description must start with the character name or species name
+     * Example: modify Sun Wukong's clothing → "Sun Wukong, golden fur fluffy, wearing a white monk's robe, wearing headband..."
 
-Output format:
-Return JSON only. ⚠️ JSON SAFETY: All quotation marks MUST be converted to corner brackets「」in JSON string values:
+2: Your goal is to modify the character to match the user's prompt based on the user's request
+
+Below is the original character generation prompt: {character_input}
+Below is the user's modification instruction: {user_input}
+
+After modification, send back in JSON format. Return only the following JSON format. Do not return any extraneous content other than JSON, including comments, text, etc. Return only pure JSON without any markdown identifiers. ⚠️ All quotation marks ("" '' ) in JSON string values must be uniformly replaced with 「」; unescaped English double quotes " are strictly forbidden. The JSON format is as follows:
 {
-  "prompt": "modified character description"
+  "prompt":"xxxxx"
 }

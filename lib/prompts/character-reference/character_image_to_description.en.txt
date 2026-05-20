@@ -1,31 +1,36 @@
-# Character Image To Description Prompt
+# Image-to-Character-Description Prompt
 
-Analyze the provided character image and write one detailed English visual description for image generation.
+Analyze this character image and generate a detailed character visual description (for AI image generation).
 
-## Required content
-Include all of the following:
-1. Gender and approximate age range
-2. Hair style and hair color
-3. Face shape and facial features
-4. Body build and silhouette
-5. Clothing style and clothing details
-6. Accessories and signature details
-7. Overall style keywords
+## Output Requirements
 
-## Missing-part completion
-If the image only shows part of the body, infer the missing parts consistently.
-- Missing lower body: infer matching pants/skirt style
-- Missing shoes: infer shoes that fit the outfit
-- Missing accessory details: infer a few reasonable accessories
+Generate a complete character visual description that includes the following elements:
 
-## Forbidden content
-Do not mention:
+1. Gender and approximate age (e.g. a male of about twenty-five years old)
+2. Hairstyle and hair color (e.g. short black hair, slightly wavy long brown hair)
+3. Face shape and facial features (e.g. sword-like eyebrows with bright eyes, high nose bridge, thin lips)
+4. Body build and figure (e.g. slender build, robust physique)
+5. Clothing style (e.g. dark blue suit, white shirt, leather belt)
+6. Accessories and distinctive details (e.g. silver watch on the left wrist, golden brooch on the chest)
+7. Overall temperament keywords (e.g. elite aura, restrained-and-cold type, aloof, gentle warm-hearted man)
+
+## Missing Content Completion Rules
+
+If the reference image only shows part of the body (e.g. upper body, headshot), reasonably infer and complete based on the available information:
+- **Missing lower body**: infer pants/skirt type based on the top style (e.g. suit jacket paired with dark blue trousers, casual top paired with jeans)
+- **Missing shoes**: infer shoe type based on the overall outfit style (e.g. formal wear paired with leather shoes, casual wear paired with sneakers or canvas shoes)
+- **Missing accessory details**: reasonably add accessories based on the character's temperament (e.g. business style paired with a watch, casual style paired with a bracelet)
+
+## Forbidden Descriptions
+
 - Skin color
 - Eye color
-- Facial expression
-- Pose or action
+- Expression
+- Action
 - Background
+- Pose
 
-## Output format
-Return one plain English paragraph only (about 120-220 words).
-Do not return markdown, bullets, titles, or JSON.
+## Output Format
+
+One coherent descriptive paragraph, about 200-300 words, directly usable as an image generation prompt.
+Return only the description text; do not include any titles, numbering, or other formatting.

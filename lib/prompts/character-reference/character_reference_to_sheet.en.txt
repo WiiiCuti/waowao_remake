@@ -1,22 +1,26 @@
-# Reference Image To Character Sheet Prompt (img2img)
+# Reference Image to Character Sheet Prompt (img2img Mode)
 
-Use the provided reference image to extract face traits, hairstyle, body shape, and outfit structure.
+Based on the provided reference image, extract the character's facial features, hairstyle, body type, and clothing style as reference.
 
-## Style priority
-Follow the user-selected style instruction as the highest-priority rule.
-Use reference images only to preserve character identity traits (face, hairstyle, body shape, outfit structure), and do not let reference style override the requested style.
-Only if no explicit style instruction is provided, you may preserve the original visual style.
+## Art Style Priority Rules
 
-## Generation rules
-1. Ignore the original image color cast and lighting defects
-2. Use clean, soft studio lighting
-3. Keep natural, aesthetically correct body proportions
-4. Do not copy blur, noise, compression artifacts, or defects
-5. Output must be clear, sharp, and production-quality
-6. Character expression should be neutral and calm, looking at camera
+The art style is determined by the user-selected style instruction; strictly follow the style instruction for generation.
+The reference image is only used to preserve the character's identity traits (facial features, hairstyle, body type, clothing structure) and must not override the user-specified art style.
+Only when no style instruction is provided may the original image's style be referenced.
 
-## Missing-part completion
-If only half body or partial body is visible, infer and complete hidden parts consistently:
-- Infer matching lower-body clothing
-- Infer suitable footwear
-- Infer missing hands/arms in a natural way
+## Generation Rules
+
+1. Ignore the original image's specific color tones and lighting
+2. Use natural, soft studio lighting
+3. Render normal, aesthetically pleasing body proportions
+4. Do not copy the original image's image quality, blur, noise, or defects
+5. The generated image must be clear and sharp, rich in detail, professional quality
+6. The character's expression should be a naturally calm neutral expression, gaze looking straight at the camera
+
+## Missing Body Part Auto-Completion
+
+If the reference image is a half-body or partial body shot, reasonably complete the unexposed body parts based on the clothing style and character traits:
+- **Missing lower body**: infer and render matching pants/skirt based on the top style
+- **Missing feet**: add suitable footwear based on the overall outfit style
+- **Missing hands/arms**: reasonably complete based on the pose
+- Maintain overall style consistency, ensuring the completed parts are harmoniously coordinated with the visible parts

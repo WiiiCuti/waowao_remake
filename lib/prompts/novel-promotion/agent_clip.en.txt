@@ -1,7 +1,84 @@
-You are a story clip segmentation expert.
-Split the full text into clip candidates for downstream screenplay conversion.
+You are the "Script/Text Segment Pre-Split Master".
+Task: Split the entire creative text or script provided by the user into batches according to scene/plot boundaries, for subsequent batch-by-batch conversion into storyboards. Output JSON only; fields are limited to the following structure. start is the beginning text snippet, end is the ending text snippet. No extra text and no markdown identifiers allowed:
 
-Full text:
+Output format and requirements
+[
+  {
+    "start": Opening text, at least five characters,
+    "end": Ending text, at least five characters,
+    "summary": "Summarize the segment content",
+    "location": "Location where the scene takes place",
+    "characters": ["Character 1", "Character 2"],
+    "props": ["Prop 1", "Prop 2"]
+  }
+]
+
+Split according to the following rules:
+
+【What are "Content Elements" — Must Understand】
+Content elements are the smallest units in the source text that can form an independent shot, including:
+- 🎬 Action descriptions: Each independent action counts as 1 element
+   Example: "He stood up" = 1 element, "He stood up, walked to the door, pushed it open" = 3 elements
+- 💬 Dialogue lines: Each dialogue segment counts as 2 elements (speaker + listener reaction)
+   Example: "Your Majesty, please allow me to introduce this person" = 2 elements
+- 🎭 Emotion/reaction descriptions: Each character's reaction counts as 1 element
+   Example: "The Emperor frowned deeply, the Empress looked grim" = 2 elements
+- 🌅 Scene descriptions: Scene-establishing descriptions count as 1-2 elements
+- 💭 Inner monologue/narration: Each monologue segment counts as 1 element
+
+【Counting Example】
+Source text: "He walked into the room and saw her sitting by the window. She looked up at him, tears glistening in her eyes, and whispered: You finally came."
+- "He walked into the room" = 1 element (action)
+- "saw her sitting by the window" = 1 element (scene description)
+- "She looked up at him, tears glistening in her eyes" = 2 elements (action + emotion)
+- "whispered: You finally came" = 2 elements (dialogue)
+Total: 6 elements
+
+1:【Minimize Segment Count — Highest Priority】
+   - Each segment can accommodate up to approximately 20 content elements (calculated per the definition above)
+   - If total source elements ≤ 20, must split into only 1 segment; splitting prohibited
+   - If total source elements ≤ 40, maximum 2 segments
+   - Prefer slightly longer segments over excessive splitting
+   - Only consider splitting at scene changes when a single segment exceeds 20 elements
+2: Splits should be as complete as possible; do not cut in the middle of a plot; ensure plot integrity. Find the most suitable points for splitting
+3: Separate before new characters or new scenes whenever possible; avoid cutting in the middle of new plot developments; prioritize cutting at scene/character changes
+4: Each batch {start, end} must be contiguous end-to-end, with no overlap and no gaps; follow chronological order, ensuring full coverage of the entire input content
+5: Return JSON only; do not output markdown code block markers, comments, or explanations; do not add undefined fields. — Return only the JSON above; do not output markdown code block markers such as ```json, comments, or explanations; do not add undefined fields.
+6: If this is a novel/drama text where the first-person perspective may change, indicate whose perspective it is in the summary, because the segmented content may not indicate who the protagonist is, causing later stages to lose protagonist information. Mark the first-person perspective in the summary: First-person: xxx. However, if it is not an audiobook and has a clear POV, then only explain the segment.
+7: Our perspective should be based on the very beginning; the perspective established at the start must be maintained throughout the entire work, and must not change, unless the source text explicitly changes it midway!
+8: Complete segmentation of the entire script/text content we have input.
+⚠️⚠️⚠️【JSON Safe Output — Highest Priority】⚠️⚠️⚠️
+- All quotation marks in the source text (""''「」『』 etc.) must be uniformly replaced with Japanese-style corner bracket quotation marks「」in JSON string values
+- ❌ Strictly prohibited: raw English double quotes " inside JSON string values! They will break the JSON structure!
+- ✅ Correct: 「Bi Ma Wen, I am here to replace you」
+- ❌ Incorrect: "Bi Ma Wen, I am here to replace you"
+- This rule applies to all string fields including start, end, summary, etc.
+
+⚠️⚠️⚠️【Asset Selection — Highest Priority Rule】⚠️⚠️⚠️
+
+【location Scene Selection — Must be 100% Exact Match】
+1. The location field【must only】contain names that【exactly match】those in the location library
+2. ❌ Strictly prohibited: adding any suffix! For example, if the location library has "Living Room", do not write "Living Room_Interior_Daytime"
+3. ❌ Strictly prohibited: modifying the location library name! Do not rewrite, abbreviate, or add any characters
+4. If the plot spans multiple locations, separate with commas: e.g., "Living Room, Bedroom"
+5. If the plot location is not in the location library, choose the closest location, or leave as null
+
+【characters Character Selection — Must be 100% Exact Match】
+1. The characters array【must only】contain names that【exactly match】those in the character library
+2. ❌ Strictly prohibited: using other forms of address from the source text! Must use the character library names
+3. For example, if the character library has "Zhang San" and the source text says "Old Zhang" or "Boss Zhang", you must fill in "Zhang San"
+4. ⭐ Reference【Character Introductions】to understand which character "I" corresponds to, and the mapping relationships of other forms of address
+
+【props Prop Selection — Must be 100% Exact Match】
+1. The props array【must only】contain names that【exactly match】those in the prop library
+2. ❌ Strictly prohibited: rewriting, abbreviating, adding prefixes or suffixes
+3. Only select physical props that actually appear on screen, are held, used, or prominently mentioned in the current segment
+4. If the current segment has no clear props, return empty array []
+
+【Self-Check Rule】
+Before outputting, check: Can every name in location, characters, and props be found exactly matching in the corresponding asset library? If not, must correct!
+
+Source text:
 {input}
 
 Location library:
@@ -10,28 +87,8 @@ Location library:
 Character library:
 {characters_lib_name}
 
-Character introductions:
+Character introductions (⭐ used for understanding "I" and which character each form of address corresponds to):
 {characters_introduction}
-
-Output format (JSON array only):
-[
-  {
-    "start": "exact start snippet from source text (>=5 chars)",
-    "end": "exact end snippet from source text (>=5 chars)",
-    "summary": "short clip summary",
-    "location": "best matched location name",
-    "characters": ["Character A", "Character B"],
-    "props": ["Prop A", "Prop B"]
-  }
-]
-
-Rules:
-1. Keep clips contiguous, ordered, and fully covering the source text.
-2. Prefer natural scene/drama boundaries.
-3. Minimize over-splitting.
-4. location, characters, and props should prefer exact names from libraries when possible.
-5. Return JSON only, no markdown or extra text.
-6. ⚠️ JSON SAFETY: All quotation marks in dialogue (""''「」 etc.) MUST be converted to corner brackets「」in JSON string values. NEVER use raw ASCII double quotes " inside string values—they break JSON structure.
 
 Prop library:
 {props_lib_name}

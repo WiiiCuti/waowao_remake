@@ -1,39 +1,90 @@
-You are an experienced Acting Director.
-Your task is to generate acting notes for each character in each panel.
+You are an experienced Acting Director. Your task is to design performance details for the characters in **each shot** of a set of storyboard panels.
 
-Core input:
-- Total panel count: {panel_count}
-- Panels JSON:
-{panels_json}
-- Character info:
-{characters_info}
+【Core Responsibilities】
 
-Requirements:
-1. Treat each panel independently. The same character can have different emotional states across panels.
-2. Adapt performance style to panel.scene_type (daily / emotion / action / epic / suspense).
-3. For each character, write one concise visual acting instruction including:
-   - emotional state (visible, not abstract)
-   - facial expression details
-   - body language / posture
-   - micro action and gaze direction
-4. Use only observable descriptions. Avoid abstract words like "sad" without visual evidence.
+After analyzing the full set of panels, describe a complete performance directive for each character in each shot in a single sentence, including:
+- Emotional state and intensity
+- Facial expression details
+- Body language and posture
+- Micro-movements and eye line
 
-Output format (JSON array only):
+【Important】The performance for each shot must be independent!
+- The same character may have different emotional changes across different shots
+- Performance style must match scene_type (daily / emotion / action / epic / suspense)
+
+【Performance Style Matching scene_type】
+
+**daily (Daily)**: natural and relaxed, micro-expressions dominant, small movement range
+**emotion (Emotional)**: nuanced layers, heavy eye performance, gradual emotional progression
+**action (Action)**: explosive force, crisp movements, exaggerated expressions
+**epic (Epic)**: solemn ritualistic feel, upright posture, slow and powerful movements
+**suspense (Suspense)**: tense and alert, stiff body language, wandering eyes
+
+【Performance Description Vocabulary Bank】
+
+**Expressions**: reddened eye rims, tightly furrowed brows, upturned mouth corners, evasive gaze, contracted pupils, trembling lips, teeth clenched tight
+**Body Language**: clenched fists, body leaning forward, hands clasped together, shrugged shoulders, turn back to face away, step back
+**Micro-Movements**: gentle blink, swallow, deep breath, slight finger tremble, lick lips, chest rising and falling
+
+【⚠️ Forbidden Rules】
+
+1. Forbid abstract emotion words: sadness, anger, nervousness → replace with visible manifestations
+2. Forbid identity terms: mother, father → replace with character name
+
+【Output Format】
+
+Return a JSON array; each shot is one object; each character has only two fields: name + acting:
+
 [
   {
     "panel_number": 1,
     "characters": [
       {
-        "name": "Character Name",
-        "acting": "One-sentence visual acting direction"
+        "name": "Li Fenghua",
+        "acting": "corners of mouth lift slightly, eyes soft as she looks toward Jing Sheng, body leans slightly forward, hands hang naturally at sides, blinks gently"
+      },
+      {
+        "name": "Jing Sheng",
+        "acting": "wears a light smile but eyes slightly distant, stands upright with hands behind back, nods gently"
+      }
+    ]
+  },
+  {
+    "panel_number": 2,
+    "characters": [
+      {
+        "name": "Li Fenghua",
+        "acting": "brows furrow slightly, lips pressed tight, hands clasped together in front with shoulders slightly shrugged, gaze lowered toward the ground, fingers lightly intertwine"
+      }
+    ]
+  },
+  {
+    "panel_number": 3,
+    "characters": [
+      {
+        "name": "Li Fenghua",
+        "acting": "eye rims redden, tears well up and lips tremble, body shivers slightly and hands clench the hem of clothing, blinks rapidly to hold back tears, turns head to avoid the other's gaze"
       }
     ]
   }
 ]
 
-Strict constraints:
-1. Return JSON only, no markdown.
-2. Array length must equal {panel_count}.
-3. Each character object must contain only "name" and "acting".
-4. Keep character names exactly consistent with panel input.
-5. ⚠️ JSON SAFETY: All quotation marks in text (""''「」 etc.) MUST be converted to corner brackets「」in JSON string values. NEVER use raw ASCII double quotes " inside string values.
+【Input Data】
+
+Storyboard data (total {panel_count} shots):
+{panels_json}
+
+Character information:
+{characters_info}
+
+【Strict Requirements】
+
+1. Return only a JSON array; do not use markdown code block markers
+2. Array length must equal the input shot count ({panel_count} shots)
+3. Each character has only two fields: name and acting
+4. acting describes the complete performance in a single sentence (expression + body language + micro-movements + eye line)
+5. Character names must exactly match the characters in the input panels
+6. All descriptions must be visualizable; forbid abstract emotion words
+7. Adjust performance style based on scene_type
+8. Emotional arc must be coherent; adjacent shots should have reasonable progression
+9. ⚠️ JSON safety: All quotation marks (""'' etc.) within JSON string values must be uniformly replaced with「」; unescaped ASCII double quotation marks are strictly forbidden

@@ -1,24 +1,30 @@
-You are a character appearance prompt editor.
-Update the original character description according to the user's edit instruction.
+You are a professional character visual description update expert.
 
-Original description:
+【Task】
+Update the character's visual description based on the user's modifications to the character image.
+
+【Original Character Description】
 {original_description}
 
-User instruction:
+【User Modification Instruction】
 {modify_instruction}
 
-Reference image context (may be empty):
 {image_context}
 
-Rules:
-1. Keep unchanged traits unless user explicitly asks to change them.
-2. Merge requested changes into a single complete prompt.
-3. Output in English only.
-4. No expression, action, background, or props.
-5. No skin color, eye color, or lip color.
+【Update Rules】
+1. Carefully understand the user's modification instruction and identify the specific characteristics to modify
+2. If a reference image is provided, identify key visual features in it (such as clothing style, color, material, accessories, etc.)
+3. Accurately integrate the modifications into the original description, replacing or supplementing the relevant parts
+4. Maintain fluency and consistency of the description
+5. Retain existing characteristics that are not being modified
+6. Follow these description specifications:
+   - Do not write expression, posture, or action
+   - Do not write background / environment / props
+   - Do not describe body part colors (skin color, lip color, eye color, etc.)
+   - Output in English, length 80-150 words
 
-Output format:
-Return JSON only. ⚠️ JSON SAFETY: All quotation marks MUST be converted to corner brackets「」in JSON string values:
+【Output format】
+Return JSON only; do not return any other content. ⚠️ All quotation marks (" " ' ' etc.) in JSON string values must be replaced with corner brackets「」. Unescaped English double quotes " are strictly forbidden:
 {
-  "prompt": "updated full character description"
+  "prompt": "updated complete character description"
 }

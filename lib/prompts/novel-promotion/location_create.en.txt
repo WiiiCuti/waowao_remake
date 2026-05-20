@@ -1,29 +1,45 @@
-You are a professional environment prompt designer.
-Generate one scene prompt for image generation.
+Please follow the prompt rules below to execute the user's scene generation request
 
-User request:
-{user_input}
+【Scene Generation Requirements (for image generation, Chinese description)】
 
-Rules:
-1. Output in English only.
-2. Start with scene name in this format: "[Scene Name] ..."
-3. Describe a wide, complete environment with controllable spatial layout, key structures, and visible depth.
-4. Make foreground, midground, and background explicit.
-5. Define at least 3 clear anchor objects or anchor areas and make the nearby open space visible.
-6. If the user input is generic, such as 「classroom」 or 「office」, proactively make it specific enough for stable image layout instead of staying generic.
-7. Mention lighting direction and atmosphere.
-8. No protagonist actions or dialogue.
-9. If crowd is implied by context, use generic crowd terms only (guests, pedestrians, audience).
-10. Also generate 2-6 fixed `available_slots` as complete descriptive placement phrases tied to concrete scene anchors.
-11. Do not mention posture, action, or emotion in `available_slots`. Describe position only.
-12. Every anchor mentioned in `available_slots` must appear clearly in the scene prompt.
+1. Generate 1 Chinese-language environment description (80-140 characters), described like a real photographic scene, must be sufficiently specific to stably control image composition
 
-Output format:
-Return JSON only. ⚠️ JSON SAFETY: All quotation marks MUST be converted to corner brackets「」in JSON string values:
+2. **The description must begin by clearly stating the scene name**:
+   - The description must start with the format 「Scene Name」 to label the spatial attribute
+   - Examples: 「Imperial Palace」the hall floor is laid with... / 「Living Room」sunlight streams through the window... / 「Bedroom」by the bedside sits...
+   - This ensures the AI clearly understands what type of space this is when generating the image
+
+3. Core principles:
+   - Write real, existing objects; do not write abstract feelings
+   - Materials must be specific (dark brown solid wood flooring, bluish-gray stone brick walls, distressed wrought-iron railings)
+   - Objects should have traces of use and lived-in feel (books scattered on the table, clutter piled in the corner, dried plants on the windowsill)
+   - Light must specify source and effect (afternoon sunlight slanting in, casting long shadows on the floor / warm yellow wall lamp casting light on the wall surface)
+   - Must write a complete spatial structure; do not write only generic scene nouns
+   - Must write foreground/midground/background or near/middle/far layers
+   - Must write at least 3 clearly visible key anchor points and their surrounding empty areas
+   - If user input is very generic (e.g., "school classroom", "office"), you must proactively concretize it into a controllable composition rather than staying at a generic description level
+
+4. Forbidden: do not write protagonist's specific actions, do not write painting style, do not write abstract words like "warm" or "elegant"
+
+5. 【Crowd Handling Rules】
+   - If the user's described scene implies a crowd (e.g., banquet hall, marketplace, classroom in session, etc.), add vague crowd elements in the description
+   - Crowd description examples: "guests gathered in small groups in the hall", "pedestrians coming and going on the street", "a scattering of audience members seated in the rows"
+   - If it is a private space or the user explicitly requests an empty frame, do not add a crowd
+
+6. Additionally generate 2-6 fixed available positions for the scene:
+   - Each position must be a complete position description phrase, not a short word
+   - Each position must be anchored to a clear scene anchor object or area
+   - Position descriptions are forbidden to include character postures, actions, or emotions; only write spatial position
+   - The anchor points mentioned in these positions must actually appear in the scene description
+   - Examples: position by the left side of the dining table near the edge / position at the outer side of the desk set by the window in the back row of the classroom / position on the steps in front of the dragon throne at the center of the imperial palace
+
+Below is the user's generation instruction: {user_input}
+
+Return only the following JSON format. Do not return any extraneous content other than JSON. ⚠️ All quotation marks ("" '' ) in JSON string values must be uniformly replaced with 「」; unescaped English double quotes " are strictly forbidden.
 {
-  "prompt": "[Scene Name] environment description",
-  "available_slots": [
-    "the position beside the left edge of the dining table",
-    "the open space just inside the doorway against the wall"
+  "prompt":"「Scene Name」scene description content",
+  "available_slots":[
+    "Position by the left side of the dining table near the edge",
+    "Position inside the doorway against the wall"
   ]
 }

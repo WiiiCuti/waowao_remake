@@ -118,10 +118,21 @@ export function logLlmRawOutput(params: {
 
 export function isRetryableError(error: unknown): boolean {
   if (!error || typeof error !== 'object') return false
-  const errorRecord = error as { code?: unknown; status?: unknown }
+  const errorRecord = error as { code?: unknown; status?: unknown; message?: unknown; name?: unknown }
   if (errorRecord.code === 'ECONNRESET' || errorRecord.code === 'ETIMEDOUT') return true
   if (typeof errorRecord.status === 'number' && (errorRecord.status === 429 || (errorRecord.status >= 500 && errorRecord.status < 600))) {
     return true
+  }
+  const errorName = typeof errorRecord.name === 'string' ? errorRecord.name : ''
+  if (errorName === 'APIConnectionError') return true
+  const errorMessage = typeof errorRecord.message === 'string' ? errorRecord.message.toLowerCase() : ''
+  if (errorMessage && containsAny(errorMessage, ['connection error', 'fetch failed', 'econnreset', 'enotfound', 'econnrefused', 'eai_again'])) return true
+  return false
+}
+
+function containsAny(haystack: string, needles: string[]) {
+  for (const needle of needles) {
+    if (haystack.includes(needle)) return true
   }
   return false
 }

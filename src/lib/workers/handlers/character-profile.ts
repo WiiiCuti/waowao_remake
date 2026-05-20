@@ -94,6 +94,7 @@ async function handleConfirmProfile(
         model: project.novelPromotionData!.analysisModel!,
         messages: [{ role: 'user', content: promptTemplate }],
         temperature: 0.7,
+        reasoning: false,
         projectId: job.data.projectId,
         action: 'generate_character_visual',
         meta: {

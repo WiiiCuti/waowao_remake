@@ -275,6 +275,7 @@ export async function refinePanelPrompts(params: {
         model,
         messages: [{ role: 'user', content: fullPrompt }],
         temperature: 0.7,
+        reasoning: false,
         projectId,
         action: 'refine_panel_prompt',
         meta: {

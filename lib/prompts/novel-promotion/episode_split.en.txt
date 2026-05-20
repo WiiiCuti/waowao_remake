@@ -1,41 +1,96 @@
-You are a long-text episode splitter.
-Analyze the full text and split it into balanced episodes.
+You are a professional content analysis assistant. Please analyze the following text and intelligently split it into multiple episodes.
 
-Input text:
-{CONTENT}
+## ⚠️ Core Rule: Word Count Must Be Balanced (Most Important)
 
-Core rules:
-1. Keep episode lengths as balanced as possible.
-2. Prefer natural breakpoints (chapter boundary, scene shift, time jump).
-3. Keep chronology and full coverage (no overlap, no missing text).
-4. Provide reliable startMarker and endMarker copied from source text.
-5. Return JSON only.
-6. ⚠️ JSON SAFETY: All quotation marks in text (""''「」 etc.) MUST be converted to corner brackets「」in JSON string values. NEVER use raw ASCII double quotes " inside string values.
+**All episodes must have word counts as balanced as possible! Deviation must not exceed ±20%**
 
-Output format:
+### 📊 Step 1: Precise Calculation (Must Execute)
+
+1. Count total word count: count_total_characters(text)
+2. Calculate target episode count: total ÷ 650 = N episodes (rounded)
+3. Calculate target word count per episode: target = total ÷ N
+4. Determine allowed range: [target × 0.8, target × 1.2]
+
+**Example**:
+- Total 6500 words → 10 episodes → target 650 words per episode → range 520-780 words
+- Total 13000 words → 20 episodes → target 650 words per episode → range 520-780 words
+
+### 📐 Step 2: Balanced Splitting (Must Execute)
+
+❌ **Absolutely Prohibited**:
+- Any single episode exceeding target × 1.3 (e.g., if target is 650 words, must not exceed 845 words)
+- Any single episode below target × 0.6 (e.g., if target is 650 words, must not be below 390 words)
+- First few episodes very long, last few very short (or vice versa)
+
+✅ **Must Ensure**:
+- All episode word counts within ±20% of target
+- Gap between longest and shortest episode does not exceed 300 words
+- Word count distribution is uniform, no top-heavy or bottom-heavy distribution
+
+### 🎬 Step 3: Finding Split Points
+
+1. **Prioritize Identifying Natural Breakpoints**:
+   - Chapter markers: 「Episode X」「Chapter X」「Episode X」
+   - Scene numbers: X changing in `X-Y【Scene】` format (1-x → 2-x indicates new episode)
+   - Time jumps: 「The next day」「Three months later」
+
+2. **Fine-tune Near Natural Breakpoints**:
+   - If natural breakpoints cause uneven word counts, adjust at nearby paragraph boundaries
+   - Prefer splitting at dialogue endings and scene transitions
+   - Sacrifice some narrative continuity if needed to ensure word count balance
+
+## Input Text
+
+{{CONTENT}}
+
+## 📝 Output Format
+
+```json
 {
   "analysis": {
-    "totalWords": 0,
-    "episodeCount": 0,
-    "targetWordsPerEpisode": 0,
-    "allowedRange": "0-0"
+    "totalWords": 6500,
+    "episodeCount": 10,
+    "targetWordsPerEpisode": 650,
+    "allowedRange": "520-780"
   },
   "episodes": [
     {
       "number": 1,
-      "title": "Episode title",
-      "summary": "Short summary",
-      "estimatedWords": 0,
-      "startMarker": "exact start marker",
-      "endMarker": "exact end marker",
-      "startIndex": 0,
-      "endIndex": 0
+      "title": "Episode title (4-8 characters)",
+      "summary": "Plot summary within 50 characters",
+      "estimatedWords": 650,
+      "startMarker": "First 20 characters of the episode start (exact copy from source text)",
+      "endMarker": "Last 20 characters of the episode end (exact copy from source text)"
     }
   ],
   "validation": {
-    "maxWords": 0,
-    "minWords": 0,
-    "variance": 0,
+    "maxWords": 720,
+    "minWords": 590,
+    "variance": 130,
     "isBalanced": true
   }
 }
+```
+
+## ⚠️ Final Validation Checklist (Must Check Before Output)
+
+Before outputting, you must verify the following conditions:
+
+1. ☐ episodes.length ≈ totalWords ÷ 650 (error ± 1 episode)
+2. ☐ All estimatedWords are within the allowedRange
+3. ☐ maxWords - minWords ≤ 300 words
+4. ☐ No single episode exceeds 850 words
+5. ☐ No single episode is below 400 words
+6. ☐ Previous episode endMarker is immediately adjacent to next episode startMarker, no content omitted
+7. ☐ endMarker does not contain any content from the next episode
+
+**If validation fails, you must re-adjust split points until passing!**
+
+⚠️ JSON Safety: All quotation marks (""'' etc.) in JSON string values must be uniformly replaced with「」. Never allow unescaped English double quotes ". Return JSON only, no markdown code block markers.
+
+## 🔧 Scene Number Explanation
+
+- `X-Y【Scene Description】` format: X = episode number, Y = scene sequence number
+- 1-1, 1-2, 1-3 all belong to Episode 1
+- 2-1 begins Episode 2
+- Split episodes when X changes

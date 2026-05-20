@@ -1,19 +1,56 @@
-You are a professional character prompt designer.
-Generate one image-ready character appearance prompt from the user's request.
+Please follow the prompt rules below to execute the user's character generation request
+【Character Generation Requirements (for image generation, Chinese description)】
 
-User request:
-{user_input}
+1. Generate 1 detailed Chinese-language appearance description for AI image generation
 
-Requirements:
-1. Output one complete English appearance prompt.
-2. Include age range, facial traits, hairstyle, body build, outfit, shoes, and accessories.
-3. Keep it visual and concrete, no story narration.
-4. Do not include expression, action, background, or camera language.
-5. Do not mention skin color, eye color, or lip color.
-6. Keep it concise and production-ready.
+2. The description should highlight character features with detailed texture:
+   - Gender, age range (write specific age ranges, e.g., "approximately twenty-five years old", "forty to forty-five years old", "around fifty years old")
+   - Face: face shape, facial features (specific features such as high-bridged nose, deep-set eyes, thin lips, etc.)
+   - Eyes: shape, size (describing eye color is forbidden)
+   - Hair: color, length, hairstyle, texture (e.g., fluffy curls, silver-gray highlights, slightly curled ends, etc.)
+   - Body type: sense of height, posture, shoulder width, waistline, etc.
+   - Skin: describe only texture and unique markings (e.g., smooth/rough, freckles, birthmarks, scars, tattoos, etc.), describing skin tone is forbidden
+   - Clothing: style, material, color scheme, details (e.g., leather biker jacket, ripped jeans, metal zippers, embroidery patterns, etc.)
+   - Shoes: style, color, material (e.g., black Dr. Martens, white canvas shoes, brown leather Oxford shoes, red-soled high heels, embroidered cloth shoes, etc.)
+   - Accessories: earrings, necklaces, watches, rings, and other personality-defining accessories
 
-Output format:
-Return JSON only. ⚠️ JSON SAFETY: All quotation marks in text MUST be converted to corner brackets「」in JSON string values. NEVER use raw ASCII double quotes " inside string values:
+3. 【Character Type Determination】
+   - If the user describes a non-human character (animal, mythical creature, well-known IP character, etc.), it is not restricted by the above human appearance template
+   - The description must start with the character name or species name
+   - Describe freely based on actual form, preserving core identifying features
+
+    Examples:
+   - Input "Sun Wukong" → Output: "Sun Wukong, golden fur covering body, wearing a headband, dressed in tiger-skin battle kilt, holding the Ruyi Jingu Bang..."
+   - Input "a snail" → Output: "Snail, carrying a spiral hard shell, two feelers extending slender and long..."
+   - Input "Pikachu" → Output: "Pikachu, yellow round body, red cheeks, lightning-shaped tail, pointed ears with black tips..."
+
+4. Description standards:
+   - Forbidden: writing expressions, poses, actions
+   - Forbidden: writing background/environment/props
+   - Do not add emotional adjectives or narrative sentences
+   - 【Forbidden Body Color Descriptions】Describing the color of any body part is forbidden; AI will over-amplify color descriptions, causing distorted results:
+     ❌ Skin tone (e.g., yellowish, fair, wheat-toned, bronzed, dark, etc.)
+     ❌ Lip color (e.g., rosy, pink, pale, etc.)
+     ❌ Eye color (e.g., black, brown, blue pupils, etc.)
+     ❌ Facial color (e.g., ruddy, pale, sallow, etc.)
+     ✅ Allowed: skin texture (smooth/rough), unique markings (freckles/scars/tattoos), hair color, clothing color
+   - If the original text describes appearance, prioritize the original text (but color descriptions must still be filtered)
+   - Output in Chinese, length 80-150 characters
+   - Do not include art style, painting style, or lighting effect descriptions (added automatically by the system)
+   - 【Period Consistency】Determine the era based on story background (ancient/early modern/modern/futuristic, etc.); character clothing, hairstyles, and accessories must match the era's characteristics
+   - 【Forbidden Uncertain Descriptions】Forbidden to use uncertain words such as "or", "possibly", "maybe", "approximately"; each appearance feature must be explicit and specific
+     ❌ Wrong: "wearing rimless or gold-framed glasses", "height possibly around 1.7 meters"
+     ✅ Correct: "wearing thin gold-framed glasses", "tall stature approximately 1.75 meters"
+   - 【Forbidden Abstract Demeanor Descriptions】Forbidden to describe non-visualizable abstract demeanor, aura, expression, or feeling
+     ❌ Wrong: "exudes an air of wealth with every gesture", "powerful presence", "mature and steady aura"
+     ✅ Correct: describe only directly visible appearance features
+   - 【Shoes Required】Every complete character description must include a shoe description; do not omit
+
+
+Your goal is to generate a character prompt based on the user's request and the above rules
+Below is the user's generation instruction: {user_input}
+
+Send back in JSON format. Return only the following JSON format. Do not return any extraneous content other than JSON, including comments, text, etc. Return only pure JSON without any markdown identifiers. ⚠️ All quotation marks ("" '' ) in JSON string values must be uniformly replaced with 「」; unescaped English double quotes " are strictly forbidden. The JSON format is as follows:
 {
-  "prompt": "character appearance prompt"
+  "prompt":"xxxxx"
 }

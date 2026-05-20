@@ -1,33 +1,55 @@
-You are a scene variant regenerator.
-Generate 3 new scene description variants for the same location.
+You are a "Scene Reshaper". Based on the current scene description, regenerate 3 entirely new scene description variants for the specified location.
 
-Location name:
-{location_name}
-
-Current descriptions (reference):
+【Scene Info】
+- Scene name: {location_name}
+- Current descriptions (for reference only; generate different variants):
 {current_descriptions}
 
-Requirements:
-1. Generate 3 clearly different but same-location variants.
-2. Keep the scene name prefix in each line: "[{location_name}] ..."
-3. Output in English only.
-4. Keep environment-only description (no protagonist actions).
-5. Keep each variant specific enough for controllable image generation, with visible structure, depth, and stable anchors.
-6. Also generate 2-6 shared `available_slots` for this location.
-7. Each `available_slots` item must be one complete descriptive placement phrase, not a short token and not an object.
-8. Do not mention posture, action, or emotion in `available_slots`.
-9. Every anchor mentioned in `available_slots` must remain valid across all three regenerated descriptions.
+【Generation Requirements】
+1. **The scene name must be explicitly written at the beginning of each description**:
+   - Each description must begin with the format「{location_name}」to label the spatial attribute
+   - Example: 「Palace」the hall floor is laid with... / 「Living Room」sunlight streams through the window...
+   - This ensures the AI clearly understands what type of space this is when generating images
 
-Output format:
-Return JSON only. ⚠️ JSON SAFETY: All quotation marks MUST be converted to corner brackets「」in JSON string values:
+2. Based on the core elements of the current descriptions, generate 3 distinct and uniquely different scene description variants
+3. Must differ clearly from current descriptions (change atmosphere / layout / details), while preserving the scene's core characteristics
+4. The description content should include:
+   - Spatial structure: overall layout, spatial scale, sense of depth and layering
+   - Architecture/terrain: architectural style, terrain features, major structures
+   - Light and atmosphere: light source type, light-dark contrast, color tone tendency
+   - Material details: material texture of floors, walls, and objects
+   - Environmental elements: plants, weather, decorative items, etc.
+   - Unique identifiers: the scene's signature elements or special objects
+   - At least 3 stable anchor points or zones for later character placement
+   - Empty space around each anchor point where characters can be placed
+
+5. Description specifications:
+   - Do not write specific protagonist actions or plot
+   - 【Crowd handling rules】If the current description contains crowd elements, the new descriptions should also maintain crowd elements
+     * You may adjust the crowd's location, density, and state, but keep people present
+     * Use vague terms for crowds: "crowd", "guests", "passersby", etc.
+   - Output in English, length 80-150 words
+   - Do not include art style or painting style descriptions (system adds automatically)
+   - 【Era consistency】Infer the era from scene characteristics; architecture, decorations, and objects must match that era
+   - 【Time consistency】If the scene name contains "day/night/dusk" etc., the lighting in the description must match
+
+6. Additionally output 2-6 fixed stand positions:
+   - Must be consistent with the scene's shared composition
+   - Each position must be a complete location description phrase, not a short word, not an object
+   - Must anchor to a clearly defined scene object or zone
+   - No abstract positions
+   - Do not write character posture, action, or emotion
+   - Any anchor mentioned in a position must be valid across all three descriptions
+
+【Output format】Return only the following JSON, nothing else. ⚠️ All quotation marks (" " ' ' etc.) in JSON string values must be replaced with corner brackets「」. Unescaped English double quotes " are strictly forbidden.
 {
   "descriptions": [
-    "[{location_name}] variant 1",
-    "[{location_name}] variant 2",
-    "[{location_name}] variant 3"
+    "「Scene Name」New description 1 (80-150 words)",
+    "「Scene Name」New description 2 (80-150 words)",
+    "「Scene Name」New description 3 (80-150 words)"
   ],
   "available_slots": [
-    "the position beneath the throne steps at the center of the hall",
-    "the position against the inner wall beside the rear doorway"
+    "The position at the foot of the steps in front of the dragon throne at the center of the palace",
+    "The position against the inner wall beside the rear hall doorway on the right"
   ]
 }
