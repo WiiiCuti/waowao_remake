@@ -299,6 +299,10 @@ function mergePanelsWithRules(params: {
       photographyPlan: {
         composition: rule.composition,
         lighting: rule.lighting,
+        color_tone: rule.color_tone,
+        depth_of_field: rule.depth_of_field,
+        characters: rule.characters,
+        scene_summary: rule.scene_summary,
         colorPalette: rule.color_palette,
         atmosphere: rule.atmosphere,
         technicalNotes: rule.technical_notes,

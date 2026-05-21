@@ -9,6 +9,7 @@ import { logError as _ulogError } from '@/lib/logging/core'
  * 🔥 V6.6 重构：内部使用 mutation hooks，移除 onGenerateImage prop
  */
 
+import pLimit from 'p-limit'
 import { useState, useCallback, useMemo, useEffect } from 'react'
 import { useTranslations } from 'next-intl'
 import { CharacterAppearance } from '@/types/project'
@@ -199,9 +200,10 @@ export function useBatchGeneration({
             return next
         })
 
+        const limit = pLimit(1)
         try {
             await Promise.all(
-                tasks.map(async (task) => {
+                tasks.map((task) => limit(async () => {
                     let submitted = false
                     try {
                         await handleGenerateImage(
@@ -216,20 +218,22 @@ export function useBatchGeneration({
                         _ulogError(`Failed to generate ${task.type} ${task.id}:`, error)
                         setBatchProgress(prev => ({ ...prev, current: prev.current + 1 }))
                     } finally {
-                        if (submitted) return
-                        setPendingRegenerationKeys(prev => {
-                            const next = new Set(prev)
-                            next.delete(task.key)
-                            return next
-                        })
-                        setPendingRegenerationBaselines(prev => {
-                            if (!prev.has(task.key)) return prev
-                            const next = new Map(prev)
-                            next.delete(task.key)
-                            return next
-                        })
+                        if (!submitted) {
+                            setPendingRegenerationKeys(prev => {
+                                const next = new Set(prev)
+                                next.delete(task.key)
+                                return next
+                            })
+                            setPendingRegenerationBaselines(prev => {
+                                if (!prev.has(task.key)) return prev
+                                const next = new Map(prev)
+                                next.delete(task.key)
+                                return next
+                            })
+                        }
                     }
-                })
+                    await new Promise(r => setTimeout(r, 2000))
+                }))
             )
         } finally {
             setIsBatchSubmittingAll(false)
@@ -292,9 +296,10 @@ export function useBatchGeneration({
             return next
         })
 
+        const limit = pLimit(1)
         try {
             await Promise.all(
-                tasks.map(async (task) => {
+                tasks.map((task) => limit(async () => {
                     let submitted = false
                     try {
                         await handleGenerateImage(
@@ -309,20 +314,22 @@ export function useBatchGeneration({
                         _ulogError(`Failed to generate ${task.type} ${task.id}:`, error)
                         setBatchProgress(prev => ({ ...prev, current: prev.current + 1 }))
                     } finally {
-                        if (submitted) return
-                        setPendingRegenerationKeys(prev => {
-                            const next = new Set(prev)
-                            next.delete(task.key)
-                            return next
-                        })
-                        setPendingRegenerationBaselines(prev => {
-                            if (!prev.has(task.key)) return prev
-                            const next = new Map(prev)
-                            next.delete(task.key)
-                            return next
-                        })
+                        if (!submitted) {
+                            setPendingRegenerationKeys(prev => {
+                                const next = new Set(prev)
+                                next.delete(task.key)
+                                return next
+                            })
+                            setPendingRegenerationBaselines(prev => {
+                                if (!prev.has(task.key)) return prev
+                                const next = new Map(prev)
+                                next.delete(task.key)
+                                return next
+                            })
+                        }
                     }
-                })
+                    await new Promise(r => setTimeout(r, 2000))
+                }))
             )
         } finally {
             setIsBatchSubmittingAll(false)

@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import pLimit from 'p-limit'
 import { prisma } from '@/lib/prisma'
 import { requireProjectAuthLight, isErrorResponse } from '@/lib/api-auth'
 import { apiHandler, ApiError, getRequestId } from '@/lib/api-errors'
@@ -249,8 +250,9 @@ export const POST = apiHandler(async (
     })
   }
 
+  const limit = pLimit(5)
   const results = await Promise.all(
-    voiceLines.map(async (line) => {
+    voiceLines.map((line) => limit(async () => {
       const payload = {
         episodeId,
         lineId: line.id,
@@ -258,7 +260,7 @@ export const POST = apiHandler(async (
         audioModel: selectedResolvedAudioModel.modelKey}
       const result = await submitTask({
         userId: session.user.id,
-    locale,
+        locale,
         requestId: getRequestId(request),
         projectId,
         episodeId,
@@ -270,10 +272,8 @@ export const POST = apiHandler(async (
         dedupeKey: `voice_line:${line.id}`,
         billingInfo: buildDefaultTaskBillingInfo(TASK_TYPE.VOICE_LINE, payload)})
 
-      return {
-        lineId: line.id,
-        taskId: result.taskId}
-    }),
+      return { lineId: line.id, taskId: result.taskId }
+    })),
   )
 
   if (all) {

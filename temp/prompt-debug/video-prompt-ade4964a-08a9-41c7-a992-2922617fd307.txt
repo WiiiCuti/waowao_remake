@@ -1,0 +1,1 @@
+Camera tilts down smoothly to maintain the frame on Kopo's accelerating descent into the valley.

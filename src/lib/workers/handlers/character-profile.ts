@@ -236,8 +236,23 @@ async function handleBatchConfirmProfile(job: Job<TaskJobData>) {
       message: `${index + 1}/${totalCount} ${character.name}`,
       meta: { characterId: character.id, index: index + 1, total: totalCount },
     })
-    await handleConfirmProfile(job, { characterId: character.id }, { suppressProgress: true })
-    successCount += 1
+    try {
+      await handleConfirmProfile(job, { characterId: character.id }, { suppressProgress: true })
+      successCount += 1
+    } catch (err) {
+      const errMsg = err instanceof Error ? err.message : String(err)
+      await reportTaskProgress(job, progress, {
+        stage: 'character_profile_batch_loop_character',
+        stageLabel: '批量角色档案确认中',
+        displayMode: 'detail',
+        message: `${character.name} 确认失败: ${errMsg}，跳过`,
+        meta: { characterId: character.id, index: index + 1, total: totalCount, error: errMsg },
+      })
+    }
+    // Delay giữa các request để tránh rate limit
+    if (index < unconfirmedCharacters.length - 1) {
+      await new Promise(resolve => setTimeout(resolve, 1500))
+    }
   }
 
   await reportTaskProgress(job, 96, {

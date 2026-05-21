@@ -1,0 +1,1 @@
+Camera tracks sideways smoothly, following the rolling spiky ball's rapid path down the slope.

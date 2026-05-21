@@ -1,5 +1,6 @@
 import { safeParseJson, safeParseJsonArray } from '@/lib/json-repair'
 import { prisma } from '@/lib/prisma'
+import { syncPanelCharacters } from './image-task-handler-shared'
 import type { StoryboardPanel } from '@/lib/storyboard-phases'
 
 export type JsonRecord = Record<string, unknown>
@@ -227,6 +228,22 @@ export async function persistStoryboardOutputs(params: {
   clipPanels: ClipPanelsResult[]
   voiceLineRows: JsonRecord[] | null
 }) {
+  // Get character names for syncing panel characters
+  const episode = await prisma.novelPromotionEpisode.findUnique({
+    where: { id: params.episodeId },
+    select: { novelPromotionProjectId: true },
+  })
+  let allCharacterNames: string[] = []
+  if (episode) {
+    const project = await prisma.novelPromotionProject.findUnique({
+      where: { projectId: episode.novelPromotionProjectId },
+      select: { characters: { select: { name: true } } },
+    })
+    if (project) {
+      allCharacterNames = project.characters.map((c: { name: string }) => c.name)
+    }
+  }
+
   const persistedStoryboards = await prisma.$transaction(async (tx) => {
     const persisted: PersistedStoryboard[] = []
     const panelIdByStoryboardRef = new Map<string, string>()
@@ -277,6 +294,13 @@ export async function persistStoryboardOutputs(params: {
       const persistedPanels: PersistedStoryboard['panels'] = []
       for (let i = 0; i < clipEntry.finalPanels.length; i += 1) {
         const panel = clipEntry.finalPanels[i]
+        const syncedCharacters = panel.characters
+          ? syncPanelCharacters({
+              characters: panel.characters,
+              description: panel.description || null,
+              allCharacterNames,
+            })
+          : null
         const created = await panelModel.create({
           data: {
             storyboardId: storyboard.id,
@@ -287,7 +311,7 @@ export async function persistStoryboardOutputs(params: {
             description: panel.description || null,
             videoPrompt: panel.video_prompt || null,
             location: panel.location || null,
-            characters: panel.characters ? JSON.stringify(panel.characters) : null,
+            characters: syncedCharacters ? JSON.stringify(syncedCharacters) : null,
             props: panel.props ? JSON.stringify(panel.props) : null,
             srtSegment: panel.source_text || null,
             photographyRules: panel.photographyPlan ? JSON.stringify(panel.photographyPlan) : null,

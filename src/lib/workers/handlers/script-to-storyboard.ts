@@ -219,6 +219,11 @@ export async function handleScriptToStoryboardTask(job: Job<TaskJobData>) {
 
     const stepTemperature = meta.stepId.includes('phase1') ? 0.5 : temperature
 
+    // Stagger delay cho parallel steps để tránh rate limit
+    if (meta.parallelKey && (!meta.stepAttempt || meta.stepAttempt <= 1)) {
+      await new Promise(resolve => setTimeout(resolve, 300 + Math.floor(Math.random() * 200)))
+    }
+
     const output = await executeAiTextStep({
       userId: job.data.userId,
       model,

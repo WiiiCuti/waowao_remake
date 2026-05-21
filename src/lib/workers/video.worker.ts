@@ -444,6 +444,7 @@ async function processVideoTask(job: Job<TaskJobData>) {
     case TASK_TYPE.LIP_SYNC:
       return await handleLipSyncTask(job)
     case TASK_TYPE.MERGE_VIDEO:
+    case 'merge_video':
       return await handleMergeVideoTask(job)
     default:
       throw new Error(`Unsupported video task type: ${job.data.type}`)

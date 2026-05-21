@@ -262,3 +262,41 @@ export async function collectPanelReferenceImages(projectData: NovelProjectData,
 
   return refs
 }
+
+export function syncPanelCharacters(params: {
+  characters: unknown        // raw array từ LLM output
+  description: string | null // panel.description
+  allCharacterNames: string[] // tên từ DB
+}): unknown[] {
+  const refs = Array.isArray(params.characters) ? params.characters : []
+  const desc = (params.description || '').toLowerCase()
+
+  // Xoá thừa: giữ lại nhân vật có tên trong description, dedup theo name
+  const seenNames = new Set<string>()
+  const kept: unknown[] = []
+  for (const ref of refs) {
+    const name = typeof ref === 'string' ? ref : (ref as Record<string, unknown>)?.name
+    if (typeof name !== 'string') continue
+    const lower = name.toLowerCase()
+    if (seenNames.has(lower)) continue
+    seenNames.add(lower)
+    if (desc.includes(lower)) {
+      kept.push(ref)
+    }
+  }
+
+  const missingNames = params.allCharacterNames.filter(name => {
+    const lower = name.toLowerCase()
+    return desc.includes(lower) && !seenNames.has(lower)
+  })
+
+  const useObjectFormat = kept.some((ref: unknown) => typeof ref === 'object')
+  const missing = missingNames.map(name => {
+    if (useObjectFormat) {
+      return { name }
+    }
+    return name
+  })
+
+  return [...kept, ...missing]
+}

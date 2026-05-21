@@ -55,10 +55,15 @@ export default function PromptRefinerTab({
     return result
   }, [storyboards])
 
-  const initialDoneCount = useMemo(() =>
-    storyboards.reduce((acc, sb) => acc + (sb.panels || []).filter((p) => p.imagePrompt).length, 0),
-    [storyboards],
-  )
+  const unrefinedPanels = useMemo(() => {
+    const ids = new Set<string>()
+    for (const sb of storyboards) {
+      for (const p of sb.panels || []) {
+        if (!p.imagePrompt) ids.add(p.id)
+      }
+    }
+    return ids
+  }, [storyboards])
 
   const doneCount = useMemo(() => {
     let count = 0
@@ -77,11 +82,19 @@ export default function PromptRefinerTab({
   )
 
   const refineMutation = useMutation({
-    mutationFn: async () => {
+    mutationFn: async (target: { panelId?: string }) => {
+      const body: Record<string, unknown> = { episodeId }
+      if (target.panelId) {
+        body.panelIds = [target.panelId]
+      } else {
+        const unrefined = Array.from(unrefinedPanels)
+        if (unrefined.length === 0) return { results: [] }
+        body.panelIds = unrefined
+      }
       const res = await apiFetch(`/api/novel-promotion/${projectId}/refine-prompts`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ episodeId }),
+        body: JSON.stringify(body),
       })
       if (!res.ok) {
         const errBody = await res.json().catch(() => null)
@@ -91,12 +104,21 @@ export default function PromptRefinerTab({
         panelId: string; status: string; imagePrompt?: string; videoPrompt?: string; error?: string
       }> }>
     },
-    onMutate: () => {
-      setPanelErrors({})
-      setPanelPrompts({})
-      const next: Record<string, PanelStatus> = {}
-      for (const p of allPanels) next[p.id] = 'refining'
-      setPanelStatuses(next)
+    onMutate: (target) => {
+      setPanelErrors((prev) => {
+        if (target.panelId) { const { [target.panelId]: _, ...rest } = prev; return rest }
+        return {}
+      })
+      setPanelPrompts((prev) => {
+        if (target.panelId) { const { [target.panelId]: _, ...rest } = prev; return rest }
+        return {}
+      })
+      setPanelStatuses((prev) => {
+        const next = { ...prev }
+        const ids = target.panelId ? [target.panelId] : Array.from(unrefinedPanels)
+        for (const id of ids) next[id] = 'refining'
+        return next
+      })
     },
     onSuccess: (data) => {
       const newPrompts: Record<string, { imagePrompt: string; videoPrompt: string }> = {}
@@ -114,18 +136,20 @@ export default function PromptRefinerTab({
       setPanelPrompts(newPrompts)
       queryClient.invalidateQueries({ queryKey: queryKeys.storyboards.all(episodeId) })
     },
-    onError: (err: Error) => {
+    onError: (err: Error, target) => {
       setPanelStatuses((prev) => {
         const next = { ...prev }
-        for (const p of allPanels) {
-          if (next[p.id] === 'refining') next[p.id] = 'error'
+        const ids = target.panelId ? [target.panelId] : allPanels.map((p) => p.id)
+        for (const id of ids) {
+          if (next[id] === 'refining') next[id] = 'error'
         }
         return next
       })
       setPanelErrors((prev) => {
         const next = { ...prev }
-        for (const p of allPanels) {
-          if (!next[p.id]) next[p.id] = err.message
+        const ids = target.panelId ? [target.panelId] : allPanels.map((p) => p.id)
+        for (const id of ids) {
+          if (!next[id]) next[id] = err.message
         }
         return next
       })
@@ -133,6 +157,9 @@ export default function PromptRefinerTab({
   })
 
   const isRefining = Object.values(panelStatuses).some((s) => s === 'refining')
+  const remainingCount = unrefinedPanels.size - (
+    doneCount - (totalCount - unrefinedPanels.size)
+  )
 
   return (
     <div className="space-y-4">
@@ -145,23 +172,38 @@ export default function PromptRefinerTab({
             {doneCount}/{totalCount} panels refined
           </p>
         </div>
-        <GlassButton
-          onClick={() => refineMutation.mutate()}
-          disabled={isRefining || totalCount === 0}
-          className="flex items-center gap-2"
-        >
-          {isRefining ? (
-            <>
-              <span className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
-              Refining...
-            </>
-          ) : (
-            <>
-              <AppIcon name="sparklesAlt" className="h-4 w-4" />
-              Refine All
-            </>
-          )}
-        </GlassButton>
+        <div className="flex gap-2">
+          <button
+            onClick={() => {
+              setPanelStatuses({})
+              setPanelErrors({})
+              setPanelPrompts({})
+              queryClient.invalidateQueries({ queryKey: queryKeys.storyboards.all(episodeId) })
+            }}
+            disabled={isRefining}
+            className="px-3 py-2 rounded-lg border border-[var(--glass-stroke-base)] text-xs text-[var(--glass-text-secondary)] hover:bg-[var(--glass-bg-muted)] disabled:opacity-30"
+            title="Reload from database"
+          >
+            Reload
+          </button>
+          <GlassButton
+            onClick={() => refineMutation.mutate({})}
+            disabled={isRefining || unrefinedPanels.size === 0}
+            className="flex items-center gap-2"
+          >
+            {isRefining ? (
+              <>
+                <span className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
+                Refining...
+              </>
+            ) : (
+              <>
+                <AppIcon name="sparklesAlt" className="h-4 w-4" />
+                Refine All{unrefinedPanels.size > 0 ? ` (${unrefinedPanels.size})` : ''}
+              </>
+            )}
+          </GlassButton>
+        </div>
       </div>
 
       <div className="space-y-3">
@@ -208,6 +250,15 @@ export default function PromptRefinerTab({
                         {status === 'idle' && (
                           <GlassChip tone="neutral" className="text-xs">Not refined</GlassChip>
                         )}
+                        {status !== 'refining' && (
+                          <button
+                            onClick={() => refineMutation.mutate({ panelId: panel.id })}
+                            disabled={isRefining}
+                            className="ml-auto text-xs text-[var(--glass-accent-from)] hover:underline disabled:opacity-30"
+                          >
+                            {status === 'done' ? 'Re-refine' : 'Refine'}
+                          </button>
+                        )}
                       </div>
 
                       {errorMsg && (
@@ -223,7 +274,7 @@ export default function PromptRefinerTab({
                               const prompt = livePrompt?.imagePrompt || panel.imagePrompt
                               if (prompt) return prompt
                               if (status === 'done' || status === 'refining') return <span className="italic opacity-50">Refined prompt appears here...</span>
-                              return <span className="italic opacity-50">Click Refine All to generate</span>
+                              return <span className="italic opacity-50">Click Refine to generate</span>
                             })()}
                           </pre>
                         </div>
@@ -235,7 +286,7 @@ export default function PromptRefinerTab({
                               const prompt = livePrompt?.videoPrompt || panel.videoPrompt
                               if (prompt) return prompt
                               if (status === 'done' || status === 'refining') return <span className="italic opacity-50">Refined prompt appears here...</span>
-                              return <span className="italic opacity-50">Click Refine All to generate</span>
+                              return <span className="italic opacity-50">Click Refine to generate</span>
                             })()}
                           </pre>
                         </div>

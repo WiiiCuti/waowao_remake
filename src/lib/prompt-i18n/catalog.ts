@@ -147,13 +147,7 @@ export const PROMPT_CATALOG: Record<PromptId, PromptCatalogEntry> = {
   },
   [PROMPT_IDS.NP_PROMPT_REFINER]: {
     pathStem: 'novel-promotion/prompt_refiner',
-    variableKeys: [
-      'current_panel_json',
-      'previous_panel_json',
-      'character_resources_json',
-      'location_resource_json',
-      'style',
-    ],
+    variableKeys: ['panels_batch_json'],
   },
   [PROMPT_IDS.NP_STORYBOARD_EDIT]: {
     pathStem: 'novel-promotion/storyboard_edit',
