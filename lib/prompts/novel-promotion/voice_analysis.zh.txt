@@ -26,7 +26,7 @@
    
    ✅ 对于**完全没有角色对话**的分镜，你**必须**生成一条旁白记录：
    - "speaker" 必须设置为 "Narrator"
-   - "content" 设置为该分镜的 text_segment 或 description 内容
+    - "content" 设置为该分镜的 text_segment（即原始小说文本）
    - "isNarration" 必须设置为 true
    - "emotionStrength" 建议设为 0.1（平静）
 

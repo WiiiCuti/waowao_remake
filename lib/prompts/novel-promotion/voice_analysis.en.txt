@@ -26,7 +26,7 @@ Analysis Rules:
 
    ✅ For panels with **no character dialogue at all**, you **MUST** generate one narration record:
    - "speaker" must be set to "Narrator"
-   - "content" set to the panel's text_segment or description content
+    - "content" set to the panel's text_segment (the original novel text)
    - "isNarration" must be set to true
    - "emotionStrength" recommended as 0.1 (calm)
 

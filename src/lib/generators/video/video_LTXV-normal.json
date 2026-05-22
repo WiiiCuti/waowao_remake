@@ -104,8 +104,8 @@
   "107": {
     "inputs": {
       "frame_rate": [
-        "129",
-        0
+        "263",
+        1
       ],
       "positive": [
         "121",
@@ -203,7 +203,7 @@
   },
   "114": {
     "inputs": {
-      "noise_seed": 432107274313383
+      "noise_seed": 631763601591686
     },
     "class_type": "RandomNoise",
     "_meta": {
@@ -212,7 +212,7 @@
   },
   "115": {
     "inputs": {
-      "noise_seed": 205844219176523
+      "noise_seed": 315678083981359
     },
     "class_type": "RandomNoise",
     "_meta": {
@@ -304,15 +304,6 @@
       "title": "CFGGuider"
     }
   },
-  "129": {
-    "inputs": {
-      "value": 24
-    },
-    "class_type": "PrimitiveFloat",
-    "_meta": {
-      "title": "Frame Rate(float)"
-    }
-  },
   "135": {
     "inputs": {
       "sampler_name": "euler_ancestral"
@@ -345,8 +336,8 @@
   "161": {
     "inputs": {
       "frame_rate": [
-        "129",
-        0
+        "263",
+        1
       ],
       "loop_count": 0,
       "filename_prefix": "LTXV 2.3 v 1.1 t 2 v",
@@ -405,7 +396,7 @@
   },
   "200": {
     "inputs": {
-      "value": "While scrolling on his phone, his body was suddenly lifted off the bed.\nA beam of light burst from the phone and sucked him inside."
+      "value": "Camera slowly cranes up from the edge of the slope, revealing the overwhelming grand scale of the frozen environment around the small central figure."
     },
     "class_type": "PrimitiveStringMultiline",
     "_meta": {
@@ -414,7 +405,7 @@
   },
   "201": {
     "inputs": {
-      "value": 1920
+      "value": 1536
     },
     "class_type": "easy int",
     "_meta": {
@@ -423,7 +414,7 @@
   },
   "202": {
     "inputs": {
-      "value": 1080
+      "value": 864
     },
     "class_type": "easy int",
     "_meta": {
@@ -432,7 +423,7 @@
   },
   "203": {
     "inputs": {
-      "value": 49
+      "value": 65
     },
     "class_type": "INTConstant",
     "_meta": {
@@ -451,7 +442,7 @@
   },
   "210": {
     "inputs": {
-      "image": "ChatGPT Image 14_13_13 3 thg 5, 2026.png"
+      "image": "m_679066e86bf5d859b779fe5dd5a281eb2e0c89b5.png"
     },
     "class_type": "LoadImage",
     "_meta": {
@@ -491,7 +482,7 @@
   },
   "213": {
     "inputs": {
-      "value": 24
+      "value": 16
     },
     "class_type": "INTConstant",
     "_meta": {
@@ -561,7 +552,7 @@
         0
       ],
       "frame_rate": [
-        "213",
+        "263",
         0
       ],
       "batch_size": 1,
@@ -654,7 +645,7 @@
   "248": {
     "inputs": {
       "upscale_method": "nearest-exact",
-      "scale_by": 0.5,
+      "scale_by": 1,
       "image": [
         "210",
         0
@@ -690,6 +681,19 @@
     "class_type": "easy mathInt",
     "_meta": {
       "title": "math_toal_frame"
+    }
+  },
+  "263": {
+    "inputs": {
+      "expression": "a",
+      "a": [
+        "213",
+        0
+      ]
+    },
+    "class_type": "MathExpression|pysssss",
+    "_meta": {
+      "title": "Math Expression 🐍"
     }
   }
 }
