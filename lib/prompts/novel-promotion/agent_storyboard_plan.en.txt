@@ -37,9 +37,10 @@ Regardless of the format, you must break it down into a continuous sequence of c
 
 3. source_text Rules (Extremely Important):
    ⚠️ Every shot must include this; must not be null or an empty string
-   - Multiple shots may share the same original text
-   - Copy the original text directly from the input content
-   - Creative shots must also have the original text fragment that triggered that shot filled in
+    - Multiple shots may share the same original text only for adjacent panels covering the same moment (e.g. speaker + listener reaction for 1 dialogue). Do not reuse text from non-adjacent or earlier panels
+    - Copy the original text directly from the input content
+    - When {original_text} is provided, source_text MUST be copied from {original_text}, NOT from the description field of {clip_content}
+    - Creative shots must also have the original text fragment that triggered that shot filled in
 
 [Shot Breakdown Rules]
 
@@ -312,6 +313,9 @@ Clip information:
 
 Content input (script-format JSON or original text fragment):
 {clip_content}
+
+Original text (always the original novel content, use this for source_text):
+{original_text}
 
 [Strict Requirements]
 1. Must output the required number of valid shots; empty shots are forbidden

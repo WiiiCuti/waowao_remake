@@ -216,33 +216,11 @@ export async function handleClipsBuildTask(job: Job<TaskJobData>) {
   })
   await assertTaskActive(job, 'clips_build_persist')
 
-  const existingClips = await clipModel.findMany({
+  await clipModel.deleteMany({
     where: { episodeId },
-    orderBy: { createdAt: 'asc' },
-    select: { id: true },
   })
   const createdClips: Array<{ id: string }> = []
-  for (let i = 0; i < resolvedClips.length; i += 1) {
-    const clipData = resolvedClips[i]
-    const existing = existingClips[i]
-    if (existing) {
-      const updated = await clipModel.update({
-        where: { id: existing.id },
-        data: {
-          startText: clipData.startText,
-          endText: clipData.endText,
-          summary: clipData.summary,
-          location: clipData.location,
-          characters: clipData.characters ? JSON.stringify(clipData.characters) : null,
-          props: clipData.props ? JSON.stringify(clipData.props) : null,
-          content: clipData.content,
-        },
-        select: { id: true },
-      })
-      createdClips.push(updated)
-      continue
-    }
-
+  for (const clipData of resolvedClips) {
     const created = await clipModel.create({
       data: {
         episodeId,
@@ -257,17 +235,6 @@ export async function handleClipsBuildTask(job: Job<TaskJobData>) {
       select: { id: true },
     })
     createdClips.push(created)
-  }
-
-  const staleIds = existingClips.slice(resolvedClips.length).map((item) => item.id)
-  if (staleIds.length > 0) {
-    await clipModel.deleteMany({
-      where: {
-        id: {
-          in: staleIds,
-        },
-      },
-    })
   }
 
   await reportTaskProgress(job, 96, {

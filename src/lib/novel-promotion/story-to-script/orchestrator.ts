@@ -38,6 +38,8 @@ export type StoryToScriptClipCandidate = {
   content: string
   matchLevel: ClipMatchLevel
   matchConfidence: number
+  startIndex: number
+  endIndex: number
 }
 
 export type StoryToScriptScreenplayResult = {
@@ -472,6 +474,8 @@ export async function runStoryToScriptOrchestrator(
         content: content.slice(match.startIndex, match.endIndex),
         matchLevel: match.level,
         matchConfidence: match.confidence,
+        startIndex: match.startIndex,
+        endIndex: match.endIndex,
       })
       searchFrom = match.endIndex
     }
@@ -479,13 +483,18 @@ export async function runStoryToScriptOrchestrator(
     if (!failedAt) {
       splitStep = output
       clipList = nextClipList
+        .sort((a, b) => a.startIndex - b.startIndex)
+        .map((clip, idx) => ({
+          ...clip,
+          id: `clip_${idx + 1}`,
+        }))
       const levelCount: Record<ClipMatchLevel, number> = { L1: 0, L2: 0, L3: 0 }
-      for (const clip of nextClipList) {
+      for (const clip of clipList) {
         levelCount[clip.matchLevel] += 1
       }
       onLog?.('片段边界匹配成功', {
         attempt,
-        clipCount: nextClipList.length,
+        clipCount: clipList.length,
         levelCount,
       })
       break

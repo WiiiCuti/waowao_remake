@@ -21,8 +21,8 @@ export async function uploadBase64ToCos(base64: string, format: string): Promise
 type AspectRatio = '16:9' | '9:16' | '1:1' | '3:2' | '2:3' | '4:3' | '3:4' | '5:4' | '4:5' | '21:9'
 
 const ASPECT_RATIO_DIMENSIONS: Record<string, { width: number; height: number }> = {
-  '16:9': { width: 1280, height: 704 },
-  '9:16': { width: 704, height: 1280 },
+  '16:9': { width: 1217, height: 673 },
+  '9:16': { width: 673, height: 1217 },
   '1:1': { width: 1024, height: 1024 },
   '3:2': { width: 1200, height: 800 },
   '2:3': { width: 800, height: 1200 },

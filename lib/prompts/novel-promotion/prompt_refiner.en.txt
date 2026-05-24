@@ -52,6 +52,7 @@ Requirements:
 - Use ALL data from photographyRules (lighting, color_tone, depth_of_field)
 - Use data from location description
 - If any field is missing → infer reasonably from context, DO NOT LEAVE BLANK
+- ⚠️ Describe ONLY what is VISIBLE in the frame. Do NOT include audio, off-screen sounds, dialogue, or speech. These belong in srtSegment for TTS
 
 ---
 
@@ -81,19 +82,51 @@ FIRST panel in batch (previous = null):
 Each panel has an existingVideoPrompt from Phase 3 (may be empty).
 Task: ENRICH (add richness), DO NOT rewrite from scratch.
 
+Output format — follow this EXACT structure. Each panel's video_prompt may contain one or more 分镜 lines based on duration:
+
+```
+[场景] <scene and environment description from current.description and location>
+[角色] <character 1 name>: <species + age + gender + appearance/clothing from character.description>. <character 2 name>: <same for second character>.
+分镜 1 (<shotType>, <duration_seconds>s) <camera_move>. <character name performs action/motion>.
+```
+
+Number of 分镜 lines per video_prompt is determined by duration:
+- duration ≤ 3s → 1 shot
+- duration 4-5s → 2 shots (split action across 2 angles)
+- duration 6-8s → 3 shots
+- duration > 8s → 4+ shots
+
+Number 分镜 starting from 1 within each video_prompt entry.
+
+Example for a panel with 2 shots (5s duration):
+```
+[场景] Snow-covered amusement park central plaza with a giant ice-covered Ferris wheel towering at center, bright daylight, festive atmosphere.
+[角色] Kopo: penguin young man in blue work shirt, orange safety goggles on forehead, dark blue multi-pocket cargo pants. Sonic: blue hedgehog youth boy in yellow hard hat, blue vest, white gloves.
+分镜 1 (Medium Shot, 3s) Camera gently tracks. Sonic looks up laughing heartily, speaking loudly, hands gesturing.
+分镜 2 (Close-Up, 2s) Camera pushes in. Kopo stands on hoverboard, head cocks slightly, fingers loosen around the wrench as he listens.
+```
+
+Key rules:
+1. [角色] defines each character ONCE with FULL species + age + gender + appearance/clothing from character.description (e.g. "penguin young man in blue work shirt, orange safety goggles on forehead, dark blue multi-pocket cargo pants"). Do NOT abbreviate — use full description from source data
+2. After [角色] definition, use only the character's NAME in 分镜 lines — the model already knows who they are
+3. The [场景] section describes the FULL environment from current.description and location data in detail — do not summarize or abbreviate
+4. Each 分镜 line uses: shot number (starting from 1), shotType from current.shotType, duration split evenly across multiple shots, camera_move from current.cameraMove, action from current.acting and source_text context
+5. DO NOT include dialogue or speech in 分镜 lines — dialogue belongs in srtSegment for TTS only. Quoted text may cause models to render subtitles on screen
+6. If existingVideoPrompt exists, enrich it to match this format — add missing [场景] and [角色] sections with full detail, add species info, split into correct number of 分镜 lines based on duration
+
 If existingVideoPrompt is NOT empty:
-  1. KEEP all main content of existingVideoPrompt
-  2. Add: more detailed camera movement if missing, more specific character actions if vague
-  3. Use age + gender instead of character names (e.g. "young woman", "middle-aged man")
+  1. KEEP all main content
+  2. RESTRUCTURE to match the format above if it doesn't already
+  3. ENRICH: add missing species from character.description, complete camera movement, specific actions
   4. ABSOLUTELY DO NOT re-describe the static scene already in image_prompt
   5. Always have a "motion" element — no static descriptions
 
 If existingVideoPrompt IS EMPTY → generate from scratch:
-  - duration ≤ 2s: micro-motion (blink, breathe, lip quiver)
+  - duration ≤ 2s: micro-motion (blink, breathe, lip quiver) — keep the format but very concise
   - duration 3-5s: subtle motion (slow head turn, gentle camera push)
   - duration ≥ 6s: moderate motion (walking, posture change, camera dolly)
   - duration null: subtle motion
-  - Camera movement must match shot_type and camera_move
+  - Always use the EXACT format: [场景] + [角色] + 分镜
 
 ---
 

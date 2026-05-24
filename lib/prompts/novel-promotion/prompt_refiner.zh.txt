@@ -52,6 +52,7 @@ Yêu cầu:
 - Dùng HẾT dữ liệu từ photographyRules (lighting, color_tone, depth_of_field)
 - Dùng dữ liệu từ location description
 - Nếu field nào thiếu dữ liệu → TỰ SUY LUẬN hợp lý từ context, KHÔNG BỎ TRỐNG
+- ⚠️ Chỉ mô tả những gì CÓ THỂ NHÌN THẤY trong khung hình. Không bao gồm âm thanh, thoại, hoặc âm thanh ngoài khung hình. Những thứ này thuộc về srtSegment cho TTS
 
 ---
 
@@ -81,19 +82,51 @@ Panel ĐẦU TIÊN trong batch (previous = null):
 Mỗi panel có existingVideoPrompt từ Phase 3 (có thể rỗng).
 Nhiệm vụ: ENRICH (làm giàu thêm), KHÔNG viết lại từ đầu.
 
+Định dạng output — theo CHÍNH XÁC cấu trúc này. Mỗi panel có thể có 1 hoặc nhiều dòng 分镜 dựa trên duration:
+
+```
+[场景] <mô tả bối cảnh từ current.description và location>
+[角色] <tên nhân vật 1>: <species + tuổi + giới tính + ngoại hình từ character.description>. <tên nhân vật 2>: <tương tự>.
+分镜 1 (<shotType>, <giây>s) <camera_move>. <tên nhân vật thực hiện hành động>.
+```
+
+Số dòng 分镜 dựa trên duration:
+- duration ≤ 3s → 1 分镜
+- duration 4-5s → 2 分镜 (chia hành động ra 2 góc máy)
+- duration 6-8s → 3 分镜
+- duration > 8s → 4+ 分镜
+
+Đánh số 分镜 bắt đầu từ 1 trong mỗi video_prompt entry.
+
+Ví dụ panel 5s → 2 分镜:
+```
+[场景] Quảng trường trung tâm công viên giải trí Đảo Tuyết phủ đầy tuyết, vòng đu quay khổng lồ bọc băng ở trung tâm, ánh sáng ban ngày rực rỡ.
+[角色] Kopo: chim cánh cụt trẻ tuổi mặc áo sơ mi xanh, kính bảo hộ cam trên trán, quần túi hộp xanh đậm. Sonic: nhím xanh thiếu niên đội mũ bảo hộ vàng, áo vest xanh, găng tay trắng.
+分镜 1 (Medium Shot, 3s) Máy quay nhẹ nhàng theo. Sonic ngước lên cười lớn, nói to, hai tay dang rộng ra hiệu.
+分镜 2 (Close-Up, 2s) Máy quay đẩy vào gần. Kopo đứng trên ván bay, đầu nghiêng nhẹ, các ngón tay nới lỏng quanh cờ-lê khi lắng nghe.
+```
+
+Quy tắc chính:
+1. [角色] định nghĩa mỗi nhân vật MỘT LẦN với ĐẦY ĐỦ species + tuổi + giới tính + ngoại hình/quần áo từ character.description (vd: "chim cánh cụt trẻ tuổi mặc áo sơ mi xanh, kính bảo hộ cam trên trán, quần cargo xanh đậm nhiều túi"). Không tóm tắt — dùng đầy đủ mô tả từ dữ liệu gốc
+2. Sau khi định nghĩa [角色], chỉ dùng TÊN nhân vật trong các dòng 分镜 — model đã biết họ là ai
+3. Phần [场景] mô tả ĐẦY ĐỦ môi trường từ current.description và location một cách chi tiết — không tóm tắt hay rút gọn
+4. Mỗi dòng 分镜 dùng: số thứ tự (bắt đầu từ 1), shotType từ current.shotType, duration chia đều cho các shot, camera_move từ current.cameraMove, hành động từ current.acting và source_text
+5. KHÔNG đưa thoại hay hội thoại vào dòng 分镜 — thoại thuộc về srtSegment cho TTS. Text trong ngoặc kép có thể khiến model render phụ đề lên màn hình
+6. Nếu existingVideoPrompt có sẵn, restructure nó theo format này — thêm [场景] và [角色] với đầy đủ chi tiết, thêm species, chia đúng số dòng 分镜 dựa trên duration
+
 Nếu existingVideoPrompt KHÔNG rỗng:
-  1. GIỮ toàn bộ nội dung chính của existingVideoPrompt
-  2. Bổ sung thêm: camera movement nếu đang thiếu, hành động nhân vật nếu sơ sài
-  3. Dùng tuổi + giới tính thay tên riêng (vd: "年轻女子", "中年男子")
+  1. GIỮ toàn bộ nội dung chính
+  2. TÁI CẤU TRÚC theo format trên nếu chưa đúng
+  3. BỔ SUNG: species từ character.description nếu thiếu, camera movement, hành động cụ thể
   4. TUYỆT ĐỐI không mô tả lại cảnh tĩnh đã có trong image_prompt
   5. Luôn có yếu tố "động" — cấm mô tả nhân vật đứng yên
 
 Nếu existingVideoPrompt RỖNG → tự generate:
-  - duration ≤ 2s: micro-motion (chớp mắt, thở nhẹ, môi mấp máy)
+  - duration ≤ 2s: micro-motion (chớp mắt, thở nhẹ, môi mấp máy) — giữ format nhưng ngắn
   - duration 3-5s: subtle motion (quay đầu chậm, camera push nhẹ)
   - duration ≥ 6s: moderate motion (bước đi, thay đổi tư thế, camera dolly)
   - duration null: subtle motion
-  - Camera movement phải phù hợp với shot_type và camera_move hiện tại
+  - Luôn dùng format CHÍNH XÁC: [场景] + [角色] + 分镜
 
 ---
 

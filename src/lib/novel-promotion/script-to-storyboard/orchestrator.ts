@@ -355,6 +355,7 @@ export async function runScriptToStoryboardOrchestrator(
         .replace('{characters_full_description}', filteredFullDescription)
         .replace('{props_description}', filteredPropsDescription)
         .replace('{clip_json}', clipJson)
+        .replace('{original_text}', clipContent)
 
       const screenplay = parseScreenplay(clip.screenplay)
       if (screenplay) {

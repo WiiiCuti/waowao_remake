@@ -215,35 +215,12 @@ export async function persistClips(params: {
     findMany: typeof db.novelPromotionClip.findMany
     deleteMany: typeof db.novelPromotionClip.deleteMany
   }
-  const existing = await clipModel.findMany({
+  await clipModel.deleteMany({
     where: { episodeId: params.episodeId },
-    orderBy: { createdAt: 'asc' },
-    select: { id: true },
   })
-  const createdClips: Array<{ id: string; clipKey: string }> = []
-  for (let index = 0; index < params.clipList.length; index += 1) {
-    const clip = params.clipList[index]
-    const target = existing[index]
-    if (target) {
-      const updated = await clipModel.update({
-        where: { id: target.id },
-        data: {
-          startText: clip.startText,
-          endText: clip.endText,
-          summary: clip.summary,
-          location: clip.location,
-          characters: clip.characters.length > 0 ? JSON.stringify(clip.characters) : null,
-          props: clip.props.length > 0 ? JSON.stringify(clip.props) : null,
-          content: clip.content,
-        },
-        select: {
-          id: true,
-        },
-      })
-      createdClips.push({ id: updated.id, clipKey: clip.id })
-      continue
-    }
 
+  const createdClips: Array<{ id: string; clipKey: string }> = []
+  for (const clip of params.clipList) {
     const created = await clipModel.create({
       data: {
         episodeId: params.episodeId,
@@ -255,22 +232,9 @@ export async function persistClips(params: {
         props: clip.props.length > 0 ? JSON.stringify(clip.props) : null,
         content: clip.content,
       },
-      select: {
-        id: true,
-      },
+      select: { id: true },
     })
     createdClips.push({ id: created.id, clipKey: clip.id })
-  }
-
-  const staleClipIds = existing.slice(params.clipList.length).map((item) => item.id)
-  if (staleClipIds.length > 0) {
-    await clipModel.deleteMany({
-      where: {
-        id: {
-          in: staleClipIds,
-        },
-      },
-    })
   }
 
   return createdClips

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 // Debug: generate workflow JSONs for 1, 3, 7, 10 images
 const fs = require('fs')
 const path = require('path')

@@ -75,7 +75,7 @@
   },
   "194": {
     "inputs": {
-      "unet_name": "Flux2\\flux-2-klein-9b-kv-fp8.safetensors",
+      "unet_name": "Flux2/flux-2-klein-9b-kv-fp8.safetensors",
       "weight_dtype": "fp8_e4m3fn_fast"
     },
     "class_type": "UNETLoader",
@@ -85,7 +85,7 @@
   },
   "195": {
     "inputs": {
-      "clip_name": "qwen3\\qwen_3_8b_fp8mixed.safetensors",
+      "clip_name": "qwen3/qwen_3_8b_fp8mixed.safetensors",
       "type": "flux2",
       "device": "default"
     },
@@ -96,7 +96,7 @@
   },
   "196": {
     "inputs": {
-      "vae_name": "Flux2\\flux2-vae.safetensors"
+      "vae_name": "Flux2/flux2-vae.safetensors"
     },
     "class_type": "VAELoader",
     "_meta": {
