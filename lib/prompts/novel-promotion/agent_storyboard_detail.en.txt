@@ -98,15 +98,15 @@ The video must not be stiff! Every video_prompt must include elements of "motion
    - Intense: rapid push in, fast tracking, sudden pull back, dive down
 
 3. **Forbid Purely Static Descriptions**:
-   ❌ Wrong: "young woman sitting on a sofa, static camera"
-   ✅ Right: "young woman sits on the sofa gently turning her head, camera slowly pushes in toward her profile"
+   ❌ Wrong: "penguin young woman sitting on a sofa, static camera"
+   ✅ Right: "penguin young woman sits on the sofa gently turning her head, camera slowly pushes in toward her profile"
 
-   ❌ Wrong: "middle-aged man stands at the door, stern expression"
-   ✅ Right: "middle-aged man pushes the door open and walks in, brows furrowed, handheld camera follows"
+   ❌ Wrong: "penguin middle-aged man stands at the door, stern expression"
+   ✅ Right: "penguin middle-aged man pushes the door open and walks in, brows furrowed, handheld camera follows"
 
 4. **Even dialogue scenes must have motion**:
-   ❌ Wrong: "young man speaking, static camera"
-   ✅ Right: "young man speaks while gesturing with both hands, nodding gently, camera slowly pushes in"
+   ❌ Wrong: "hedgehog young man speaking, static camera"
+   ✅ Right: "hedgehog young man speaks while gesturing with both hands, nodding gently, camera slowly pushes in"
 
 ⚠️ **Flashback / Narration / Inner Monologue Rules**:
 - Forbid writing only figures standing still in contemplation, dazed, or empty shots
@@ -114,11 +114,13 @@ The video must not be stiff! Every video_prompt must include elements of "motion
 - Image must be strongly tied to the plot, do not just write "figure standing and reminiscing"
 - Example: narration about "that fateful meeting back then" → must write the actual action scene of the meeting
 
-**Age Group Classification** (only use these terms):
+**Age Group Classification** (combine with species from character data):
 - Youth Boy / Youth Girl: approximately 10-16 years old
 - Young Man / Young Woman: approximately 17-30 years old
 - Middle-Aged Man / Middle-Aged Woman: approximately 31-50 years old
 - Elderly Man / Elderly Woman: 50+ years old
+- ✅ Correct: "penguin young woman", "hedgehog youth boy", "fox middle-aged woman"
+- ❌ Wrong: "young woman" alone (missing species)
 
 ⚠️ 【Extreme Close-Up Shots Must Use Static Camera】
 - When shot type is "Extreme Close-Up" (e.g., hand close-up, object close-up, partial close-up, etc.)
@@ -127,11 +129,11 @@ The video must not be stiff! Every video_prompt must include elements of "motion
 - Reason: extreme close-up only shows a partial area; camera movement would expose other parts
 
 **Examples** (note dynamic elements):
-- Daily dialogue: "young woman picks up a coffee cup blowing gently, looks up toward the window, sunlight falls on her profile, camera slowly pushes in toward her silhouette"
-- Action scene: "youth boy leaps into the air swinging a sword in an arc, robes billowing, handheld low-angle camera follows upward"
-- Emotional scene: "young woman slowly lowers her head, teardrops slide down her cheek, raises her hand to wipe the corner of her eye, camera gently orbits around her"
-- Dialogue scene: "middle-aged man taps fingers on the table, speaking with a stern expression, camera sways slightly while filming"
-- Walking scene: "young man strides quickly down the street, wind blows the hem of his clothes, handheld camera follows filming"
+- Daily dialogue: "penguin young woman picks up a coffee cup blowing gently, looks up toward the window, sunlight falls on her profile, camera slowly pushes in toward her silhouette"
+- Action scene: "hedgehog youth boy leaps into the air swinging a sword in an arc, robes billowing, handheld low-angle camera follows upward"
+- Emotional scene: "penguin young woman slowly lowers her head, teardrops slide down her cheek, raises her hand to wipe the corner of her eye, camera gently orbits around her"
+- Dialogue scene: "penguin middle-aged man taps fingers on the table, speaking with a stern expression, camera sways slightly while filming"
+- Walking scene: "hedgehog young man strides quickly down the street, wind blows the hem of his clothes, handheld camera follows filming"
 - Extreme close-up: "a hand slowly turns the page of a book, fingertips gently trace across the text, static camera"
 
 
@@ -147,7 +149,7 @@ Example:
     "shot_type": "Eye-Level Medium Shot",
     "camera_move": "Static",
     "description": "Character A stands at the table, both hands pressed on the desk, looking seriously at Character B opposite",
-    "video_prompt": "young man stands at the table, both hands pressed on the desk, stern expression, speaking, camera films static",
+    "video_prompt": "penguin young man stands at the table, both hands pressed on the desk, stern expression, speaking, camera films static",
     "characters": [{"name": "Character A", "appearance": "initial appearance", "slot": "position in front of the dragon throne steps at the center of the palace"}],
     "location": "office",
     "scene_type": "daily",

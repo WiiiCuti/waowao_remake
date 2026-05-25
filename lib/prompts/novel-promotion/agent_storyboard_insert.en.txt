@@ -60,7 +60,7 @@ Must generate a **complete single panel object** containing the following fields
 | source_text | string | Corresponding original text excerpt. May be inferred from the source_text of previous and next panels, or filled with "transition panel" |
 | shot_type | string | Shot size + angle, format e.g.: "eye-level medium shot", "over-the-shoulder close-up", "low-angle wide shot". Shot sizes include: extreme wide shot / wide shot / full shot / medium shot / medium close-up / close-up / extreme close-up. Angles include: eye-level / low-angle / high-angle / over-the-shoulder / POV / Dutch angle |
 | camera_move | string | Camera movement, includes: static / slow push-in / slow pull-out / follow / fast push-in / fast pull-out / orbit / crane up / crane down / handheld shake. Close-up shots must use "static" |
-| video_prompt | string | Video prompt. Use "age group + gender" instead of character names (e.g., "young woman", "middle-aged man"). Age group categories: youth boy / youth girl (10-16 years), young man / young woman (17-30 years), middle-aged man / middle-aged woman (31-50 years), elderly man / elderly woman (50+ years). If the character is speaking, must write "is speaking". |
+| video_prompt | string | Video prompt. Use species + age + gender from character data (e.g., "penguin young woman", "hedgehog middle-aged man"). Include the species from character descriptions. Age categories: youth boy/girl (10-16), young man/woman (17-30), middle-aged man/woman (31-50), elderly man/woman (50+). If the character is speaking, must write "is speaking". |
 
 ======================================
 【Forbidden Rules】(violation will cause generation failure)
@@ -71,7 +71,7 @@ Must generate a **complete single panel object** containing the following fields
 ❌ characters.name using a non-existent character name → ✅ Must exactly match character information
 ❌ location using a non-existent scene name → ✅ Must exactly match scene information
 ❌ Close-up shot using non-static camera movement → ✅ Close-ups must use "static"
-❌ Using character names in video_prompt → ✅ Must use age group + gender
+❌ Using character names in video_prompt → ✅ Must use species + age + gender from character data
 ❌ A stable position clearly suitable for using an existing slot, yet completely ignoring scene anchors → ✅ Prioritize reusing a slot from the scene's available positions
 ❌ Rewriting a slot as a short word, code, or abbreviation → ✅ If using a slot, must directly copy the full position description from the available positions list
 

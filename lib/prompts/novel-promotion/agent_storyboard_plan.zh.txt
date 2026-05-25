@@ -186,10 +186,13 @@
    
    ✅ 正确："保镖正面朝向张三，背对身后的老人，双臂张开阻挡张三前进"
 
-4. 角色描述简洁：
-   - 直接使用角色名称即可，无需添加衣着/年龄描述
-   ❌ 错误："穿白T恤的少年张三站在门口"
-   ✅ 正确："张三站在门口"
+4. Quy định về mô tả nhân vật trong trường description:
+   - Sử dụng trực tiếp tên nhân vật từ thư viện. Mô tả tư thế, biểu cảm, hướng mặt và chuyển động của họ.
+   - ⚠️ TUYỆT ĐỐI KHÔNG viết các mô tả chi tiết về quần áo, màu sắc, hay chất liệu vải (ví dụ: "mặc áo công trang xanh", "áo choàng gấm hồng") vào trường description này. Việc này để tránh "set cứng" (hardcode) trang phục trong kịch bản thô.
+   - Ngoại hình và phục trang chi tiết của nhân vật sẽ được hệ thống tải động từ Asset Library dựa trên nhãn characters[].appearance.
+   - Nếu mạch truyện yêu cầu nhân vật đổi quần áo (ví dụ: đi ngủ, ra trận mặc giáp, cải trang ăn mày), hãy chọn đúng tên diện mạo tương ứng trong {characters_appearance_list}. Nếu diện mạo đó chưa tồn tại trong danh sách, hãy đề xuất một tên ngắn gọn, rõ ràng cho bộ đồ mới đó (ví dụ: "Đồ ngủ", "Long bào", "Cải trang ăn mày", "Giáp tướng quân") vào trường characters[].appearance so hệ thống có thể đăng ký và thiết kế.
+   ✅ Đúng: "Trương Tam đẩy cửa văn phòng bước vào với vẻ mặt nghiêm nghị." (không tả màu sắc/kiểu dáng quần áo cụ thể)
+   ❌ Sai: "Trương Tam mặc áo sơ mi xanh và quần cargo xám đẩy cửa văn phòng bước vào..." (bị set cứng trang phục và màu sắc)
 
 【镜头连续性与空间锚定规则 - 核心规则】
 

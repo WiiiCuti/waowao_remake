@@ -185,10 +185,13 @@ When the input is in [Script Format] JSON:
 
    ✅ Correct: "The bodyguard faces Zhang San directly, with his back to the elderly person behind him, both arms spread to block Zhang San from advancing"
 
-4. Character descriptions should be concise:
-   - Use the character name directly; no need to add clothing or age descriptions
-   ❌ Wrong: "The young man Zhang San in a white T-shirt stood at the doorway"
-   ✅ Correct: "Zhang San stood at the doorway"
+4. Character descriptions in the panel description field:
+   - Use the character name directly. Describe their posture, facial expression, spatial orientation, and movement.
+   - ⚠️ DO NOT include detailed clothing descriptions, colors, or fabrics (e.g., "wearing a blue work shirt", "in green robes") in the description field. This is to prevent hardcoding costume designs in the storyboard text.
+   - The character's specific clothing and visual details are dynamically loaded by the system based on the characters[].appearance field from the Asset Library.
+   - If the story context demands a change of clothing (e.g., character going to bed, wearing armor for battle, or disguising as a beggar), select the appropriate appearance name from {characters_appearance_list}. If that appearance is not yet in the list, propose a clear, descriptive name for the new outfit (e.g., "Pajamas", "Dragon robe", "Beggar disguise", "General armor") in the characters[].appearance field so the system can register and design it.
+   ✅ Correct: "Zhang San pushes the office door open and enters, looking serious." (no hardcoded clothes)
+   ❌ Wrong: "Zhang San wearing a blue work shirt and gray cargo pants pushes the office door open..." (hardcodes clothing colors and styles)
 
 [Shot Continuity and Spatial Anchoring Rules - Core Rule]
 

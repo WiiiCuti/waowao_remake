@@ -33,26 +33,26 @@ previous chứa:
 
 【image_prompt】
 
-Viết MỘT đoạn văn tiếng Việt mô tả chi tiết toàn bộ khung hình, dùng làm prompt cho AI tạo ảnh.
+Viết MỘT đoạn văn bằng TIẾNG ANH (English) cực kỳ tập trung và chi tiết mô tả toàn bộ khung hình, dùng trực tiếp làm prompt cho AI tạo ảnh (như FLUX / Stable Diffusion).
 
-QUAN TRỌNG: Đây là văn bản tự nhiên, KHÔNG phải JSON. Không có dấu { } [ ], không có field:value.
+QUAN TRỌNG: 
+- Bắt buộc phải viết bằng TIẾNG ANH (English). Hãy dịch tất cả các dữ liệu đầu vào bằng tiếng Việt hoặc tiếng Trung (như mô tả nhân vật, bối cảnh, hành động) sang tiếng Anh tự nhiên.
+- KHÔNG sử dụng tên riêng của nhân vật (ví dụ: "Gu Niangzi", "Shen Gongzi"). Hãy luôn thay thế tên riêng bằng mô tả ngoại hình trực quan chi tiết (ví dụ: "a beautiful 25-year-old Chinese woman with long black hair tied in a bun, wearing a soft green silk dress").
+- Đây là văn bản tự nhiên, KHÔNG phải JSON. Không có dấu { } [ ], không có định dạng field:value.
 
-Đoạn văn phải bao gồm:
-- Bối cảnh + không gian: mô tả địa điểm và thời gian trong ngày
-- Từng nhân vật: mô tả CHI TIẾT ngoại hình, tóc, trang phục (từ character.description), vị trí trong khung hình (screen_position), tư thế (posture), hành động/biểu cảm (acting)
-- Camera: shot_type và camera_move
-- Ánh sáng: hướng + chất lượng (photographyRules.lighting) — nếu có
-- Màu sắc chủ đạo (photographyRules.color_tone) — nếu có
-- Độ sâu trường ảnh (photographyRules.depth_of_field) — nếu có
-- Không khí / mood / cảm xúc tổng thể
+Cấu trúc đoạn văn chuẩn xác theo trình tự sau, ngăn cách bởi dấu phẩy:
+1. Shot type & Camera Angle: Mô tả thiết lập góc máy (ví dụ: "Medium shot, eye-level angle, static frame").
+2. Main Subject(s), Poses, and Actions (Nhân vật chính, tư thế và hành động):
+   - Nếu có từ 2 nhân vật trở lên, bắt buộc phải phân định không gian rõ rệt để tránh lỗi tạo khuôn mặt giống hệt nhau hoặc lộn quần áo.
+   - Sử dụng tiền tố cấu trúc cố định: "Two distinct characters with completely different outfits and features: On the far left of the frame, [mô tả trang phục, kiểu tóc, tư thế, biểu cảm nhân vật A]. On the far right of the frame, [mô tả trang phục, kiểu tóc, tư thế, biểu cảm nhân vật B]."
+   - Hãy chắc chắn rằng hai nhân vật không chia sẻ cùng màu sắc hoặc kiểu dáng trang phục để tránh hiện tượng rò rỉ màu (attribute leakage).
+3. Background & Environment: Mô tả chi tiết không gian, thời gian trong ngày và các đạo cụ quan trọng (dựa trên mô tả location).
+4. Lighting & Color: Xác định hướng và chất lượng ánh sáng, tông màu chủ đạo, độ sâu trường ảnh (từ photographyRules, ví dụ: "soft side lighting, warm golden color tone, shallow depth of field").
+5. Art Style: Áp dụng trực tiếp tham số phong cách nghệ thuật ở top-level (từ style, ví dụ: "Japanese anime art style, clean line art, vibrant colors").
 
 Yêu cầu:
-- CÀNG CHI TIẾT CÀNG TỐT, không giới hạn độ dài
-- Dùng HẾT dữ liệu từ characters (mô tả ngoại hình, vị trí, tư thế, hành động)
-- Dùng HẾT dữ liệu từ photographyRules (lighting, color_tone, depth_of_field)
-- Dùng dữ liệu từ location description
-- Nếu field nào thiếu dữ liệu → TỰ SUY LUẬN hợp lý từ context, KHÔNG BỎ TRỐNG
-- ⚠️ Chỉ mô tả những gì CÓ THỂ NHÌN THẤY trong khung hình. Không bao gồm âm thanh, thoại, hoặc âm thanh ngoài khung hình. Những thứ này thuộc về srtSegment cho TTS
+- Chỉ mô tả những gì CÓ THỂ NHÌN THẤY trong khung hình. Không bao gồm âm thanh, thoại, văn bản, phụ đề hoặc lời thoại.
+- Đảm bảo tất cả các chi tiết được chuyển ngữ sang tiếng Anh tự nhiên và trôi chảy.
 
 ---
 
@@ -114,6 +114,14 @@ Quy tắc chính:
 5. KHÔNG đưa thoại hay hội thoại vào dòng 分镜 — thoại thuộc về srtSegment cho TTS. Text trong ngoặc kép có thể khiến model render phụ đề lên màn hình
 6. Nếu existingVideoPrompt có sẵn, restructure nó theo format này — thêm [场景] và [角色] với đầy đủ chi tiết, thêm species, chia đúng số dòng 分镜 dựa trên duration
 
+⚠️ **Quy tắc chống giật (Anti-Jitter)** — vi phạm gây video giật, biến dạng:
+- GIỚI HẠN hành động mỗi 分镜: ≤3s → chỉ 1 hành động nhẹ. 4-5s → tối đa 1-2 hành động. Không xâu chuỗi 3+ hành động trong 1 shot — AI sẽ chạy rush gây giật
+- Giữ hành động đơn giản và chậm: "từ từ ngước đầu", "nhẹ nhàng giơ tay", "nheo mắt khẽ" — tránh chuỗi nhanh
+- ❌ Sai: "Sonic ngước lên, vẫy tay nhiệt tình, rồi chạy đi" (quá nhiều hành động = giật)
+- ✅ Đúng: "Slow-motion. Sonic với chuyển động mượt mà từ từ ngước đầu lên, khẽ mỉm cười. Smooth and fluid movement"
+- Luôn dùng từ khóa tốc độ: "slow-motion", "smooth and fluid", "gentle", "subtle"
+- Camera movement phù hợp: "slow push", "gentle track", "slight sway" — tránh "rapid", "fast", "sudden"
+
 Nếu existingVideoPrompt KHÔNG rỗng:
   1. GIỮ toàn bộ nội dung chính
   2. TÁI CẤU TRÚC theo format trên nếu chưa đúng
@@ -136,7 +144,7 @@ Mảng JSON. Phần tử thứ i tương ứng panel thứ i trong input.
 Mỗi phần tử có định dạng:
 
 {
-  "image_prompt": "<đoạn văn tiếng Việt mô tả chi tiết toàn bộ khung hình>",
+  "image_prompt": "<đoạn văn tiếng Anh mô tả chi tiết toàn bộ khung hình, tối ưu hóa cho AI tạo ảnh>",
   "video_prompt": "<mô tả chuyển động, enriched từ existing hoặc generate mới>"
 }
 

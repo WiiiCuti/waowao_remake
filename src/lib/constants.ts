@@ -190,7 +190,14 @@ export const ART_STYLES = [
     preview: 'D',
     promptZh: 'Disney Pixar风格3D渲染，角色造型圆润可爱，表情生动丰富，皮肤质感细腻，毛发细节丰富，色彩饱和温暖，灯光柔和自然，卡通写实风格，皮克斯电影质感。',
     promptEn: 'Disney Pixar style 3D render, round cute character design, expressive lively faces, smooth skin texture, detailed hair, saturated warm colors, soft natural lighting, cartoon realism, Pixar film quality.'
-  }
+  },
+  {
+    value: 'chinese-historical-short-drama',
+    label: 'Phim ngắn cổ trang',
+    preview: 'Cổ',
+    promptZh: '中国古装微短剧风格，汉服，电影级唯美画面质感，真实写实场景，夕阳斜照或柔和黄昏光影，华丽古典的中式建筑庭院群落，雕梁画栋，高饱和度与丰富色彩对比，角色皮肤质感真实细腻，古装衣物材质细节饱满，高端短剧胶片质感。',
+    promptEn: 'Chinese historical short drama style, hanfu, premium live-action cinematic drama aesthetic, real-world ancient architecture scenery, ornate pavilions with moon gates, warm late afternoon golden hour lighting, rich contrast with atmospheric storytelling shadows, photorealistic skin texture, ultra-detailed costume fabric, high-end vertical film look.'
+  },
 ]
 
 export type ArtStyleValue = (typeof ART_STYLES)[number]['value']

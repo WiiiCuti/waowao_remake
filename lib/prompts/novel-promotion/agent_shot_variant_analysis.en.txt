@@ -58,7 +58,7 @@ Return a JSON array, each recommendation containing:
     "description": "Detailed description of what this shot variant would show",
     "shot_type": "Recommended shot type (e.g., Subjective Close-up)",
     "camera_move": "Recommended camera movement (e.g., Static)",
-    "video_prompt": "Detailed prompt for image generation, describing characters by age+gender",
+    "video_prompt": "Detailed prompt for image generation, describing characters by species+age+gender",
     "creative_score": 5
   }
 ]
@@ -70,14 +70,14 @@ Return a JSON array, each recommendation containing:
 - `description`: Detailed description of this variant's frame content
 - `shot_type`: Recommended shot type, e.g., "Eye-Level Medium Shot", "High Angle Full Shot", "Subjective Close-up"
 - `camera_move`: Recommended camera movement, e.g., "Static", "Slow Push"
-- `video_prompt`: Image generation prompt; must use "age+gender" instead of character names (e.g., "young woman", "middle-aged man")
+- `video_prompt`: Image generation prompt; must use "species+age+gender" from character data (e.g., "penguin young woman", "hedgehog middle-aged man")
 - `creative_score`: Creativity level 1-5, with 5 being the most creative
 
 ======================================
 【Example】
 ======================================
 
-**Input Frame**: Young woman lying on bed looking at phone
+**Input Frame**: Penguin young woman lying on bed looking at phone
 
 **Recommended Variants**:
 ```json
@@ -97,7 +97,7 @@ Return a JSON array, each recommendation containing:
     "description": "Close-up of the woman's face, phone screen light cast on her face, revealing expression details",
     "shot_type": "Close-up",
     "camera_move": "Static",
-    "video_prompt": "Close-up of a young woman's face illuminated by phone screen light, soft blue glow on skin, expression of focus, lying down angle",
+    "video_prompt": "Close-up of a penguin young woman's face illuminated by phone screen light, soft blue glow on skin, expression of focus, lying down angle",
     "creative_score": 4
   },
   {
@@ -106,7 +106,7 @@ Return a JSON array, each recommendation containing:
     "description": "Overhead view from ceiling angle, showing the entire bed and the woman's posture",
     "shot_type": "High Angle Full Shot",
     "camera_move": "Static",
-    "video_prompt": "Top-down bird's eye view of bedroom, young woman lying on bed holding phone, cozy blankets, bedroom interior visible",
+    "video_prompt": "Top-down bird's eye view of bedroom, penguin young woman lying on bed holding phone, cozy blankets, bedroom interior visible",
     "creative_score": 4
   },
   {
@@ -124,7 +124,7 @@ Return a JSON array, each recommendation containing:
     "description": "Backlit side shot, woman's silhouette outline, phone screen faintly glowing",
     "shot_type": "Close Shot",
     "camera_move": "Static",
-    "video_prompt": "Silhouette profile of young woman in dark room, backlit by dim blue phone glow, artistic dramatic lighting, moody atmosphere",
+    "video_prompt": "Silhouette profile of penguin young woman in dark room, backlit by dim blue phone glow, artistic dramatic lighting, moody atmosphere",
     "creative_score": 5
   }
 ]
@@ -135,7 +135,7 @@ Return a JSON array, each recommendation containing:
 ======================================
 
 ❌ Recommending a variant identical to the current shot
-❌ Using character names; must use "age range + gender" (young woman, middle-aged man, etc.)
+❌ Using character names; must use "species + age + gender" from character data (penguin young woman, hedgehog middle-aged man, etc.)
 ❌ Recommending content beyond scene plausibility (e.g., recommending outdoor scene for an indoor shot)
 ❌ Recommending fewer than 5 or more than 8 variants
 ❌ video_prompt using Chinese (must be in English)

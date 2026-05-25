@@ -136,4 +136,5 @@ Prop descriptions:
 10. ⚠️ Dialogue shots must use shallow DOF (T2.8 or smaller) and must note that other persons are blurred, ensuring only the speaker's face is sharp
 11. If shots involve different scenes, lighting and color tone should adjust accordingly
 12. Output should be concise; each shot's rules are independent and complete
-13. ⚠️ JSON safety: All quotation marks (""'' etc.) within JSON string values must be uniformly replaced with「」; unescaped ASCII double quotation marks are strictly forbidden
+13. ⚠️ Forbid describing clothing colors, clothing styles, or specific attire items (e.g., "blue robe", "green collar") in screen_position, posture, facing. Focus purely on non-attire posture, framing, and gestures (e.g., "standing", "sitting", "facial close-up", "gesturing with hands"). Let the Asset Library handle costume styles.
+14. ⚠️ JSON safety: All quotation marks (""'' etc.) within JSON string values must be uniformly replaced with「」; unescaped ASCII double quotation marks are strictly forbidden

@@ -33,26 +33,26 @@ previous contains:
 
 【image_prompt】
 
-Write ONE natural language paragraph in Vietnamese describing the entire frame in detail, to be used as a prompt for AI image generation.
+Write ONE highly-focused, detailed English paragraph describing the entire frame, to be used directly as a prompt for AI image generation models (like FLUX/Stable Diffusion).
 
-IMPORTANT: This is natural language text, NOT JSON. No { } [ ], no field:value format.
+IMPORTANT: 
+- The output MUST be entirely in English (translate all Vietnamese input data like location descriptions, character appearances, and actions into natural English).
+- Do NOT use raw character names (e.g., "Gu Niangzi", "Shen Gongzi"). Instead, always replace them with descriptive terms (e.g., "a beautiful 25-year-old Chinese woman with long black hair tied in a bun, wearing a soft green silk dress").
+- This is natural language text, NOT JSON. No { } [ ], no field:value format.
 
-The paragraph must include:
-- Setting & space: describe location and time of day
-- Each character: DETAILED description of appearance/hair/clothing (from character.description), position in frame (screen_position), posture, action/expression (acting)
-- Camera: shot_type and camera_move
-- Lighting: direction & quality (photographyRules.lighting) — if available
-- Color tone (photographyRules.color_tone) — if available
-- Depth of field (photographyRules.depth_of_field) — if available
-- Overall mood / atmosphere / emotion
+Structure the paragraph exactly in this sequence, separated by commas:
+1. Shot type & Camera Angle: Describe the frame setup (e.g., "Medium shot, eye-level angle, static frame").
+2. Main Subject(s), Poses, and Actions: 
+   - If there are multiple characters, enforce spatial division and distinctiveness to avoid twins/cloning and clothes-swapping.
+   - Use the explicit prefix: "Two distinct characters with completely different outfits and features: On the far left of the frame, [describe character A's clothing, hair, posture, expression]. On the far right of the frame, [describe character B's clothing, hair, posture, expression]."
+   - Make sure they do not share the same clothing colors or styles to prevent attribute leakage.
+3. Background & Environment: Detail the setting, time of day, and key visible props (from location description).
+4. Lighting & Color: Specify lighting direction and quality, color tone, and depth of field (from photographyRules, e.g., "soft side lighting, warm golden color tone, shallow depth of field").
+5. Art Style: Apply the top-level style parameter directly (from style, e.g., "Japanese anime art style, clean line art, vibrant colors").
 
 Requirements:
-- AS DETAILED AS POSSIBLE, no length limit
-- Use ALL data from characters (appearance, position, posture, acting)
-- Use ALL data from photographyRules (lighting, color_tone, depth_of_field)
-- Use data from location description
-- If any field is missing → infer reasonably from context, DO NOT LEAVE BLANK
-- ⚠️ Describe ONLY what is VISIBLE in the frame. Do NOT include audio, off-screen sounds, dialogue, or speech. These belong in srtSegment for TTS
+- Describe ONLY what is VISIBLE in the frame. Do NOT include audio, off-screen sounds, dialogue, text, subtitles, or speech.
+- Ensure all details are translated into natural, fluent English.
 
 ---
 
@@ -82,37 +82,45 @@ FIRST panel in batch (previous = null):
 Each panel has an existingVideoPrompt from Phase 3 (may be empty).
 Task: ENRICH (add richness), DO NOT rewrite from scratch.
 
-Output format — follow this EXACT structure. Each panel's video_prompt may contain one or more 分镜 lines based on duration:
+Output format — follow this EXACT structure. Each panel's video_prompt may contain one or more Shot lines based on duration:
 
 ```
-[场景] <scene and environment description from current.description and location>
-[角色] <character 1 name>: <species + age + gender + appearance/clothing from character.description>. <character 2 name>: <same for second character>.
-分镜 1 (<shotType>, <duration_seconds>s) <camera_move>. <character name performs action/motion>.
+[Scene] <scene and environment description from current.description and location>
+[Characters] <character 1 name>: <species + age + gender + appearance/clothing from character.description>. <character 2 name>: <same for second character>.
+Shot 1 (<shotType>, <duration_seconds>s) <camera_move>. <character name performs action/motion>.
 ```
 
-Number of 分镜 lines per video_prompt is determined by duration:
+Number of Shot lines per video_prompt is determined by duration:
 - duration ≤ 3s → 1 shot
 - duration 4-5s → 2 shots (split action across 2 angles)
 - duration 6-8s → 3 shots
 - duration > 8s → 4+ shots
 
-Number 分镜 starting from 1 within each video_prompt entry.
+Number Shot starting from 1 within each video_prompt entry.
 
 Example for a panel with 2 shots (5s duration):
 ```
-[场景] Snow-covered amusement park central plaza with a giant ice-covered Ferris wheel towering at center, bright daylight, festive atmosphere.
-[角色] Kopo: penguin young man in blue work shirt, orange safety goggles on forehead, dark blue multi-pocket cargo pants. Sonic: blue hedgehog youth boy in yellow hard hat, blue vest, white gloves.
-分镜 1 (Medium Shot, 3s) Camera gently tracks. Sonic looks up laughing heartily, speaking loudly, hands gesturing.
-分镜 2 (Close-Up, 2s) Camera pushes in. Kopo stands on hoverboard, head cocks slightly, fingers loosen around the wrench as he listens.
+[Scene] Snow-covered amusement park central plaza with a giant ice-covered Ferris wheel towering at center, bright daylight, festive atmosphere.
+[Characters] Kopo: penguin young man in blue work shirt, orange safety goggles on forehead, dark blue multi-pocket cargo pants. Sonic: blue hedgehog youth boy in yellow hard hat, blue vest, white gloves.
+Shot 1 (Medium Shot, 3s) Camera gently tracks. Sonic looks up laughing heartily, speaking loudly, hands gesturing.
+Shot 2 (Close-Up, 2s) Camera pushes in. Kopo stands on hoverboard, head cocks slightly, fingers loosen around the wrench as he listens.
 ```
 
 Key rules:
-1. [角色] defines each character ONCE with FULL species + age + gender + appearance/clothing from character.description (e.g. "penguin young man in blue work shirt, orange safety goggles on forehead, dark blue multi-pocket cargo pants"). Do NOT abbreviate — use full description from source data
-2. After [角色] definition, use only the character's NAME in 分镜 lines — the model already knows who they are
-3. The [场景] section describes the FULL environment from current.description and location data in detail — do not summarize or abbreviate
-4. Each 分镜 line uses: shot number (starting from 1), shotType from current.shotType, duration split evenly across multiple shots, camera_move from current.cameraMove, action from current.acting and source_text context
-5. DO NOT include dialogue or speech in 分镜 lines — dialogue belongs in srtSegment for TTS only. Quoted text may cause models to render subtitles on screen
-6. If existingVideoPrompt exists, enrich it to match this format — add missing [场景] and [角色] sections with full detail, add species info, split into correct number of 分镜 lines based on duration
+1. [Characters] defines each character ONCE with FULL species + age + gender + appearance/clothing from character.description (e.g. "penguin young man in blue work shirt, orange safety goggles on forehead, dark blue multi-pocket cargo pants"). Do NOT abbreviate — use full description from source data
+2. After [Characters] definition, use only the character's NAME in Shot lines — the model already knows who they are
+3. The [Scene] section describes the FULL environment from current.description and location data in detail — do not summarize or abbreviate
+4. Each Shot line uses: shot number (starting from 1), shotType from current.shotType, duration split evenly across multiple shots, camera_move from current.cameraMove, action from current.acting and source_text context
+5. DO NOT include dialogue or speech in Shot lines — dialogue belongs in srtSegment for TTS only. Quoted text may cause models to render subtitles on screen
+6. If existingVideoPrompt exists, enrich it to match this format — add missing [Scene] and [Characters] sections with full detail, add species info, split into correct number of Shot lines based on duration
+
+⚠️ **Anti-Jitter / Speed Control Rules** (violation causes stutter, distortion):
+- LIMIT ACTIONS per Shot: ≤3s → only 1 gentle action. 4-5s → max 1-2 actions. Never chain 3+ actions in one shot — the AI will rush through them causing jitter
+- Keep actions simple and slow: "slowly tilts head", "gently raises hand", "subtle smile" — avoid rapid sequences
+- ❌ Bad: "Sonic looks up, waves enthusiastically, then runs away" (too many actions chained = jitter)
+- ✅ Good: "Slow-motion. Sonic in a gentle, smooth motion slowly tilts his head upward with a subtle smile. Smooth and fluid movement throughout"
+- Use speed keywords in every Shot: "slow-motion", "smooth and fluid", "gentle", "subtle"
+- Camera movement should match: "slow push", "gentle track", "slight sway" — avoid "rapid", "fast", "sudden"
 
 If existingVideoPrompt is NOT empty:
   1. KEEP all main content
@@ -126,7 +134,7 @@ If existingVideoPrompt IS EMPTY → generate from scratch:
   - duration 3-5s: subtle motion (slow head turn, gentle camera push)
   - duration ≥ 6s: moderate motion (walking, posture change, camera dolly)
   - duration null: subtle motion
-  - Always use the EXACT format: [场景] + [角色] + 分镜
+  - Always use the EXACT format: [Scene] + [Characters] + Shot
 
 ---
 
@@ -135,7 +143,7 @@ If existingVideoPrompt IS EMPTY → generate from scratch:
 JSON array. Element i corresponds to panel i in input:
 
 {
-  "image_prompt": "<natural language Vietnamese paragraph describing the entire frame in detail>",
+  "image_prompt": "<highly-focused, detailed English paragraph describing the entire frame>",
   "video_prompt": "<motion description, enriched from existing or newly generated>"
 }
 
