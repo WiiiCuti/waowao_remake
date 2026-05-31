@@ -93,7 +93,10 @@ export async function handleAssetHubImageTask(job: Job<TaskJobData>) {
 
     for (let i = 0; i < count; i++) {
       const raw = base[i] || base[0]
-      const prompt = artStyle ? `${addCharacterPromptSuffix(raw)}，${artStyle}` : addCharacterPromptSuffix(raw)
+      const charPrompt = addCharacterPromptSuffix(raw, job.data.locale)
+      const prompt = artStyle
+        ? `${charPrompt}${job.data.locale === 'en' ? ', ' : '，'}${artStyle}`
+        : charPrompt
       const imageKey = await generateCleanImageToStorage({
         job,
         userId,
@@ -152,9 +155,11 @@ export async function handleAssetHubImageTask(job: Job<TaskJobData>) {
           locale: job.data.locale === 'en' ? 'en' : 'zh',
         })
       const promptWithSuffix = payload.type === 'prop'
-        ? addPropPromptSuffix(promptCore)
+        ? addPropPromptSuffix(promptCore, job.data.locale)
         : addLocationPromptSuffix(promptCore)
-      const prompt = artStyle ? `${promptWithSuffix}，${artStyle}` : promptWithSuffix
+      const prompt = artStyle
+        ? `${promptWithSuffix}${job.data.locale === 'en' ? ', ' : '，'}${artStyle}`
+        : promptWithSuffix
       const aspectRatio = payload.type === 'prop' ? PROP_IMAGE_RATIO : LOCATION_IMAGE_RATIO
 
       const imageKey = await generateCleanImageToStorage({

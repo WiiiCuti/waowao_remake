@@ -1,0 +1,6 @@
+[Scene] The bright living room remains perfectly static and silent. The wide floor-to-ceiling window on the left wall stays fixed, casting unwavering warm sunlight across the space. The light-colored sofa, coffee table, ceiling fan, armchair, low TV console, and decorative artwork all remain motionless. No ambient motion or lighting shifts occur.
+[Characters] Bach Duong: Mid-twenties male with a sharp jawline, furrowed brows, piercing single-lidded eyes, high-bridged nose, thin lips, and short side-parted black hair. He wears a blue henley shirt, white slacks, and black canvas sneakers. Firm and questioning. Tieu Hy: Early twenties female with a heart-shaped face, innocent big eyes, high nose, soft lips, arched brows, waist-length silky hair with bangs, petite frame. She wears a pink sweater, white skirt, and cream flats. Nervous and withdrawn.
+
+Shot 1 (Eye-Level Close-Up, 3.65s): Static camera, environment remains completely unchanged.
+Bach Duong: "This has nothing to do with my intentions!"
+Action: Slow-motion. Bach Duong completes his emphatic gesture smoothly, his hands coming to a deliberate pause mid-air. His expression remains firm and unwavering, gaze locked.

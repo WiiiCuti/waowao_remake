@@ -28,6 +28,12 @@ import {
 type JsonRecord = Record<string, unknown>
 const orchestratorLogger = createScopedLogger({ module: 'worker.orchestrator.script_to_storyboard' })
 
+function isNullishPromptValue(val: string | null | undefined): boolean {
+  if (!val) return true
+  const clean = val.trim().toLowerCase()
+  return ['无', 'none', 'null', 'empty', 'n/a', ''].includes(clean)
+}
+
 export type ScriptToStoryboardStepMeta = {
   stepId: string
   stepAttempt?: number
@@ -298,10 +304,12 @@ export async function runScriptToStoryboardOrchestrator(
     DEFAULT_ANALYSIS_WORKFLOW_CONCURRENCY,
   )
 
+  const locale = input.locale === 'en' ? 'en' : 'zh'
+  const t_none = locale === 'en' ? 'None' : '无'
   const totalStepCount = clips.length * 4 + 2
-  const charactersLibName = (novelPromotionData.characters || []).map((c) => c.name).join(', ') || '无'
-  const locationsLibName = (novelPromotionData.locations || []).map((l) => l.name).join(', ') || '无'
-  const charactersIntroduction = buildCharactersIntroduction(novelPromotionData.characters || [])
+  const charactersLibName = (novelPromotionData.characters || []).map((c) => c.name).join(locale === 'en' ? ', ' : '、') || t_none
+  const locationsLibName = (novelPromotionData.locations || []).map((l) => l.name).join(locale === 'en' ? ', ' : '、') || t_none
+  const charactersIntroduction = buildCharactersIntroduction(novelPromotionData.characters || [], locale)
 
   const phase1PanelsByClipId = new Map<string, StoryboardPanel[]>()
   const phase2CinematographyByClipId = new Map<string, PhotographyRule[]>()
@@ -463,7 +471,7 @@ export async function runScriptToStoryboardOrchestrator(
         (text) => {
           const panels = parseJsonArray<StoryboardPanel>(text, `phase3:${formatClipId(clip)}`)
           const filtered = panels.filter(
-            (panel) => panel.description && panel.description !== '无' && panel.location !== '无',
+            (panel) => !isNullishPromptValue(panel.description) && !isNullishPromptValue(panel.location),
           )
           if (filtered.length === 0) {
             throw new Error(`Phase 3 returned empty valid panels for clip ${formatClipId(clip)}`)

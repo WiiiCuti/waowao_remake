@@ -154,9 +154,11 @@ export async function handleLocationImageTask(job: Job<TaskJobData>) {
       })
 
     const promptWithSuffix = assetType === 'prop'
-      ? addPropPromptSuffix(promptCore)
+      ? addPropPromptSuffix(promptCore, job.data.locale)
       : addLocationPromptSuffix(promptCore)
-    const prompt = artStyle ? `${promptWithSuffix}，${artStyle}` : promptWithSuffix
+    const prompt = artStyle
+      ? `${promptWithSuffix}${job.data.locale === 'en' ? ', ' : '，'}${artStyle}`
+      : promptWithSuffix
     const aspectRatio = assetType === 'prop' ? PROP_IMAGE_RATIO : LOCATION_IMAGE_RATIO
     await reportTaskProgress(job, 20 + Math.floor((i / Math.max(locationImages.length, 1)) * 55), {
       stage: 'generate_location_image',

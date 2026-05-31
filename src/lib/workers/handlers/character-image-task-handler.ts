@@ -145,7 +145,10 @@ export async function handleCharacterImageTask(job: Job<TaskJobData>) {
   for (let i = 0; i < indexes.length; i++) {
     const index = indexes[i]
     const raw = baseDescriptions[index] || baseDescriptions[0]
-    const prompt = artStyle ? `${addCharacterPromptSuffix(raw)}，${artStyle}` : addCharacterPromptSuffix(raw)
+    const charPrompt = addCharacterPromptSuffix(raw, job.data.locale)
+    const prompt = artStyle
+      ? `${charPrompt}${job.data.locale === 'en' ? ', ' : '，'}${artStyle}`
+      : charPrompt
 
     await reportTaskProgress(job, 15 + Math.floor((i / Math.max(indexes.length, 1)) * 55), {
       stage: 'generate_character_image',

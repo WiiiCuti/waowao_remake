@@ -60,6 +60,7 @@ export type StoryToScriptPromptTemplates = {
 
 export type StoryToScriptOrchestratorInput = {
   concurrency?: number
+  locale?: 'zh' | 'en'
   content: string
   baseCharacters: string[]
   baseLocations: string[]
@@ -248,6 +249,7 @@ export async function runStoryToScriptOrchestrator(
 ): Promise<StoryToScriptOrchestratorResult> {
   const {
     concurrency: rawConcurrency,
+    locale: rawLocale = 'zh',
     content,
     baseCharacters,
     baseLocations,
@@ -263,12 +265,17 @@ export async function runStoryToScriptOrchestrator(
     DEFAULT_ANALYSIS_WORKFLOW_CONCURRENCY,
   )
 
-  const baseCharactersText = baseCharacters.length > 0 ? baseCharacters.join('、') : '无'
-  const baseLocationsText = baseLocations.length > 0 ? baseLocations.join('、') : '无'
-  const basePropsText = baseProps.length > 0 ? baseProps.join('、') : '无'
+  const locale = rawLocale === 'en' ? 'en' : 'zh'
+  const t_none = locale === 'en' ? 'None' : '无'
+  const t_no_intro = locale === 'en' ? 'No existing characters' : '暂无已有角色'
+  const sep = locale === 'en' ? ', ' : '、'
+
+  const baseCharactersText = baseCharacters.length > 0 ? baseCharacters.join(sep) : t_none
+  const baseLocationsText = baseLocations.length > 0 ? baseLocations.join(sep) : t_none
+  const basePropsText = baseProps.length > 0 ? baseProps.join(sep) : t_none
   const baseCharacterInfo = baseCharacterIntroductions.length > 0
     ? baseCharacterIntroductions.map((item, index) => `${index + 1}. ${item.name}`).join('\n')
-    : '暂无已有角色'
+    : t_no_intro
 
   const characterPrompt = applyTemplate(promptTemplates.characterPromptTemplate, {
     input: content,
@@ -399,6 +406,7 @@ export async function runStoryToScriptOrchestrator(
         name: item.name,
         introduction: item.introduction || '',
       })),
+    locale,
   )
 
   onLog?.('开始步骤2：片段切分（最多重试1次）', {
@@ -408,10 +416,10 @@ export async function runStoryToScriptOrchestrator(
 
   const splitPromptBase = applyTemplate(promptTemplates.clipPromptTemplate, {
     input: content,
-    locations_lib_name: locationsLibName || '无',
-    characters_lib_name: charactersLibName || '无',
-    props_lib_name: propsLibName || '无',
-    characters_introduction: charactersIntroduction || '暂无角色介绍',
+    locations_lib_name: locationsLibName || t_none,
+    characters_lib_name: charactersLibName || t_none,
+    props_lib_name: propsLibName || t_none,
+    characters_introduction: charactersIntroduction || (locale === 'en' ? 'No character introductions available' : '暂无角色介绍'),
   })
   const splitPrompt = `${splitPromptBase}${CLIP_BOUNDARY_SUFFIX}`
 
@@ -536,10 +544,10 @@ export async function runStoryToScriptOrchestrator(
       try {
         const screenplayPrompt = applyTemplate(promptTemplates.screenplayPromptTemplate, {
           clip_content: clip.content,
-          locations_lib_name: locationsLibName || '无',
-          characters_lib_name: charactersLibName || '无',
-          props_lib_name: propsLibName || '无',
-          characters_introduction: charactersIntroduction || '暂无角色介绍',
+          locations_lib_name: locationsLibName || t_none,
+          characters_lib_name: charactersLibName || t_none,
+          props_lib_name: propsLibName || t_none,
+          characters_introduction: charactersIntroduction || (locale === 'en' ? 'No character introductions available' : '暂无角色介绍'),
           clip_id: clip.id,
         })
 

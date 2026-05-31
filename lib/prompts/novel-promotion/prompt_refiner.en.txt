@@ -37,15 +37,20 @@ Write ONE highly-focused, detailed English paragraph describing the entire frame
 
 IMPORTANT: 
 - The output MUST be entirely in English (translate all Vietnamese input data like location descriptions, character appearances, and actions into natural English).
-- Do NOT use raw character names (e.g., "Gu Niangzi", "Shen Gongzi"). Instead, always replace them with descriptive terms (e.g., "a beautiful 25-year-old Chinese woman with long black hair tied in a bun, wearing a soft green silk dress").
+- Do NOT use raw character names. Instead, always replace them with visual descriptive terms derived from character.description (physical traits, clothing, hair — exactly as stored, do NOT invent or substitute).
 - This is natural language text, NOT JSON. No { } [ ], no field:value format.
 
 Structure the paragraph exactly in this sequence, separated by commas:
 1. Shot type & Camera Angle: Describe the frame setup (e.g., "Medium shot, eye-level angle, static frame").
 2. Main Subject(s), Poses, and Actions: 
-   - If there are multiple characters, enforce spatial division and distinctiveness to avoid twins/cloning and clothes-swapping.
-   - Use the explicit prefix: "Two distinct characters with completely different outfits and features: On the far left of the frame, [describe character A's clothing, hair, posture, expression]. On the far right of the frame, [describe character B's clothing, hair, posture, expression]."
-   - Make sure they do not share the same clothing colors or styles to prevent attribute leakage.
+   - Carefully analyze the story flow (from current.description) and the active characters listed in current.characters[].
+   - Dynamically allocate distinct positions (e.g., left, center, right, foreground, background) for each character based on their interactions, dialogue, or importance in this specific shot.
+   - If there is ONLY ONE character: Describe their appearance, clothing, posture, and action naturally as the single focus of the frame.
+   - If there are MULTIPLE characters (2, 3, or more): You MUST enforce strict spatial division to avoid twins/cloning and clothes-swapping (attribute leakage).
+     Use the explicit prefix: "[N] distinct characters with completely different outfits and features, standing separately with clear space between them:".
+     Followed immediately by describing each character in order of their allocated position, separated by commas (e.g., for 2 characters: "On the left of the frame, [describe character A's clothing, hair, pose, expression], while on the right of the frame, [describe character B's clothing, hair, pose, expression]").
+     For 3 characters, use: "On the far left of the frame, [describe character A]... standing in the exact center of the frame, [describe character B]... on the far right of the frame, [describe character C]...".
+     Ensure no two characters share similar clothing colors, styles, or postures.
 3. Background & Environment: Detail the setting, time of day, and key visible props (from location description).
 4. Lighting & Color: Specify lighting direction and quality, color tone, and depth of field (from photographyRules, e.g., "soft side lighting, warm golden color tone, shallow depth of field").
 5. Art Style: Apply the top-level style parameter directly (from style, e.g., "Japanese anime art style, clean line art, vibrant colors").
@@ -66,7 +71,7 @@ ADJACENT panels + SAME location:
   - Character on the left in previous panel → stays on the left in current panel (unless description shows movement)
   - Character appearance/hair/clothing: KEEP EXACTLY THE SAME across panels
   - Mood/expression: smooth transition, no abrupt jumps
-  - Actions: logically continue from previous.acting
+  - Actions: logically continue from previous.acting (panel-to-panel continuity only — see IMAGE → VIDEO CONTINUITY below)
 
 DIFFERENT location (scene change):
   - May reset lighting, color tone, camera
@@ -77,62 +82,104 @@ FIRST panel in batch (previous = null):
 
 ---
 
+【IMAGE → VIDEO CONTINUITY — MANDATORY】
+
+The generated image_prompt describes Frame 0 of the video — the exact visual state at the moment the video begins.
+
+The video_prompt Action lines MUST describe what happens NEXT, after the state shown in image_prompt.
+NEVER repeat, restart, or re-describe any action that is already shown as a completed or in-progress state in image_prompt.
+Treat visible poses, facial expressions, gaze directions, and body states in image_prompt as already established. Do not recreate or reinforce them in video_prompt.
+
+Examples:
+  ❌ image_prompt: "opens the door"      → video Action: "opens the door"
+  ❌ image_prompt: "exhales a deep sigh" → video Action: "exhales a deep sigh"
+  ❌ image_prompt: "stands up"           → video Action: "stands up"
+  ❌ image_prompt: "eyes widened"        → video Action: "eyes widen"
+  ❌ image_prompt: "walking into room"   → video Action: "walking into room"
+
+  ✅ image_prompt: "opens the door"      → video Action: "pauses in the doorway, gaze slowly sweeping inside"
+  ✅ image_prompt: "exhales a deep sigh" → video Action: "rubs his forehead gently, eyes drifting downward"
+  ✅ image_prompt: "stands up"           → video Action: "takes a slow step forward, shoulders settling"
+  ✅ image_prompt: "eyes widened"        → video Action: "holds gaze fixed, a faint tremble in the lower lip"
+  ✅ image_prompt: "walking into room"   → video Action: "slows to a stop, head turning to survey the room"
+
+Treat image_prompt as the first frame already rendered.
+Video actions must begin after that frame — NEVER reproduce it.
+
+---
+
 【video_prompt】
 
 Each panel has an existingVideoPrompt from Phase 3 (may be empty).
-Task: ENRICH (add richness), DO NOT rewrite from scratch.
+Task: CONSTRAIN camera and background to static. Allow moderate character actions with slow-motion.
 
-Output format — follow this EXACT structure. Each panel's video_prompt may contain one or more Shot lines based on duration:
+Output format — follow this EXACT structure. Each panel's video_prompt may contain one or more Shot blocks based on duration:
 
 ```
-[Scene] <scene and environment description from current.description and location>
-[Characters] <character 1 name>: <species + age + gender + appearance/clothing from character.description>. <character 2 name>: <same for second character>.
-Shot 1 (<shotType>, <duration_seconds>s) <camera_move>. <character name performs action/motion>.
+[Scene] <environment description - static, no ambient motion>
+[Characters] <character 1 name>: <appearance/clothing from character.description> + <current emotional state in ≤5 words>. <character 2 name>: <same>.
+
+Shot 1 (<shotType>, <duration_seconds>s): Static camera, character actions allowed
+<Character 1>: "<dialogue from srtSegment (only if present, max 10 words)>"
+Action: <specific character micro-actions, speed/fluidity, emotional nuances>
 ```
 
-Number of Shot lines per video_prompt is determined by duration:
-- duration ≤ 3s → 1 shot
-- duration 4-5s → 2 shots (split action across 2 angles)
-- duration 6-8s → 3 shots
-- duration > 8s → 4+ shots
+Number of Shot blocks per video_prompt is determined by duration:
+- duration < 4s  → 1 shot
+- duration 4-5s  → 2 shots (same framing and camera angle, split motion progression only — do NOT change angle between shots)
+- duration 6-8s  → 3 shots
+- duration > 8s  → 4+ shots
 
 Number Shot starting from 1 within each video_prompt entry.
 
-Example for a panel with 2 shots (5s duration):
-```
-[Scene] Snow-covered amusement park central plaza with a giant ice-covered Ferris wheel towering at center, bright daylight, festive atmosphere.
-[Characters] Kopo: penguin young man in blue work shirt, orange safety goggles on forehead, dark blue multi-pocket cargo pants. Sonic: blue hedgehog youth boy in yellow hard hat, blue vest, white gloves.
-Shot 1 (Medium Shot, 3s) Camera gently tracks. Sonic looks up laughing heartily, speaking loudly, hands gesturing.
-Shot 2 (Close-Up, 2s) Camera pushes in. Kopo stands on hoverboard, head cocks slightly, fingers loosen around the wrench as he listens.
-```
-
 Key rules:
-1. [Characters] defines each character ONCE with FULL species + age + gender + appearance/clothing from character.description (e.g. "penguin young man in blue work shirt, orange safety goggles on forehead, dark blue multi-pocket cargo pants"). Do NOT abbreviate — use full description from source data
-2. After [Characters] definition, use only the character's NAME in Shot lines — the model already knows who they are
-3. The [Scene] section describes the FULL environment from current.description and location data in detail — do not summarize or abbreviate
-4. Each Shot line uses: shot number (starting from 1), shotType from current.shotType, duration split evenly across multiple shots, camera_move from current.cameraMove, action from current.acting and source_text context
-5. DO NOT include dialogue or speech in Shot lines — dialogue belongs in srtSegment for TTS only. Quoted text may cause models to render subtitles on screen
-6. If existingVideoPrompt exists, enrich it to match this format — add missing [Scene] and [Characters] sections with full detail, add species info, split into correct number of Shot lines based on duration
+1. [Characters] defines each character ONCE with FULL appearance/clothing from character.description. Do NOT abbreviate — use full description from source data. Then append current emotional state in ≤5 words derived from current.characters[].acting and srtSegment context (e.g. "tense and guarded", "soft and nervous", "calm with hidden grief"). Do NOT invent emotional states — derive only from acting field data.
+2. After [Characters] definition, use only the character's NAME in the Shot blocks (Dialogue/Action lines) — the model already knows who they are.
+3. The [Scene] section MUST include:
+   a. Full environment from current.description and location data — do not summarize.
+   b. Environment MUST be described as STATIC — NO ambient motion elements (no leaves rustling, no clouds drifting, no sunlight shifting, no curtain swaying). Background must remain completely still throughout the video.
+4. Shot block structure (MANDATORY MULTI-LINE FORMAT): Each Shot must be structured as a multi-line block:
+   - Line 1 (Camera & Environment): `Shot X (<shotType>, <duration>s): Static camera` (e.g., "Shot 1 (Medium Shot, 3s): Static camera, environment remains unchanged.")
+   - Line 2 (Dialogue - ONLY if srtSegment is present): `<Character Name>: "<short dialogue phrase>"` (translate dialogue to English if input is in Vietnamese/Chinese, keep to ≤10 words)
+   - Line 3 (or Line 2 if no dialogue - Action): `Action: <specific character micro-actions, speed/fluidity, emotional nuances>` (e.g., "Action: Bạch Dương pushes the door open and steps into the room, his gaze sweeping forward in a slow, deliberate motion.")
+5. Character Actions & Spatial Alignment: Each Action line's action MUST respect spatial positions from image_prompt. If a character is on the left, their action starts from that position.
+6. Dialogue in Shot blocks: ALLOWED only when srtSegment is non-empty AND the action involves speaking. Keep to ≤10 words, written exactly on its own line: `Character Name: "Dialogue text"`. Purpose is lip-sync anchor only. Do NOT fabricate dialogue not present in srtSegment. If srtSegment is empty, omit dialogue completely.
+7. If existingVideoPrompt exists, enrich it to match this format — add missing [Scene] and [Characters] sections with full detail, add species info, split into correct number of Shot blocks based on duration
+8. View Boundary & Camera Scale Constraint (CRITICAL FOR CONTINUITY): Video generation models generate motion using the generated static image as the absolute source.
+   - You MUST NEVER zoom out or transition from a tight/close-up/detail shot to a wider shot (e.g., transitioning from a Close-Up of a hand in Shot 1 to a Wide Shot of the room in Shot 2). AI video models cannot maintain facial or clothing consistency when "outpainting" or hallucinating areas not present in the input image.
+   - If current.shotType is a Close-Up, Extreme Close-Up, or Detail Shot (e.g., close-up of a prop, hands, or eyes), ALL Shot blocks in the video_prompt must remain strictly locked within that close-up boundary.
+   - For close-up panels, only allow: static camera, slow panning/tracking within the close-up, or micro-movements (e.g., fingers twitching, eyes blinking, lips quivering). Do NOT attempt to reveal the face, body, or wider background if they are not visible in the close-up image.
+9. Visibility Constraint — CHARACTER LEVEL (MANDATORY): Action for each character in the Action line MUST be strictly restricted to the body parts that are actually VISIBLE in the image_prompt:
+   - Hand close-up / Hand visible only   → only hand movements (fingers twitching, tightening, holding)
+   - Eye close-up / Eyes visible only    → only eye movements (blinking, pupil dilation, gaze shifts)
+   - Blurred back / Background silhouette → static anchor only, body micro-movements (breathing) permitted; NO face/head/limb actions
+   - Over-the-shoulder (OTS back visible)→ only subtle shoulder/back shifts or breathing, ABSOLUTELY NO face actions or head rotations
+   - Partial/Half-face visible           → only actions/expressions on the visible half of the face
+   - Full body visible                   → full body movements, posture changes, walking
+   - Full face visible                   → facial expressions, eyes, lips, and head movement
+   - NEVER assign actions, rotations, or expressions to body parts that are NOT visible or blurred in the generated static image.
 
 ⚠️ **Anti-Jitter / Speed Control Rules** (violation causes stutter, distortion):
-- LIMIT ACTIONS per Shot: ≤3s → only 1 gentle action. 4-5s → max 1-2 actions. Never chain 3+ actions in one shot — the AI will rush through them causing jitter
+- LIMIT ACTIONS per Shot: < 4s → 1 primary action only (a secondary micro-expression is optional but not required). 4-5s → max 2 actions. Never chain 3+ actions in one shot — the AI will rush through them causing jitter
 - Keep actions simple and slow: "slowly tilts head", "gently raises hand", "subtle smile" — avoid rapid sequences
 - ❌ Bad: "Sonic looks up, waves enthusiastically, then runs away" (too many actions chained = jitter)
 - ✅ Good: "Slow-motion. Sonic in a gentle, smooth motion slowly tilts his head upward with a subtle smile. Smooth and fluid movement throughout"
 - Use speed keywords in every Shot: "slow-motion", "smooth and fluid", "gentle", "subtle"
-- Camera movement should match: "slow push", "gentle track", "slight sway" — avoid "rapid", "fast", "sudden"
+- Camera movement: "static camera", "no camera movement" — NEVER use "push", "dolly", "track", "pan", "zoom"
 
 If existingVideoPrompt is NOT empty:
-  1. KEEP all main content
-  2. RESTRUCTURE to match the format above if it doesn't already
-  3. ENRICH: add missing species from character.description, complete camera movement, specific actions
-  4. ABSOLUTELY DO NOT re-describe the static scene already in image_prompt
-  5. Always have a "motion" element — no static descriptions
+  1. COMPARE Action lines against image_prompt — remove or replace any action that duplicates a motion or state already visible in image_prompt (apply IMAGE → VIDEO CONTINUITY rule above)
+  2. RE-VERIFY Shot block count matches the duration rule above — add or remove Shot blocks if needed
+  3. Preserve narrative meaning while rewriting actions to satisfy all constraints — do NOT preserve exact actions verbatim
+  4. RESTRUCTURE to match the format above if it doesn't already
+  5. ENRICH: add missing species from character.description, complete camera movement, specific actions
+  6. ABSOLUTELY DO NOT re-describe the static scene already in image_prompt
+  7. Always have a "motion" element — no static descriptions
 
 If existingVideoPrompt IS EMPTY → generate from scratch:
-  - duration ≤ 2s: micro-motion (blink, breathe, lip quiver) — keep the format but very concise
-  - duration 3-5s: subtle motion (slow head turn, gentle camera push)
-  - duration ≥ 6s: moderate motion (walking, posture change, camera dolly)
+  - duration < 4s: micro-motion only (blink, breathe, lip quiver, subtle gaze shift) — 1 Shot block, keep format concise
+  - duration 4-5s: moderate motion (slow head turn, gentle gesture, breathing) — 2 Shot blocks, NO camera movement
+  - duration ≥ 6s: moderate motion (standing up, walking slowly, turning body) — 3+ Shot blocks, NO camera movement, keep slow-motion
   - duration null: subtle motion
   - Always use the EXACT format: [Scene] + [Characters] + Shot
 
@@ -148,3 +195,25 @@ JSON array. Element i corresponds to panel i in input:
 }
 
 Return ONLY JSON array. No markdown. No comments. No text outside JSON.
+
+---
+
+【LTX Video 2.3 Specific Guidance】
+
+This pipeline uses LTX Video 2.3 with IC-LoRA (Identity Consistency LoRA) and CropGuides for enhanced character consistency and reduced outpainting.
+
+What LTX 2.3 + IC-LoRA FIXES:
+✅ Character face drift (IC-LoRA strength 0.9 maintains identity)
+✅ Attribute leakage between characters (IC-LoRA Dual-Character)
+✅ Frame expansion (CropGuides crop to visible region)
+
+What LTX 2.3 + IC-LoRA DOES NOT FIX:
+❌ Camera push/dolly/track → still causes outpainting at frame edges
+❌ Background changes (sunlight shifting, leaves rustling) → still redraws background latent
+❌ Character actions requiring invented pixels → still outpaints
+
+Therefore:
+- Camera: MUST remain static (NO push, dolly, track, pan, zoom)
+- Background: MUST remain static (NO ambient motion elements)
+- Character actions: ALLOWED and can be moderate (head turns, gestures, standing up, walking) thanks to IC-LoRA, but MUST use slow-motion and smooth transitions
+- Multi-character scenes: Lower risk due to IC-LoRA Dual-Character, but still enforce spatial separation

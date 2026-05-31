@@ -3,7 +3,7 @@ import { safeParseJsonArray } from '@/lib/json-repair'
 import { prisma } from '@/lib/prisma'
 import { executeAiTextStep } from '@/lib/ai-runtime'
 import { withInternalLLMStreamCallbacks } from '@/lib/llm-observe/internal-stream-context'
-import { buildCharactersIntroduction } from '@/lib/constants'
+import { buildCharactersIntroduction, t } from '@/lib/constants'
 import { createClipContentMatcher } from '@/lib/novel-promotion/story-to-script/clip-matching'
 import { reportTaskProgress } from '@/lib/workers/shared'
 import { assertTaskActive } from '@/lib/workers/utils'
@@ -91,16 +91,20 @@ export async function handleClipsBuildTask(job: Job<TaskJobData>) {
     throw new Error('No novel text to process')
   }
 
+  const locale = job.data.locale === 'en' ? 'en' : 'zh'
+  const t_none = t('none', locale)
+  const sep = locale === 'en' ? ', ' : '、'
+
   const locationsLibName = novelData.locations.filter((item) => readAssetKind(item as unknown as Record<string, unknown>) !== 'prop').length > 0
-    ? novelData.locations.filter((item) => readAssetKind(item as unknown as Record<string, unknown>) !== 'prop').map((item) => item.name).join('、')
-    : '无'
+    ? novelData.locations.filter((item) => readAssetKind(item as unknown as Record<string, unknown>) !== 'prop').map((item) => item.name).join(sep)
+    : t_none
   const charactersLibName = novelData.characters.length > 0
-    ? novelData.characters.map((item) => item.name).join('、')
-    : '无'
+    ? novelData.characters.map((item) => item.name).join(sep)
+    : t_none
   const propsLibName = novelData.locations.filter((item) => readAssetKind(item as unknown as Record<string, unknown>) === 'prop').length > 0
-    ? novelData.locations.filter((item) => readAssetKind(item as unknown as Record<string, unknown>) === 'prop').map((item) => item.name).join('、')
-    : '无'
-  const charactersIntroduction = buildCharactersIntroduction(novelData.characters)
+    ? novelData.locations.filter((item) => readAssetKind(item as unknown as Record<string, unknown>) === 'prop').map((item) => item.name).join(sep)
+    : t_none
+  const charactersIntroduction = buildCharactersIntroduction(novelData.characters, locale)
   const promptTemplateBase = buildPrompt({
     promptId: PROMPT_IDS.NP_AGENT_CLIP,
     locale: job.data.locale,

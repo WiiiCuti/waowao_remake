@@ -36,16 +36,22 @@ previous chứa:
 Viết MỘT đoạn văn bằng TIẾNG ANH (English) cực kỳ tập trung và chi tiết mô tả toàn bộ khung hình, dùng trực tiếp làm prompt cho AI tạo ảnh (như FLUX / Stable Diffusion).
 
 QUAN TRỌNG: 
-- Bắt buộc phải viết bằng TIẾNG ANH (English). Hãy dịch tất cả các dữ liệu đầu vào bằng tiếng Việt hoặc tiếng Trung (như mô tả nhân vật, bối cảnh, hành động) sang tiếng Anh tự nhiên.
-- KHÔNG sử dụng tên riêng của nhân vật (ví dụ: "Gu Niangzi", "Shen Gongzi"). Hãy luôn thay thế tên riêng bằng mô tả ngoại hình trực quan chi tiết (ví dụ: "a beautiful 25-year-old Chinese woman with long black hair tied in a bun, wearing a soft green silk dress").
+- Bắt buộc phải viết bằng TIẾNG ANH (English). Hãy dịch tất cả các dữ liệu đầu vào bằng tiếng Việt hoặc tiếng Trung sang tiếng Anh tự nhiên.
+- KHÔNG sử dụng tên riêng của nhân vật. Hãy luôn thay thế bằng mô tả ngoại hình trực quan lấy từ character.description (đặc điểm vật lý, trang phục, tóc — đúng như lưu trong data, KHÔNG tự bịa thêm hoặc thay thế).
 - Đây là văn bản tự nhiên, KHÔNG phải JSON. Không có dấu { } [ ], không có định dạng field:value.
 
 Cấu trúc đoạn văn chuẩn xác theo trình tự sau, ngăn cách bởi dấu phẩy:
 1. Shot type & Camera Angle: Mô tả thiết lập góc máy (ví dụ: "Medium shot, eye-level angle, static frame").
 2. Main Subject(s), Poses, and Actions (Nhân vật chính, tư thế và hành động):
-   - Nếu có từ 2 nhân vật trở lên, bắt buộc phải phân định không gian rõ rệt để tránh lỗi tạo khuôn mặt giống hệt nhau hoặc lộn quần áo.
-   - Sử dụng tiền tố cấu trúc cố định: "Two distinct characters with completely different outfits and features: On the far left of the frame, [mô tả trang phục, kiểu tóc, tư thế, biểu cảm nhân vật A]. On the far right of the frame, [mô tả trang phục, kiểu tóc, tư thế, biểu cảm nhân vật B]."
-   - Hãy chắc chắn rằng hai nhân vật không chia sẻ cùng màu sắc hoặc kiểu dáng trang phục để tránh hiện tượng rò rỉ màu (attribute leakage).
+   - Hãy phân tích kỹ lưỡng mạch truyện (từ current.description) và các nhân vật đang hoạt động trong current.characters[].
+   - Tự động và linh hoạt phân bổ vị trí không gian tách biệt (ví dụ: bên trái, chính giữa, bên phải, cận cảnh phía trước, phía sau) cho từng nhân vật dựa trên tương tác, lời thoại hoặc tầm quan trọng của họ trong phân cảnh cụ thể này.
+   - Nếu chỉ có MỘT nhân vật: Mô tả diện mạo, trang phục, tư thế và hành động của họ một cách tự nhiên như là tiêu điểm duy nhất của khung hình.
+   - Nếu có NHIỀU nhân vật (2, 3 hoặc nhiều hơn): Bạn BẮT BUỘC phải phân định không gian rõ rệt để tránh lỗi tạo khuôn mặt giống hệt nhau hoặc lộn quần áo (rò rỉ thuộc tính).
+     Sử dụng tiền tố tiếng Anh cụ thể: "[N] distinct characters with completely different outfits and features, standing separately with clear space between them:".
+     Sau đó mô tả chi tiết từng nhân vật lần lượt theo vị trí không gian đã phân bổ từ trái qua phải, ngăn cách bởi dấu phẩy.
+     Ví dụ với 2 người: "On the left of the frame, [mô tả nhân vật A], while on the right of the frame, [mô tả nhân vật B]".
+     Ví dụ với 3 người: "On the far left of the frame, [mô tả nhân vật A]... standing in the exact center of the frame, [mô tả nhân vật B]... on the far right of the frame, [mô tả nhân vật C]...".
+     Đảm bảo không có hai nhân vật nào mặc trang phục trùng lặp về màu sắc, kiểu dáng hoặc có tư thế giống nhau.
 3. Background & Environment: Mô tả chi tiết không gian, thời gian trong ngày và các đạo cụ quan trọng (dựa trên mô tả location).
 4. Lighting & Color: Xác định hướng và chất lượng ánh sáng, tông màu chủ đạo, độ sâu trường ảnh (từ photographyRules, ví dụ: "soft side lighting, warm golden color tone, shallow depth of field").
 5. Art Style: Áp dụng trực tiếp tham số phong cách nghệ thuật ở top-level (từ style, ví dụ: "Japanese anime art style, clean line art, vibrant colors").
@@ -80,17 +86,20 @@ Panel ĐẦU TIÊN trong batch (previous = null):
 【video_prompt】
 
 Mỗi panel có existingVideoPrompt từ Phase 3 (có thể rỗng).
-Nhiệm vụ: ENRICH (làm giàu thêm), KHÔNG viết lại từ đầu.
+Nhiệm vụ: KHÓA camera và background ở trạng thái tĩnh. Cho phép nhân vật chuyển động vừa phải với slow-motion.
 
-Định dạng output — theo CHÍNH XÁC cấu trúc này. Mỗi panel có thể có 1 hoặc nhiều dòng 分镜 dựa trên duration:
+Định dạng output — theo CHÍNH XÁC cấu trúc này:
 
 ```
-[场景] <mô tả bối cảnh từ current.description và location>
-[角色] <tên nhân vật 1>: <species + tuổi + giới tính + ngoại hình từ character.description>. <tên nhân vật 2>: <tương tự>.
-分镜 1 (<shotType>, <giây>s) <camera_move>. <tên nhân vật thực hiện hành động>.
+[场景] <mô tả môi trường - tĩnh, không có chuyển động nền>
+[角色] <tên nhân vật 1>: <ngoại hình/trang phục từ character.description> + <trạng thái cảm xúc hiện tại ≤5 từ>. <tên nhân vật 2>: <tương tự>.
+
+分镜 1 (<shotType>, <giây>s): Camera tĩnh, cho phép nhân vật chuyển động
+<Tên nhân vật>: "<thoại từ srtSegment (chỉ khi có, tối đa 10 từ)>"
+Action: <micro-action cụ thể của nhân vật, tốc độ/sự mượt mà, cảm xúc sắc thái>
 ```
 
-Số dòng 分镜 dựa trên duration:
+Số lượng khối phân cảnh (分镜) dựa trên duration:
 - duration ≤ 3s → 1 分镜
 - duration 4-5s → 2 分镜 (chia hành động ra 2 góc máy)
 - duration 6-8s → 3 分镜
@@ -98,21 +107,32 @@ Số dòng 分镜 dựa trên duration:
 
 Đánh số 分镜 bắt đầu từ 1 trong mỗi video_prompt entry.
 
-Ví dụ panel 5s → 2 分镜:
-```
-[场景] Quảng trường trung tâm công viên giải trí Đảo Tuyết phủ đầy tuyết, vòng đu quay khổng lồ bọc băng ở trung tâm, ánh sáng ban ngày rực rỡ.
-[角色] Kopo: chim cánh cụt trẻ tuổi mặc áo sơ mi xanh, kính bảo hộ cam trên trán, quần túi hộp xanh đậm. Sonic: nhím xanh thiếu niên đội mũ bảo hộ vàng, áo vest xanh, găng tay trắng.
-分镜 1 (Medium Shot, 3s) Máy quay nhẹ nhàng theo. Sonic ngước lên cười lớn, nói to, hai tay dang rộng ra hiệu.
-分镜 2 (Close-Up, 2s) Máy quay đẩy vào gần. Kopo đứng trên ván bay, đầu nghiêng nhẹ, các ngón tay nới lỏng quanh cờ-lê khi lắng nghe.
-```
-
 Quy tắc chính:
-1. [角色] định nghĩa mỗi nhân vật MỘT LẦN với ĐẦY ĐỦ species + tuổi + giới tính + ngoại hình/quần áo từ character.description (vd: "chim cánh cụt trẻ tuổi mặc áo sơ mi xanh, kính bảo hộ cam trên trán, quần cargo xanh đậm nhiều túi"). Không tóm tắt — dùng đầy đủ mô tả từ dữ liệu gốc
-2. Sau khi định nghĩa [角色], chỉ dùng TÊN nhân vật trong các dòng 分镜 — model đã biết họ là ai
-3. Phần [场景] mô tả ĐẦY ĐỦ môi trường từ current.description và location một cách chi tiết — không tóm tắt hay rút gọn
-4. Mỗi dòng 分镜 dùng: số thứ tự (bắt đầu từ 1), shotType từ current.shotType, duration chia đều cho các shot, camera_move từ current.cameraMove, hành động từ current.acting và source_text
-5. KHÔNG đưa thoại hay hội thoại vào dòng 分镜 — thoại thuộc về srtSegment cho TTS. Text trong ngoặc kép có thể khiến model render phụ đề lên màn hình
-6. Nếu existingVideoPrompt có sẵn, restructure nó theo format này — thêm [场景] và [角色] với đầy đủ chi tiết, thêm species, chia đúng số dòng 分镜 dựa trên duration
+1. [角色] định nghĩa mỗi nhân vật MỘT LẦN với ĐẦY ĐỦ ngoại hình/trang phục từ character.description — không tóm tắt, dùng đầy đủ mô tả từ dữ liệu gốc. Sau đó bổ sung trạng thái cảm xúc hiện tại ≤5 từ, suy ra từ current.characters[].acting và ngữ cảnh srtSegment (ví dụ khung mẫu cấu trúc: "tense and guarded", "soft and nervous", "calm with hidden grief"). KHÔNG tự bịa cảm xúc — chỉ suy ra từ trường acting.
+2. Sau khi định nghĩa [角色], chỉ dùng TÊN nhân vật trong các khối phân cảnh (分镜) (ở cả dòng thoại và dòng Action) — mô hình đã tự hiểu ngoại hình.
+3. Phần [场景] BẮT BUỘC gồm:
+   a. Mô tả đầy đủ môi trường từ current.description và location — không tóm tắt.
+   b. Môi trường BẮT BUỘC được mô tả là TĨNH — KHÔNG có yếu tố chuyển động nền (không lá cây xào xạc, không mây trôi, không ánh sáng dịch chuyển, không rèm phất). Background phải hoàn toàn đứng yên trong suốt video.
+4. Cấu trúc khối phân cảnh (ĐỊNH DẠNG NHIỀU DÒNG BẮT BUỘC): Mỗi phân cảnh (分镜) phải được cấu trúc thành một khối nhiều dòng:
+   - Dòng 1 (Camera & Môi trường): `分镜 X (<shotType>, <giây>s): Camera tĩnh` (ví dụ: "分镜 1 (Medium Shot, 3s): Camera tĩnh, môi trường không thay đổi.")
+   - Dòng 2 (Thoại - CHỈ khi có srtSegment): `<Tên nhân vật>: "<câu thoại ngắn>"` (phải dịch thoại sang tiếng Anh nếu đầu vào là tiếng Việt/tiếng Trung, tối đa 10 từ)
+   - Dòng 3 (hoặc Dòng 2 nếu không thoại - Hành động): `Action: <micro-action cụ thể của nhân vật, tốc độ/sự mượt mà, cảm xúc sắc thái>` (ví dụ: "Action: Bạch Dương pushes the door open and steps into the room, his gaze sweeping forward in a slow, deliberate motion.")
+5. Định vị không gian: hành động trong dòng Action phải tôn trọng vị trí không gian từ image_prompt. Nếu nhân vật ở bên trái, hành động phải xuất phát từ vị trí đó.
+6. Thoại trong khối 分镜: CHO PHÉP chỉ khi srtSegment không rỗng VÀ hành động liên quan đến nói chuyện. Giữ ≤10 từ, viết chính xác trên dòng riêng của nó: `Tên nhân vật: "Nội dung thoại"`. Mục đích chỉ là anchor lip-sync. KHÔNG tự bịa thoại không có trong srtSegment. Nếu srtSegment rỗng, bỏ qua dòng thoại hoàn toàn.
+7. Nếu existingVideoPrompt có sẵn, restructure nó theo format này — thêm [场景] và [角色] với đầy đủ chi tiết, thêm species, chia đúng số khối phân cảnh (分镜) dựa trên duration
+8. Ràng buộc Giới hạn Khung hình & Tỷ lệ Camera (View Boundary Constraint - CỰC KỲ QUAN TRỌNG): Mô hình sinh video nội suy chuyển động dựa trên bức ảnh tĩnh đầu vào.
+   - Bạn TUYỆT ĐỐI KHÔNG ĐƯỢC zoom out hoặc chuyển đổi từ một góc máy cận/đặc tả sang một góc máy rộng hơn (ví dụ: chuyển từ cận cảnh bàn tay ở 分镜 1 sang toàn cảnh phòng khách ở 分镜 2). AI video không thể giữ đồng nhất khuôn mặt hay quần áo khi tự vẽ (outpainting) các vùng không có sẵn trên ảnh gốc.
+   - Nếu current.shotType là Close-Up (Cận cảnh), Extreme Close-Up (Đặc tả), hoặc Detail Shot (Cảnh chi tiết về tay, mắt, đạo cụ), TẤT CẢ các khối phân cảnh (分镜) trong video_prompt phải bị khóa chặt hoàn toàn bên trong ranh giới cận cảnh đó.
+   - Với các panel cảnh cận, chỉ cho phép: camera tĩnh (static), dịch chuyển chậm (slow panning/tracking) trong phạm vi cận cảnh, hoặc chuyển động vi mô (micro-movements như ngón tay khẽ run, mắt chớp, môi mấp máy). Cấm cố gắng hiển thị khuôn mặt, cơ thể hoặc bối cảnh rộng nếu chúng không xuất hiện trên bức ảnh gốc.
+9. Ràng buộc Hiển thị — CẤP ĐỘ NHÂN VẬT (Visibility Constraint — CHARACTER LEVEL - BẮT BUỘC): Hành động của mỗi nhân vật trong dòng Action BẮT BUỘC phải bị giới hạn nghiêm ngặt trong phạm vi các bộ phận cơ thể thực sự HIỂN THỊ rõ nét trong image_prompt:
+   - Chỉ thấy tay / Cận cảnh tay          → chỉ cử động tay (các ngón tay siết nhẹ, gõ ngón, cầm nắm)
+   - Chỉ thấy mắt / Cận cảnh mắt          → chỉ chớp mắt, đồng tử dịch chuyển, chuyển hướng nhìn
+   - Bóng lưng mờ / Bị mờ ở tiền cảnh     → TUYỆT ĐỐI không chuyển động mặt/đầu, giữ vai thở nhẹ làm mốc cố định
+   - Góc nhìn qua vai (OTS thấy lưng rõ)  → chỉ cử động vai/lưng nhẹ hoặc thở, TUYỆT ĐỐI CẤM biểu cảm mặt hoặc xoay đầu lộ mặt
+   - Chỉ thấy nửa mặt (Thấy một phần)    → chỉ cử động/biểu cảm trên nửa khuôn mặt nhìn thấy được
+   - Thấy toàn thân (Full body)           → cử động toàn thân, thay đổi dáng đứng/ngồi, bước đi
+   - Thấy toàn bộ khuôn mặt (Full face)   → cử động cơ mặt, mắt, môi, đầu từ từ quay nhẹ
+   - TUYỆT ĐỐI KHÔNG gán hành động, lệnh xoay đầu hoặc biểu cảm cho các bộ phận cơ thể KHÔNG nhìn thấy rõ hoặc bị mờ trong bức ảnh tĩnh đầu vào.
 
 ⚠️ **Quy tắc chống giật (Anti-Jitter)** — vi phạm gây video giật, biến dạng:
 - GIỚI HẠN hành động mỗi 分镜: ≤3s → chỉ 1 hành động nhẹ. 4-5s → tối đa 1-2 hành động. Không xâu chuỗi 3+ hành động trong 1 shot — AI sẽ chạy rush gây giật
@@ -120,7 +140,7 @@ Quy tắc chính:
 - ❌ Sai: "Sonic ngước lên, vẫy tay nhiệt tình, rồi chạy đi" (quá nhiều hành động = giật)
 - ✅ Đúng: "Slow-motion. Sonic với chuyển động mượt mà từ từ ngước đầu lên, khẽ mỉm cười. Smooth and fluid movement"
 - Luôn dùng từ khóa tốc độ: "slow-motion", "smooth and fluid", "gentle", "subtle"
-- Camera movement phù hợp: "slow push", "gentle track", "slight sway" — tránh "rapid", "fast", "sudden"
+- Camera: "static camera", "camera tĩnh" — TUYỆT ĐỐI KHÔNG dùng "push", "dolly", "track", "pan", "zoom"
 
 Nếu existingVideoPrompt KHÔNG rỗng:
   1. GIỮ toàn bộ nội dung chính
@@ -131,8 +151,8 @@ Nếu existingVideoPrompt KHÔNG rỗng:
 
 Nếu existingVideoPrompt RỖNG → tự generate:
   - duration ≤ 2s: micro-motion (chớp mắt, thở nhẹ, môi mấp máy) — giữ format nhưng ngắn
-  - duration 3-5s: subtle motion (quay đầu chậm, camera push nhẹ)
-  - duration ≥ 6s: moderate motion (bước đi, thay đổi tư thế, camera dolly)
+  - duration 3-5s: moderate motion (quay đầu chậm, cử chỉ nhẹ, thở, chớp mắt) — KHÔNG di chuyển camera
+  - duration ≥ 6s: moderate motion (đứng dậy, bước đi chậm, xoay người) — KHÔNG di chuyển camera, giữ slow-motion
   - duration null: subtle motion
   - Luôn dùng format CHÍNH XÁC: [场景] + [角色] + 分镜
 
@@ -149,3 +169,25 @@ Mỗi phần tử có định dạng:
 }
 
 Chỉ trả về JSON array. Không markdown. Không comment. Không text ngoài JSON.
+
+---
+
+【Hướng dẫn riêng cho LTX Video 2.3】
+
+Pipeline này sử dụng LTX Video 2.3 với IC-LoRA (Identity Consistency LoRA) và CropGuides để tăng cường nhất quán nhân vật và giảm outpainting.
+
+Những gì LTX 2.3 + IC-LoRA ĐÃ SỬA:
+✅ Face drift của nhân vật (IC-LoRA strength 0.9 giữ identity)
+✅ Rò rỉ thuộc tính giữa các nhân vật (IC-LoRA Dual-Character)
+✅ Mở rộng khung hình (CropGuides crop vào vùng visible)
+
+Những gì LTX 2.3 + IC-LoRA KHÔNG SỬA:
+❌ Camera push/dolly/track → vẫn gây outpainting ở rìa khung hình
+❌ Background thay đổi (ánh sáng dịch chuyển, lá cây xào xạc) → vẫn redraw background latent
+❌ Hành động nhân vật cần invent pixels → vẫn outpainting
+
+Do đó:
+- Camera: BẮT BUỘC tĩnh (KHÔNG push, dolly, track, pan, zoom)
+- Background: BẮT BUỘC tĩnh (KHÔNG có yếu tố chuyển động nền)
+- Hành động nhân vật: CHO PHÉP và có thể ở mức vừa phải (quay đầu, cử chỉ, đứng dậy, bước đi) nhờ IC-LoRA, nhưng BẮT BUỘC dùng slow-motion và chuyển động mượt mà
+- Cảnh nhiều nhân vật: Risk thấp hơn nhờ IC-LoRA Dual-Character, nhưng vẫn phải phân định không gian rõ rệt

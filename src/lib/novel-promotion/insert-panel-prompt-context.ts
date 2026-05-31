@@ -26,13 +26,13 @@ export function buildInsertPanelLocationsDescription(
   )
 
   if (filteredLocations.length === 0) {
-    return '无'
+    return locale === 'en' ? 'None' : '无'
   }
 
   return filteredLocations
     .map((location) => {
       const selectedImage = location.images?.find((image) => image.isSelected) ?? location.images?.[0]
-      const description = selectedImage?.description || '无描述'
+      const description = selectedImage?.description || (locale === 'en' ? 'No description' : '无描述')
       const slotsText = formatLocationAvailableSlotsText(
         parseLocationAvailableSlots(selectedImage?.availableSlots),
         locale,

@@ -13,21 +13,6 @@ const MODULES = [
   { load: '233', scale: '273', vae: '263', ref: '258' },
   { load: '236', scale: '274', vae: '264', ref: '259' },
   { load: '239', scale: '275', vae: '265', ref: '260' },
-  { load: '282', scale: '283', vae: '284', ref: '285' },
-  { load: '286', scale: '287', vae: '288', ref: '289' },
-  { load: '290', scale: '291', vae: '292', ref: '293' },
-  { load: '294', scale: '295', vae: '296', ref: '297' },
-  { load: '298', scale: '299', vae: '300', ref: '301' },
-  { load: '302', scale: '303', vae: '304', ref: '305' },
-  { load: '306', scale: '307', vae: '308', ref: '309' },
-  { load: '310', scale: '311', vae: '312', ref: '313' },
-  { load: '314', scale: '315', vae: '316', ref: '317' },
-  { load: '318', scale: '319', vae: '320', ref: '321' },
-  { load: '322', scale: '323', vae: '324', ref: '325' },
-  { load: '326', scale: '327', vae: '328', ref: '329' },
-  { load: '330', scale: '331', vae: '332', ref: '333' },
-  { load: '334', scale: '335', vae: '336', ref: '337' },
-  { load: '338', scale: '339', vae: '340', ref: '341' },
 ]
 const CLIP_NODE = '6'
 const GUIDER_NODE = '278'
@@ -50,12 +35,24 @@ export class ComfyUIImageGenerator extends BaseImageGenerator {
       const count = referenceImages.length
       const useImg2Img = count > 0
 
+      const debugDir = 'temp/prompt-debug'
+
       if (useImg2Img) {
         const maxModules = Math.min(count, MODULES.length)
         const uploadedNames = await Promise.all(
           referenceImages.slice(0, maxModules).map((url) => this.uploadImageToComfyUI(endpoint, url)),
         )
         const workflow = this.buildWorkflow(prompt, uploadedNames, options)
+
+        const fs = await import('fs/promises')
+        const path = await import('path')
+        await fs.mkdir(debugDir, { recursive: true })
+        await fs.writeFile(
+          path.join(debugDir, `comfyui-workflow-${Date.now()}.json`),
+          JSON.stringify({ endpoint, mode: 'img2img', refCount: count, uploadedNames, workflow }, null, 2),
+          'utf-8',
+        )
+
         const res = await fetch(`${endpoint}/prompt`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -63,11 +60,22 @@ export class ComfyUIImageGenerator extends BaseImageGenerator {
         })
         if (!res.ok) throw new Error(`ComfyUI submit failed: ${res.status}`)
         const { prompt_id } = await res.json()
+        console.log(`[ComfyUI] prompt_id=${prompt_id} endpoint=${endpoint} refCount=${count} uploadedNames=${uploadedNames.join(',')}`)
         const imageUrl = await this.pollForResult(endpoint, prompt_id)
         return { success: true, imageUrl }
       }
 
       const workflow = this.buildWorkflow(prompt, [], options)
+
+      const fs = await import('fs/promises')
+      const path = await import('path')
+      await fs.mkdir(debugDir, { recursive: true })
+      await fs.writeFile(
+        path.join(debugDir, `comfyui-workflow-${Date.now()}.json`),
+        JSON.stringify({ endpoint, mode: 'txt2img', refCount: 0, workflow }, null, 2),
+        'utf-8',
+      )
+
       const res = await fetch(`${endpoint}/prompt`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -75,6 +83,7 @@ export class ComfyUIImageGenerator extends BaseImageGenerator {
       })
       if (!res.ok) throw new Error(`ComfyUI submit failed: ${res.status}`)
       const { prompt_id } = await res.json()
+      console.log(`[ComfyUI] prompt_id=${prompt_id} endpoint=${endpoint} mode=txt2img`)
       const imageUrl = await this.pollForResult(endpoint, prompt_id)
       return { success: true, imageUrl }
 
@@ -157,10 +166,6 @@ export class ComfyUIImageGenerator extends BaseImageGenerator {
         workflow[GUIDER_NODE].inputs.positive = [lastRef, 0]
       }
 
-      // Reduce denoise
-      if (workflow['276']) {
-        workflow['276'].inputs.denoise = 0.65
-      }
     }
 
     // Fill prompt and dimensions
@@ -193,7 +198,7 @@ export class ComfyUIImageGenerator extends BaseImageGenerator {
   }
 
   private async pollForResult(endpoint: string, promptId: string): Promise<string> {
-    const maxAttempts = 120
+    const maxAttempts = 240
     const interval = 1000
 
     for (let i = 0; i < maxAttempts; i++) {

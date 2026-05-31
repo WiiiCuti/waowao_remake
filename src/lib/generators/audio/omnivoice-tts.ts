@@ -2,7 +2,7 @@ import { BaseAudioGenerator, AudioGenerateParams, GenerateResult } from '../base
 import { getProviderConfig } from '@/lib/api-config'
 import { toFetchableUrl } from '@/lib/storage/utils'
 
-const DEFAULT_REF_TEXT = 'Ngày xưa con người nhìn lên bầu trời đầy sao và tự hỏi ngoài kia còn có điều gì đang chờ đợi mình khám phá.'
+const DEFAULT_REF_TEXT = 'Đây là đoạn âm thanh mẫu để nhân bản giọng nói cho các mô hình chuyển văn bản thành giọng.'
 
 export interface OmniVoiceTTSParams {
   userId: string

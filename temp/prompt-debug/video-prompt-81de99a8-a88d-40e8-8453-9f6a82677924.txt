@@ -1,0 +1,6 @@
+[Scene] A living room in daytime, the entire background blurred due to shallow depth of field, with soft natural light from a window on the left, no motion.
+[Characters] Bạch Dương: A 25-year-old male with defined jaw, high nose, brows furrowed, sharp almond eyes, thin lips, short black hair side-parted, wearing a light blue shirt, gray trousers, black shoes, pensive and contemplative.
+
+Shot 1 (Eye-Level Close-Up, 3.92s): Static camera, environment unchanged.
+Bạch Dương: "Without any preparation, a month has passed."
+Action: He speaks the line softly in slow-motion, lips moving gently, eyes remaining distant, hand still cradling his chin, smooth and fluid movement.

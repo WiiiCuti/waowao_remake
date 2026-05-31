@@ -17,8 +17,8 @@
   },
   "163": {
     "inputs": {
-      "seed": 1098125762283860,
-      "steps": 8,
+      "seed": 126333154048402,
+      "steps": 4,
       "cfg": 1,
       "sampler_name": "euler",
       "scheduler": "simple",
@@ -32,7 +32,7 @@
         0
       ],
       "negative": [
-        "190",
+        "232",
         0
       ],
       "latent_image": [
@@ -59,18 +59,6 @@
     "class_type": "VAEDecode",
     "_meta": {
       "title": "VAE Decode"
-    }
-  },
-  "190": {
-    "inputs": {
-      "conditioning": [
-        "6",
-        0
-      ]
-    },
-    "class_type": "ConditioningZeroOut",
-    "_meta": {
-      "title": "ConditioningZeroOut"
     }
   },
   "194": {
@@ -113,13 +101,13 @@
     },
     "class_type": "SaveImage",
     "_meta": {
-      "title": "@image.save"
+      "title": "$image.save"
     }
   },
   "216": {
     "inputs": {
       "model": [
-        "194",
+        "233",
         0
       ]
     },
@@ -130,7 +118,7 @@
   },
   "220": {
     "inputs": {
-      "value": "sexy"
+      "value": ""
     },
     "class_type": "PrimitiveString",
     "_meta": {
@@ -170,6 +158,50 @@
     "class_type": "INTConstant",
     "_meta": {
       "title": "$height.value"
+    }
+  },
+  "230": {
+    "inputs": {
+      "lora_name": "AniEdit9B_v2.safetensors",
+      "strength_model": 0.7,
+      "model": [
+        "194",
+        0
+      ]
+    },
+    "class_type": "LoraLoaderModelOnly",
+    "_meta": {
+      "title": "Load LoRA"
+    }
+  },
+  "232": {
+    "inputs": {
+      "conditioning": [
+        "6",
+        0
+      ],
+      "latent": [
+        "221",
+        0
+      ]
+    },
+    "class_type": "ReferenceLatent",
+    "_meta": {
+      "title": "ReferenceLatent"
+    }
+  },
+  "233": {
+    "inputs": {
+      "lora_name": "nnegrat_cgstyle_9b_1800.safetensors",
+      "strength_model": 0.85,
+      "model": [
+        "230",
+        0
+      ]
+    },
+    "class_type": "LoraLoaderModelOnly",
+    "_meta": {
+      "title": "Load LoRA"
     }
   }
 }

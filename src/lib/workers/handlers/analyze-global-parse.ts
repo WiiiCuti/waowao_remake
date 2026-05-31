@@ -1,4 +1,5 @@
 import { safeParseJsonObject } from '@/lib/json-repair'
+import { t } from '@/lib/constants'
 
 export const CHUNK_SIZE = 3000
 const INVALID_LOCATION_KEYWORDS = ['幻想', '抽象', '无明确', '空间锚点', '未说明', '不明确']
@@ -64,12 +65,22 @@ export function parseAliases(raw: string | null): string[] {
   }
 }
 
-export function buildCharactersLibInfo(characters: CharacterBrief[]): string {
-  if (characters.length === 0) return '暂无已有角色'
+export function buildCharactersLibInfo(characters: CharacterBrief[], locale: 'zh' | 'en' = 'zh'): string {
+  if (characters.length === 0) return t('no_existing_chars', locale)
+  const isEn = locale === 'en'
+  const colon = isEn ? ': ' : '：'
+  const joinSep = isEn ? ', ' : '、'
+
   return characters
     .map((c, i) => {
-      const aliasStr = c.aliases.length > 0 ? `别名：${c.aliases.join('、')}` : '别名：无'
-      const introStr = c.introduction ? `介绍：${c.introduction}` : '介绍：暂无'
+      const aliasLabel = isEn ? 'Aliases' : '别名'
+      const aliasVal = c.aliases.length > 0 ? c.aliases.join(joinSep) : t('none', locale)
+      const aliasStr = `${aliasLabel}${colon}${aliasVal}`
+
+      const introLabel = isEn ? 'Introduction' : '介绍'
+      const introVal = c.introduction ? c.introduction : t('no_intro', locale)
+      const introStr = `${introLabel}${colon}${introVal}`
+
       return `${i + 1}. ${c.name}\n   ${aliasStr}\n   ${introStr}`
     })
     .join('\n\n')

@@ -42,6 +42,17 @@ Regardless of the format, you must break it down into a continuous sequence of c
     - When {original_text} is provided, source_text MUST be copied from {original_text}, NOT from the description field of {clip_content}
     - Creative shots must also have the original text fragment that triggered that shot filled in
 
+   ⚠️ source_text Cleaning Rule (strip before storing) — TWO different behaviors:
+   TYPE 1 — Strip the ENTIRE LINE (zero narrative value, pure metadata):
+   - Scene header lines: [CẢNH X: ...], [SCENE X: ...], [INT. ...], [EXT. ...]
+   - Transcription noise: lines containing "TurboScribe", "[âm nhạc]", "[music]"
+   TYPE 2 — Strip the LABEL PREFIX ONLY, keep the rest (content after label is valid narrative):
+   - "Bối cảnh: [content]" → strip "Bối cảnh: ", keep [content]
+   - "Background: [content]" → strip "Background: ", keep [content]
+   - "Setting: [content]" → strip "Setting: ", keep [content]
+   Example: "Bối cảnh: Ngọn lửa bùng lên." → keep "Ngọn lửa bùng lên." (NOT empty string)
+   If after stripping source_text is empty, use the nearest non-empty narrative sentence.
+
 [Shot Breakdown Rules]
 
 1. Shot size selection (choose one):

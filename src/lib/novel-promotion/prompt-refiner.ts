@@ -67,7 +67,7 @@ function pickAppearanceDescription(appearance: {
   descriptions?: string | null
   description?: string | null
   selectedIndex?: number | null
-}): string {
+}, locale: 'zh' | 'en' = 'zh'): string {
   const descriptions = (() => {
     if (!appearance.descriptions) return []
     try {
@@ -85,7 +85,7 @@ function pickAppearanceDescription(appearance: {
   if (typeof appearance.description === 'string' && appearance.description.trim()) {
     return appearance.description.trim()
   }
-  return '无描述'
+  return locale === 'en' ? 'No description' : '无描述'
 }
 
 function buildCharDetails(
@@ -112,6 +112,7 @@ function buildCharacterResources(
   charRefs: Array<{ name: string; appearance?: string }>,
   characters: Array<{
     name: string
+    profileData?: string | null
     appearances: Array<{
       changeReason: string
       description: string | null
@@ -119,16 +120,37 @@ function buildCharacterResources(
       selectedIndex: number | null
     }>
   }>,
+  locale: 'zh' | 'en' = 'zh',
 ): Array<{ name: string; appearance: string | null; description: string }> {
   return charRefs.map((ref) => {
     const char = findCharacterByName(characters, ref.name)
-    if (!char) return { name: ref.name, appearance: ref.appearance || null, description: '无角色数据' }
+    if (!char) return { name: ref.name, appearance: ref.appearance || null, description: locale === 'en' ? 'No character data' : '无角色数据' }
     const appearances = char.appearances || []
     const matchedAppearance = ref.appearance
       ? appearances.find((a: { changeReason: string }) => a.changeReason.toLowerCase() === ref.appearance!.toLowerCase())
       : null
     const appearance = matchedAppearance || appearances[0]
-    const fullDesc = appearance ? pickAppearanceDescription(appearance) : '无角色外貌数据'
+    let fullDesc = appearance ? pickAppearanceDescription(appearance, locale) : (locale === 'en' ? 'No character appearance data' : '无角色外貌数据')
+
+    if (char && char.profileData) {
+      try {
+        const profile = JSON.parse(char.profileData)
+        const gender = profile?.gender
+        const age = profile?.age_range
+        if (gender || age) {
+          const prefixParts: string[] = []
+          if (age) prefixParts.push(age)
+          if (gender) prefixParts.push(gender)
+          const prefix = prefixParts.join(', ')
+          if (prefix && !fullDesc.toLowerCase().includes(prefix.toLowerCase())) {
+            fullDesc = `${prefix}, ${fullDesc}`
+          }
+        }
+      } catch {
+        // ignore JSON parse error
+      }
+    }
+
     return {
       name: char.name,
       appearance: appearance?.changeReason || null,
@@ -183,6 +205,7 @@ async function refineSinglePanel(
   prevCharDetails: CharDetail[] | null,
   characters: Array<{
     name: string
+    profileData?: string | null
     appearances: Array<{
       changeReason: string
       description: string | null
@@ -199,7 +222,7 @@ async function refineSinglePanel(
   projectId?: string,
 ): Promise<{ imagePrompt: string; videoPrompt: string; charDetails: CharDetail[] }> {
   const charRefs = parsePanelCharacterReferences(panel.characters)
-  const characterResources = buildCharacterResources(charRefs, characters)
+  const characterResources = buildCharacterResources(charRefs, characters, locale)
   const locationResource = buildLocationResource(panel.location, locations)
   const photoRules = parseJsonUnknown(panel.photographyRules)
   const actingNotes = parseJsonUnknown(panel.actingNotes)
@@ -368,6 +391,7 @@ export async function refinePanelPrompts(params: {
 
   const characters = (projectData?.characters || []) as Array<{
     name: string
+    profileData: string | null
     appearances: Array<{
       changeReason: string
       description: string | null
@@ -398,7 +422,7 @@ export async function refinePanelPrompts(params: {
       )
 
       const charRefs = parsePanelCharacterReferences(panel.characters)
-      const characterResources = buildCharacterResources(charRefs, characters)
+      const characterResources = buildCharacterResources(charRefs, characters, locale)
       const locationResource = buildLocationResource(panel.location, locations)
       const photoRules = parseJsonUnknown(panel.photographyRules)
       const prevPhotoRules = prevPanel ? parseJsonUnknown(prevPanel.photographyRules) : null

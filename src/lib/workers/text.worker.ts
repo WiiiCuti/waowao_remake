@@ -486,6 +486,12 @@ async function handleInsertPanelTask(job: Job<TaskJobData>) {
     2,
   )
 
+  const locale = job.data.locale === 'en' ? 'en' : 'zh'
+  const t_none = locale === 'en' ? 'None' : '无'
+  const t_no_description = locale === 'en' ? 'No description' : '无描述'
+  const t_no_appearance_info = locale === 'en' ? 'No appearance info' : '无形象信息'
+  const t_default = locale === 'en' ? 'Default' : '默认'
+
   const nextPanelJson = nextPanel
     ? JSON.stringify(
       {
@@ -501,7 +507,7 @@ async function handleInsertPanelTask(job: Job<TaskJobData>) {
       null,
       2,
     )
-    : '无'
+    : t_none
 
   const relatedCharacters = Array.from(new Set([...parsePanelCharacters(prevPanel), ...parsePanelCharacters(nextPanel)]))
   const relatedLocations = Array.from(new Set([prevPanel.location, nextPanel?.location].filter((v): v is string => Boolean(v))))
@@ -511,7 +517,7 @@ async function handleInsertPanelTask(job: Job<TaskJobData>) {
     .filter((character) => relatedCharacters.length === 0 || relatedCharacters.includes(character.name))
     .map((character) => {
       const appearances = character.appearances || []
-      if (appearances.length === 0) return `${character.name}: 无形象信息`
+      if (appearances.length === 0) return `${character.name}: ${t_no_appearance_info}`
       const appearanceText = appearances
         .map((appearance) => {
           const descriptions = appearance.descriptions ? (() => {
@@ -523,13 +529,13 @@ async function handleInsertPanelTask(job: Job<TaskJobData>) {
             }
           })() : []
           const selectedIndex = appearance.selectedIndex ?? 0
-          const selectedDescription = descriptions[selectedIndex] || appearance.description || '无描述'
-          return `${appearance.changeReason || '默认'}: ${selectedDescription}`
+          const selectedDescription = descriptions[selectedIndex] || appearance.description || t_no_description
+          return `${appearance.changeReason || t_default}: ${selectedDescription}`
         })
         .join(' | ')
       return `${character.name}: ${appearanceText}`
     })
-    .join('\n') || '无'
+    .join('\n') || t_none
 
   const locationsDescription = buildInsertPanelLocationsDescription(
     projectLocations,
@@ -538,8 +544,8 @@ async function handleInsertPanelTask(job: Job<TaskJobData>) {
   )
   const propsDescription = projectProps
     .filter((prop) => relatedProps.length === 0 || relatedProps.includes(prop.name))
-    .map((prop) => `${prop.name}: ${prop.summary || '无描述'}`)
-    .join('\n') || '无'
+    .map((prop) => `${prop.name}: ${prop.summary || t_no_description}`)
+    .join('\n') || t_none
 
   const prompt = buildPrompt({
     promptId: PROMPT_IDS.NP_AGENT_STORYBOARD_INSERT,
@@ -570,7 +576,7 @@ async function handleInsertPanelTask(job: Job<TaskJobData>) {
         action: 'insert_panel',
         meta: {
           stepId: 'insert_panel',
-          stepTitle: '插入分镜',
+          stepTitle: job.data.locale === 'en' ? 'Insert Panel' : '插入分镜',
           stepIndex: 1,
           stepTotal: 1,
         },

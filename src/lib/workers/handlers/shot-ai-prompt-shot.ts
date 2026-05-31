@@ -38,7 +38,7 @@ export async function handleModifyShotPromptTask(job: Job<TaskJobData>, payload:
     locale: job.data.locale,
     variables: {
       prompt_input: currentPrompt,
-      video_prompt_input: currentVideoPrompt || '无',
+      video_prompt_input: currentVideoPrompt || (job.data.locale === 'en' ? 'None' : '无'),
       user_input: userInput,
     },
   })

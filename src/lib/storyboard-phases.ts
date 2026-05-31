@@ -264,8 +264,11 @@ export async function executePhase1(
     const clipProps = parseClipProps(clip.props)
 
     // 构建资产信息
-    const charactersLibName = novelPromotionData.characters.map((c) => c.name).join(', ') || '无'
-    const locationsLibName = novelPromotionData.locations.map((l) => l.name).join(', ') || '无'
+    const isEn = locale === 'en'
+    const sep = isEn ? ', ' : '、'
+    const t_none = isEn ? 'None' : '无'
+    const charactersLibName = novelPromotionData.characters.map((c) => c.name).join(sep) || t_none
+    const locationsLibName = novelPromotionData.locations.map((l) => l.name).join(sep) || t_none
     const filteredAppearanceList = getFilteredAppearanceList(novelPromotionData.characters, clipCharacters)
     const filteredFullDescription = getFilteredFullDescription(novelPromotionData.characters, clipCharacters)
     const filteredPropsDescription = compileAssetPromptFragments(buildPromptAssetContext({
@@ -276,7 +279,7 @@ export async function executePhase1(
         clipLocation: null,
         clipProps,
     })).propsDescriptionText
-    const charactersIntroduction = buildCharactersIntroduction(novelPromotionData.characters)
+    const charactersIntroduction = buildCharactersIntroduction(novelPromotionData.characters, locale)
 
     // 构建clip JSON
     const clipJson = JSON.stringify({

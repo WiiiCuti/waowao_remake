@@ -48,7 +48,7 @@ function pickAppearanceDescription(appearance: {
   descriptions?: string | null
   description?: string | null
   selectedIndex?: number | null
-}): string {
+}, locale: 'zh' | 'en' = 'zh'): string {
   const descriptions = parseDescriptionList(appearance.descriptions || null)
   if (descriptions.length > 0) {
     const selectedIndex = typeof appearance.selectedIndex === 'number' ? appearance.selectedIndex : 0
@@ -58,7 +58,7 @@ function pickAppearanceDescription(appearance: {
   if (typeof appearance.description === 'string' && appearance.description.trim()) {
     return appearance.description.trim()
   }
-  return '无描述'
+  return locale === 'en' ? 'No description' : '无描述'
 }
 
 function buildPanelPromptContext(params: {
@@ -76,7 +76,9 @@ function buildPanelPromptContext(params: {
     actingNotes: string | null
   }
   projectData: Awaited<ReturnType<typeof resolveNovelData>>
+  locale?: 'zh' | 'en'
 }) {
+  const locale = params.locale === 'en' ? 'en' : 'zh'
   const panelCharacters = parsePanelCharacterReferences(params.panel.characters)
   const characterContexts = panelCharacters.map((reference) => {
     const character = findCharacterByName(params.projectData.characters || [], reference.name)
@@ -84,7 +86,7 @@ function buildPanelPromptContext(params: {
       return {
         name: reference.name,
         appearance: reference.appearance || null,
-        description: '无角色外貌数据',
+        description: locale === 'en' ? 'No character appearance data' : '无角色外貌数据',
       }
     }
 
@@ -97,7 +99,7 @@ function buildPanelPromptContext(params: {
     return {
       name: character.name,
       appearance: matchedAppearance?.changeReason || null,
-      description: matchedAppearance ? pickAppearanceDescription(matchedAppearance) : '无角色外貌数据',
+      description: matchedAppearance ? pickAppearanceDescription(matchedAppearance, locale) : (locale === 'en' ? 'No character appearance data' : '无角色外貌数据'),
       slot: reference.slot || null,
     }
   })
@@ -144,7 +146,7 @@ function buildPanelPrompt(params: {
   sourceText: string
   promptContext: ReturnType<typeof buildPanelPromptContext>
 }) {
-  const { promptContext, styleText } = params
+  const { promptContext, styleText, locale } = params
   const { panel, context } = promptContext
 
   const photoRules = panel.photography_rules as Record<string, unknown> | null
@@ -162,13 +164,18 @@ function buildPanelPrompt(params: {
     const photo = photoMap.get(char.name.toLowerCase())
     const acting = actingMap.get(char.name.toLowerCase())
 
+    const isEn = locale === 'en'
+    const posLabel = isEn ? 'position: ' : '位置：'
+    const sep = isEn ? ', ' : '，'
+    const colon = isEn ? ': ' : '：'
+
     const details: string[] = []
-    if (photo?.screen_position) details.push(`vị trí：${photo.screen_position}`)
+    if (photo?.screen_position) details.push(`${posLabel}${photo.screen_position}`)
     if (photo?.posture) details.push(photo.posture)
     if (acting?.acting) details.push(acting.acting)
 
-    const suffix = details.length > 0 ? ` — ${details.join('，')}` : ''
-    return `${char.name}：${char.description}${suffix}`
+    const suffix = details.length > 0 ? ` — ${details.join(sep)}` : ''
+    return `${char.name}${colon}${char.description}${suffix}`
   })
 
   const lines: string[] = [...characterLines, '']
@@ -252,15 +259,27 @@ export async function handlePanelImageTask(job: Job<TaskJobData>) {
       actingNotes: panel.actingNotes,
     },
     projectData,
+    locale: job.data.locale,
   })
+  const hasSavedPrompt = !!panel.imagePrompt
   const prompt = panel.imagePrompt
     || buildPanelPrompt({
         locale: job.data.locale,
         aspectRatio,
-        styleText: artStyle || '与参考图风格一致',
+        styleText: artStyle || (job.data.locale === 'en' ? 'Match the style of the reference image' : '与参考图风格一致'),
         sourceText: panel.srtSegment || panel.description || '',
         promptContext,
       })
+  console.log(JSON.stringify({
+    msg: 'panel_image_prompt_source',
+    panelId,
+    panelIndex: panel.panelIndex,
+    hasSavedPrompt,
+    savedPromptPreview: panel.imagePrompt?.substring(0, 150) || null,
+    artStyleConfig: modelConfig.artStyle,
+    artStyleResolved: artStyle?.substring(0, 80) || null,
+    FULL_PROMPT: prompt,
+  }, null, 2))
   const fs = await import('fs/promises')
   const path = await import('path')
   const debugDir = 'temp/prompt-debug'

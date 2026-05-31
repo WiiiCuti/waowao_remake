@@ -129,6 +129,7 @@ export async function handleAnalyzeGlobalTask(job: Job<TaskJobData>) {
         existingCharacters,
         existingLocationInfo,
         existingPropNames,
+        locale: job.data.locale,
       })
 
       const [characterCompletion, locationCompletion, propCompletion] = await withInternalLLMStreamCallbacks(

@@ -7,6 +7,9 @@ import { TASK_TYPE, type TaskJobData } from '@/lib/task/types'
 import { reportTaskProgress, withTaskLifecycle } from './shared'
 import { handleVoiceDesignTask } from './handlers/voice-design'
 import { calculatePanelVideoDuration } from '@/lib/duration/panel-duration'
+import { refinePanelPrompts } from '@/lib/novel-promotion/prompt-refiner'
+import { resolveAnalysisModel } from '@/lib/workers/handlers/resolve-analysis-model'
+import { getProjectModelConfig } from '@/lib/config-service'
 
 type AnyObj = Record<string, unknown>
 
@@ -14,7 +17,10 @@ type AnyObj = Record<string, unknown>
  * After TTS succeeds, recalculate the matched panel's duration using the
  * centralized duration logic so the video generator receives audio-accurate timing.
  */
-async function updatePanelDurationAfterTTS(lineId: string, episodeId: string) {
+async function updatePanelDurationAfterTTS(
+  lineId: string,
+  episodeId: string,
+): Promise<{ panelId: string; allVoiceDone: boolean } | null> {
   const voiceLine = await prisma.novelPromotionVoiceLine.findUnique({
     where: { id: lineId },
     select: {
@@ -23,7 +29,7 @@ async function updatePanelDurationAfterTTS(lineId: string, episodeId: string) {
       isNarration: true,
     },
   })
-  if (!voiceLine?.matchedPanelId) return
+  if (!voiceLine?.matchedPanelId) return null
 
   const panelId = voiceLine.matchedPanelId
 
@@ -33,6 +39,9 @@ async function updatePanelDurationAfterTTS(lineId: string, episodeId: string) {
     select: { audioDuration: true, isNarration: true },
   })
 
+  const allVoiceDone = allPanelVoiceLines.length > 0
+    && allPanelVoiceLines.every((vl) => vl.audioDuration !== null)
+
   const panel = await prisma.novelPromotionPanel.findUnique({
     where: { id: panelId },
     select: {
@@ -40,7 +49,7 @@ async function updatePanelDurationAfterTTS(lineId: string, episodeId: string) {
       lipSyncVideoUrl: true,
     },
   })
-  if (!panel) return
+  if (!panel) return null
 
   const newDuration = calculatePanelVideoDuration({
     hasLipSync: !!panel.lipSyncVideoUrl,
@@ -59,6 +68,43 @@ async function updatePanelDurationAfterTTS(lineId: string, episodeId: string) {
     where: { id: panelId },
     data: { duration: newDuration },
   })
+
+  return { panelId, allVoiceDone }
+}
+
+async function maybeAutoRefineAfterTTS(
+  job: Job<TaskJobData>,
+  episodeId: string,
+  panelId: string,
+) {
+  try {
+    // Do not auto-refine if the panel already has an imagePrompt (user refined manually)
+    const panel = await prisma.novelPromotionPanel.findUnique({
+      where: { id: panelId },
+      select: { imagePrompt: true },
+    })
+    if (panel?.imagePrompt) return
+
+    const { projectId, userId, locale } = job.data
+    const modelConfig = await getProjectModelConfig(projectId, userId)
+    const model = await resolveAnalysisModel({
+      userId,
+      inputModel: modelConfig.analysisModel ?? undefined,
+      projectAnalysisModel: modelConfig.analysisModel ?? undefined,
+    })
+
+    await refinePanelPrompts({
+      projectId,
+      episodeId,
+      userId,
+      model,
+      locale,
+      artStyle: modelConfig.artStyle,
+      panelIds: [panelId],
+    })
+  } catch {
+    // Non-fatal: a failed auto-refine must never fail the voice task
+  }
 }
 
 async function handleVoiceLineTask(job: Job<TaskJobData>) {
@@ -86,10 +132,16 @@ async function handleVoiceLineTask(job: Job<TaskJobData>) {
   })
 
   // Update the matched panel's duration based on the freshly generated audio
+  let durationResult: { panelId: string; allVoiceDone: boolean } | null = null
   try {
-    await updatePanelDurationAfterTTS(lineId, episodeId)
+    durationResult = await updatePanelDurationAfterTTS(lineId, episodeId)
   } catch {
     // Non-fatal: panel duration update failure should not fail the voice task
+  }
+
+  // Auto-trigger prompt refinement when all TTS audio for the panel is ready
+  if (durationResult?.allVoiceDone) {
+    await maybeAutoRefineAfterTTS(job, episodeId, durationResult.panelId)
   }
 
   await reportTaskProgress(job, 95, { stage: 'generate_voice_persist', lineId })

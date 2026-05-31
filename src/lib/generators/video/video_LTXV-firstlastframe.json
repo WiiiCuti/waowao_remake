@@ -58,7 +58,7 @@
     "inputs": {
       "cfg": 1,
       "model": [
-        "206",
+        "267",
         0
       ],
       "positive": [
@@ -203,7 +203,7 @@
   },
   "114": {
     "inputs": {
-      "noise_seed": 797785321163141
+      "noise_seed": 281879047090181
     },
     "class_type": "RandomNoise",
     "_meta": {
@@ -212,7 +212,7 @@
   },
   "115": {
     "inputs": {
-      "noise_seed": 552947067557484
+      "noise_seed": 626620334980828
     },
     "class_type": "RandomNoise",
     "_meta": {
@@ -287,7 +287,7 @@
     "inputs": {
       "cfg": 1,
       "model": [
-        "206",
+        "267",
         0
       ],
       "positive": [
@@ -405,7 +405,7 @@
   },
   "200": {
     "inputs": {
-      "value": "Slow cinematic camera pull-back from an intimate close-up into a wide sweeping shot. The character suddenly turns his head backward with excitement, then quickly pivots and starts running away from the camera down the center of the whimsical candy road. Energetic skipping and light bouncing movements, playful arm swings, backpack softly bouncing with each step. The camera smoothly transitions from a shallow depth of field close-up into a dynamic tracking shot, gradually revealing more of the colorful candy landscape, pastel hills, candy-cane trees, oversized gummy candies, and sparkling sugar crystals. Natural body motion, fluid acceleration, joyful and lively pacing, soft cinematic motion blur, smooth animation, highly coherent movement, stable character consistency, seamless transition between frames, bright cheerful daylight, cinematic composition.\n"
+      "value": "A cinematic transition scene inside an elegant ancient Chinese palace pavilion during golden hour. Warm sunset light streams softly through the circular wooden architecture and carved lattice windows, casting long golden shadows across the polished stone floor. The peaceful royal courtyard outside glows beneath soft evening light, with blooming magnolia trees and gentle wind moving through the open hall.\n\nAt the beginning of the shot, a delicate young woman with long flowing BLACK hair stands alone near the center of the pavilion, quietly gazing toward the distant courtyard. She wears a LIGHT BLUE hanfu, LIGHT BLUE silk robe, soft pink waist ribbon, LIGHT BLUE traditional dress throughout. Her posture feels calm yet emotionally distant, with subtle breathing, realistic blinking, slight hair sway, and restrained emotional acting.\n\nThe camera slowly pushes inward while gently tracking from left to right through the circular pavilion framing. As the shot progresses, soft footsteps approach from behind. A tall young nobleman with LONG BLACK hair tied in a traditional royal style gradually enters the frame from the background behind the young woman.\n\nHe wears DARK BLUE robes, BLACK embroidered outer robes, DARK BLUE sleeves, BLACK waist sash, DARK traditional clothing throughout. His movement remains calm and restrained as he slowly walks toward her while maintaining a serious emotional expression.\n\nThe young woman subtly senses his presence and slowly turns her gaze slightly toward him without fully facing him. Their emotional tension gradually builds through quiet eye contact, subtle facial micro-expressions, gentle breathing, realistic conversational anticipation, and natural body movement.\n\nLive-action cinematic style, Chinese historical drama aesthetic, photorealistic lighting, realistic skin texture, cinematic depth of field, emotionally immersive atmosphere, elegant visual storytelling, stable character identity, consistent costume colors.\n\nSmooth cinematic camera movement, calm pacing, atmospheric storytelling, subtle acting, natural cloth movement, gentle hair sway, realistic environmental motion."
     },
     "class_type": "PrimitiveStringMultiline",
     "_meta": {
@@ -432,7 +432,7 @@
   },
   "203": {
     "inputs": {
-      "value": 49
+      "value": 121
     },
     "class_type": "INTConstant",
     "_meta": {
@@ -451,7 +451,7 @@
   },
   "210": {
     "inputs": {
-      "image": "004_A cinematic close-up of Chibi, a small and adorabl.jpg"
+      "image": "Young_woman_in_pavilion_waiting_202605230918.jpeg"
     },
     "class_type": "LoadImage",
     "_meta": {
@@ -500,7 +500,7 @@
   },
   "212": {
     "inputs": {
-      "image": "005_A wide, sweeping shot of Chibi skipping energetica.jpg"
+      "image": "Woman_and_man_in_pavilion_202605230918.jpeg"
     },
     "class_type": "LoadImage",
     "_meta": {
@@ -681,7 +681,7 @@
   "246": {
     "inputs": {
       "upscale_method": "nearest-exact",
-      "scale_by": 0.5,
+      "scale_by": 1,
       "image": [
         "212",
         0
@@ -695,7 +695,7 @@
   "248": {
     "inputs": {
       "upscale_method": "nearest-exact",
-      "scale_by": 0.5,
+      "scale_by": 1,
       "image": [
         "210",
         0
@@ -716,7 +716,7 @@
     },
     "class_type": "LTXVPreprocess",
     "_meta": {
-      "title": "LTXV Preprocess"
+      "title": "LTXVPreprocess"
     }
   },
   "255": {
@@ -729,7 +729,7 @@
     },
     "class_type": "LTXVPreprocess",
     "_meta": {
-      "title": "LTXV Preprocess"
+      "title": "LTXVPreprocess"
     }
   },
   "261": {
@@ -738,7 +738,7 @@
         "203",
         0
       ],
-      "b": -1,
+      "b": -2,
       "operation": "add"
     },
     "class_type": "easy mathInt",
@@ -782,6 +782,34 @@
     "class_type": "PreviewAny",
     "_meta": {
       "title": "Preview as Text"
+    }
+  },
+  "266": {
+    "inputs": {
+      "lora_name": "LTX2.3-IC-LORA-Dual-Character.safetensors",
+      "strength_model": 0.7,
+      "model": [
+        "206",
+        0
+      ]
+    },
+    "class_type": "LoraLoaderModelOnly",
+    "_meta": {
+      "title": "Load LoRA"
+    }
+  },
+  "267": {
+    "inputs": {
+      "lora_name": "ltx23E5A5B6E6B2B9CGE9A3.N4iB.safetensors",
+      "strength_model": 0.85,
+      "model": [
+        "266",
+        0
+      ]
+    },
+    "class_type": "LoraLoaderModelOnly",
+    "_meta": {
+      "title": "Load LoRA"
     }
   }
 }

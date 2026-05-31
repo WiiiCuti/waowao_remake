@@ -71,31 +71,41 @@ function buildVariantPrompt(params: VariantPromptParams): string {
 function buildCharactersInfo(
   panel: { characters: string | null },
   projectData: { characters?: Array<{ name: string; introduction?: string | null; appearances?: Array<{ changeReason?: string | null }> }> },
+  locale: TaskJobData['locale'] = 'zh',
 ): string {
   const panelCharacters = parsePanelCharacterReferences(panel.characters)
-  if (panelCharacters.length === 0) return '无角色'
+  if (panelCharacters.length === 0) return locale === 'en' ? 'No characters' : '无角色'
 
   return panelCharacters.map(item => {
     const character = findCharacterByName(projectData.characters || [], item.name)
     const intro = character?.introduction || ''
-    const appearance = item.appearance || '默认形象'
-    const slotText = item.slot ? `，固定位置：${item.slot}` : ''
-    return `- ${item.name}（${appearance}${slotText}）${intro ? `：${intro}` : ''}`
+    const appearance = item.appearance || (locale === 'en' ? 'Default appearance' : '默认形象')
+    const slotText = item.slot
+      ? (locale === 'en' ? `, fixed position: ${item.slot}` : `，固定位置：${item.slot}`)
+      : ''
+    return locale === 'en'
+      ? `- ${item.name} (${appearance}${slotText})${intro ? `: ${intro}` : ''}`
+      : `- ${item.name}（${appearance}${slotText}）${intro ? `：${intro}` : ''}`
   }).join('\n')
 }
 
 function buildCharacterAssetsDescription(
   panel: { characters: string | null },
   projectData: { characters?: Array<{ name: string; appearances?: Array<{ changeReason?: string | null; imageUrl?: string | null }> }> },
+  locale: TaskJobData['locale'] = 'zh',
 ): string {
   const panelCharacters = parsePanelCharacterReferences(panel.characters)
-  if (panelCharacters.length === 0) return '无角色参考图'
+  if (panelCharacters.length === 0) return locale === 'en' ? 'No character reference images' : '无角色参考图'
+
+  const colon = locale === 'en' ? ': ' : '：'
+  const noRef = locale === 'en' ? 'No reference image' : '无参考图'
+  const hasRef = locale === 'en' ? 'Reference image provided' : '已提供参考图'
 
   return panelCharacters.map(item => {
     const character = findCharacterByName(projectData.characters || [], item.name)
-    if (!character) return `- ${item.name}：无参考图`
+    if (!character) return `- ${item.name}${colon}${noRef}`
     const hasAppearance = (character.appearances || []).length > 0
-    return `- ${item.name}：${hasAppearance ? '已提供参考图' : '无参考图'}`
+    return `- ${item.name}${colon}${hasAppearance ? hasRef : noRef}`
   }).join('\n')
 }
 
@@ -236,9 +246,9 @@ export async function handlePanelVariantTask(job: Job<TaskJobData>) {
 
   // 使用 agent_shot_variant_generate.txt 提示词模板
   const artStyle = getArtStylePrompt(modelConfig.artStyle, job.data.locale)
-  const charactersInfo = buildCharactersInfo(newPanel, projectData)
+  const charactersInfo = buildCharactersInfo(newPanel, projectData, job.data.locale)
   const characterAssetsDesc = includeCharacterAssets
-    ? buildCharacterAssetsDescription(newPanel, projectData)
+    ? buildCharacterAssetsDescription(newPanel, projectData, job.data.locale)
     : (job.data.locale === 'en' ? 'Character reference images disabled' : '未使用角色参考图')
   const locationName = newPanel.location || sourcePanel.location || ''
 
@@ -262,7 +272,7 @@ export async function handlePanelVariantTask(job: Job<TaskJobData>) {
       projectData,
     }),
     aspectRatio,
-    style: artStyle || '与参考图风格一致',
+    style: artStyle || (job.data.locale === 'en' ? 'Match the style of the reference image' : '与参考图风格一致'),
   })
 
   _ulogInfo('[panel-variant] resolved variant prompt', prompt)

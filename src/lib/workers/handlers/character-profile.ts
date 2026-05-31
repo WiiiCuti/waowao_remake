@@ -148,7 +148,7 @@ async function handleConfirmProfile(
     appearanceRows.push({
       characterId: character.id,
       appearanceIndex: appIndex,
-      changeReason: readText(app.change_reason) || '初始形象',
+      changeReason: readText(app.change_reason) || (job.data.locale === 'en' ? 'Initial appearance' : '初始形象'),
       description: normalizedDescriptions[0] || '',
       descriptions: JSON.stringify(normalizedDescriptions),
       imageUrls: encodeImageUrls([]),

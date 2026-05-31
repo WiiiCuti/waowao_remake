@@ -1,0 +1,436 @@
+{
+  "endpoint": "http://127.0.0.1:8188",
+  "mode": "img2img",
+  "refCount": 3,
+  "uploadedNames": [
+    "reference (469).png",
+    "reference (470).png",
+    "reference (471).png"
+  ],
+  "workflow": {
+    "6": {
+      "inputs": {
+        "text": [
+          "220",
+          0
+        ],
+        "clip": [
+          "195",
+          0
+        ]
+      },
+      "class_type": "CLIPTextEncode",
+      "_meta": {
+        "title": "CLIP Text Encode (Positive Prompt)"
+      }
+    },
+    "164": {
+      "inputs": {
+        "samples": [
+          "276",
+          0
+        ],
+        "vae": [
+          "196",
+          0
+        ]
+      },
+      "class_type": "VAEDecode",
+      "_meta": {
+        "title": "VAE Decode"
+      }
+    },
+    "194": {
+      "inputs": {
+        "unet_name": "Flux2/flux-2-klein-9b-kv-fp8.safetensors",
+        "weight_dtype": "fp8_e4m3fn_fast"
+      },
+      "class_type": "UNETLoader",
+      "_meta": {
+        "title": "Load Diffusion Model"
+      }
+    },
+    "195": {
+      "inputs": {
+        "clip_name": "qwen3/qwen_3_8b_fp8mixed.safetensors",
+        "type": "flux2",
+        "device": "default"
+      },
+      "class_type": "CLIPLoader",
+      "_meta": {
+        "title": "Load CLIP"
+      }
+    },
+    "196": {
+      "inputs": {
+        "vae_name": "Flux2/flux2-vae.safetensors"
+      },
+      "class_type": "VAELoader",
+      "_meta": {
+        "title": "Load VAE"
+      }
+    },
+    "198": {
+      "inputs": {
+        "image": "reference (469).png"
+      },
+      "class_type": "LoadImage",
+      "_meta": {
+        "title": "$image.load1"
+      }
+    },
+    "203": {
+      "inputs": {
+        "filename_prefix": "img",
+        "images": [
+          "164",
+          0
+        ]
+      },
+      "class_type": "SaveImage",
+      "_meta": {
+        "title": "$image.save"
+      }
+    },
+    "204": {
+      "inputs": {
+        "conditioning": [
+          "6",
+          0
+        ],
+        "latent": [
+          "206",
+          0
+        ]
+      },
+      "class_type": "ReferenceLatent",
+      "_meta": {
+        "title": "ReferenceLatent"
+      }
+    },
+    "206": {
+      "inputs": {
+        "pixels": [
+          "270",
+          0
+        ],
+        "vae": [
+          "196",
+          0
+        ]
+      },
+      "class_type": "VAEEncode",
+      "_meta": {
+        "title": "VAE Encode1"
+      }
+    },
+    "216": {
+      "inputs": {
+        "model": [
+          "284",
+          0
+        ]
+      },
+      "class_type": "FluxKVCache",
+      "_meta": {
+        "title": "Flux KV Cache"
+      }
+    },
+    "220": {
+      "inputs": {
+        "value": "Eye-level close-up. 2 distinct characters with completely different outfits and features, standing separately with clear space between them: Occupying the sharp center foreground of the frame is a mid-twenties male with a strong jawline, deeply furrowed brows, piercing single-lidded eyes, and a high-bridged nose, his mouth open mid-word. He wears a blue henley shirt, white slacks, and black canvas sneakers, his right hand slightly raised. Deeply blurred on the right side of the frame in the background is a petite early-twenties female with long flowing hair and bangs, wearing a pink sweater and white skirt, her head turned slightly away. The setting is a bright living room with a large floor-to-ceiling window on the left wall, sunlight streaming across the light wood floor and illuminating a beige sofa and central coffee table. Key light from the right side of the frame provides soft natural illumination, creating a warm, intimate color tone. The shallow depth of field (T2.8) renders the foreground male in sharp focus while the background female is a soft, indistinct silhouette. Artwork in cgstyle_9b, ultimate CG texture with Iray skin rendering, realistic physical light and shadow, transparent and deep imagery, translucent rosy smooth skin texture, anime-to-CG transformation, high-detail skin surface, cinematic render quality, 2.5D semi-realistic style."
+      },
+      "class_type": "PrimitiveString",
+      "_meta": {
+        "title": "$promt.value"
+      }
+    },
+    "221": {
+      "inputs": {
+        "width": [
+          "222",
+          0
+        ],
+        "height": [
+          "224",
+          0
+        ],
+        "batch_size": 1
+      },
+      "class_type": "EmptyLatentImage",
+      "_meta": {
+        "title": "Empty Latent Image"
+      }
+    },
+    "222": {
+      "inputs": {
+        "value": 673
+      },
+      "class_type": "INTConstant",
+      "_meta": {
+        "title": "$with.value"
+      }
+    },
+    "224": {
+      "inputs": {
+        "value": 1217
+      },
+      "class_type": "INTConstant",
+      "_meta": {
+        "title": "$height.value"
+      }
+    },
+    "229": {
+      "inputs": {
+        "image": "reference (470).png"
+      },
+      "class_type": "LoadImage",
+      "_meta": {
+        "title": "$image.load2"
+      }
+    },
+    "233": {
+      "inputs": {
+        "image": "reference (471).png"
+      },
+      "class_type": "LoadImage",
+      "_meta": {
+        "title": "$image.load3"
+      }
+    },
+    "257": {
+      "inputs": {
+        "conditioning": [
+          "204",
+          0
+        ],
+        "latent": [
+          "262",
+          0
+        ]
+      },
+      "class_type": "ReferenceLatent",
+      "_meta": {
+        "title": "ReferenceLatent"
+      }
+    },
+    "258": {
+      "inputs": {
+        "conditioning": [
+          "257",
+          0
+        ],
+        "latent": [
+          "263",
+          0
+        ]
+      },
+      "class_type": "ReferenceLatent",
+      "_meta": {
+        "title": "ReferenceLatent"
+      }
+    },
+    "262": {
+      "inputs": {
+        "pixels": [
+          "272",
+          0
+        ],
+        "vae": [
+          "196",
+          0
+        ]
+      },
+      "class_type": "VAEEncode",
+      "_meta": {
+        "title": "VAE Encode1"
+      }
+    },
+    "263": {
+      "inputs": {
+        "pixels": [
+          "273",
+          0
+        ],
+        "vae": [
+          "196",
+          0
+        ]
+      },
+      "class_type": "VAEEncode",
+      "_meta": {
+        "title": "VAE Encode1"
+      }
+    },
+    "270": {
+      "inputs": {
+        "upscale_method": "lanczos",
+        "scale_by": 1,
+        "image": [
+          "198",
+          0
+        ]
+      },
+      "class_type": "ImageScaleBy",
+      "_meta": {
+        "title": "Upscale Image By"
+      }
+    },
+    "272": {
+      "inputs": {
+        "upscale_method": "lanczos",
+        "scale_by": 1,
+        "image": [
+          "229",
+          0
+        ]
+      },
+      "class_type": "ImageScaleBy",
+      "_meta": {
+        "title": "Upscale Image By"
+      }
+    },
+    "273": {
+      "inputs": {
+        "upscale_method": "lanczos",
+        "scale_by": 1,
+        "image": [
+          "233",
+          0
+        ]
+      },
+      "class_type": "ImageScaleBy",
+      "_meta": {
+        "title": "Upscale Image By"
+      }
+    },
+    "276": {
+      "inputs": {
+        "noise": [
+          "277",
+          0
+        ],
+        "guider": [
+          "278",
+          0
+        ],
+        "sampler": [
+          "280",
+          0
+        ],
+        "sigmas": [
+          "281",
+          0
+        ],
+        "latent_image": [
+          "221",
+          0
+        ]
+      },
+      "class_type": "SamplerCustomAdvanced",
+      "_meta": {
+        "title": "SamplerCustomAdvanced"
+      }
+    },
+    "277": {
+      "inputs": {
+        "noise_seed": 880785948532512
+      },
+      "class_type": "RandomNoise",
+      "_meta": {
+        "title": "RandomNoise"
+      }
+    },
+    "278": {
+      "inputs": {
+        "cfg": 1,
+        "model": [
+          "216",
+          0
+        ],
+        "positive": [
+          "258",
+          0
+        ],
+        "negative": [
+          "283",
+          0
+        ]
+      },
+      "class_type": "CFGGuider",
+      "_meta": {
+        "title": "CFGGuider"
+      }
+    },
+    "280": {
+      "inputs": {
+        "sampler_name": "euler"
+      },
+      "class_type": "KSamplerSelect",
+      "_meta": {
+        "title": "KSamplerSelect"
+      }
+    },
+    "281": {
+      "inputs": {
+        "steps": 4,
+        "width": [
+          "222",
+          0
+        ],
+        "height": [
+          "224",
+          0
+        ]
+      },
+      "class_type": "Flux2Scheduler",
+      "_meta": {
+        "title": "Flux2Scheduler"
+      }
+    },
+    "282": {
+      "inputs": {
+        "lora_name": "AniEdit9B_v2.safetensors",
+        "strength_model": 0.9,
+        "model": [
+          "194",
+          0
+        ]
+      },
+      "class_type": "LoraLoaderModelOnly",
+      "_meta": {
+        "title": "Load LoRA"
+      }
+    },
+    "283": {
+      "inputs": {
+        "conditioning": [
+          "6",
+          0
+        ],
+        "latent": [
+          "221",
+          0
+        ]
+      },
+      "class_type": "ReferenceLatent",
+      "_meta": {
+        "title": "ReferenceLatent"
+      }
+    },
+    "284": {
+      "inputs": {
+        "lora_name": "nnegrat_cgstyle_9b_1800.safetensors",
+        "strength_model": 0,
+        "model": [
+          "282",
+          0
+        ]
+      },
+      "class_type": "LoraLoaderModelOnly",
+      "_meta": {
+        "title": "Load LoRA"
+      }
+    }
+  }
+}

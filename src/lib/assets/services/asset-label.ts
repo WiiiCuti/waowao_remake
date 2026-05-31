@@ -16,9 +16,11 @@ export function renderLabelText(input: {
   kind: Extract<AssetKind, 'character' | 'location' | 'prop'>
   assetName: string
   variantLabel?: string | null
+  locale?: 'zh' | 'en'
 }): string {
   if (input.kind === 'character') {
-    return `${input.assetName} - ${input.variantLabel || '初始形象'}`
+    const fallback = input.locale === 'en' ? 'Initial appearance' : '初始形象'
+    return `${input.assetName} - ${input.variantLabel || fallback}`
   }
   return input.assetName
 }

@@ -42,6 +42,17 @@
     - 当提供了 {original_text} 时，source_text 必须从 {original_text} 复制，不得从 {clip_content} 的 description 字段复制
     - 创意镜头也需填写触发该镜头的原文片段
 
+   ⚠️ source_text 清洁规则（存入前必须剔除）——两种不同行为：
+   类型1——剔除整行（纯元数据，没有叙述价值）：
+   - 场景标题行：[第X场：...]、[SCENE X: ...]、[INT. ...]、[EXT. ...]、[CẢNH X: ...]
+   - 转录噪音：包含 “TurboScribe” 的行、“[音乐]”、“[music]”、“[âm nhạc]”
+   类型2——仅剔除标签前缀，保留剩余内容（标签后的内容是有效叙述）：
+   - “Bối cảnh: [内容]” → 剔除 “Bối cảnh: ”，保留[内容]
+   - “背景：[内容]” → 剔除 “背景：”，保留[内容]
+   - “Background: [内容]” → 剔除 “Background: ”，保留[内容]
+   示例：“Bối cảnh: Ngọn lửa bùng lên.” → 保留 “Ngọn lửa bùng lên.”（不能是空字符串）
+   如果剔除后 source_text 为空，则使用最近的非空叙述句子作为source_text。
+
 【镜头拆分规则】
 
 1. 景别选择（择一即可）：

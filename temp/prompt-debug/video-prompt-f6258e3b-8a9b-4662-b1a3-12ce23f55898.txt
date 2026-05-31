@@ -1,0 +1,7 @@
+[Scene] In the bright, spacious living room, warm sunlight streams from the large window on the left wall, casting sharp shadows across the light wood floor. A ceiling fan is motionless in the corner. The light beige sofa and central coffee table sit perfectly still, with the TV cabinet and entry door clearly visible on the right. The environment is static and unchanging, providing a stable contrast to the character action.
+
+[Characters] Bạch Dương: Mid-twenties male, sharp jawline, furrowed brows, piercing single-lidded eyes, high-bridged nose, thin lips, short side-parted black hair, slender build, blue henley shirt, white slacks, black canvas sneakers. Stern and reprimanding. Tiểu Hy: Early twenties female, heart-shaped face, innocent big eyes, high nose, soft lips, arched brows, waist-length silky hair with bangs, petite frame, pink sweater, white skirt, cream flats. Unaware, idly relaxed.
+
+Shot 1 (Eye-Level Close-Up, 2.43s): Static camera, character actions allowed
+Bạch Dương: "Tiểu Hy, put on your clothes properly."
+Action: Bạch Dương holds his stern expression, his sharp eyes narrowing further as the words leave his lips. A single subtle tremor passes through his raised right hand before it slowly drops. Tiểu Hy remains a soft, still blur in the background, her form barely shifting with quiet breaths.

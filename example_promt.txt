@@ -1,0 +1,465 @@
+waoowaoo
+Workspace
+Asset Hub
+Settings
+Download Logs
+Coming soon, follow us for updates
+Storyboard Panel
+
+Total 3 segments,36 panels
+Concurrency limit 10
+Refine Prompt
+
+36/36 panels refined
+
+[CẢNH: LỚP...~...Trang Bích
+
+13 panels
+1High-Angle Extreme Long ShotRefined
+
+Image Prompt
+
+High-angle extreme long shot, static frame. The set is composed of clean 2D paper-doll assets: an empty central aisle and an empty area in front of the teacher's podium divide the frame, with five neat rows of wooden desks and chairs filling the space. A large green chalkboard dominates the far wall, and large windows are placed on the right side of the frame, all against a simple solid plain colored background. Paper-doll assets of numerous faceless teenage students in white shirts and deep blue blazers sit at the desks, some chatting, others flipping through books. Soft natural daylight from the right side of the frame illuminates the scene evenly, neutral daylight color tone, deep depth of field rendering the entire classroom clearly. Minimalist 2D story review cartoon style, inspired by Chinese TikTok cartoon puppet animation, prominent clean thick black outlines, flat cel-shading with zero gradient shadows, slightly chibi character proportions (larger head, small body), high-contrast, clean 2D paper-doll character assets.
+
+Video Prompt
+
+[Scene] A wide establishing shot of a busy high school classroom during the day, seen from the back of the room, five neat rows of wooden desks and chairs arranged straight, a green chalkboard fills the far wall, a teacher's podium stands in the distance, the classroom is full of students, the center aisle and the area in front of the podium are empty, sunlight streams from windows on the right side.
+[Characters] none.
+Shot 1 (High-Angle Extreme Long Shot, 2s) Camera gently tracks across the classroom. Students subtly move at their desks, some turning heads and others flipping pages, capturing the bustling atmosphere of the school day.
+
+2Eye-Level Medium Long ShotRefined
+
+Image Prompt
+
+Eye-level medium long shot, camera slowly pushing in. The set is composed of clean 2D paper-doll assets: five neat rows of wooden desks and chairs, a large green chalkboard, and large windows, all against a simple solid plain colored background. In the center of the frame, a paper-doll asset of a 17-year-old male teenage student with an oval face, sharp contours, cold piercing eyes under straight dark brows, a high-bridged nose, thin lips, short black side-parted hair, a tall lean build, wearing a deep blue blazer with silver buttons, a white shirt, black trousers, and black leather shoes, is slumped forward over a wooden desk in the middle rows, his head resting on folded arms. Other paper-doll assets of faceless teenage students in white shirts sit at desks around him. Soft natural daylight from windows on the right side of the frame illuminates the whole room, neutral daylight color tone, deep depth of field keeping the crowded classroom fully in focus. Minimalist 2D story review cartoon style, inspired by Chinese TikTok cartoon puppet animation, prominent clean thick black outlines, flat cel-shading with zero gradient shadows, slightly chibi character proportions (larger head, small body), high-contrast, clean 2D paper-doll character assets.
+
+Video Prompt
+
+[Scene] A medium long shot of a busy high school classroom during the day, seen from the back of the room, five neat rows of wooden desks and chairs arranged straight, a green chalkboard fills the far wall, a teacher's podium stands in the distance, the classroom is full of students, the center aisle and the area in front of the podium are empty, sunlight streams from windows on the right side.
+[Characters] Trang Bích Phàm: 17-year-old male human Vietnamese student with an oval face, sharp contours, cold piercing eyes under straight dark brows, a high-bridged nose, thin lips, short black side-parted hair, a tall lean build, wearing a deep blue blazer with silver buttons, a white shirt, black trousers, and black leather shoes.
+Shot 1 (Eye-Level Medium Long Shot, 3s) Camera slowly pushes in towards the center of the classroom. Trang Bích Phàm sits slumped forward over the wooden desk, his chest rising and falling with slow, steady breaths, his head resting on folded arms.
+
+3Dutch Angle Medium ShotRefined
+
+Image Prompt
+
+Dutch angle medium shot, dynamic frame. The set is composed of clean 2D paper-doll assets: five neat rows of wooden desks and chairs, a large green chalkboard, and large windows, all against a simple solid plain colored background. In the center of the frame, a paper-doll asset of a 17-year-old male teenage student with an oval face, sharp contours, cold piercing eyes under straight dark brows, a high-bridged nose, thin lips, short black side-parted hair, a tall lean build, wearing a deep blue blazer with silver buttons, a white shirt, black trousers, and black leather shoes, is jolting upright from a wooden desk in a crowded classroom. His eyes are snapped wide open, his mouth slightly agape, his shoulders hunched tensely. Other paper-doll assets of faceless students in white shirts sit around him. Soft natural daylight from windows on the right side of the frame illuminates the whole room, neutral daylight color tone, deep depth of field keeping the crowded classroom fully in focus. Minimalist 2D story review cartoon style, inspired by Chinese TikTok cartoon puppet animation, prominent clean thick black outlines, flat cel-shading with zero gradient shadows, slightly chibi character proportions (larger head, small body), high-contrast, clean 2D paper-doll character assets.
+
+Video Prompt
+
+[Scene] A dutch-angle medium shot of a crowded high school classroom during the day, seen from the back of the room, five neat rows of wooden desks and chairs arranged straight, a green chalkboard fills the far wall, a teacher's podium stands in the distance, the classroom is full of students, the center aisle and the area in front of the podium are empty, sunlight streams from windows on the right side.
+[Characters] Trang Bích Phàm: 17-year-old male human Vietnamese student with an oval face, sharp contours, cold piercing eyes under straight dark brows, a high-bridged nose, thin lips, short black side-parted hair, a tall lean build, wearing a deep blue blazer with silver buttons, a white shirt, black trousers, and black leather shoes.
+Shot 1 (Dutch Angle Medium Shot, 3s) Handheld camera gently pushes in with a soft shake. Slow-motion. Trang Bích Phàm smoothly jolts upright from the desk, his eyes slowly flying wide open.
+
+4Eye-Level Close-UpRefined
+
+Image Prompt
+
+Eye-level close-up, camera slowly pushing in. The set is composed of clean 2D paper-doll assets: five neat rows of wooden desks and chairs, a large green chalkboard, and large windows, all against a simple solid plain colored background. At the center of the frame is the face of a paper-doll asset of a 17-year-old male teenage student with an oval face, sharp contours, cold piercing eyes under straight dark brows, a high-bridged nose, thin lips, short black side-parted hair, a tall lean build, wearing a deep blue blazer with silver buttons, a white shirt, black trousers, and black leather shoes. Beads of cold sweat trickle down his forehead, his chest heaves visibly, his eyes are wide and unfocused, his brows deeply furrowed. The paper-doll assets of the classroom behind him are clearly visible in sharp focus. Soft natural daylight from windows on the right side of the frame illuminates the whole room, neutral daylight color tone, deep depth of field keeping the crowd fully in focus. Minimalist 2D story review cartoon style, inspired by Chinese TikTok cartoon puppet animation, prominent clean thick black outlines, flat cel-shading with zero gradient shadows, slightly chibi character proportions (larger head, small body), high-contrast, clean 2D paper-doll character assets.
+
+Video Prompt
+
+[Scene] A close-up on a teenage boy in a crowded high school classroom during the day, the background showing five neat rows of wooden desks and chairs arranged straight, a green chalkboard filling the far wall, a teacher's podium in the distance, sunlight streaming from windows on the right side.
+[Characters] Trang Bích Phàm: 17-year-old male human Vietnamese student with an oval face, sharp contours, cold piercing eyes under straight dark brows, a high-bridged nose, thin lips, short black side-parted hair, a tall lean build, wearing a deep blue blazer with silver buttons, a white shirt, black trousers, and black leather shoes.
+Shot 1 (Eye-Level Close-Up, 3s) Camera slowly pushes in on his face. His chest heaves slowly in ragged breaths, beads of cold sweat glistening on his forehead.
+
+5Extreme Close-UpRefined
+
+Image Prompt
+
+Extreme close-up, static frame. The set is composed of clean 2D paper-doll assets: a wooden desk surface, with a green chalkboard and large windows in the background, all against a simple solid plain colored background. At the bottom center-left of the frame, the right hand of a paper-doll asset of a male teenage student, covered by a deep blue blazer sleeve with silver buttons, curls into a tight fist on the desk surface, knuckles turning white, fingers pressed into the palm. The background classroom paper-doll assets, including desks, chalkboard, and students, are completely in sharp focus. Soft natural daylight from windows on the right side of the frame illuminates the whole room, neutral daylight color tone, deep depth of field keeping the crowd fully in focus. Minimalist 2D story review cartoon style, inspired by Chinese TikTok cartoon puppet animation, prominent clean thick black outlines, flat cel-shading with zero gradient shadows, slightly chibi character proportions (larger head, small body), high-contrast, clean 2D paper-doll character assets.
+
+Video Prompt
+
+[Scene] An extreme close-up on a hand resting on a wooden desk in a crowded high school classroom during the day, the background showing five neat rows of desks and chairs arranged straight, a green chalkboard filling the far wall, a teacher's podium in the distance, sunlight streaming from windows on the right side.
+[Characters] Trang Bích Phàm: 17-year-old male human Vietnamese student with an oval face, sharp contours, cold piercing eyes under straight dark brows, a high-bridged nose, thin lips, short black side-parted hair, a tall lean build, wearing a deep blue blazer with silver buttons, a white shirt, black trousers, and black leather shoes.
+Shot 1 (Extreme Close-Up, 3s) Static camera. Slow-motion. Trang Bích Phàm's right hand slowly curls into a tight fist on the desk, fingers gently pressing into the palm with a subtle tremor.
+
+6Macro Close-UpRefined
+
+Image Prompt
+
+Macro close-up, static frame. The set is composed of clean 2D paper-doll assets: a wooden desk surface, with a green chalkboard and large windows in the background, all against a simple solid plain colored background. The back of a right hand is at the center of the frame, a paper-doll asset wearing a deep blue blazer sleeve, fist clenched taut, blue veins bulging visibly against the skin, tendons standing out under the strain. The entire desk surface and background classroom paper-doll assets are in acute sharp focus behind the hand. Soft natural daylight from windows on the right side of the frame illuminates the whole room, neutral daylight color tone, deep depth of field keeping the background fully clear. Minimalist 2D story review cartoon style, inspired by Chinese TikTok cartoon puppet animation, prominent clean thick black outlines, flat cel-shading with zero gradient shadows, slightly chibi character proportions (larger head, small body), high-contrast, clean 2D paper-doll character assets.
+
+Video Prompt
+
+[Scene] A macro close-up on the back of a hand in a crowded high school classroom during the day, the background showing five neat rows of desks and chairs arranged straight, a green chalkboard filling the far wall, a teacher's podium in the distance, sunlight streaming from windows on the right side.
+[Characters] Trang Bích Phàm: 17-year-old male human Vietnamese student with an oval face, sharp contours, cold piercing eyes under straight dark brows, a high-bridged nose, thin lips, short black side-parted hair, a tall lean build, wearing a deep blue blazer with silver buttons, a white shirt, black trousers, and black leather shoes.
+Shot 1 (Macro Close-Up, 3s) Static camera. Blue veins slowly bulge on the back of Trang Bích Phàm's hand, the fist gently tightening with a subtle tremor.
+
+7Eye-Level Medium ShotRefined
+
+Image Prompt
+
+Eye-level medium shot, slow camera orbit. The set is composed of clean 2D paper-doll assets: five neat rows of wooden desks and chairs, a large green chalkboard, and large windows, all against a simple solid plain colored background. In the center of the frame, a paper-doll asset of a 17-year-old male teenage student with an oval face, sharp contours, cold piercing eyes under straight dark brows, a high-bridged nose, thin lips, short black side-parted hair, a tall lean build, wearing a deep blue blazer with silver buttons, a white shirt, black trousers, and black leather shoes, sits at a wooden desk. His eyes are closed, his head is bowed forward, his shoulders relaxed, his lips slightly parted. The entire paper-doll crowd around him, with desks, chairs, chalkboard, and other students, is rendered in sharp detail. Soft natural daylight from windows on the right side of the frame illuminates the whole room, neutral daylight color tone, deep depth of field keeping the crowd fully in focus. Minimalist 2D story review cartoon style, inspired by Chinese TikTok cartoon puppet animation, prominent clean thick black outlines, flat cel-shading with zero gradient shadows, slightly chibi character proportions (larger head, small body), high-contrast, clean 2D paper-doll character assets.
+
+Video Prompt
+
+[Scene] A medium shot of a crowded high school classroom during the day, seen from the back of the room, five neat rows of wooden desks and chairs arranged straight, a green chalkboard fills the far wall, a teacher's podium stands in the distance, the classroom is full of students, the center aisle and the area in front of the podium are empty, sunlight streams from windows on the right side.
+[Characters] Trang Bích Phàm: 17-year-old male human Vietnamese student with an oval face, sharp contours, cold piercing eyes under straight dark brows, a high-bridged nose, thin lips, short black side-parted hair, a tall lean build, wearing a deep blue blazer with silver buttons, a white shirt, black trousers, and black leather shoes.
+Shot 1 (Eye-Level Medium Shot, 3s) Camera slowly orbits around his isolated figure. Slow-motion. Trang Bích Phàm slowly closes his eyes, his head smoothly dropping forward and his shoulders relaxing with a deep, soft exhale.
+
+8Eye-Level Close-UpRefined
+
+Image Prompt
+
+Eye-level close-up, camera slowly pushing in. The set is composed of clean 2D paper-doll assets: five neat rows of wooden desks and chairs, a large green chalkboard, and large windows, all against a simple solid plain colored background. At the center of the frame is the face of a paper-doll asset of a 17-year-old male teenage student with an oval face, sharp contours, cold piercing eyes under straight dark brows, a high-bridged nose, thin lips, short black side-parted hair, a tall lean build, wearing a deep blue blazer with silver buttons, a white shirt, black trousers, and black leather shoes. His eyes are softly shut, his lips are shaping a whisper, his brow creased slightly. The paper-doll classroom assets behind him are completely in sharp focus. Soft natural daylight from windows on the right side of the frame illuminates the whole room, neutral daylight color tone, deep depth of field keeping the crowd fully in focus. Minimalist 2D story review cartoon style, inspired by Chinese TikTok cartoon puppet animation, prominent clean thick black outlines, flat cel-shading with zero gradient shadows, slightly chibi character proportions (larger head, small body), high-contrast, clean 2D paper-doll character assets.
+
+Video Prompt
+
+[Scene] A close-up on a teenage boy's face in a crowded high school classroom during the day, the background showing five neat rows of wooden desks and chairs arranged straight, a green chalkboard filling the far wall, a teacher's podium in the distance, sunlight streaming from windows on the right side.
+[Characters] Trang Bích Phàm: 17-year-old male human Vietnamese student with an oval face, sharp contours, cold piercing eyes under straight dark brows, a high-bridged nose, thin lips, short black side-parted hair, a tall lean build, wearing a deep blue blazer with silver buttons, a white shirt, black trousers, and black leather shoes.
+Shot 1 (Eye-Level Close-Up, 3s) Camera slowly pushes in on his face. Slow-motion. Trang Bích Phàm's lips slowly form words silently, a gentle whisper escaping as his brow creases slightly.
+
+9Over-the-Shoulder Medium ShotRefined
+
+Image Prompt
+
+Over-the-shoulder reverse medium shot, camera slowly pulling out. A human 17-year-old male Vietnamese student sits at the center of the frame, surrounded by the classroom space. He has an oval face with sharp contours, cold piercing eyes under straight dark brows, a high-bridged nose, thin lips. Short black side-parted hair. Tall lean build. He wears a deep blue blazer with silver buttons, a white shirt, black trousers, and black leather shoes. He sits motionless with eyes closed and head bowed. The background set is composed of clean 2D paper-doll assets: five neat rows of wooden desks and chairs with numerous paper-doll student figures scattered around, a large green chalkboard and a teacher's podium visible in the distance, all against a simple solid plain colored background. Soft ambient daylight from the large windows on the left, neutral daylight color tone, deep depth of field keeping the entire classroom space in sharp focus. Minimalist 2D story review cartoon style, inspired by Chinese TikTok cartoon puppet animation, prominent clean thick black outlines, flat cel-shading with zero gradient shadows, slightly chibi character proportions generating larger heads and smaller bodies, high-contrast.
+
+Video Prompt
+
+[Scene] A crowded high school classroom during the day, seen from the back corner. Five neat rows of wooden desks and chairs, a large green chalkboard on the far wall, teacher's podium in the distance. Sunlight streams from windows on the left side. Numerous paper-doll student figures are scattered at their desks.
+[Characters] Trang Bích Phàm: human 17-year-old male Vietnamese student with an oval face, sharp contours, cold piercing eyes under straight dark brows, a high-bridged nose, thin lips, short black side-parted hair, a tall lean build, wearing a deep blue blazer with silver buttons, a white shirt, black trousers, and black leather shoes.
+Shot 1 (Over-the-Shoulder Medium Shot, 4s) Camera slowly pulls out. Slow-motion and smooth. Trang Bích Phàm sits motionless with eyes closed and head bowed, the subtle rise and fall of his chest the only movement against the bustling classroom environment.
+
+10Eye-Level Medium ShotRefined
+
+Image Prompt
+
+Eye-level medium shot, handheld tracking motion. A human 17-year-old male Vietnamese student sits at his wooden desk at the center of the frame. He has an oval face with sharp contours, cold piercing eyes narrowing under straight dark brows, a high-bridged nose, thin lips. Short black side-parted hair. Tall lean build. He wears a deep blue blazer with silver buttons, a white shirt, black trousers, and black leather shoes. His hand plunges into his pocket in a swift motion, body leaning forward intently. The background set is composed of clean 2D paper-doll assets: five neat rows of wooden desks and chairs with paper-doll student figures, a green chalkboard and teacher's podium, all against a simple solid plain colored background. Standard classroom lighting with a key light from the right side casting the pocket area in slightly deeper shadow, neutral daylight color tone shifting to action mode, medium depth of field. Minimalist 2D story review cartoon style, inspired by Chinese TikTok cartoon puppet animation, prominent clean thick black outlines, flat cel-shading with zero gradient shadows, slightly chibi character proportions generating larger heads and smaller bodies, high-contrast.
+
+Video Prompt
+
+[Scene] A high school classroom during the day, focusing on a single student sitting at a wooden desk among five neat rows. A green chalkboard and teacher's podium are visible in the background. Sunlight streams from the right side windows.
+[Characters] Trang Bích Phàm: human 17-year-old male Vietnamese student with an oval face, sharp contours, cold piercing eyes under straight dark brows, a high-bridged nose, thin lips, short black side-parted hair, a tall lean build, wearing a deep blue blazer with silver buttons, a white shirt, black trousers, and black leather shoes.
+Shot 1 (Eye-Level Medium Shot, 3s) Slow-motion. Handheld camera gently tracks. Trang Bích Phàm swiftly reaches into his pocket, his eyes narrowing sharply as he focuses on his objective, body leaning forward with purpose.
+
+11Eye-Level Close-UpRefined
+
+Image Prompt
+
+Eye-level close-up, camera slowly pushing in. A human 17-year-old male Vietnamese student is framed from the chest up, sitting at his desk. He has an oval face with sharp contours, cold piercing eyes narrowing to slits under straight dark brows, a high-bridged nose, thin lips parting to speak. Short black side-parted hair. He wears a deep blue blazer with silver buttons, a white shirt. He brings a sleek smartphone to his ear with a fluid movement, tilting his head slightly. The background set is composed of clean 2D paper-doll assets: a softly focused classroom environment with desks and chalkboard, all against a simple solid plain colored background. Dramatic side light from the right window casting half his face in deep shadow, cool determined color tone, medium depth of field. Minimalist 2D story review cartoon style, inspired by Chinese TikTok cartoon puppet animation, prominent clean thick black outlines, flat cel-shading with zero gradient shadows, slightly chibi character proportions generating larger heads and smaller bodies, high-contrast.
+
+Video Prompt
+
+[Scene] A high school classroom during the day, focusing on a student sitting at his desk with the classroom environment softly visible in the background.
+[Characters] Trang Bích Phàm: human 17-year-old male Vietnamese student with an oval face, sharp contours, cold piercing eyes under straight dark brows, a high-bridged nose, thin lips, short black side-parted hair, a tall lean build, wearing a deep blue blazer with silver buttons, a white shirt, black trousers, and black leather shoes.
+Shot 1 (Eye-Level Close-Up, 3s) Camera slowly pushes in. Slow-motion. Trang Bích Phàm raises the sleek smartphone to his ear with a fluid movement, tilting his head, his eyes narrowing to slits as his lips part, his free hand clenching on the desk edge.
+
+12Eye-Level Close-UpRefined
+
+Image Prompt
+
+Eye-level close-up, camera snap zooming in. A human 17-year-old male Vietnamese student is framed tightly on his face and the smartphone pressed against his ear. He has an oval face with sharp contours, cold piercing eyes fixed ahead with cold intensity under straight dark brows, a high-bridged nose, thin lips forming each word distinctly. Short black side-parted hair. He wears a deep blue blazer with a white shirt collar visible. The background set is composed of clean 2D paper-doll assets: a completely blurred classroom environment, all against a simple solid plain colored background. Sharp direct key light from the right emphasizing the firm expression, cool authoritative color tone, shallow depth of field. Minimalist 2D story review cartoon style, inspired by Chinese TikTok cartoon puppet animation, prominent clean thick black outlines, flat cel-shading with zero gradient shadows, slightly chibi character proportions generating larger heads and smaller bodies, high-contrast.
+
+Video Prompt
+
+[Scene] A high school classroom during the day, extremely tight focus on a student's face and the smartphone pressed to his ear. The classroom environment is completely blurred in the background.
+[Characters] Trang Bích Phàm: human 17-year-old male Vietnamese student with an oval face, sharp contours, cold piercing eyes under straight dark brows, a high-bridged nose, thin lips, short black side-parted hair, a tall lean build, wearing a deep blue blazer with silver buttons, a white shirt, black trousers, and black leather shoes.
+Shot 1 (Eye-Level Close-Up, 3s) Camera snap zooms in. Slow-motion. Trang Bích Phàm speaks firmly into the phone, his mouth forming each word distinctly with clipped authority, eyes fixed ahead with cold intensity, phone pressed hard against his ear.
+
+13Eye-Level Medium Close-UpRefined
+
+Image Prompt
+
+Eye-level medium close-up, camera gently orbiting. A human 17-year-old male Vietnamese student sits back in his chair at the center of the frame, holding a sleek smartphone to his ear. He has an oval face with sharp contours, cold piercing eyes softened but still alert under straight dark brows, a high-bridged nose, thin lips forming a faint subtle smirk. Short black side-parted hair. He wears a deep blue blazer with silver buttons, a white shirt, black trousers. The background set is composed of clean 2D paper-doll assets: a classroom environment with desks and student figures, all against a simple solid plain colored background. Softer ambient light from the right window providing a slight glow of satisfaction on his face, cool color tone with a shift towards neutral resolution, medium depth of field. Minimalist 2D story review cartoon style, inspired by Chinese TikTok cartoon puppet animation, prominent clean thick black outlines, flat cel-shading with zero gradient shadows, slightly chibi character proportions generating larger heads and smaller bodies, high-contrast.
+
+Video Prompt
+
+[Scene] A high school classroom during the day, focusing on a student sitting back in his chair at his desk, the classroom environment surrounding him.
+[Characters] Trang Bích Phàm: human 17-year-old male Vietnamese student with an oval face, sharp contours, cold piercing eyes under straight dark brows, a high-bridged nose, thin lips, short black side-parted hair, a tall lean build, wearing a deep blue blazer with silver buttons, a white shirt, black trousers, and black leather shoes.
+Shot 1 (Eye-Level Medium Close-Up, 3s) Camera gently orbits around his seated figure. Slow-motion. Trang Bích Phàm holds the phone to his ear while waiting, a subtle smirk lifting the corner of his mouth, eyes softened but still alert, body leaning back in the chair with a light foot tap.
+
+Góc quay t...~...Liễu Như Y
+
+17 panels
+1Eye-Level Long ShotRefined
+
+Image Prompt
+
+Eye-level long shot, camera gently tracking from right to left. 3 distinct characters with completely different outfits and features, standing separately with clear space between them: In the center front of the frame standing on the classroom podium, a human 17-year-old Vietnamese female student with a full moon-shaped oval face, willow-leaf slender curved eyebrows, clear almond-shaped eyes with double eyelids, long straight black center-parted hair reaching her waist. She wears a white lace-trimmed shirt under a pink knit cardigan with a golden flower embroidered on the left chest, a gray pleated skirt over her knees, white flat leather loafers, and a thin gold chain pendant resting on her collarbone. She stands with arms spread wide, chin raised, a proud arrogant smile on her face. On the right side of the frame beside the podium, a human 16-to-17-year-old male Vietnamese student with a slim defined face, prominent brow bone, slanted sword-like eyebrows, narrow single-lidded eyes, high nose bridge, thin lips pursed in a faint smile. He wears a loose gray hoodie with a white graffiti pattern on the chest, black drawstring cargo pants, black high-top sneakers, and a black earring in his left ear. He stands with relaxed posture, hands loosely clasped behind his back, looking toward the girl. In the far back left corner among the desks, a human 17-year-old male Vietnamese student with an oval face, sharp contours, cold piercing eyes under straight dark brows, a high-bridged nose, thin lips, short black side-parted hair. He wears a deep blue blazer with silver buttons, a white shirt, and black trousers. He sits slouched alone at a desk, eyes unfocused and directed downward, fingers lightly tapping the desktop. The background set is composed of clean 2D paper-doll assets: five neat rows of wooden desks and chairs filled with paper-doll student figures, a green chalkboard and teacher's podium visible at the front, the aisle and front of the podium empty, all against a simple solid plain colored background. Soft natural daylight streaming from the large windows on the left, diffused illumination, natural daylight balanced color tone, deep depth of field keeping the entire classroom in sharp focus. Minimalist 2D story review cartoon style, inspired by Chinese TikTok cartoon puppet animation, prominent clean thick black outlines, flat cel-shading with zero gradient shadows, slightly chibi character proportions generating larger heads and smaller bodies, high-contrast.
+
+Video Prompt
+
+[Scene] A sunlit high school classroom during the day, seen from the back of the room. Five neat rows of wooden desks and chairs filled with paper-doll students. A green chalkboard and teacher's podium at the front. Sunlight streams from the large windows on the left.
+[Characters] Liễu Như Yên: human 17-year-old female Vietnamese student with a full moon-shaped oval face, willow-leaf slender curved eyebrows, clear almond-shaped eyes, long straight black center-parted waist-length hair. She wears a white lace-trimmed shirt under a pink knit cardigan with a golden flower embroidered on the left chest, a gray pleated skirt, white flat loafers, and a thin gold chain pendant around her neck. Sở Sinh: human 16-to-17-year-old male Vietnamese student with a slim defined face, prominent brow bone, slanted sword-like eyebrows, long narrow single-lidded eyes, high nose bridge, thin lips in a line. He wears a loose gray hoodie with a white graffiti pattern, black cargo pants, black high-top sneakers, and a black earring in his left ear. Trang Bích Phàm: human 17-year-old male Vietnamese student with an oval face, sharp contours, cold piercing eyes under straight dark brows, a high-bridged nose, thin lips, short black side-parted hair, a tall lean build, wearing a deep blue blazer with silver buttons, a white shirt, black trousers, and black leather shoes.
+Shot 1 (Eye-Level Long Shot, 4s) Camera gently tracks across the room from right to left. Slow-motion. Liễu Như Yên stands on the podium with arms wide open, chin raised, a proud arrogant expression on her face. Sở Sinh stands beside the podium with relaxed posture, turning to look at her with a faint smile. Trang Bích Phàm sits slouched alone in the back left corner, eyes unfocused and directed downward, fingers lightly tapping the desktop.
+
+2Eye-Level Medium ShotRefined
+
+Image Prompt
+
+Eye-level medium shot, camera slowly pushing in towards the podium. 2 distinct characters with completely different outfits and features, standing separately with clear space between them: At the center of the frame on the classroom podium, a human 17-year-old Vietnamese female student with a full moon-shaped oval face, willow-leaf slender curved eyebrows, clear almond-shaped eyes, long straight black center-parted hair reaching her waist. She wears a white lace-trimmed shirt under a pink knit cardigan with a golden flower embroidered on the left chest, a gray pleated skirt over her knees, white flat loafers, and a thin gold chain pendant around her neck. She stands with arms wide open, tilting her head back, chest puffed out, eyes narrowed with raised brows, an arrogant proud expression on her face. On the right side of the frame adjacent to the podium, a human 16-to-17-year-old male Vietnamese student with a slim defined face, prominent brow bone, slanted sword-like eyebrows, long narrow single-lidded eyes, high nose bridge, thin lips smiling broadly. He wears a loose gray hoodie with a white graffiti pattern, black drawstring cargo pants, black high-top sneakers, and a black earring in his left ear. He turns his head toward the girl, hands in pockets, shoulders squared. The background set is composed of clean 2D paper-doll assets: wooden desks with seated paper-doll student figures, the green chalkboard visible behind them, all against a simple solid plain colored background. Soft natural key light from the large windows on the left, natural daylight balanced color tone, medium depth of field keeping both characters in sharp focus. Minimalist 2D story review cartoon style, inspired by Chinese TikTok cartoon puppet animation, prominent clean thick black outlines, flat cel-shading with zero gradient shadows, slightly chibi character proportions generating larger heads and smaller bodies, high-contrast.
+
+Video Prompt
+
+[Scene] A high school classroom during the day, focusing on the podium at the front of the room. A green chalkboard is visible behind the characters. Wooden desks with paper-doll students are in the immediate foreground. Sunlight streams from the windows on the left.
+[Characters] Liễu Như Yên: human 17-year-old female Vietnamese student with a full moon-shaped oval face, willow-leaf slender curved eyebrows, clear almond-shaped eyes, long straight black center-parted waist-length hair. She wears a white lace-trimmed shirt under a pink knit cardigan with a golden flower embroidered on the left chest, a gray pleated skirt, white flat loafers, and a thin gold chain pendant around her neck. Sở Sinh: human 16-to-17-year-old male Vietnamese student with a slim defined face, prominent brow bone, slanted sword-like eyebrows, long narrow single-lidded eyes, high nose bridge, thin lips in a line. He wears a loose gray hoodie with a white graffiti pattern, black cargo pants, black high-top sneakers, and a black earring in his left ear.
+Shot 1 (Eye-Level Medium Shot, 3s) Camera slowly pushes in towards the podium. Slow-motion. Liễu Như Yên stands with arms wide open, tilting her head back, chest puffed out, a confident proud grin spreading across her face. Sở Sinh stands beside her on the right, turning his head to face her, smiling broadly, hands in his pockets.
+
+3Eye-Level Close-UpRefined
+
+Image Prompt
+
+Eye-level close-up, camera swaying slightly. A human 17-year-old Vietnamese female student fills the frame from the shoulders up. She has a full moon-shaped oval face, willow-leaf slender curved eyebrows raised high, clear almond-shaped eyes wide with bright pupils, a high-bridged nose, and a small delicate nose tip. Her full lips curve into a wide joyful arrogant grin, mouth open, head tilted slightly to the side. Her long straight black center-parted hair flows over her shoulders. She wears a white lace-trimmed shirt under a pink knit cardigan with a golden flower embroidered on the left chest. The background set is composed of clean 2D paper-doll assets: blurred classroom figures and desks, all against a simple solid plain colored background. Soft front light with slight contribution from the left windows, slightly warm color tone to highlight her arrogant joy, shallow depth of field keeping her face perfectly sharp. Minimalist 2D story review cartoon style, inspired by Chinese TikTok cartoon puppet animation, prominent clean thick black outlines, flat cel-shading with zero gradient shadows, slightly chibi character proportions generating larger heads and smaller bodies, high-contrast.
+
+Video Prompt
+
+[Scene] A high school classroom during the day, extremely tight focus on a single individual in front of a blurred background of desks and figures.
+[Characters] Liễu Như Yên: human 17-year-old female Vietnamese student with a full moon-shaped oval face, willow-leaf slender curved eyebrows, clear almond-shaped eyes, long straight black center-parted waist-length hair. She wears a white lace-trimmed shirt under a pink knit cardigan with a golden flower embroidered on the left chest, a gray pleated skirt, white flat loafers, and a thin gold chain pendant around her neck.
+Shot 1 (Eye-Level Close-Up, 3s) Camera sways gently. Slow-motion. Liễu Như Yên's eyes widen with bright pupils, brows lifting high, her mouth opening wide into a joyful arrogant grin, head tilting slightly to the side, a deep breath taken before speaking.
+
+4Eye-Level Medium ShotRefined
+
+Image Prompt
+
+Eye-level medium shot, camera slowly orbits the classroom, 4 distinct characters with completely different outfits and features, standing separately with clear space between them: On the far left side near the window, a teenage male classmate with short brown hair, wearing a white shirt and dark school trousers, stands and cheers excitedly with raised arms; slightly left of center on the podium, a 17-year-old Vietnamese girl with a full moon-shaped oval face, willow-leaf slender curved eyebrows, clear almond eyes, long straight black center-parted waist-length hair, wearing a white lace-trimmed shirt under a pink knit cardigan with a golden flower embroidered on the left chest, a gray pleated skirt, and white flat loafers, stands with arms loosely crossed, rocking on her heels with a pleased smirk; on the right side, a 16-year-old boy with a lean face, prominent brow bone, sharp single-lidded eyes, short black hair, wearing a loose gray hoodie with white graffiti, black cargo pants with drawstrings, and black high-top sneakers, claps his hands together energetically, grinning with crinkled eyes; in the back left corner, a teenage boy with an oval face with sharp contours, straight dark brows, cold piercing eyes, short side-parted black hair, wearing a deep blue blazer with silver buttons, white shirt, black trousers, and black leather shoes, sits still, eyes narrowed, lips pressed into a thin line, leaning back against his chair, the background shows a bright classroom with five rows of wooden desks, a green blackboard in the distance, and other classmates as blurred silhouettes, with soft sunlight streaming from windows on the left, key light from left side, soft natural light, medium depth of field with all characters in moderate focus, natural daylight color tone, minimalist 2D story review cartoon style, inspired by Chinese TikTok cartoon puppet animation, prominent clean thick black outlines, flat cel-shading with zero gradient shadows, slightly chibi character proportions with larger heads and smaller bodies, simple solid plain colored background, high-contrast, clean 2D paper-doll character assets.
+
+Video Prompt
+
+[Scene] A lively high school classroom during the day, five rows of wooden desks, a green blackboard at the front, sunlight streaming from windows on the left, other students blur in the background.
+[Characters] Classmate: human teenage boy with short brown hair, cheerful demeanour, wearing a white shirt and dark school trousers. Liễu Như Yên: human 17-year-old Vietnamese girl with a full moon-shaped oval face, willow-leaf slender curved eyebrows, clear almond eyes, long straight black center-parted waist-length hair, wearing a white lace-trimmed shirt under a pink knit cardigan with a golden flower embroidered on the left chest, a gray pleated skirt, white flat loafers, and a thin gold chain pendant. Sở Sinh: human 16-year-old boy with a lean face, prominent brow bone, sharp single-lidded eyes, short black hair, wearing a loose gray hoodie with white graffiti pattern, black cargo pants with drawstrings, black high-top sneakers, and a black earring in his left ear. Trang Bích Phàm: human teenage boy with an oval face with sharp contours, straight dark brows, cold piercing eyes, short side-parted black hair, wearing a deep blue blazer with silver buttons, white shirt, black trousers, black leather shoes.
+Shot 1 (Eye-Level Medium Shot, 3s) Slow-motion camera slowly orbits the classroom. The classmate by the window jumps up and cheers wildly, waving his arms. Liễu Như Yên on the podium rocks gently on her heels, arms crossed, a smug smile on her face. Sở Sinh claps his hands together vigorously, nodding his head and grinning towards her. Trang Bích Phàm remains motionless in the corner, eyes narrowed, staring coldly ahead, slight tension in his jaw. Smooth and fluid orbit.
+
+5Over-the-Shoulder Medium ShotRefined
+
+Image Prompt
+
+Over-the-shoulder medium shot, camera gently tracking sideways, eye-level angle, 4 distinct characters with completely different outfits and features, arranged across depth: In the foreground on the left side, partially visible from behind, a 17-year-old Vietnamese girl with a moon-shaped face, long black hair, wearing a pink cardigan over a white shirt, stands beaming; in the foreground on the right side, a 16-year-old boy with short black hair, wearing a gray hoodie, stands beaming, his shoulder visible; in the background center-left near the window, a teenage male classmate with short brown hair, wearing a white shirt and dark trousers, cheers enthusiastically, gesturing wildly; in the far background left corner, a teenage boy with an oval face with sharp contours, cold piercing eyes, short side-parted black hair, wearing a deep blue blazer with silver buttons, white shirt, black trousers, sits watching coldly, the classroom includes rows of wooden desks, a green blackboard, and sunlight from left windows, key light from left side, soft natural light, shallow depth of field focusing on the cheering classmate with foreground and background characters blurred, natural daylight color tone, minimalist 2D story review cartoon style, inspired by Chinese TikTok cartoon puppet animation, prominent clean thick black outlines, flat cel-shading with zero gradient shadows, slightly chibi character proportions with larger heads and smaller bodies, simple solid plain colored background, high-contrast, clean 2D paper-doll character assets.
+
+Video Prompt
+
+[Scene] A lively classroom, rows of wooden desks, a green blackboard in front, bright sunlight from left windows, other students blurred in the background.
+[Characters] Liễu Như Yên: human 17-year-old Vietnamese girl with a full moon-shaped oval face, willow-leaf slender curved eyebrows, clear almond eyes, long straight black center-parted waist-length hair, wearing a white lace-trimmed shirt under a pink knit cardigan with a golden flower embroidered on the left chest, a gray pleated skirt, white flat loafers, and a thin gold chain pendant. Sở Sinh: human 16-year-old boy with a lean face, prominent brow bone, sharp single-lidded eyes, short black hair, wearing a loose gray hoodie with white graffiti pattern, black cargo pants with drawstrings, black high-top sneakers, and a black earring in his left ear. Trang Bích Phàm: human teenage boy with an oval face with sharp contours, straight dark brows, cold piercing eyes, short side-parted black hair, wearing a deep blue blazer with silver buttons, white shirt, black trousers, black leather shoes. Classmate: human teenage boy with short brown hair, cheerful demeanour, wearing a white shirt and dark school trousers.
+Shot 1 (Over-the-Shoulder Medium Shot, 3s) Slow-motion. The classmate by the window cheers enthusiastically, gesturing wildly with his arms. Liễu Như Yên and Sở Sinh, visible from behind in the foreground as blurred silhouettes, beam with pride, their shoulders moving slightly. Trang Bích Phàm sits still in the background corner, watching. The camera gently tracks sideways to follow the classmate's gesture. Soft focus on the classmate.
+
+6Eye-Level Close-UpRefined
+
+Image Prompt
+
+Eye-level close-up, camera slowly pushing in, 2 distinct characters with completely different outfits and features, clearly separated: In the center of the frame, a 16-year-old boy with a lean face, prominent brow bone, sharp single-lidded eyes, short black hair, wearing a loose gray hoodie with white graffiti pattern, black cargo pants, and black high-top sneakers, claps his hands together, his head tilted slightly to the right, eyes crinkled with a wide grin; on the right side of the frame, slightly out of focus behind him, a 17-year-old Vietnamese girl with a moon-shaped face, long black hair, wearing a pink cardigan over a white shirt, stands with a smug smile, chin held high, the background is a blurred classroom with rows of desks and other students, key light from left side, soft natural light, shallow depth of field with focus on the boy, natural daylight with slight warmth, minimalist 2D story review cartoon style, inspired by Chinese TikTok cartoon puppet animation, prominent clean thick black outlines, flat cel-shading with zero gradient shadows, slightly chibi character proportions with larger heads and smaller bodies, simple solid plain colored background, high-contrast, clean 2D paper-doll character assets.
+
+Video Prompt
+
+[Scene] Classroom interior, with blurred desks and students behind two characters.
+[Characters] Sở Sinh: human 16-year-old boy with a lean face, prominent brow bone, sharp single-lidded eyes, short black hair, wearing a loose gray hoodie with white graffiti pattern, black cargo pants with drawstrings, black high-top sneakers, and a black earring in his left ear. Liễu Như Yên: human 17-year-old Vietnamese girl with a full moon-shaped oval face, willow-leaf slender curved eyebrows, clear almond eyes, long straight black center-parted waist-length hair, wearing a white lace-trimmed shirt under a pink knit cardigan with a golden flower embroidered on the left chest, a gray pleated skirt, white flat loafers, and a thin gold chain pendant.
+Shot 1 (Eye-Level Close-Up, 3s) Slow-motion. Sở Sinh in the center claps his hands together slowly, nodding his head and grinning with crinkled eyes, leaning slightly towards Liễu Như Yên. Liễu Như Yên on the right, out of focus, turns her head towards him, one corner of her mouth raised, chin high, taking a deliberate breath. The camera slowly pushes in on their interaction.
+
+7Dutch Angle Close-UpRefined
+
+Image Prompt
+
+Dutch angle close-up, camera slowly pushing in, a teenage boy sits alone in the back corner of a classroom, he has an oval face with sharp contours, straight dark brows, cold piercing eyes, short side-parted black hair, wearing a deep blue blazer with silver buttons, a white shirt, black trousers, and black leather shoes, his lips curl slowly into a cold, arrogant smirk, his eyes half-closed with a glazed expression, head still and shoulders stiff, the background shows blurred desks and classmates with mixed shadows, sidelight from the left, partially blocked creating dramatic shadows on his face, mixed light quality, shallow depth of field focusing on his face, cool color tone slightly desaturated for suspense, minimalist 2D story review cartoon style, inspired by Chinese TikTok cartoon puppet animation, prominent clean thick black outlines, flat cel-shading with zero gradient shadows, slightly chibi character proportions with larger heads and smaller bodies, simple solid plain colored background, high-contrast, clean 2D paper-doll character assets.
+
+Video Prompt
+
+[Scene] A corner of a classroom, shadowy with blocked light from a left window, blurred desks and students in the background.
+[Characters] Trang Bích Phàm: human teenage boy with an oval face with sharp contours, straight dark brows, cold piercing eyes, short side-parted black hair, wearing a deep blue blazer with silver buttons, white shirt, black trousers, black leather shoes.
+Shot 1 (Dutch Angle Close-Up, 3s) Slow-motion. Trang Bích Phàm sits motionless in the corner, then his lips curl slowly into a cold, arrogant smirk. His eyes remain half-closed and glazed, head still. The camera slowly pushes in, the Dutch angle intensifying the tense atmosphere. Smooth and fluid movement.
+
+8Eye-Level Medium Tracking ShotRefined
+
+Image Prompt
+
+Eye-level medium tracking shot, handheld tracking camera, 3 distinct characters with completely different outfits and features, clearly separated: On the left side of the frame, a teenage boy with an oval face with sharp contours, straight dark brows, cold piercing eyes, short side-parted black hair, wearing a deep blue blazer with silver buttons, white shirt, black trousers, sits at a desk, looking up with a neutral expression; in the center-left, a 17-year-old Vietnamese girl with a moon-shaped face, long black hair, wearing a pink cardigan over a white shirt and gray pleated skirt, walks slowly, stopping in front of the desk, a gentle but fixed smile on her lips, hands clasped in front; on the right side, a 16-year-old boy with a lean face, short black hair, wearing a gray hoodie and black cargo pants, follows closely behind her, arms crossed with a smirk, around them, blurred classmates turn their heads to watch, the classroom has rows of wooden desks, a green blackboard, and sunlight from left windows, key light from left side, soft natural light, medium depth of field with characters slightly soft during movement, natural daylight color tone, minimalist 2D story review cartoon style, inspired by Chinese TikTok cartoon puppet animation, prominent clean thick black outlines, flat cel-shading with zero gradient shadows, slightly chibi character proportions with larger heads and smaller bodies, simple solid plain colored background, high-contrast, clean 2D paper-doll character assets.
+
+Video Prompt
+
+[Scene] Classroom interior, rows of wooden desks, green blackboard in front, sunlight from left windows, other students turning to look.
+[Characters] Liễu Như Yên: human 17-year-old Vietnamese girl with a full moon-shaped oval face, willow-leaf slender curved eyebrows, clear almond eyes, long straight black center-parted waist-length hair, wearing a white lace-trimmed shirt under a pink knit cardigan with a golden flower embroidered on the left chest, a gray pleated skirt, white flat loafers, and a thin gold chain pendant. Trang Bích Phàm: human teenage boy with an oval face with sharp contours, straight dark brows, cold piercing eyes, short side-parted black hair, wearing a deep blue blazer with silver buttons, white shirt, black trousers, black leather shoes. Sở Sinh: human 16-year-old boy with a lean face, prominent brow bone, sharp single-lidded eyes, short black hair, wearing a loose gray hoodie with white graffiti pattern, black cargo pants with drawstrings, black high-top sneakers, and a black earring in his left ear.
+Shot 1 (Eye-Level Medium Tracking Shot, 3s) Slow-motion. Liễu Như Yên steps down from the podium and walks slowly across the classroom with deliberate steps, her hands clasped in front, a gentle but fixed smile on her lips. Sở Sinh follows closely behind her, swaggering with a smirk. She stops in front of Trang Bích Phàm’s desk; Trang looks up, his jaw tense, hands flat on the desk. The camera tracks their movement smoothly, handheld style, while classmates in the background turn their heads.
+
+9Over-the-Shoulder Close-UpRefined
+
+Image Prompt
+
+Over-the-shoulder close-up, camera slowly pushing in, eye-level angle, in the foreground bottom left, the blurred shoulder of a teenage boy in a blue blazer is visible, in the center of the frame, a 17-year-old Vietnamese girl with a full moon-shaped oval face, willow-leaf slender curved eyebrows, clear almond eyes, long straight black center-parted hair, wearing a white lace-trimmed shirt under a pink knit cardigan with a golden flower embroidered on the left chest, looks down with a fake gentle smile, her eyes half-lidded and intent, hands intertwined in front, fingers twitching slightly, the background is a blurred classroom with desks and muted colors, front light from left side, soft light with slight hard edge to reveal the fake smile, shallow depth of field keeping her face sharp, slightly warm but false brightness color tone, minimalist 2D story review cartoon style, inspired by Chinese TikTok cartoon puppet animation, prominent clean thick black outlines, flat cel-shading with zero gradient shadows, slightly chibi character proportions with larger heads and smaller bodies, simple solid plain colored background, high-contrast, clean 2D paper-doll character assets.
+
+Video Prompt
+
+[Scene] Classroom corner, out-of-focus foreground shoulder of a boy in blue blazer, classroom background blurred.
+[Characters] Liễu Như Yên: human 17-year-old Vietnamese girl with a full moon-shaped oval face, willow-leaf slender curved eyebrows, clear almond eyes, long straight black center-parted waist-length hair, wearing a white lace-trimmed shirt under a pink knit cardigan with a golden flower embroidered on the left chest, a gray pleated skirt, white flat loafers, and a thin gold chain pendant. (Trang Bích Phàm is visible only as a blurred shoulder in the foreground.)
+Shot 1 (Over-the-Shoulder Close-Up, 3s) Slow-motion. Liễu Như Yên looks down, her lips pressed into a delicate fake smile, eyes half-lidded and intent. She blinks slowly, her fingers twitching slightly. The camera slowly pushes in on her face, the foreground shoulder of Trang Bích Phàm remaining still and blurred. Smooth and fluid movement.
+
+10Eye-Level Close-UpRefined
+
+Image Prompt
+
+Eye-level close-up, camera swaying slightly, a 17-year-old Vietnamese girl with a full moon-shaped oval face, willow-leaf slender curved eyebrows, clear almond eyes, long straight black center-parted hair, wearing a white lace-trimmed shirt under a pink knit cardigan with a golden flower embroidered on the left chest, fills the frame from the shoulders up, her mouth corners stretch wider into a fake gentle smile, eyes narrowing slightly, head tilting further to the side, slowly blinking, holding intense eye contact, the background is a blurred classroom with muted colors and soft shapes, front light from left side, soft light with slight hard edge, shallow depth of field keeping her face sharp, warm yet uneasy color tone, minimalist 2D story review cartoon style, inspired by Chinese TikTok cartoon puppet animation, prominent clean thick black outlines, flat cel-shading with zero gradient shadows, slightly chibi character proportions with larger heads and smaller bodies, simple solid plain colored background, high-contrast, clean 2D paper-doll character assets.
+
+Video Prompt
+
+[Scene] Classroom, blurred background with desks and figures.
+[Characters] Liễu Như Yên: human 17-year-old Vietnamese girl with a full moon-shaped oval face, willow-leaf slender curved eyebrows, clear almond eyes, long straight black center-parted waist-length hair, wearing a white lace-trimmed shirt under a pink knit cardigan with a golden flower embroidered on the left chest, a gray pleated skirt, white flat loafers, and a thin gold chain pendant.
+Shot 1 (Eye-Level Close-Up, 3s) Slow-motion. Liễu Như Yên's fake smile slowly widens, her eyes narrowing slightly. She tilts her head further and blinks slowly, holding her condescending gaze. The camera sways gently, emphasizing the smugness and hidden threat. Smooth and fluid movement.
+
+11Eye-Level Medium ShotRefined
+
+Image Prompt
+
+Eye-level medium shot, camera slowly pushing in, 3 distinct characters with completely different outfits and features, clearly separated: On the left side of the frame, a teenage boy with an oval face with sharp contours, straight dark brows, cold piercing eyes, short side-parted black hair, wearing a deep blue blazer with silver buttons, white shirt, black trousers, sits stiffly at a desk, looking up with an expressionless face, hands flat on the desk; in the center-right, a 17-year-old Vietnamese girl with a moon-shaped face, long black hair, wearing a pink cardigan over a white shirt and gray pleated skirt, stands over him, one hand on hip, maintaining a fake smile, eyes looking down; on the far right, a 16-year-old boy with a lean face, short black hair, wearing a loose gray hoodie with white graffiti, black cargo pants, stands behind her, leaning forward with a malicious grin, eyes squinted threateningly, the background shows a blurred classroom corner with desks and other students, key light from left side, mixed lighting with harsh shadows, shallow depth of field focusing on the girl, slightly cool color tone for tension, minimalist 2D story review cartoon style, inspired by Chinese TikTok cartoon puppet animation, prominent clean thick black outlines, flat cel-shading with zero gradient shadows, slightly chibi character proportions with larger heads and smaller bodies, simple solid plain colored background, high-contrast, clean 2D paper-doll character assets.
+
+Video Prompt
+
+[Scene] Classroom corner, with blurred desks and students in the background, shadows cast from left.
+[Characters] Trang Bích Phàm: human teenage boy with an oval face with sharp contours, straight dark brows, cold piercing eyes, short side-parted black hair, wearing a deep blue blazer with silver buttons, white shirt, black trousers, black leather shoes. Liễu Như Yên: human 17-year-old Vietnamese girl with a full moon-shaped oval face, willow-leaf slender curved eyebrows, clear almond eyes, long straight black center-parted waist-length hair, wearing a white lace-trimmed shirt under a pink knit cardigan with a golden flower embroidered on the left chest, a gray pleated skirt, white flat loafers, and a thin gold chain pendant. Sở Sinh: human 16-year-old boy with a lean face, prominent brow bone, sharp single-lidded eyes, short black hair, wearing a loose gray hoodie with white graffiti pattern, black cargo pants with drawstrings, black high-top sneakers, and a black earring in his left ear.
+Shot 1 (Eye-Level Medium Shot, 3s) Slow-motion. Trang Bích Phàm sits motionless at his desk, looking up without expression. Liễu Như Yên stands over him, one hand on hip, her fake smile fixed. Sở Sinh behind her leans forward with a menacing grin, eyes squinted. The camera slowly pushes in towards Trang, building tension. All movements are subtle and smooth.
+
+12Low-Angle Medium ShotRefined
+
+Image Prompt
+
+Low angle medium shot with handheld dynamic framing and rapid snap zoom effect, featuring 3 distinct characters with completely different outfits and features, standing separately with clear space between them: On the far left side of the frame, a 16-year-old Vietnamese teenage girl with an oval face, sharp contours, cold piercing eyes, short side-parted black hair, tall lean build, wearing a deep blue blazer, white shirt, black trousers, sits motionless at a wooden desk, staring forward with a tight-lipped expression and a tremor in the shoulders; at the center-left, a 16-year-old Vietnamese teenage boy with a lean face, prominent brow bone, single-lidded eyes, short black hair, wearing a loose gray hoodie with white graffiti pattern, black cargo pants, aggressively leans over the desk, a palm slammed onto the wooden surface, eyes bulging with anger and teeth bared; on the right side of the frame, a 17-year-old Vietnamese teenage girl with a full moon-shaped face, long straight black center-parted waist-length hair, wearing a pink knit cardigan embroidered with a golden flower over a white lace-trimmed shirt and a gray pleated skirt, stands watching with raised shoulders and pressing the lips together, background shows a daytime classroom with rows of wooden desks and chairs, a green blackboard in the distance, other students blurred, key light from left casting strong shadows, cool color tone, high contrast, shallow depth of field, minimalist 2D story review cartoon style, inspired by Chinese TikTok cartoon puppet animation, prominent clean thick black outlines, flat cel-shading with zero gradient shadows, slightly chibi character proportions, simple solid plain colored background, high-contrast, clean 2D paper-doll character assets.
+
+Video Prompt
+
+[Scene] Daytime classroom corner with rows of wooden desks and chairs, green blackboard in the distance, blurred students and desks in the background, shadows cast from the left.
+[Characters] Sở Sinh: human 16 year old Vietnamese boy with a lean face, prominent brow bone, sharp single-lidded eyes, short black hair, wearing a loose gray hoodie with white graffiti pattern, black cargo pants with drawstrings, black high-top sneakers, and a black earring in his left ear. Liễu Như Yên: human 17 year old Vietnamese girl with a full moon-shaped oval face, willow-leaf slender curved eyebrows, clear almond eyes, long straight black center-parted waist-length hair, wearing a white lace-trimmed shirt under a pink knit cardigan with a golden flower embroidered on the left chest, a gray pleated skirt, white flat loafers, and a thin gold chain pendant. Trang Bích Phàm: human 16 year old Vietnamese teenage girl with an oval face with sharp contours, cold piercing eyes under straight dark brows, high-bridged nose, thin lips, short side-parted black hair, tall lean build, wearing a deep blue blazer with silver buttons, white shirt, black trousers.
+Shot 1 (Low-Angle Medium Shot, 2.5s) Handheld camera shake, rapid snap zoom in. Slow-motion. Sở Sinh steps forward aggressively from the center-left and lunges toward the desk, raising a palm and slamming it down hard on the wooden surface with force. Liễu Như Yên on the right side takes a half-step back with shoulders raised in surprise. Trang Bích Phàm on the far left side flinches slightly with a tremor in the shoulders.
+Shot 2 (Extreme Close-Up on Desk, 1.5s) Rapid snap zoom in fixed on the hand slammed on the desk. The desk vibrates from the impact. Sở Sinh's hand remains planted firmly on the desk surface, fingers splayed.
+
+13Low-Angle Close-UpRefined
+
+Image Prompt
+
+Low angle close-up with handheld camera shake effect, a 16-year-old Vietnamese teenage boy with a lean face, prominent brow bone, sharp single-lidded eyes, short black hair, wearing a loose gray hoodie with white graffiti pattern, face twisted into an angry grimace, forehead deeply creased, eyes wide and bloodshot, veins visible on the neck, lips pulled back baring teeth as the head leans aggressively into the frame, background is a heavily blurred classroom with rows of desks, key light from left casting deep shadows on the face, cool color tone, shallow depth of field, minimalist 2D story review cartoon style, inspired by Chinese TikTok cartoon puppet animation, prominent clean thick black outlines, flat cel-shading with zero gradient shadows, slightly chibi character proportions, simple solid plain colored background, high-contrast, clean 2D paper-doll character assets.
+
+Video Prompt
+
+[Scene] Classroom background completely blurred out of focus, harsh shadows cast from the left.
+[Characters] Sở Sinh: human 16 year old Vietnamese boy with a lean face, prominent brow bone, sharp single-lidded eyes, short black hair, wearing a loose gray hoodie with white graffiti pattern, black cargo pants, black earring.
+Shot 1 (Low-Angle Close-Up, 2.5s) Handheld camera shake violently. Slow motion. Sở Sinh's face is twisted into an angry grimace, forehead creased deeply, eyes wide and bloodshot, veins visibly bulging on the forehead and neck as the head leans aggressively toward the camera.
+Shot 2 (Close-Up, 1.5s) Camera shakily holds on the contorted expression. Sở Sinh continues shouting, lips pulling back baring teeth, eyes locked forward with raw fury.
+
+14Dutch Angle Close-UpRefined
+
+Image Prompt
+
+Dutch angle close-up with rapid push in effect, intense framing of a 16-year-old Vietnamese teenage boy with a lean face, prominent brow bone, sharp single-lidded eyes, short black hair, wearing a loose gray hoodie with white graffiti pattern, baring teeth and spitting out words furiously, veins bulging on the forehead, eyes locked fiercely forward, hands gripping the edge of a wooden desk out of frame, shoulders heaving with aggression, background is a heavily blurred classroom tilted at a Dutch angle, key light from left creating harsh dramatic shadows on the face, cool color tone, shallow depth of field, minimalist 2D story review cartoon style, inspired by Chinese TikTok cartoon puppet animation, prominent clean thick black outlines, flat cel-shading with zero gradient shadows, slightly chibi character proportions, simple solid plain colored background, high-contrast, clean 2D paper-doll character assets.
+
+Video Prompt
+
+[Scene] Classroom background heavily blurred, tilted Dutch angle perspective, shadows cast from left.
+[Characters] Sở Sinh: human 16 year old Vietnamese boy with a lean face, prominent brow bone, sharp single-lidded eyes, short black hair, wearing a loose gray hoodie with white graffiti pattern, black cargo pants, black earring.
+Shot 1 (Dutch Angle Close-Up, 2s) Slow motion. Sở Sinh's face contorts furiously, baring teeth and spitting out words, forehead veins bulging. Camera rapidly pushes in on the contorted expression.
+Shot 2 (Extreme Close-Up, 2s) Camera maintains tight push in. Sở Sinh's eyes are locked fiercely forward, hands grip the edge of an unseen desk, shoulders heaving intensely.
+
+15Eye-Level Medium ShotRefined
+
+Image Prompt
+
+Eye-level medium shot with a slowly orbiting camera movement, featuring 3 distinct characters with completely different outfits and features, standing separately with clear space between them: On the far left of the frame, a 16-year-old Vietnamese teenage girl with an oval face, short side-parted black hair, wearing a deep blue blazer, sits slumped at a wooden desk, slowly dropping the head to look down, shoulders sagging silently; in the center-right, a 17-year-old Vietnamese teenage girl with long straight black hair, wearing a pink knit cardigan, stands watching with a subtle upturn at the corner of the mouth and bright eyes, arms crossed loosely; on the far right of the frame, a 16-year-old Vietnamese teenage boy in a loose gray hoodie stands tall with chest puffed, arms akimbo, head held high with a wide confident smirk, background is a daytime classroom with desks and other students visible, key light from left, cool color tone, shallow depth of field, minimalist 2D story review cartoon style, inspired by Chinese TikTok cartoon puppet animation, prominent clean thick black outlines, flat cel-shading with zero gradient shadows, slightly chibi character proportions, simple solid plain colored background, high-contrast, clean 2D paper-doll character assets.
+
+Video Prompt
+
+[Scene] Daytime classroom with rows of desks, other students visible in background, natural light from the left.
+[Characters] Liễu Như Yên: human 17 year old Vietnamese girl with a full moon-shaped oval face, willow-leaf slender curved eyebrows, clear almond eyes, long straight black center-parted waist-length hair, wearing a white lace-trimmed shirt under a pink knit cardigan with a golden flower embroidered on the left chest, a gray pleated skirt, white flat loafers, and a thin gold chain pendant. Sở Sinh: human 16 year old Vietnamese boy with a lean face, prominent brow bone, sharp single-lidded eyes, short black hair, wearing a loose gray hoodie with white graffiti pattern, black cargo pants with drawstrings, black high-top sneakers, and a black earring in his left ear. Trang Bích Phàm: human 16 year old Vietnamese teenage girl with an oval face with sharp contours, cold piercing eyes under straight dark brows, high-bridged nose, thin lips, short side-parted black hair, tall lean build, wearing a deep blue blazer with silver buttons, white shirt, black trousers.
+Shot 1 (Eye-Level Medium Shot, 3s) Camera slowly orbits the group clockwise. Slow-motion. Trang Bích Phàm on the left side of the frame slowly drops the head, eyes cast down to the desk, shoulders sagging in silence. Liễu Như Yên in the center-right watches with a subtle upturn at one corner of the mouth, eyes bright with a slight glimmer. Sở Sinh on the far right stands tall with chest puffed, arms akimbo, nodding with a wide smile.
+Shot 2 (Medium Shot, 2s) Camera continues its slow orbit, pausing on the group composition. A student at a nearby desk off-screen leans back with a cruel laughing posture. Trang Bích Phàm remains seated with lowered gaze, silhouetted against the classroom background.
+
+16Eye-Level Medium ShotRefined
+
+Image Prompt
+
+Eye-level medium shot with a gently tracking back camera movement, featuring 3 distinct characters with completely different outfits and features, standing separately with clear space between them: On the far left of the frame, a 16-year-old Vietnamese teenage girl in a deep blue blazer sits at a desk with the head bowed, eyes fixed on the surface, fingers curling into fists under the desk; in the center-left, a 17-year-old Vietnamese teenage girl with long black hair in a pink knit cardigan and gray pleated skirt stands holding up the hands with palms open, tilting the head with eyebrows lifted and eyes wide in a feigned innocent helpless expression; behind on the right side of the frame, a 16-year-old Vietnamese teenage boy in a loose gray hoodie snickers, hiding a smirk behind a hand, shoulders shaking with silent laughter, background is a daytime classroom setting with desks and other students, key light from left, cool color tone, shallow depth of field, minimalist 2D story review cartoon style, inspired by Chinese TikTok cartoon puppet animation, prominent clean thick black outlines, flat cel-shading with zero gradient shadows, slightly chibi character proportions, simple solid plain colored background, high-contrast, clean 2D paper-doll character assets.
+
+Video Prompt
+
+[Scene] Classroom interior day, rows of wooden desks, natural window light from the left casting soft shadows.
+[Characters] Liễu Như Yên: human 17 year old Vietnamese girl with a full moon-shaped oval face, willow-leaf slender curved eyebrows, clear almond eyes, long straight black center-parted waist-length hair, wearing a white lace-trimmed shirt under a pink knit cardigan with a golden flower embroidered on the left chest, a gray pleated skirt, white flat loafers, and a thin gold chain pendant. Sở Sinh: human 16 year old Vietnamese boy with a lean face, prominent brow bone, sharp single-lidded eyes, short black hair, wearing a loose gray hoodie with white graffiti pattern, black cargo pants with drawstrings, black high-top sneakers, and a black earring in his left ear. Trang Bích Phàm: human 16 year old Vietnamese teenage girl with an oval face with sharp contours, cold piercing eyes under straight dark brows, high-bridged nose, thin lips, short side-parted black hair, tall lean build, wearing a deep blue blazer with silver buttons, white shirt, black trousers.
+Shot 1 (Eye-Level Medium Shot, 2.5s) Slow motion. Liễu Như Yên, positioned center-left, raises the hands with palms opened outward, tilting the head with eyebrows lifted and eyes wide in an exaggerated mock helpless expression. Sở Sinh on the right side behind Liễu Như Yên snickers, hiding a smirk behind a hand, shoulders shaking. Trang Bích Phàm on the far left keeps the head bowed, eyes fixed on the desk surface.
+Shot 2 (Medium Wide Shot, 2.5s) Camera gently tracks back to reveal the full composition of the scene. Liễu Như Yên maintains the feigned helpless pose. Sở Sinh continues to laugh silently. Trang Bích Phàm remains motionless, hands slowly curling into fists under the desk.
+
+17Eye-Level Extreme Close-UpRefined
+
+Image Prompt
+
+Eye-level extreme close-up, static frame, intense focus on the eyes and upper half of the face of a 16-year-old Vietnamese teenage girl with an oval face, sharp contours, cold piercing eyes under straight dark brows, short side-parted black hair visible at the top of the frame and the collar of a deep blue blazer, the upper half of the face fills the frame, pupils contract sharply, a cold precise glint flashes through the eyes before the eyelids slowly drop and lower toward the desk below, background is a completely blurred classroom, sidelight from left casting shadows across the eyes, cool color tone, shallow depth of field, low key atmosphere, minimalist 2D story review cartoon style, inspired by Chinese TikTok cartoon puppet animation, prominent clean thick black outlines, flat cel-shading with zero gradient shadows, slightly chibi character proportions, simple solid plain colored background, high-contrast, clean 2D paper-doll character assets.
+
+Video Prompt
+
+[Scene] Classroom background completely blurred out, extreme close-up framing from eye-level, ambient light from left casting shadow across the face.
+[Characters] Trang Bích Phàm: human 16 year old Vietnamese teenage girl with an oval face with sharp contours, cold piercing eyes under straight dark brows, high-bridged nose, thin lips, short side-parted black hair, tall lean build, wearing a deep blue blazer with silver buttons.
+Shot 1 (Extreme Close-Up on Eyes, 2.5s) Static camera remains perfectly fixed. Slow motion. Trang Bích Phàm's eyes narrow sharply, pupils contract, and a cold, sharp, calculating glint of precision flashes through them.
+Shot 2 (Extreme Close-Up on Eyes, 1.5s) Static camera. Trang Bích Phàm slowly lowers the eyelids, looking toward the desk below, the glint fading as the eyes slip out of sight. The upper part of the face remains still, lips tight.
+
+Trang Bích...~...Trang Bích
+
+6 panels
+1Eye-Level Medium ShotRefined
+
+Image Prompt
+
+Eye-level medium shot with a slow push-in camera movement, featuring 2 distinct characters with completely different outfits and features, standing separately with clear space between them: On the left side of the frame, a 16-year-old Vietnamese teenage girl with an oval face, sharp contours, cold piercing eyes, short side-parted black hair, tall lean build, wearing a deep blue blazer with silver buttons over a white shirt and black trousers, abruptly rises from a wooden desk, standing upright and snapping to full height, fists clenched at the sides and eyes locked forward with icy coldness; on the right side of the frame in the background, a 17-year-old Vietnamese teenage girl with long straight black hair, wearing a pink cardigan and gray pleated skirt, stands a few meters away with a confident posture, lips curled in a slight smug smile, but the eyes briefly widen and body stiffens momentarily as the other girl stands up, background shows a daytime classroom with desks and classmates turning to look in surprise, key light from left, cool color tone, shallow depth of field, minimalist 2D story review cartoon style, inspired by Chinese TikTok cartoon puppet animation, prominent clean thick black outlines, flat cel-shading with zero gradient shadows, slightly chibi character proportions, simple solid plain colored background, high-contrast, clean 2D paper-doll character assets.
+
+Video Prompt
+
+[Scene] Daytime classroom with wooden desks and chairs, natural light from windows on the left, classmates visible in the background turning to look.
+[Characters] Trang Bích Phàm: human 16 year old Vietnamese teenage girl with an oval face with sharp contours, cold piercing eyes under straight dark brows, high-bridged nose, thin lips, short side-parted black hair, tall lean build, wearing a deep blue blazer with silver buttons, white shirt, black trousers. Liễu Như Yên: human 17 year old Vietnamese girl with a full moon-shaped oval face, willow-leaf slender curved eyebrows, clear almond eyes, long straight black center-parted waist-length hair, wearing a white lace-trimmed shirt under a pink knit cardigan with a golden flower embroidered on the left chest, a gray pleated skirt, white flat loafers, and a thin gold chain pendant.
+Shot 1 (Eye-Level Medium Shot, 2.5s) Slow push in. Slow motion. Trang Bích Phàm on the left side abruptly rises from the seat, body snapping to full height, fists clenching at the sides, eyes locking onto Liễu Như Yên with icy coldness. Liễu Như Yên on the right side momentarily stiffens, eyes widening briefly then quickly narrowing again.
+Shot 2 (Medium Shot, 2.5s) Camera slowly pushes in on Trang Bích Phàm's standing figure. Trang Bích Phàm stands completely still and upright, jaw tight and nostrils flared, breath held, surrounded by the blurred figures of classmates turning their heads in surprise.
+
+2Eye-Level Close-UpRefined
+
+Image Prompt
+
+Eye-level close-up with a slow push-in camera movement, a 16-year-old Vietnamese teenage girl with an oval face, sharp contours, cold piercing eyes under straight dark brows, short side-parted black hair, wearing a deep blue blazer with silver buttons over a white shirt, the lips curl into a cold sarcastic smile, corners turned up but eyes remaining icy and unwavering, eyebrows slightly raised mockingly as the head tilts slowly, a deliberate flat coldness radiating from the expression, background is a blurred classroom environment, key light from left casting soft shadows on the face, cool color tone, shallow depth of field, minimalist 2D story review cartoon style, inspired by Chinese TikTok cartoon puppet animation, prominent clean thick black outlines, flat cel-shading with zero gradient shadows, slightly chibi character proportions, simple solid plain colored background, high-contrast, clean 2D paper-doll character assets.
+
+Video Prompt
+
+[Scene] Classroom background softly blurred, natural window light from the left illuminating the face.
+[Characters] Trang Bích Phàm: human 16 year old Vietnamese teenage girl with an oval face with sharp contours, cold piercing eyes under straight dark brows, high-bridged nose, thin lips, short side-parted black hair, tall lean build, wearing a deep blue blazer with silver buttons, white shirt.
+Shot 1 (Eye-Level Close-Up, 2.5s) Slow push in. Slow motion. Trang Bích Phàm's lips curl into a cold sarcastic smile, corners of the mouth turned up but eyes remaining icy and unwavering, eyebrows slightly raised mockingly.
+Shot 2 (Close-Up, 1.5s) Camera maintains slow push in. Trang Bích Phàm slowly tilts the head slightly, a cold calculated expression filling the frame, body still.
+
+3Eye-Level Medium ShotRefined
+
+Image Prompt
+
+Medium shot, eye-level reverse angle, camera slowly pushing in. 2 distinct characters with completely different outfits and features, standing separately with clear space between them: On the center-left of the frame in sharp focus, a 17-year-old Vietnamese teenage girl with an oval moon-shaped face, exquisite features, long straight black hair middle-parted falling to her waist, wearing a white lace-trimmed shirt under a pink knitted cardigan embroidered with a small gold flower on the left chest, a gray pleated skirt falling below the knee, and white flat loafers, a thin gold chain necklace resting against her collarbone, her expression shifting from smugness to stark shock, eyes snapped wide, pupils contracted sharply, mouth falling open, body going rigid as she takes a step back with hands dropping to her sides. On the right side of the frame in the background, a 16-year-old Vietnamese teenage girl with an oval face and sharp contours, short side-parted black hair, cold piercing eyes, wearing a deep blue blazer with silver buttons, white shirt, black trousers, standing motionless by a desk with an upright cold expression, partially blurred by the shallow depth of field. Background is a classroom with five rows of wooden desks, a lectern and green board in the distance. Soft natural side lighting from the right of the frame slightly backlighting the girl on the left, cool natural color tone, shallow depth of field. Minimalist 2D story review cartoon style, inspired by Chinese TikTok cartoon puppet animation, prominent clean thick black outlines, flat cel-shading with zero gradient shadows, slightly chibi character proportions, simple solid plain colored background, high-contrast, clean 2D paper-doll character assets.
+
+Video Prompt
+
+[Scene] Tense classroom from a reverse medium-shot angle, five rows of wooden desks, a distant blackboard. Soft window light streams in from the right, backlighting the scene.
+[Characters] Liễu Như Yên: human 17-year-old Vietnamese teenage girl with an oval moon-shaped face, exquisite features, long straight black hair middle-parted falling to her waist, wearing a white lace-trimmed shirt under a pink knitted cardigan with a gold flower on the left chest, a gray pleated skirt, white flat loafers, a thin gold chain necklace. Trang Bích Phàm: human 16-year-old Vietnamese teenage girl with an oval face and sharp contours, short side-parted black hair, cold piercing eyes, wearing a deep blue blazer with silver buttons over a white shirt, black trousers.
+Shot 1 (Medium Shot, 3s) Slow push in. Slow-motion. Liễu Như Yên, on the center-left in sharp focus, her expression slowly shifts from smugness to shock, eyes snapping wide, pupils contracting sharply, mouth falling open, body going rigid and stepping back. Trang Bích Phàm remains standing blurred in the background, cold expression unchanged. Smooth and fluid movement throughout.
+
+4Eye-Level Close-UpRefined
+
+Image Prompt
+
+Eye-level close-up shot, camera gently orbiting. The single focus of the frame is a 16-year-old Vietnamese teenage girl with an oval face and sharp contours, cold piercing eyes under straight dark brows, a high-bridged nose, thin lips, short side-parted black hair, wearing a deep blue blazer with silver buttons over a white shirt. Her gaze turns sharper and more threatening, eyes narrowing into a piercing glare, brows deeply furrowed, lips pressing into a thin line then parting slightly, leaning forward slightly toward the off-screen listener, one shoulder rising tensely with her body remaining upright and still. Background is a blurred classroom environment with desks and window light. Soft natural key light from the left side of the frame casting soft shadows on the face, cool natural color tone, shallow depth of field with focus on the intense gaze. Minimalist 2D story review cartoon style, inspired by Chinese TikTok cartoon puppet animation, prominent clean thick black outlines, flat cel-shading with zero gradient shadows, slightly chibi character proportions, simple solid plain colored background, high-contrast, clean 2D paper-doll character assets.
+
+Video Prompt
+
+[Scene] Classroom background softly blurred, natural window light from the left illuminating the face.
+[Characters] Trang Bích Phàm: human 16-year-old Vietnamese teenage girl with an oval face and sharp contours, cold piercing eyes under straight dark brows, high-bridged nose, thin lips, short side-parted black hair, tall lean build, wearing a deep blue blazer with silver buttons over a white shirt, black trousers.
+Shot 1 (Close-Up, 3s) Camera gently orbits. Slow-motion. Trang Bích Phàm's gaze turns sharper and more threatening, eyes narrowing into a piercing glare, brows deeply furrowing, lips pressing into a thin line then parting slightly, one shoulder rising tensely. Smooth and fluid camera orbit around her face.
+
+5Low-Angle Medium ShotRefined
+
+Image Prompt
+
+Low-angle medium shot, handheld tracking camera. 2 distinct characters with completely different outfits and features, standing separately with clear space between them: On the far right side of the frame in the foreground, a 16-year-old Vietnamese teenage girl with short side-parted black hair, cold piercing eyes, high-bridged nose, thin lips, wearing a deep blue blazer with silver buttons over a white shirt, black trousers and black leather shoes, decisively turning her back to the camera and walking sharply toward the classroom door, head held high, shoulders back, fists clenched at her sides, jaw set firm. On the left side of the frame in the background, a 17-year-old Vietnamese teenage girl with long straight black hair falling to her waist, wearing a white lace-trimmed shirt under a pink knitted cardigan embroidered with a small gold flower, a gray pleated skirt, standing frozen in place, eyes wide and locked on the retreating figure, mouth slightly open, arms limp at her sides, body motionless except for a slight tremor in her fingers. Background is a bright classroom with five rows of wooden desks, students sitting in stunned silence, natural light streaming in from the left side windows, a door at the far right. Soft natural key light from the left side, cool natural color tone, medium depth of field maintaining focus on the action. Minimalist 2D story review cartoon style, inspired by Chinese TikTok cartoon puppet animation, prominent clean thick black outlines, flat cel-shading with zero gradient shadows, slightly chibi character proportions, simple solid plain colored background, high-contrast, clean 2D paper-doll character assets.
+
+Video Prompt
+
+[Scene] Silent classroom with five rows of wooden desks, students looking on in stunned silence, a door at the far right. Soft natural window light from the left.
+[Characters] Trang Bích Phàm: human 16-year-old Vietnamese teenage girl with an oval face and sharp contours, cold piercing eyes, short side-parted black hair, tall lean build, wearing a deep blue blazer with silver buttons over a white shirt, black trousers, black leather shoes. Liễu Như Yên: human 17-year-old Vietnamese teenage girl with an oval moon-shaped face, exquisite features, long straight black hair middle-parted, wearing a white lace-trimmed shirt under a pink knitted cardigan with a gold flower, a gray pleated skirt, white flat loafers.
+Shot 1 (Low-Angle Medium Shot, 3s) Handheld tracking camera. Slow-motion. Trang Bích Phàm, on the far right in the foreground, decisively spins on her heel and strides toward the classroom door with sharp, forceful steps, back to the camera, head held high, fists clenched.
+Shot 2 (Low-Angle Medium Shot, 2s) Camera continues tracking. Trang Bích Phàm continues walking away. Liễu Như Yên on the left side of the frame in the background remains frozen, staring blankly at the retreating figure, eyes wide, mouth slightly open, body motionless.
+
+6Eye-Level Medium ShotRefined
+
+Image Prompt
+
+Eye-level medium shot, camera slowly pushing in. The single focus of the frame is a 17-year-old Vietnamese teenage girl with an oval moon-shaped face, exquisite features, long straight black hair middle-parted falling to her waist, wearing a white lace-trimmed shirt under a pink knitted cardigan embroidered with a small gold flower on the left chest, a gray pleated skirt falling below the knee, and white flat loafers, a thin gold chain necklace resting against her collarbone. She stands frozen in the middle of a quiet classroom, staring blankly toward the empty doorway, eyes unfocused and glazed over, lips slightly parted, shoulders slumped, arms hanging loosely at her sides with fingers twitching slightly, taking slow quiet breaths. Background shows the rest of the classroom with five rows of wooden desks, students sitting in stunned silence, natural light streaming in from the left side windows, the door in the distance. Soft natural key light from the left, cool natural color tone, medium depth of field with the surrounding classroom having a slight softness. Minimalist 2D story review cartoon style, inspired by Chinese TikTok cartoon puppet animation, prominent clean thick black outlines, flat cel-shading with zero gradient shadows, slightly chibi character proportions, simple solid plain colored background, high-contrast, clean 2D paper-doll character assets.
+
+Video Prompt
+
+[Scene] Quiet classroom with five rows of wooden desks, students sitting in stunned silence, a closed door in the distance. Soft natural window light from the left.
+[Characters] Liễu Như Yên: human 17-year-old Vietnamese teenage girl with an oval moon-shaped face, exquisite features, long straight black hair middle-parted falling to her waist, wearing a white lace-trimmed shirt under a pink knitted cardigan with a gold flower on the left chest, a gray pleated skirt, white flat loafers, a thin gold chain necklace.
+Shot 1 (Medium Shot, 3s) Slow push in. Slow-motion. Liễu Như Yên stands frozen in the exact center of the frame, staring blankly toward the empty doorway, eyes slowly blinking and unfocused, shoulders slumped, fingers twitching slightly at her sides. Camera slowly pushes in on her figure as the heavy silence envelops the room. Smooth and fluid movement.
+
+AI Anime Production Platform

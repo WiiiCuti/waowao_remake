@@ -114,7 +114,7 @@ export class ComfyUIVideoGenerator extends BaseVideoGenerator {
   ) {
     const workflow = JSON.parse(JSON.stringify(template))
 
-    const fps = 16
+    const fps = 24
     const durationS = (options.duration as number) || 10
     const dims = resolveComfyDimensions(options)
 

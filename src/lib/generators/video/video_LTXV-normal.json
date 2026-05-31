@@ -58,7 +58,7 @@
     "inputs": {
       "cfg": 1,
       "model": [
-        "265",
+        "270",
         0
       ],
       "positive": [
@@ -203,7 +203,7 @@
   },
   "114": {
     "inputs": {
-      "noise_seed": 358652181266014
+      "noise_seed": 475255829823956
     },
     "class_type": "RandomNoise",
     "_meta": {
@@ -212,7 +212,7 @@
   },
   "115": {
     "inputs": {
-      "noise_seed": 443614206805208
+      "noise_seed": 313013149869156
     },
     "class_type": "RandomNoise",
     "_meta": {
@@ -287,7 +287,7 @@
     "inputs": {
       "cfg": 1,
       "model": [
-        "265",
+        "270",
         0
       ],
       "positive": [
@@ -396,7 +396,7 @@
   },
   "200": {
     "inputs": {
-      "value": "[Scene] Ancient Chinese temple during golden hour, warm sunlight filtering through wooden pillars and a circular moon gate. Pink magnolia blossoms sway softly beside the stone courtyard. Incense smoke drifts slowly through the air while distant temple bells echo faintly. The atmosphere feels calm, emotional, and cinematic.\n\n[Characters]\nMale character: Long black hair tied in a high ponytail with an intricate silver crown ornament, wearing dark teal and black embroidered hanfu robes with subtle gold patterns. He holds a small scroll carefully in one hand, his expression calm but emotionally restrained.\nFemale character: Long flowing dark hair decorated with a pink ribbon and delicate silver hairpins, wearing a light blue hanfu dress with white embroidery and a soft pink waistband. Her gaze is gentle, thoughtful, and quietly emotional.\n\nShot 1 (Wide Shot, 4s): Camera slowly pushes through the temple entrance toward the two characters standing beneath the circular wooden archway. Warm golden sunlight illuminates their robes while flower petals drift softly in the breeze.\nAction: The man slowly raises the scroll slightly toward the woman while maintaining calm eye contact. Gentle breathing, subtle blinking, light cloth movement, soft cinematic pacing.\n\nShot 2 (Close-up, 3s): Focus on the woman's face as warm golden light flickers softly across her eyes. Background remains beautifully blurred with shallow depth of field.\nAction: She slowly lowers her gaze toward the scroll, then gently looks back at him. A slight movement of her sleeve and hair in the breeze. Quiet emotional tension, delicate expression changes, elegant natural motion.\n\nShot 3 (Medium Close Shot, 3s): Camera drifts slightly sideways as incense smoke moves between them. The temple background remains softly out of focus.\nAction: The man carefully extends the scroll closer while the woman softly reaches forward. Their movements remain slow and graceful, maintaining deep eye contact. Natural breathing, subtle blinking, peaceful cinematic atmosphere."
+      "value": "[Scene] Living room with a standing electric fan directly in front of her, a large window with sheer curtains on the left, a sofa in the background. The entire environment remains completely static and unchanged.\n[Characters] Tiểu Hy: A young woman with an oval face, curved moon-like eyebrows, large round puppy-like eyes with drooping outer corners, deep double eyelids, thick curled lashes, high nose bridge, full slightly pouting lips. Light brown long hair with natural waves reaching her waist, side-swept bangs lightly covering her eyebrows. Slender figure with visible collarbones. Wearing a light pink fitted short T-shirt with cream white lace trim on the collar, a cream white high-waisted pleated miniskirt, a thin silver chain belt at the waist with a left-side small tassel, silver earrings, and white canvas shoes with casually tied laces. Blank and unresponsive.\n\nShot 1 (Medium Shot, 3s): Static camera, environment remains completely static.\nAction: Slow-motion. Tiểu Hy gazes back with blank, wide eyes, her mouth hanging open slightly, her body completely motionless except for her subtle breathing. Smooth and fluid micro-movements."
     },
     "class_type": "PrimitiveStringMultiline",
     "_meta": {
@@ -405,7 +405,7 @@
   },
   "201": {
     "inputs": {
-      "value": 1280
+      "value": 704
     },
     "class_type": "easy int",
     "_meta": {
@@ -414,7 +414,7 @@
   },
   "202": {
     "inputs": {
-      "value": 704
+      "value": 1280
     },
     "class_type": "easy int",
     "_meta": {
@@ -442,7 +442,7 @@
   },
   "210": {
     "inputs": {
-      "image": "phim_co_trang_trung_quoc_202605230911.jpeg"
+      "image": "m_0111436ff8496d2f539942cfe90cbfe19e2d99d1.webp"
     },
     "class_type": "LoadImage",
     "_meta": {
@@ -699,9 +699,23 @@
   "265": {
     "inputs": {
       "lora_name": "LTX2.3-IC-LORA-Dual-Character.safetensors",
-      "strength_model": 0.9,
+      "strength_model": 0.7,
       "model": [
         "206",
+        0
+      ]
+    },
+    "class_type": "LoraLoaderModelOnly",
+    "_meta": {
+      "title": "Load LoRA"
+    }
+  },
+  "270": {
+    "inputs": {
+      "lora_name": "ltx23E5A5B6E6B2B9CGE9A3.N4iB.safetensors",
+      "strength_model": 0.85,
+      "model": [
+        "265",
         0
       ]
     },

@@ -26,6 +26,12 @@ import {
   compileAssetPromptFragments,
 } from '@/lib/assets/services/asset-prompt-context'
 
+function isNullishPromptValue(val: string | null | undefined): boolean {
+  if (!val) return true
+  const clean = val.trim().toLowerCase()
+  return ['无', 'none', 'null', 'empty', 'n/a', ''].includes(clean)
+}
+
 type StoryboardClipInput = {
   id: string
   content: string | null
@@ -410,9 +416,12 @@ export async function runScriptToStoryboardAtomicRetry(params: {
       throw new Error(`Clip ${formatClipId(params.clip)} content is empty`)
     }
     const filteredAppearanceList = getFilteredAppearanceList(params.novelPromotionData.characters || [], clipCharacters)
-    const charactersLibName = (params.novelPromotionData.characters || []).map((item) => item.name).join(', ') || '无'
-    const locationsLibName = (params.novelPromotionData.locations || []).map((item) => item.name).join(', ') || '无'
-    const charactersIntroduction = buildCharactersIntroduction(params.novelPromotionData.characters || [])
+    const locale = params.locale === 'en' ? 'en' : 'zh'
+    const t_none = locale === 'en' ? 'None' : '无'
+    const joinSep = locale === 'en' ? ', ' : '、'
+    const charactersLibName = (params.novelPromotionData.characters || []).map((item) => item.name).join(joinSep) || t_none
+    const locationsLibName = (params.novelPromotionData.locations || []).map((item) => item.name).join(joinSep) || t_none
+    const charactersIntroduction = buildCharactersIntroduction(params.novelPromotionData.characters || [], locale)
     const clipJson = JSON.stringify(
       {
         id: params.clip.id,
@@ -504,7 +513,7 @@ export async function runScriptToStoryboardAtomicRetry(params: {
       parse: (text) => {
         const parsed = parseJsonArray<StoryboardPanel>(text, `phase3:${formatClipId(params.clip)}`)
         const filtered = parsed.filter(
-          (panel) => panel.description && panel.description !== '无' && panel.location !== '无',
+          (panel) => !isNullishPromptValue(panel.description) && !isNullishPromptValue(panel.location),
         )
         if (filtered.length === 0) {
           throw new Error(`Phase 3 returned empty valid panels for clip ${formatClipId(params.clip)}`)

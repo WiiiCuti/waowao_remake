@@ -2,7 +2,7 @@ import type { Job } from 'bullmq'
 import { prisma } from '@/lib/prisma'
 import { executeAiTextStep } from '@/lib/ai-runtime'
 import { withInternalLLMStreamCallbacks } from '@/lib/llm-observe/internal-stream-context'
-import { buildCharactersIntroduction } from '@/lib/constants'
+import { buildCharactersIntroduction, t } from '@/lib/constants'
 import { TaskTerminatedError } from '@/lib/task/errors'
 import { reportTaskProgress } from '@/lib/workers/shared'
 import { assertTaskActive } from '@/lib/workers/utils'
@@ -73,10 +73,14 @@ export async function handleScreenplayConvertTask(job: Job<TaskJobData>) {
     throw new Error('No clips found, please split clips first')
   }
 
+  const locale = job.data.locale === 'en' ? 'en' : 'zh'
+  const t_none = t('none', locale)
+  const sep = locale === 'en' ? ', ' : '、'
+
   const screenplayPromptTemplate = getPromptTemplate(PROMPT_IDS.NP_SCREENPLAY_CONVERSION, job.data.locale)
-  const charactersLibName = novelData.characters.map((item) => item.name).join('、') || '无'
-  const locationsLibName = novelData.locations.map((item) => item.name).join('、') || '无'
-  const charactersIntroduction = buildCharactersIntroduction(novelData.characters)
+  const charactersLibName = novelData.characters.map((item) => item.name).join(sep) || t_none
+  const locationsLibName = novelData.locations.map((item) => item.name).join(sep) || t_none
+  const charactersIntroduction = buildCharactersIntroduction(novelData.characters, locale)
 
   await reportTaskProgress(job, 10, {
     stage: 'screenplay_convert_prepare',

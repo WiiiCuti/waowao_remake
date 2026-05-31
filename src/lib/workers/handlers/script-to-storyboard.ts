@@ -8,7 +8,7 @@ import {
 import { withInternalLLMStreamCallbacks } from '@/lib/llm-observe/internal-stream-context'
 import { logAIAnalysis } from '@/lib/logging/semantic'
 import { onProjectNameAvailable } from '@/lib/logging/file-writer'
-import { buildCharactersIntroduction } from '@/lib/constants'
+import { buildCharactersIntroduction, t } from '@/lib/constants'
 import { TaskTerminatedError } from '@/lib/task/errors'
 import { reportTaskProgress } from '@/lib/workers/shared'
 import {
@@ -471,9 +471,9 @@ export async function handleScriptToStoryboardTask(job: Job<TaskJobData>) {
         variables: {
           input: episode.novelText,
           characters_lib_name: (novelData.characters || []).length > 0
-            ? (novelData.characters || []).map((item) => item.name).join('、')
-            : '无',
-          characters_introduction: buildCharactersIntroduction(novelData.characters || []),
+            ? (novelData.characters || []).map((item) => item.name).join(job.data.locale === 'en' ? ', ' : '、')
+            : t('none', job.data.locale),
+          characters_introduction: buildCharactersIntroduction(novelData.characters || [], job.data.locale),
           storyboard_json: buildStoryboardJsonFromClipPanels(orchestratorResult.clipPanels),
         },
       })
@@ -510,7 +510,9 @@ export async function handleScriptToStoryboardTask(job: Job<TaskJobData>) {
                 stage: 'script_to_storyboard_step',
                 stageLabel: 'progress.stage.scriptToStoryboardStep',
                 displayMode: 'detail',
-                message: `台词分析失败，准备重试 (${voiceAttempt + 1}/${MAX_VOICE_ANALYZE_ATTEMPTS})`,
+                message: job.data.locale === 'en'
+                  ? `Voice analysis failed, retrying (${voiceAttempt + 1}/${MAX_VOICE_ANALYZE_ATTEMPTS})`
+                  : `台词分析失败，准备重试 (${voiceAttempt + 1}/${MAX_VOICE_ANALYZE_ATTEMPTS})`,
                 stepId: voiceStepMeta.stepId,
                 stepAttempt: voiceAttempt + 1,
                 stepTitle: voiceStepMeta.stepTitle,

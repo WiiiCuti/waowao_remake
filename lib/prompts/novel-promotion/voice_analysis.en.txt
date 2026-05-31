@@ -70,7 +70,7 @@ Analysis Rules:
 
    b) **Speaker Verification**:
       - The line's speaker must correspond to the characters in the panel's "characters" field
-      - If the panel's on-screen character is "玄离", it cannot match a line spoken by "柳如烟"
+      - If the panel's on-screen character is "Xuan Li", it cannot match a line spoken by "Liu Ruyan"
       - Dialogue scenes: whoever is speaking should match to a panel containing that speaker
 
    c) **Content Matching**:
@@ -84,37 +84,90 @@ Analysis Rules:
       4. If none of the above conditions can be satisfied, set matchedPanel to null
 
    e) **Example**:
-      - Original text order: 柳如烟 said "殿下身份尊贵" → 玄离 said "胆子挺大"
-      - Storyboard panel order: Panel 15 (柳如烟 close-up) → Panel 16 (玄离 close-up)
-      - Correct matching: 柳如烟 line → Panel 15, 玄离 line → Panel 16
-      - Incorrect matching: 柳如烟 line → Panel 16 (speaker mismatch)
+      - Original text order: Liu Ruyan said "Your Highness is of noble status" → Xuan Li said "You are quite brave"
+      - Storyboard panel order: Panel 15 (Liu Ruyan close-up) → Panel 16 (Xuan Li close-up)
+      - Correct matching: Liu Ruyan line → Panel 15, Xuan Li line → Panel 16
+      - Incorrect matching: Liu Ruyan line → Panel 16 (speaker mismatch)
 
 6. [Polyphone (Multi-Pronunciation) Handling - Important]
    To ensure correct pronunciation in TTS voice synthesis, polyphones (characters with multiple pronunciations) that are prone to misreading must be replaced with **single-pronunciation characters whose reading is identical (including tone)**.
 
    Processing principles:
-   a) **Identify polyphones**: Find polyphones in the line (e.g.: 还、行、了、乐、朝、重、都, etc.)
+   a) **Identify polyphones**: Find polyphones in the line (e.g.: huan, xing, le, yue, chao, zhong, dou, etc.)
    b) **Determine correct pronunciation**: Determine the correct pronunciation of the character in this context based on semantic meaning
    c) **Select replacement character**: Find a commonly used single-pronunciation character whose reading is completely identical (same initial, final, and tone)
    d) **Verify replacement**: Ensure the replacement character's pronunciation matches the intended pronunciation exactly
 
    Replacement example rationale:
-   - "还(huán)给我" → Replace with "环", because "环" is only read as huán
-   - "银行(háng)" → Replace with "航", because "航" is only read as háng
-   - "了(liǎo)解" → Replace with "聊", because "聊" is only read as liáo (close to liǎo)
-   - "快乐(lè)" → Keep the original "乐", as TTS typically reads common compounds correctly
-   - "重(zhòng)量" → Replace with "众", because "众" is only read as zhòng
+   - "huan (return) to me" → Replace with character "huan (ring)", because it is only read as huan
+   - "yinhang (bank)" → Replace with character "hang (navigation)", because it is only read as hang
+   - "liao (understand)" → Replace with character "liao (chat)", because it is only read as liao
+   - "kuaile (happy)" → Keep the original "le", as TTS typically reads common compounds correctly
+   - "zhong (weight)" → Replace with character "zhong (crowd)", because it is only read as zhong
 
    ⚠️ Important notes:
    - You must ensure the replacement character's pronunciation is completely identical to the target pronunciation; do not use characters with similar but different pronunciations
-   - For example: "勒" is read as lè or lēi, and cannot be used to replace a character read as le
-   - Common compounds (e.g. "了解", "快乐", "音乐") are typically read correctly by TTS and can be kept as-is
+   - For example: "le (auxiliary)" has a specific reading, and cannot be replaced by characters with similar pronunciation if the tone differs
+   - Common compounds (e.g. "liaojie", "kuaile", "yinyue") are typically read correctly by TTS and can be kept as-is
    - Only replace when a polyphone in a specific context is likely to be misread by TTS
 
 7. [JSON Safe Output]
    ⚠️ All quotation marks in the original text (""''「」etc.) must be uniformly replaced with 「」within JSON string values; unescaped English double quotes " are strictly forbidden
-   - ✅ Correct: "content":"「你好啊」"
-   - ❌ Incorrect: "content":""你好啊""
+   - ✅ Correct: "content":"「Hello」"
+   - ❌ Incorrect: "content":""Hello""
+
+8. [Stage Direction Stripping — CRITICAL, applies BEFORE setting narration content]
+   When generating a narration record (isNarration: true), the "content" field MUST be cleaned before use.
+   There are TWO different strip behaviors — do NOT confuse them:
+
+   ❌ TYPE 1: Strip the ENTIRE LINE (these lines have zero narrative value):
+   a) Scene header lines — they are ONLY location + time metadata:
+      - [CẢNH X: ...], [SCENE X: ...], [Scene X: ...]
+      - [INT. ...], [EXT. ...], [INT/EXT. ...]
+      - Any line that is entirely enclosed in [...] and describes a location or time period
+   b) Transcription noise/artifacts — tool watermarks and sound markers:
+      - Any line containing "TurboScribe"
+      - "[âm nhạc]", "[music]", "[tiếng nhạc]", "[background music]"
+      - "(Được chép bởi", "(Transcribed by"
+   c) Standalone stage direction lines (the ENTIRE line is a direction, no prose):
+      - Lines that are ONLY parenthetical director notes with no narrative: (V.O.), (O.S.), (O.C.), (CONT'D)
+
+   ⚠️ TYPE 2: Strip the LABEL PREFIX ONLY, KEEP the rest of the line (these lines have narrative content after the label):
+   a) Background/setting description lines — the content AFTER the label is valid narrative:
+      - "Bối cảnh: [content]" → strip "Bối cảnh: ", keep [content]
+      - "Background: [content]" → strip "Background: ", keep [content]
+      - "Setting: [content]" → strip "Setting: ", keep [content]
+      - "Mô tả cảnh: [content]" → strip "Mô tả cảnh: ", keep [content]
+
+   ✅ KEEP as-is in "content" (no stripping needed):
+      - Actual narrative prose describing events
+      - Inner monologue
+      - Sound descriptions that are part of the story (e.g. "Tiếng súng vang lên từ xa")
+
+   ✅ If after all stripping, the remaining text is empty or only whitespace:
+      - Do NOT create a narration record for that panel
+      - Set matchedPanel to null instead
+
+   ⚠️ CRITICAL EXAMPLE — study this carefully:
+   Input source_text:
+     "[CẢNH 8: PHÒNG NGỦ BIỆT THỰ HỌ TRANG - NỬA ĐÊM]\nBối cảnh: Ngọn lửa đỏ rực bùng lên dữ dội từ căn phòng ngủ."
+
+   Step 1: Strip TYPE 1 — remove entire scene header line:
+     Removed: "[CẢNH 8: PHÒNG NGỦ BIỆT THỰ HỌ TRANG - NỬA ĐÊM]"
+     Remaining: "Bối cảnh: Ngọn lửa đỏ rực bùng lên dữ dội từ căn phòng ngủ."
+
+   Step 2: Strip TYPE 2 — remove label prefix only, keep narrative content:
+     Removed prefix: "Bối cảnh: "
+     Kept content: "Ngọn lửa đỏ rực bùng lên dữ dội từ căn phòng ngủ."
+
+   ✅ Final correct content output:
+     "Ngọn lửa đỏ rực bùng lên dữ dội từ căn phòng ngủ."
+
+   ❌ Wrong output (stripped everything including narrative):
+     "" (empty string)
+
+   ❌ Wrong output (kept scene header in TTS):
+     "[CẢNH 8: PHÒNG NGỦ BIỆT THỰ HỌ TRANG - NỬA ĐÊM] Bối cảnh: Ngọn lửa..."
 
 Storyboard data as follows:
 {storyboard_json}

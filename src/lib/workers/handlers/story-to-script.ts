@@ -17,6 +17,7 @@ import {
   type StoryToScriptOrchestratorResult,
 } from '@/lib/novel-promotion/story-to-script/orchestrator'
 import { createWorkerLLMStreamCallbacks, createWorkerLLMStreamContext } from './llm-stream'
+import { t } from '@/lib/constants'
 import type { TaskJobData } from '@/lib/task/types'
 import {
   asString,
@@ -284,12 +285,16 @@ export async function handleStoryToScriptTask(job: Job<TaskJobData>) {
           throw new Error(`retry clip content is empty: ${retryClipId}`)
         }
 
+        const locale = job.data.locale === 'en' ? 'en' : 'zh'
+        const t_none = t('none', locale)
+        const t_no_intro = t('no_char_intro', locale)
+
         const screenplayPrompt = screenplayPromptTemplate
           .replace('{clip_content}', clipContent)
-          .replace('{locations_lib_name}', asString(splitPayload.locationsLibName) || '无')
-          .replace('{characters_lib_name}', asString(splitPayload.charactersLibName) || '无')
-          .replace('{props_lib_name}', asString(splitPayload.propsLibName) || '无')
-          .replace('{characters_introduction}', asString(splitPayload.charactersIntroduction) || '暂无角色介绍')
+          .replace('{locations_lib_name}', asString(splitPayload.locationsLibName) || t_none)
+          .replace('{characters_lib_name}', asString(splitPayload.charactersLibName) || t_none)
+          .replace('{props_lib_name}', asString(splitPayload.propsLibName) || t_none)
+          .replace('{characters_introduction}', asString(splitPayload.charactersIntroduction) || t_no_intro)
           .replace('{clip_id}', retryClipId)
 
         const stepMeta: StoryToScriptStepMeta = {
@@ -409,6 +414,7 @@ export async function handleStoryToScriptTask(job: Job<TaskJobData>) {
             callbacks,
             async () => await runStoryToScriptOrchestrator({
               concurrency: workflowConcurrency.analysis,
+              locale: job.data.locale,
               content,
               baseCharacters: (novelData.characters || []).map((item) => item.name),
               baseLocations: (novelData.locations || [])

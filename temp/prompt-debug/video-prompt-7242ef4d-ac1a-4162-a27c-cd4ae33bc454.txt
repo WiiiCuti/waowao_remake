@@ -1,0 +1,4 @@
+[Scene] Same living room, static environment: window on right, motionless curtains, idle fan, gray sofa and coffee table.
+[Characters] Bạch Dương: An approximately 25-year-old man with a defined jaw, high nose, perpetually furrowed brows, sharp almond eyes, thin lips, short black side-parted hair, tall and slender, wearing a light blue shirt, gray trousers, black shoes, standing near the entrance. He is in a helpless and resigned state, sighing with softened eyes.
+Shot 1 (Close-Up, 3s): Static camera, environment remains unchanged.
+Action: Slow-motion. Bạch Dương gradually stops shaking his head, his sigh fading, his eyes lowering to the floor then slowly lifting again, his shoulders rising and falling subtly, hands relaxing further at his sides.

@@ -22,16 +22,21 @@ export function buildAnalyzeGlobalPrompts(params: {
   existingCharacters: CharacterBrief[]
   existingLocationInfo: string[]
   existingPropNames: string[]
+  locale?: Locale
 }) {
+  const rawLocale = params.locale === 'en' ? 'en' : 'zh'
+  const t_none = rawLocale === 'en' ? 'None' : '无'
+  const sep = rawLocale === 'en' ? ', ' : '、'
+
   const characterPrompt = params.templates.characterPromptTemplate
     .replace('{input}', params.chunk)
-    .replace('{characters_lib_info}', buildCharactersLibInfo(params.existingCharacters))
+    .replace('{characters_lib_info}', buildCharactersLibInfo(params.existingCharacters, rawLocale))
   const locationPrompt = params.templates.locationPromptTemplate
     .replace('{input}', params.chunk)
-    .replace('{locations_lib_name}', params.existingLocationInfo.join(', ') || '无')
+    .replace('{locations_lib_name}', params.existingLocationInfo.join(sep) || t_none)
   const propPrompt = params.templates.propPromptTemplate
     .replace('{input}', params.chunk)
-    .replace('{props_lib_name}', params.existingPropNames.join(', ') || '无')
+    .replace('{props_lib_name}', params.existingPropNames.join(sep) || t_none)
   return {
     characterPrompt,
     locationPrompt,

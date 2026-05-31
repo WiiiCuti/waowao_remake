@@ -28,11 +28,16 @@ function parseJsonArrayResponse(responseText: string): AnyObj[] {
   return safeParseJsonArray(responseText) as AnyObj[]
 }
 
-function parsePanelCharacters(value: string | null): string {
-  if (!value) return '无'
+function parsePanelCharacters(value: string | null, locale: TaskJobData['locale'] = 'zh'): string {
+  const isEn = locale === 'en'
+  const fallback = isEn ? 'None' : '无'
+  const sep = isEn ? ', ' : '、'
+  const open = isEn ? ' (' : '（'
+  const close = isEn ? ')' : '）'
+  if (!value) return fallback
   try {
     const parsed = JSON.parse(value)
-    if (!Array.isArray(parsed) || parsed.length === 0) return '无'
+    if (!Array.isArray(parsed) || parsed.length === 0) return fallback
     return parsed
       .map((item: unknown) => {
         if (typeof item === 'string') return item
@@ -40,12 +45,12 @@ function parsePanelCharacters(value: string | null): string {
         const record = item as Record<string, unknown>
         const name = readText(record.name)
         const appearance = readText(record.appearance)
-        return appearance ? `${name}（${appearance}）` : name
+        return appearance ? `${name}${open}${appearance}${close}` : name
       })
       .filter(Boolean)
-      .join('、') || '无'
+      .join(sep) || fallback
   } catch {
-    return '无'
+    return fallback
   }
 }
 
@@ -71,13 +76,13 @@ export async function handleAnalyzeShotVariantsTask(job: Job<TaskJobData>, paylo
   const imageUrl = panel.imageUrl.startsWith('images/')
     ? getSignedUrl(panel.imageUrl, 3600)
     : panel.imageUrl
-  const charactersInfo = parsePanelCharacters(panel.characters)
+  const charactersInfo = parsePanelCharacters(panel.characters, job.data.locale)
 
   const prompt = buildPrompt({
     promptId: PROMPT_IDS.NP_AGENT_SHOT_VARIANT_ANALYSIS,
     locale: job.data.locale,
     variables: {
-      panel_description: panel.description || '无',
+      panel_description: panel.description || (job.data.locale === 'en' ? 'None' : '无'),
       shot_type: panel.shotType || '中景',
       camera_move: panel.cameraMove || '固定',
       location: panel.location || '未知',

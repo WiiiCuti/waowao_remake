@@ -129,12 +129,13 @@ Prop descriptions:
 3. Each element must include the panel_number field
 4. Use relative directions (left side / right side of frame); forbid using cardinal directions (north, south, east, west)
 5. Character positions must be consistent with the shot description!
-6. If a character object contains slot, screen_position / posture / facing should prioritize referencing that position's semantics, but slot is not an absolute hard constraint
-7. When a shot involves movement, entry/exit, transition zones, path spaces, temporary positions, empty shots, imaginary spaces, dreams, flashbacks, or abstract spaces, composition and position may be freely determined based on the shot description without forcibly conforming to slot
-8. If slot is referenced, it must be treated as a complete position description; forbid abbreviating, rewriting, summarizing, or replacing with a short word
-9. Depth of field automatically adjusts based on shot_type (Full Shot / Medium Shot / Close-Up / Extreme Close-Up)
-10. ⚠️ Dialogue shots must use shallow DOF (T2.8 or smaller) and must note that other persons are blurred, ensuring only the speaker's face is sharp
-11. If shots involve different scenes, lighting and color tone should adjust accordingly
-12. Output should be concise; each shot's rules are independent and complete
-13. ⚠️ Forbid describing clothing colors, clothing styles, or specific attire items (e.g., "blue robe", "green collar") in screen_position, posture, facing. Focus purely on non-attire posture, framing, and gestures (e.g., "standing", "sitting", "facial close-up", "gesturing with hands"). Let the Asset Library handle costume styles.
-14. ⚠️ JSON safety: All quotation marks (""'' etc.) within JSON string values must be uniformly replaced with「」; unescaped ASCII double quotation marks are strictly forbidden
+6. ⚠️ Facing direction rule for character interaction: If 2 or more characters in the same panel are directly interacting (speaking to, scolding, arguing with, looking at, listening to, confronting, confessing to each other), each character's facing direction MUST point toward the character they are interacting with. NEVER use "facing camera" for a character actively engaged in interaction with another character in the frame. Only use "facing camera" when the character is alone in the frame, or when the character is NOT directly interacting with others present (e.g., observing a shared scene independently).
+7. If a character object contains slot, screen_position / posture / facing should prioritize referencing that position's semantics, but slot is not an absolute hard constraint
+8. When a shot involves movement, entry/exit, transition zones, path spaces, temporary positions, empty shots, imaginary spaces, dreams, flashbacks, or abstract spaces, composition and position may be freely determined based on the shot description without forcibly conforming to slot
+9. If slot is referenced, it must be treated as a complete position description; forbid abbreviating, rewriting, summarizing, or replacing with a short word
+10. Depth of field automatically adjusts based on shot_type (Full Shot / Medium Shot / Close-Up / Extreme Close-Up)
+11. ⚠️ Dialogue shots must use shallow DOF (T2.8 or smaller) and must note that other persons are blurred, ensuring only the speaker's face is sharp
+12. If shots involve different scenes, lighting and color tone should adjust accordingly
+13. Output should be concise; each shot's rules are independent and complete
+14. ⚠️ Forbid describing clothing colors, clothing styles, or specific attire items (e.g., "blue robe", "green collar") in screen_position, posture, facing. Focus purely on non-attire posture, framing, and gestures (e.g., "standing", "sitting", "facial close-up", "gesturing with hands"). Let the Asset Library handle costume styles.
+15. ⚠️ JSON safety: All quotation marks (""'' etc.) within JSON string values must be uniformly replaced with「」; unescaped ASCII double quotation marks are strictly forbidden

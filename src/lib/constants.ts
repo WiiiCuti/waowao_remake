@@ -151,10 +151,17 @@ export const ART_STYLES = [
   },
   {
     value: 'japanese-anime',
-    label: '日系动漫风',
+    label: 'Anime Nhật',
     preview: '日',
-    promptZh: '现代日系动漫风格，赛璐璐上色，清晰干净的线条，视觉小说CG感。高质量2D风格',
-    promptEn: 'Modern Japanese anime style, cel shading, clean line art, visual-novel CG look, high-quality 2D style.'
+    promptZh: '现代日系动漫风格，赛璐璐上色，清晰干净的线条，视觉小说CG感，精致的眼睛与发丝细节，现代都市街景背景，柔和的自然光影，高饱和度清新色彩，高质量2D动漫。',
+    promptEn: 'Modern Japanese anime style, clean crisp line art, beautiful detailed eyes and hair, flat cel shading, visual novel CG look, modern urban street background with soft bokeh, gentle natural lighting, fresh vibrant colors, premium high-quality 2D digital anime.'
+  },
+  {
+    value: 'cg-2-5d',
+    label: 'CG 2.5D',
+    preview: 'CG',
+    promptZh: 'artwork in cgstyle_9b，极致CG质感与3S皮肤渲染，Iray风格光照，物理真实的光影感，画面通透富有深度，皮肤材质通透红润极其光滑，动漫转CG写实质感，高细节皮肤纹理，电影级渲染品质，2.5D半写实风格。',
+    promptEn: 'artwork in cgstyle_9b, ultimate CG texture with Iray skin rendering, realistic physical light and shadow, transparent and deep imagery, translucent rosy smooth skin texture, anime-to-CG transformation, high-detail skin surface, cinematic render quality, 2.5D semi-realistic style.'
   },
   {
     value: 'realistic',
@@ -165,10 +172,10 @@ export const ART_STYLES = [
   },
   {
     value: 'vector-cartoon',
-    label: 'Hoạt hình tối giản (Review)',
-    preview: 'Giản',
-    promptZh: '简约2D矢量卡通动画风格，粗线条轮廓，扁平赛璐璐上色, 角色比例略带Q版，低细节度，少色块，故事解说动画风格。',
-    promptEn: 'Minimalist 2D vector cartoon animation style, thick black outlines, flat cel-shading, simple vector illustration, slightly chibi character proportions, low detail, story review animation look.'
+    label: 'Hoạt hình cắt giấy 2D (Review)',
+    preview: 'Cắt',
+    promptZh: '简约2D解说视频卡通风格，类似中国抖音解说剪纸木偶风格，鲜明利落的黑色粗线条描边，扁平赛璐璐上色，角色比例略带Q版（大头小身体），无阴影细节，极简纯色背景，高对比度，干净清爽的2D角色设计。',
+    promptEn: 'Minimalist 2D story review cartoon style, inspired by Chinese TikTok cartoon puppet animation, prominent clean thick black outlines, flat cel-shading with zero gradient shadows, slightly chibi character proportions (larger head, small body), simple solid plain colored background, high-contrast, clean 2D paper-doll character assets.'
   },
   {
     value: 'chibi-kawaii',
@@ -195,8 +202,15 @@ export const ART_STYLES = [
     value: 'chinese-historical-short-drama',
     label: 'Phim ngắn cổ trang',
     preview: 'Cổ',
-    promptZh: '中国古装微短剧风格，汉服，电影级唯美画面质感，真实写实场景，夕阳斜照或柔和黄昏光影，华丽古典的中式建筑庭院群落，雕梁画栋，高饱和度与丰富色彩对比，角色皮肤质感真实细腻，古装衣物材质细节饱满，高端短剧胶片质感。',
+    promptZh: '中国古装微短剧风格，汉服，电影级唯美画面质感，真实写实场景，夕阳斜照或柔和黄昏光影，华丽古典的中式建筑庭院群low，雕梁画栋，高饱和度与丰富色彩对比，角色皮肤质感真实细腻，古装衣物材质细节饱满，高端短剧胶片质感。',
     promptEn: 'Chinese historical short drama style, hanfu, premium live-action cinematic drama aesthetic, real-world ancient architecture scenery, ornate pavilions with moon gates, warm late afternoon golden hour lighting, rich contrast with atmospheric storytelling shadows, photorealistic skin texture, ultra-detailed costume fabric, high-end vertical film look.'
+  },
+  {
+    value: 'chinese-paper-cut',
+    label: 'Cắt giấy Trung Hoa',
+    preview: 'Cắt',
+    promptZh: '精致中国传统剪纸风格，阴刻与阳刻结合，精细的镂空纸雕质感，多层纸张重叠的3D皮影戏舞台效果，鲜艳对比的红、金、黑、蓝色彩，古风国潮插画，独特的中式民间艺术美学，微距景深。',
+    promptEn: 'Exquisite traditional Chinese paper-cut art style, delicate paper hollow-out carving texture, multi-layered 3D papercut shadow box effect, vibrant high-contrast colors (crimson red, gold, black, teal), Chinese folk art aesthetics, ornate traditional patterns, elegant stylized silhouettes, macro depth of field.'
   },
 ]
 
@@ -224,15 +238,19 @@ export function getArtStylePrompt(
 }
 
 // 角色形象生成的系统后缀（始终添加到提示词末尾，不显示给用户）- 左侧面部特写+右侧三视图
-export const CHARACTER_PROMPT_SUFFIX = '角色设定图，画面分为左右两个区域：【左侧区域】占约1/3宽度，是角色的正面特写（如果是人类则展示完整正脸，如果是动物/生物则展示最具辨识度的正面形态）；【右侧区域】占约2/3宽度，是角色三视图横向排列（从左到右依次为：正面全身、侧面全身、背面全身），三视图高度一致。纯白色背景，无其他元素。'
+export const CHARACTER_PROMPT_SUFFIX_ZH = '角色设定图，画面分为左右两个区域：【左侧区域】占约1/3宽度，是角色的正面特写（如果是人类则展示完整正脸，如果是动物/生物则展示最具辨识度的正面形态）；【右侧区域】占约2/3宽度，是角色三视图横向排列（从左到右依次为：正面全身、侧面全身、背面全身），三视图高度一致。纯白色背景，无其他元素。'
+export const CHARACTER_PROMPT_SUFFIX_EN = 'Character design sheet, the screen is divided into left and right areas: [Left Area] occupying about 1/3 width, showing a front close-up of the character (full front face for humans, most recognizable front angle for creatures/animals); [Right Area] occupying about 2/3 width, showing a three-view orthographic layout of the character arranged horizontally (from left to right: front full-body, side full-body, back full-body), all three views having consistent height. Pure white background, no other elements.'
+export const CHARACTER_PROMPT_SUFFIX = CHARACTER_PROMPT_SUFFIX_ZH
 
 // 道具图片生成的系统后缀（固定白底三视图资产图）
-export const PROP_PROMPT_SUFFIX = '道具设定图，画面分为左右两个区域：【左侧区域】占约1/3宽度，是道具主体的主视图特写；【右侧区域】占约2/3宽度，是同一道具的三视图横向排列（从左到右依次为：正面、侧面、背面），三视图高度一致。纯白色背景，主体居中完整展示，无人物、无手部、无桌面陈设、无环境背景、无其他元素。'
+export const PROP_PROMPT_SUFFIX_ZH = '道具设定图，画面分为左右两个区域：【左侧区域】占约1/3宽度，是道具主体的主视图特写；【右侧区域】占约2/3宽度，是同一道具的三视图横向排列（从左到右依次为：正面、侧面、背面），三视图高度一致。纯白色背景，主体居中完整展示，无人物、无手部、无桌面陈设、无环境背景、无其他元素。'
+export const PROP_PROMPT_SUFFIX_EN = 'Prop design sheet, the screen is divided into left and right areas: [Left Area] occupying about 1/3 width, showing a main-view close-up of the prop; [Right Area] occupying about 2/3 width, showing a three-view orthographic layout of the same prop arranged horizontally (from left to right: front, side, back), all three views having consistent height. Pure white background, the main object is fully displayed in the center, no people, no hands, no tabletop settings, no environment/background, no other elements.'
+export const PROP_PROMPT_SUFFIX = PROP_PROMPT_SUFFIX_ZH
 
 // 场景图片生成的系统后缀（已禁用四视图，直接生成单张场景图）
 export const LOCATION_PROMPT_SUFFIX = ''
 
-// 角色资产图生成比例（当前角色设定图实际使用 3:2）
+// 角色资产图生成比例（当前角色设定图实际 sử dụng 3:2）
 export const CHARACTER_ASSET_IMAGE_RATIO = '3:2'
 // 历史保留：旧注释中曾写 16:9，但当前资产图生成统一以 CHARACTER_ASSET_IMAGE_RATIO 为准
 export const CHARACTER_IMAGE_RATIO = CHARACTER_ASSET_IMAGE_RATIO
@@ -254,25 +272,37 @@ export const LOCATION_IMAGE_BANANA_RATIO = '1:1'
 // 从提示词中移除角色系统后缀（用于显示给用户）
 export function removeCharacterPromptSuffix(prompt: string): string {
   if (!prompt) return ''
-  return prompt.replace(CHARACTER_PROMPT_SUFFIX, '').trim()
+  return prompt
+    .replace(CHARACTER_PROMPT_SUFFIX_ZH, '')
+    .replace(CHARACTER_PROMPT_SUFFIX_EN, '')
+    .trim()
 }
 
 // 添加角色系统后缀到提示词（用于生成图片）
-export function addCharacterPromptSuffix(prompt: string): string {
-  if (!prompt) return CHARACTER_PROMPT_SUFFIX
+export function addCharacterPromptSuffix(prompt: string, locale: 'zh' | 'en' = 'zh'): string {
+  const suffix = locale === 'en' ? CHARACTER_PROMPT_SUFFIX_EN : CHARACTER_PROMPT_SUFFIX_ZH
+  if (!prompt) return suffix
   const cleanPrompt = removeCharacterPromptSuffix(prompt)
-  return `${cleanPrompt}${cleanPrompt ? '，' : ''}${CHARACTER_PROMPT_SUFFIX}`
+  const sep = locale === 'en' ? ', ' : '，'
+  return `${cleanPrompt}${cleanPrompt ? sep : ''}${suffix}`
 }
 
 export function removePropPromptSuffix(prompt: string): string {
   if (!prompt) return ''
-  return prompt.replace(PROP_PROMPT_SUFFIX, '').replace(/，$/, '').trim()
+  return prompt
+    .replace(PROP_PROMPT_SUFFIX_ZH, '')
+    .replace(PROP_PROMPT_SUFFIX_EN, '')
+    .replace(/，$/, '')
+    .replace(/,$/, '')
+    .trim()
 }
 
-export function addPropPromptSuffix(prompt: string): string {
-  if (!prompt) return PROP_PROMPT_SUFFIX
+export function addPropPromptSuffix(prompt: string, locale: 'zh' | 'en' = 'zh'): string {
+  const suffix = locale === 'en' ? PROP_PROMPT_SUFFIX_EN : PROP_PROMPT_SUFFIX_ZH
+  if (!prompt) return suffix
   const cleanPrompt = removePropPromptSuffix(prompt)
-  return `${cleanPrompt}${cleanPrompt ? '，' : ''}${PROP_PROMPT_SUFFIX}`
+  const sep = locale === 'en' ? ', ' : '，'
+  return `${cleanPrompt}${cleanPrompt ? sep : ''}${suffix}`
 }
 
 // 从提示词中移除场景系统后缀（用于显示给用户）
@@ -291,18 +321,49 @@ export function addLocationPromptSuffix(prompt: string): string {
 }
 
 /**
- * 构建角色介绍字符串（用于发送给 AI，帮助理解"我"和称呼对应的角色）
- * @param characters - 角色列表，需要包含 name 和 introduction 字段
+ * 构建角色介绍字符串（用于发送给 AI，帮助理解"我" và xưng hô tương ứng）
+ * @param characters - 角色列表，需要包含 name và introduction 字段
+ * @param locale - 语言种类 ('zh' | 'en')
  * @returns 格式化的角色介绍字符串
  */
-export function buildCharactersIntroduction(characters: Array<{ name: string; introduction?: string | null }>): string {
-  if (!characters || characters.length === 0) return '暂无角色介绍'
+export function buildCharactersIntroduction(
+  characters: Array<{ name: string; introduction?: string | null }>,
+  locale: 'zh' | 'en' = 'zh',
+): string {
+  const fallback = locale === 'en' ? 'No character introductions available' : '暂无角色介绍'
+  if (!characters || characters.length === 0) return fallback
 
+  const colon = locale === 'en' ? ': ' : '：'
   const introductions = characters
     .filter(c => c.introduction && c.introduction.trim())
-    .map(c => `- ${c.name}：${c.introduction}`)
+    .map(c => `- ${c.name}${colon}${c.introduction}`)
 
-  if (introductions.length === 0) return '暂无角色介绍'
+  if (introductions.length === 0) return fallback
 
   return introductions.join('\n')
+}
+
+export const PROMPT_STRINGS = {
+  none: { zh: '无', en: 'None' },
+  no_description: { zh: '无描述', en: 'No description' },
+  no_char_data: { zh: '无角色数据', en: 'No character data' },
+  no_appearance_data: { zh: '无角色外貌数据', en: 'No character appearance data' },
+  no_appearance_info: { zh: '无形象信息', en: 'No appearance info' },
+  no_appearance_desc: { zh: '无形象描述', en: 'No appearance description' },
+  initial_appearance: { zh: '初始形象', en: 'Initial appearance' },
+  default_appearance: { zh: '默认形象', en: 'Default appearance' },
+  default: { zh: '默认', en: 'Default' },
+  no_char_intro: { zh: '暂无角色介绍', en: 'No character introductions available' },
+  no_existing_chars: { zh: '暂无已有角色', en: 'No existing characters' },
+  no_intro: { zh: '暂无', en: 'None' },
+  alias: { zh: '别名', en: 'Aliases' },
+  intro: { zh: '介绍', en: 'Introduction' },
+  no_ref_image: { zh: '无参考图', en: 'No reference image' },
+  has_ref_image: { zh: '已提供参考图', en: 'Reference image provided' },
+  style_match_ref: { zh: '与参考图风格一致', en: 'Match the style of the reference image' },
+  position: { zh: '位置', en: 'position' },
+} as const
+
+export function t(key: keyof typeof PROMPT_STRINGS, locale: 'zh' | 'en' = 'zh'): string {
+  return PROMPT_STRINGS[key][locale === 'en' ? 'en' : 'zh']
 }

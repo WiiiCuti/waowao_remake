@@ -1,4 +1,4 @@
-import { buildCharactersIntroduction } from '@/lib/constants'
+import { buildCharactersIntroduction, t } from '@/lib/constants'
 import {
   formatLocationAvailableSlotsText,
   parseLocationAvailableSlots,
@@ -94,55 +94,63 @@ function parseDescriptions(raw: string[] | string | null | undefined): string[] 
   }
 }
 
-export function getFilteredPropsDescription(props: PromptPropAsset[], clipProps: string[]): string {
-  if (clipProps.length === 0) return '无'
+export function getFilteredPropsDescription(props: PromptPropAsset[], clipProps: string[], locale: PromptLocale = 'zh'): string {
+  const t_none = locale === 'en' ? 'None' : '无'
+  const t_no_description = locale === 'en' ? 'No description' : '无描述'
+  if (clipProps.length === 0) return t_none
   const propNameSet = new Set(clipProps.map(normalizeName))
   const matched = props.filter((prop) => propNameSet.has(normalizeName(prop.name)))
-  if (matched.length === 0) return '无'
+  if (matched.length === 0) return t_none
   return matched
-    .map((prop) => `【${prop.name}】${typeof prop.summary === 'string' && prop.summary.trim() ? prop.summary.trim() : '无描述'}`)
+    .map((prop) => `【${prop.name}】${typeof prop.summary === 'string' && prop.summary.trim() ? prop.summary.trim() : t_no_description}`)
     .join('\n')
 }
 
 export function buildPromptAssetContext(input: PromptAssetContextInput): PromptAssetContext {
+  const locale = input.locale === 'en' ? 'en' : 'zh'
+  const t_none = locale === 'en' ? 'None' : '无'
+  const t_no_description = locale === 'en' ? 'No description' : '无描述'
+  const t_no_appearance_desc = locale === 'en' ? 'No appearance description' : '无形象描述'
+  const t_initial_appearance = locale === 'en' ? 'Initial appearance' : '初始形象'
+
   const subjectNames = extractCharacterNames(input.clipCharacters)
   const propNames = input.clipProps.map((item) => item.trim()).filter(Boolean)
   const matchedCharacters = input.characters.filter((character) =>
     subjectNames.some((name) => characterNameMatches(character.name, name)),
   )
   const appearanceListText = subjectNames.length === 0
-    ? '无'
+    ? t_none
     : matchedCharacters.map((character) => {
       const appearances = character.appearances ?? []
       if (appearances.length === 0) {
-        return `${character.name}: ["初始形象"]`
+        return `${character.name}: ["${t_initial_appearance}"]`
       }
-      const labels = appearances.map((appearance) => appearance.changeReason || '初始形象')
+      const labels = appearances.map((appearance) => appearance.changeReason || t_initial_appearance)
       return `${character.name}: [${labels.map((label) => `"${label}"`).join(', ')}]`
-    }).join('\n') || '无'
+    }).join('\n') || t_none
 
   const fullDescriptionText = subjectNames.length === 0
-    ? '无'
+    ? t_none
     : matchedCharacters.map((character) => {
       const appearances = character.appearances ?? []
       if (appearances.length === 0) {
-        return `【${character.name}】无形象描述`
+        return `【${character.name}】${t_no_appearance_desc}`
       }
       return appearances.map((appearance) => {
-        const label = appearance.changeReason || '初始形象'
+        const label = appearance.changeReason || t_initial_appearance
         const descriptions = parseDescriptions(appearance.descriptions)
         const selectedIndex = typeof appearance.selectedIndex === 'number' ? appearance.selectedIndex : 0
-        const description = descriptions[selectedIndex] || appearance.description || '无描述'
+        const description = descriptions[selectedIndex] || appearance.description || t_no_description
         return `【${character.name} - ${label}】${description}`
       }).join('\n')
-    }).join('\n') || '无'
+    }).join('\n') || t_none
 
   const environmentName = input.clipLocation
   const matchedLocation = environmentName
     ? input.locations.find((location) => normalizeName(location.name) === normalizeName(environmentName))
     : null
   const selectedImage = matchedLocation?.images?.find((image) => image.isSelected) ?? matchedLocation?.images?.[0]
-  const locationDescription = selectedImage?.description || '无'
+  const locationDescription = selectedImage?.description || t_none
   const locationSlotsText = formatLocationAvailableSlotsText(
     parseLocationAvailableSlots(selectedImage?.availableSlots),
     input.locale ?? 'zh',
@@ -157,9 +165,9 @@ export function buildPromptAssetContext(input: PromptAssetContextInput): PromptA
     propNames,
     appearanceListText,
     fullDescriptionText,
-    locationDescriptionText: environmentName ? locationDescriptionText : '无',
-    propsDescriptionText: getFilteredPropsDescription(input.props, propNames),
-    charactersIntroductionText: buildCharactersIntroduction(input.characters),
+    locationDescriptionText: environmentName ? locationDescriptionText : t_none,
+    propsDescriptionText: getFilteredPropsDescription(input.props, propNames, locale),
+    charactersIntroductionText: buildCharactersIntroduction(input.characters, locale),
   }
 }
 

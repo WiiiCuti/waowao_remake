@@ -141,7 +141,7 @@ export async function handleReferenceToCharacterTask(job: Job<TaskJobData>) {
   const characterId = readString(payload.characterId)
   const extractOnly = readBoolean(payload.extractOnly)
   const customDescription = readString(payload.customDescription)
-  const characterName = readString(payload.characterName) || '新角色 - 初始形象'
+  const characterName = readString(payload.characterName) || (job.data.locale === 'en' ? 'New Character - Initial Appearance' : '新角色 - 初始形象')
   const artStyle = readString(payload.artStyle)
 
   if (isBackgroundJob && (!characterId || !appearanceId)) {
@@ -203,9 +203,10 @@ export async function handleReferenceToCharacterTask(job: Job<TaskJobData>) {
     promptId: PROMPT_IDS.CHARACTER_REFERENCE_TO_SHEET,
     locale: job.data.locale,
   })
-  let prompt = addCharacterPromptSuffix(basePrompt)
+  let prompt = addCharacterPromptSuffix(basePrompt, job.data.locale)
   if (artStylePrompt) {
-    prompt = `${prompt}，${artStylePrompt}`
+    const sep = job.data.locale === 'en' ? ', ' : '，'
+    prompt = `${prompt}${sep}${artStylePrompt}`
   }
 
   const useReferenceImages = !customDescription
