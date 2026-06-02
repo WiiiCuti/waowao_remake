@@ -1,345 +1,319 @@
-# Bug Report: agent_storyboard_detail & prompt_refiner
+# Bug Report: Pipeline Storyboard (Phase 1–3 + Refiner)
 
-> Dữ liệu tham khảo: `refine-09567f43.json` (2026-05-30T15:53Z, 12 panels, 100% ok)  
-> Mục tiêu pipeline: FLUX sinh ảnh → LTX Video 2.3 + IC-LoRA sinh video từ ảnh đó làm Frame 0
-
----
-
-## Tóm tắt
-
-| | Phase 3 (agent_storyboard_detail) | Refiner (prompt_refiner) |
-|---|---|---|
-| **Nhiệm vụ** | Sinh video_prompt thô từ description | Override Phase 3, sinh image_prompt + video_prompt cuối |
-| **Input** | description, characters, location | existingVideoPrompt (Phase 3), imagePrompt = null |
-| **Output** | video_prompt thô (không có image_prompt) | image_prompt + video_prompt final |
+> Dữ liệu tham khảo: `refine-09567f43.json` (2026-05-30T15:53Z, 12 panels) + `refine-32b0d4e6.json` (2026-05-29T20:27Z, 22 panels)  
+> Mục tiêu: FLUX sinh ảnh tĩnh → LTX Video 2.3 + IC-LoRA sinh video từ ảnh đó làm Frame 0
 
 ---
 
-## Bug 1 — Phase 3: Camera movement luôn được sinh ra
+## Pipeline thực tế
+
+```
+Tab "Story" nút "Create"
+    → Story → Script (chuyển raw text → structured clips)
+
+Script → Storyboard (auto):
+    Phase 1: agent_storyboard_plan       → chia panel, scene_type, description, source_text
+    Phase 2a: agent_cinematographer      → DOF, lighting, color_tone, screen_position, facing  ─┐
+    Phase 2b: agent_acting_direction     → acting, body language, expressions                    ─┘ song song (Promise.all)
+    Phase 3: agent_storyboard_detail     → shot_type, camera_move, video_prompt
+    → mergePanelsWithRules()
+
+[Sau khi có TTS duration]
+    Refiner: prompt_refiner              → image_prompt + video_prompt refined
+
+Code: src/lib/novel-promotion/script-to-storyboard/orchestrator.ts:295
+```
+
+### Phân công trách nhiệm từng phase
+
+| Phase | File | Đầu ra |
+|-------|------|--------|
+| Phase 1 | `agent_storyboard_plan.en.txt` | Chia panel, scene_type, location, description, source_text, gợi ý shot size |
+| Phase 2a | `agent_cinematographer.en.txt` | DOF, lighting, color_tone, screen_position, posture, facing |
+| Phase 2b | `agent_acting_direction.en.txt` | acting (expression + body language + micro-movements + eye line) |
+| Phase 3 | `agent_storyboard_detail.en.txt` | shot_type chính thức, camera_move, video_prompt |
+| Refiner | `prompt_refiner.en.txt` | image_prompt + video_prompt final |
+
+---
+
+## Gốc rễ chung
+
+> **Phase 1–3 viết theo triết lý cinematography live-action ("phim phải động"). Refiner viết theo triết lý I2V ("ảnh tĩnh + animate pixel có sẵn"). Hai triết lý mâu thuẫn → Refiner trở thành công cụ vá lỗi → vá không kín → hỏng video.**
+
+---
+
+## Bug 1: Camera Movement (Phase 3 → Refiner)
+
+**File gốc**: `agent_storyboard_detail.en.txt`
 
 ### Bằng chứng từ data thực
 
-**11/12 panels** trong debug file đều có camera movement trong existingVideoPrompt:
+**11/12 panels (09567f43)** và **21/22 panels (32b0d4e6)** đều có camera movement trong existingVideoPrompt:
 
-| Panel | Camera keyword trong existingVideoPrompt |
-|---|---|
+| Panel | Camera keyword |
+|-------|---------------|
 | 0 | `camera gently pans and tracks` |
 | 1 | `camera gently tracks backward` |
 | 2 | `camera slowly pushes in` |
 | 3 | `camera gently orbits around him` |
 | 8 | `camera slowly pushes in on his face` |
-| 9 | `camera slowly pushes in from over his shoulder` |
 | 10 | `camera slowly pushes in on her sulking face` |
 | 11 | `camera sways gently following her teasing movement` |
-| 12 | `camera pushes forward slightly` |
-| 13 | `camera slowly pushes in on his sharp expression` |
-| 14 | `camera slowly pushes in on his resolute face` |
 
-→ **Tỷ lệ: 100% (11/12 panels có existingVideoPrompt)**
+→ **Tỷ lệ: ~95% panels có camera movement**
 
-### Nguyên nhân trong prompt Phase 3
+### Root cause — Phase 3 rules
 
-**Line 41** (daily scene rule):
-```
-✅ Prioritize slow push-in / slow pull-out / slight tracking, avoid purely static shots
-```
+| Dòng | Rule |
+|------|------|
+| 41 | `✅ Prioritize slow push-in / slow pull-out / slight tracking, avoid purely static shots` (daily) |
+| 48 | `✅ Prioritize slow push-in, orbiting camera, avoid purely static shots` (emotion) |
+| 55 | `Snap zoom in/out, tracking, handheld shake` (action) |
+| 62 | `slowly crane up, rapidly dive down, orbit` (epic) |
+| 66 | `Slow push-in to create pressure` (suspense) |
+| **95-98** | Camera Movement Word Bank: `"prioritize these; avoid static"` |
+| **100-109** | `"Forbid Purely Static Descriptions"` — cấm static camera rõ ràng |
 
-**Line 95-98** (Camera Movement Word Bank — "must use"):
-```
-Common: slowly push in, gently track, slight sway, orbit shot
-Dynamic: handheld tracking, slight shake, slow orbit, crane up shot
-```
+Phase 3 được viết với triết lý **ngược hoàn toàn với I2V**.
 
-**Line 100-109** (Forbid Purely Static — training examples):
-```
-❌ Wrong: "penguin middle-aged man stands at the door, stern expression"
-✅ Right: "penguin middle-aged man pushes the door open and walks in, handheld camera follows"
-```
+### Refiner cấm nhưng vá không kín
 
-**Line 41** cho `emotion` scene:
-```
-✅ Prioritize slow push-in, orbiting camera
-```
+| Refiner rule | Dòng |
+|-------------|------|
+| `Camera: MUST remain static (NO push, dolly, track, pan, zoom)` | 216 |
+| `NEVER use push, dolly, track, pan, zoom` | 168 |
+| `Static camera` mandatory trong mỗi Shot block | 122 |
 
-Phase 3 được viết với **triết lý ngược hoàn toàn với LTX**: "phải có camera movement". LTX thì: "camera movement = outpainting = artifact".
+→ Refiner loại được ~86-92% camera keywords nhưng vẫn sót 8-14% (Panel 1 file 2: `sways`).
+
+**Fix**: Sửa Phase 3 — xoá `Forbid Purely Static Descriptions` (dòng 100-109), thay toàn bộ scene type rules "avoid static" → "static camera mandatory". Giữ ngoại lệ cho Extreme Close-Up (dòng 125-129 đã có).
 
 ---
 
-## Bug 2 — Phase 3: video_prompt copy nguyên action từ description
+## Bug 2: Body Action ngoài Visible Frame (Phase 2b + Phase 3 → Refiner)
 
-### Bằng chứng
+**File gốc**: `agent_acting_direction.en.txt` + `agent_storyboard_detail.en.txt`
+
+### Root cause
+
+Phase 2b và Phase 3 mô tả body actions **trước khi biết ảnh sẽ crop đến đâu** (Phase 3 chạy sau, image gen chưa chạy). Refiner phải lọc bằng Visibility Constraint (dòng 152-160), nhưng LLM không thấy ảnh thật → đoán → sót.
+
+| Phase | Ví dụ action | Nếu ảnh là Close-Up mặt → |
+|-------|-------------|---------------------------|
+| Acting dòng 66 | `"hands clench the hem of clothing"` | Tay không visible → LTX invent |
+| Acting dòng 26 | `"turn back to face away"` | Invent toàn bộ mặt sau nhân vật |
+| Phase 3 dòng 91-92 | `"walk, turn around, stand up, gesture"` | Cần full body visible |
+| Phase 3 dòng 109 | `"gesturing with both hands"` | Close-Up mặt → tay không có |
+
+### Case nguy hiểm nhất — "turn back to face away"
+
+Nếu ảnh chụp mặt trước nhân vật, action "quay lưng lại" buộc LTX invent **toàn bộ phần lưng + tóc sau + quần áo sau** trong style mặc định → mismatch rõ nhất.
+
+### Acting Direction — vấn đề riêng
+
+`agent_acting_direction.en.txt` chạy **song song** với cinematographer (Phase 2b). Output `characters[].acting` bao gồm expression, body language, micro-movements, eye line. Acting không biết shot size (Phase 3 chưa chạy), nên body actions (`clench fists`, `step back`, `body leans forward`) có thể không phù hợp.
+
+Ngoài ra, acting và cinematographer không sync eye line:
+```
+Cinematographer: facing = "facing camera"     (Phase 2a)
+Acting:          "looks toward Jing Sheng"    (Phase 2b)  → MÂU THUẪN
+```
+
+**Fix**: Đưa Visibility Constraint lên Phase 3 + Acting direction — mỗi shot size giới hạn body actions tương ứng. Cấm `"turn back to face away"`, `"step back"` trong Acting Vocabulary Bank. Sau merge cần bước resolve conflict eye line giữa cinematographer và acting.
+
+---
+
+## Bug 3: Shallow DOF + Close-Up cho cảnh 2 người tương tác (Phase 1 + 2a + 3)
+
+**File gốc**: `agent_storyboard_plan.en.txt` + `agent_cinematographer.en.txt` + `agent_storyboard_detail.en.txt`
+
+### Trace đầy đủ
 
 ```
-Panel 0:
-  description:  "Tiểu Hy stands up from the sofa, mutters, walks toward hallway door"
-  existingVideo: "young woman stands up from the sofa, muttering, walks toward hall door"
-  → copy 100%
+Cảnh: "Bạch Dương trách móc Tiểu Hy"
 
+Phase 1 (dòng 25, 73-85): Dialogue Shot Mandatory Rule
+  → "Mỗi đoạn hội thoại → 2 panel: speaker + listener reaction"
+  → "Speaker must have face-focused independent shot"
+  → "Others in background MUST be blurred (DOF treatment)"
+  → Panel A: Bạch Dương CU (speaker) + Panel B: Tiểu Hy CU (listener)
+
+Phase 2a (dòng 28, 32-38): Dialogue Shot DOF Rules
+  → Close-Up → Shallow DOF (T2.8)
+  → "If character is speaking + multiple faces → MUST shallow DOF"
+  → "Speaking character's face SHARP, others BLURRED"
+  → Purpose: lip-sync — chỉ 1 mặt nét để TTS khớp
+
+Phase 3 (dòng 16, 39): Shot Type Selection
+  → Close-Up = "emotions, reactions"
+  → daily scene = "Primarily Medium Shot and Close-Up"
+  → Bạch Dương giận → chọn "Eye-Level Close-Up"
+  → KHÔNG check "có nhân vật thứ 2 đang bị tương tác không?"
+
+Refiner: pass-through DOF từ photographyRules
+  → image_prompt: "Bạch Dương sharp, Tiểu Hy in blurred background"
+  → Video: Bạch Dương nét, Tiểu Hy mờ → người xem KHÔNG thấy người bị trách
+```
+
+### 2 mục tiêu mâu thuẫn trong thiết kế
+
+| Mục tiêu | Phase | Rule |
+|----------|-------|------|
+| Lip-sync chính xác | Phase 1+2a | Chỉ 1 mặt nét duy nhất (shallow DOF) |
+| Story clarity | Người xem | Phải thấy cả 2 người trong tương tác 2 chiều |
+
+> Phase 1+2a **hy sinh story clarity** cho lip-sync. Đúng với dialogue 1 chiều (nói-nghe), **sai** với tương tác 2 chiều (trách móc, cãi nhau, tâm sự, tỏ tình).
+
+### Fix đề xuất
+
+**Phase 1**: Phân biệt dialogue 1 chiều vs tương tác 2 chiều:
+- `"X nói với Y: chào"` → tách 2 panel (speaker CU + listener CU) — OK
+- `"X trách Y"`, `"X tỏ tình với Y"`, `"X và Y cãi nhau"` → gộp 1 panel Medium Shot cả 2
+
+**Phase 2a**: Exception DOF cho interaction:
+- Panel có 2+ characters tương tác trực tiếp → **medium DOF (T4.0)** thay vì shallow
+- Hoặc: ghi chú `"both characters sharp, focus on interaction"`
+
+---
+
+## Bug 4: Facing Direction Sai (Phase 2a)
+
+**File gốc**: `agent_cinematographer.en.txt`
+
+### Mô tả
+
+Cảnh 2 người trong cùng panel, nhân vật đang tương tác với người kia nhưng **quay mặt ra camera** thay vì về phía người kia.
+
+```
+Bạch Dương trách Tiểu Hy (Tiểu Hy trong frame, dù mờ)
+    ↓
+Phase 2a (dòng 61): example output facing: "facing camera" — LLM bắt chước
+Phase 3: Không có rule "facing toward interaction target"
+    ↓
+Refiner: image_prompt = "Bạch Dương... center of frame, facing viewer..."
+    ↓
+Kết quả: Bạch Dương trách khán giả, không phải Tiểu Hy
+```
+
+### Fix: ✅ ĐÃ SỬA
+
+Thêm rule vào `agent_cinematographer.en.txt` dòng 132:
+```
+If 2+ characters in the same panel are directly interacting (speaking to,
+scolding, arguing with, looking at, confronting), each character's facing
+MUST point toward the character they are interacting with. NEVER use
+"facing camera" for a character actively engaged in interaction.
+```
+
+---
+
+## Bug 5: Refiner Tự Mâu Thuẫn
+
+**File gốc**: `prompt_refiner.en.txt`
+
+### 2 cặp mâu thuẫn
+
+| Dòng | Rule | Dòng | Rule mâu thuẫn |
+|------|------|------|---------------|
+| 177 | `Always have a "motion" element — no static descriptions` | 114, 216 | `CONSTRAIN camera to static` / `Camera: MUST remain static` |
+| 175 | `ENRICH: complete camera movement, specific actions` | 168 | `NEVER use push, dolly, track, pan, zoom` |
+
+Đây là tàn dư của prompt cũ — LLM bị confusion: "không được static" nhưng "không được camera move" → không còn đường nào.
+
+**Fix**: Xóa dòng 175 và 177.
+
+---
+
+## Bug 6: Image → Video Double Motion (Phase 3 + Refiner)
+
+**File gốc**: `agent_storyboard_detail.en.txt` + `prompt_refiner.en.txt`
+
+### Bằng chứng từ refine-32b0d4e6.json
+
+**3/22 panels (14%)** bị trùng action verb giữa image_prompt và video Action:
+
+```
 Panel 1:
-  description:  "Tiểu Hy walks toward her room, looks back over shoulder"
-  existingVideo: "young woman walks toward the room, looks back over her shoulder"
-  → copy 100%
+  image_prompt:  "pushes the door open and steps into the room, eyes scanning..."
+  video Action:  "pushes the door open and steps into the room, eyes smoothly scanning..."
 
-Panel 3:
-  description:  "eyebrows draw together, exhales slowly through nose, eyes drop to floor"
-  existingVideo: "furrows brows, exhales slowly through nose, lowers gaze to floor"
-  → paraphrase nhưng cùng action
+Panel 18:
+  image_prompt:  "slowly shakes his head with a long exhale"
+  video Action:  "slowly shakes his head with a long exhale"
 ```
 
-### Nguyên nhân trong prompt Phase 3
+### Root cause
 
-**Line 79**:
-```
-Format: species + appearance + action + camera movement + environment
-```
+Phase 3 copy action từ description → video_prompt. Refiner nhận video_prompt, nhưng description vẫn chứa action verbs mạnh. Model sinh image_prompt và video_prompt cùng lúc → bị cuốn theo description → rò rỉ action từ description vào cả image lẫn video.
 
-**Line 81**:
-```
-Do not include content not present in the storyboard panel
-```
+LTX nhận Frame 0 đã là "đang push door" → video tiếp tục "push door" → motion loop/freeze hoặc jitter.
 
-Phase 3 không có khái niệm **"image = Frame 0"**. Với Phase 3, `description` là mô tả cảnh cần thể hiện → đưa thẳng vào video_prompt. Không có bộ lọc "action này đã hiển thị trong ảnh rồi, không được lặp lại".
-
----
-
-## Bug 3 — Refiner: Nhận input sai nhưng không có bước Strip cứng
-
-### Vấn đề cấu trúc
-
-Refiner nhận `existingVideoPrompt` từ Phase 3 với:
-- Camera movement keywords (push/track/orbit/sway)  
-- Action copy từ description
-
-Refiner hiện tại xử lý theo thứ tự:
-```
-1. COMPARE Action lines against image_prompt → remove duplicates
-2. RE-VERIFY Shot block count
-3. Preserve narrative meaning...
-4. RESTRUCTURE format
-5. ENRICH
-```
-
-**Thiếu bước 0: STRIP camera movements**. Refiner không có rule nào cấm rõ ràng `push/track/orbit/sway` trong `existingVideoPrompt` trước khi xử lý.
-
-### Bằng chứng: 1 panel camera move sót qua refiner
+### Pattern nguy hiểm nhất
 
 ```
-Panel 1:
-  existingVideo:  "camera gently tracks backward alongside her"
-  parsedVideoPrompt: "...camera sways gently..."   ← camera move sót
+description:    "pushes the door and steps into the living room"  ← action mạnh
+image_prompt:   "stands in the doorway, body paused mid-step"     ← frame giữa chừng
+existingVideo:  "pushes open the door and steps in"               ← copy 100%
+parsedVideo:    "takes a step further into the room"              ← tiếp tục action
 ```
 
-Refiner đã loại được `tracks backward` nhưng để lọt `sways gently`. Reason: `sway` không bị cấm tường minh.
+→ LTX phải animate nhân vật đi tiếp vào phòng từ frame giữa chừng → outpaint pixel.
 
-### Vấn đề thứ 2: COMPARE against image_prompt hoạt động được không?
+### Fix
 
-Khi refiner chạy với 1 LLM call, nó sinh **image_prompt và video_prompt cùng lúc**. Model tự biết image_prompt của mình là gì, nên về lý thuyết có thể COMPARE.
-
-Tuy nhiên:
-- `existingVideoPrompt` từ Phase 3 **mang action language rất mạnh** (pushes, walks, shouts)
-- Rule "Preserve narrative meaning" có xu hướng giữ lại action language gốc
-- Model cần được dặn **strip camera + reframe action** như một bước riêng biệt, không chỉ "compare and remove duplicates"
-
----
-
-## Bug 4 — Phase 3 & Refiner: Sự ảnh hưởng tiêu cực của `description` kịch bản
-
-### Bản chất vấn đề và rò rỉ ngữ cảnh (Context Bleed)
-Refiner tuy không nhận `image_prompt` đầu vào (vì chính nó là khâu tạo ra `image_prompt` và `video_prompt` đồng thời), nhưng nó nhận `description` (mô tả phân cảnh kịch bản từ Phase 1). 
-
-Vì kịch bản chứa các **hành động động rất mạnh** (dynamic action verbs như *pushes open the door, stands up and walks*), và mô tả cả hai đầu ra trong cùng một lượt gọi LLM, Refiner dễ bị cuốn theo ngữ cảnh này và rò rỉ vào cả hai:
-
-1. **Rò rỉ vào `image_prompt` (Action Bleed):** Cố nhét từ chuyển động vào ảnh tĩnh làm Flux sinh ảnh bị nhòe chuyển động hoặc lỗi bộ phận cơ thể.
-2. **Rò rỉ vào `video_prompt` (Double Motion):** Replay lại nguyên văn hành động động đó từ đầu, thay vì mô tả hành động tiếp nối tiếp theo.
-
-### Pattern phổ biến nhất
-
+Thêm rule trong `prompt_refiner.en.txt`: 
 ```
-description:    "pushes the door and steps into the living room"
-image_prompt:   "stands in the doorway, body paused mid-step"  ← frame giữa chừng
-existingVideo:  "pushes open the door and steps in"            ← copy toàn bộ action
-parsedVideo:    "takes a step further into the room"           ← tiếp tục action
-```
-
-Chuỗi này buộc LTX phải **animate nhân vật đi tiếp vào phòng** từ Frame 0 là "đang đứng ở cửa" → LTX phải outpaint pixels phần phòng chưa hiển thị → artifact.
-
----
-
-## Bug 5 — Phase 3: Shot block format không khớp với Refiner
-
-Phase 3 sinh video_prompt dạng **free text**:
-```
-"young man leans forward and speaks firmly, gesturing... camera slowly pushes in"
-```
-
-Refiner expect format **[Scene] + [Characters] + Shot blocks**:
-```
-[Scene] ...
-[Characters] ...
-Shot 1 (Close-Up, 2s): Static camera
-Action: ...
-```
-
-Khi existingVideoPrompt là free text, refiner phải RESTRUCTURE toàn bộ — trong quá trình đó, dễ carry over camera language từ Phase 3 vào Shot block header hoặc Action line.
-
----
-
-## Tổng kết nguyên nhân gốc rễ
-
-```
-Phase 3 được thiết kế cho pipeline khác (non-LTX)
-│
-├── Bug 1: Actively teaches camera movement (push/track/orbit)
-│   → Xuất hiện trong 11/12 panels (100%)
-│
-├── Bug 2: Copies action from description verbatim
-│   → Không có khái niệm "image = Frame 0"
-│
-└── Bug 4: Không phân biệt "dynamic action" vs "static state"
-    → LTX nhận video_prompt "tiếp tục action" → outpaint
-
-Refiner thiếu:
-├── Bug 3a: Không có bước STRIP camera movement cứng
-│   → 1 panel trong 12 còn sót camera move
-│
-└── Bug 3b: "Preserve narrative meaning" giữ lại action language Phase 3
-    → Không đủ aggressive để reframe từ "action đang xảy ra" thành "state sau action"
+Description field contains dynamic action verbs (pushes, walks, stands up, turns).
+These describe narrative ARC, not Frame 0 state. image_prompt MUST freeze ONE
+static moment from the arc. video Action MUST animate what follows AFTER that moment.
+Never replay the same action verb from image_prompt in video Action.
 ```
 
 ---
 
-## Hướng sửa đề xuất
+## Bug 7: Camera Language Leak vào image_prompt
 
-### Phương án A — Chỉ sửa Refiner (ít rủi ro hơn)
+**File gốc**: `prompt_refiner.en.txt`
 
-Thêm vào `existingVideoPrompt is NOT empty`, **trước bước 1**:
+### Bằng chứng — refine-32b0d4e6.json Panel 11
 
-```
-0. STRIP: Remove all camera movement language from existingVideoPrompt before any other step.
-   Camera move keywords to strip: push in, pull out, track, pan, orbit, zoom, sway, handheld, crane, dolly.
-   Replace camera move phrases with "static camera".
-   This is mandatory — Phase 3 always generates camera movements that are incompatible with LTX.
-```
-
-Và thêm rule tường minh vào phần Action:
-```
-Action lines MUST NOT contain: push, track, orbit, pan, sway, handheld, zoom, crane.
-If existingVideoPrompt contains these, replace the entire Action with what follows AFTER the state in image_prompt.
-```
-
-### Phương án B — Sửa Phase 3 align với LTX (rủi ro cao hơn, lợi ích lớn hơn)
-
-Thay thế toàn bộ triết lý "camera movement mandatory" trong Phase 3:
-- Xóa Camera Movement Word Bank cho `daily` và `emotion` scenes
-- Xóa rule "Forbid Purely Static Descriptions"
-- Thêm rule: "For LTX pipeline: camera MUST be static. Character actions only."
-
-> [!WARNING]
-> Phương án B thay đổi Phase 3 ảnh hưởng toàn bộ pipeline, không chỉ video_prompt. Test kỹ trước khi apply.
-
----
-
-*Report generated: 2026-05-31 | Data source: refine-09567f43.json (episode 09567f43)*
-
----
-
-## Phân tích File 2 — refine-32b0d4e6.json
-
-> Episode: `32b0d4e6` | Saved: 2026-05-29T20:27Z | 22 panels | 100% ok
-
-### Điểm khác biệt so với File 1
-
-| | File 1 (09567f43) | File 2 (32b0d4e6) |
-|---|---|---|
-| Số panels | 12 | 22 |
-| Camera move trong existingVideo | 11/12 (92%) | 21/22 (95%) |
-| Camera move sót trong output | 1/12 (8%) | 3/22 (14%) |
-| image→video action duplicate | Chưa đo | **3/22 (14%)** |
-
----
-
-### Bug mới — B7: image_prompt và video_prompt dùng cùng action verb (double-motion)
-
-**3 panels bị lỗi này:**
-
-**Panel 1** — `pushes`, `steps` xuất hiện trong cả image lẫn video:
-```
-[image_prompt]:  "pushes the door open and steps into the room, eyes scanning..."
-[video Action]:  "pushes the door open and steps into the room, eyes smoothly scanning..."
-```
-LTX nhận Frame 0 là "đang push door" → video tiếp tục "push door" → **toàn bộ motion bị loop/freeze**.
-
-**Panel 18** — `shakes` (head) duplicate:
-```
-[image_prompt]:  "slowly shakes his head with a long exhale"
-[video Action]:  "slowly shakes his head with a long exhale"
-```
-→ LTX không biết phải animate gì khác → micro-jitter trên chỗ head shake.
-
-**Panel 21** — `stands` duplicate (ít nguy hiểm hơn vì stands là trạng thái tĩnh):
-```
-[image_prompt]:  "a young man stands alone in the center"
-[video Action]:  "bạch dương stands erect yet slightly bowed"
-```
-
-**Nguyên nhân:** Panel 1 là case nguy hiểm nhất — `description` chứa action động (`pushes door, steps into room`), image_prompt capture đúng giữa action đó, video_prompt không nhận ra đây là Frame 0 đã render mà tiếp tục action từ đầu.
-
-Đây xác nhận **Bug 4** đã phân tích ở File 1: description dynamic action → image giữa chừng → video replay từ đầu.
-
----
-
-### 3 Panels camera move sót qua refiner
-
-**Panel 1:**
-```
-existingVideo: "camera gently tracks backward accompanying his entrance"
-output Shot 1: (không thấy "tracks" nhưng context của action vẫn implied movement)
-→ Refiner loại được camera language nhưng giữ nguyên action "pushes door + steps in"
-```
-
-**Panel 11:**
 ```
 existingVideo: "camera slowly pushes in towards her face"
-image_prompt:  "slow push-in framing" ← MODEL COPY camera language vào image_prompt!
-output video:  không còn "push" tường minh nhưng image_prompt đã sai
-```
-> ⚠️ Đây là lỗi mới: refiner copy camera movement keyword từ existingVideoPrompt vào **image_prompt** ("slow push-in framing" xuất hiện ở Close-up shot description). FLUX không bị ảnh hưởng nhưng mô tả sai framing.
-
-**Panel 17:**
-```
-existingVideo: "camera gently tracks alongside her"
-output Action: "rises from the stool... walks away towards the hallway"
-→ Camera keyword bị loại, nhưng action "walks towards hallway" = character đi ra khỏi frame → outpaint risk
+image_prompt:  "Close-up, eye-level angle, slow push-in framing."
+                                         ^^^^^^^^^^^^^^^^
 ```
 
----
+Refiner copy camera movement keyword từ existingVideoPrompt vào **image_prompt** shot description. FLUX bỏ qua nhưng mô tả sai framing logic.
 
-### Tổng hợp cross-file
-
-| Bug | File 1 | File 2 | Kết luận |
-|---|---|---|---|
-| Camera move trong existingVideo | 92% | 95% | **Constant — Phase 3 luôn sinh** |
-| Camera move sót qua refiner | 8% | 14% | Tăng — refiner chưa strip đủ |
-| image→video action duplicate | Chưa đo | 14% | **Bug nghiêm trọng, xác nhận lý thuyết (ảnh hưởng bởi `description` kịch bản)** |
-| Camera language leak vào image_prompt | 0% | 4.5% | Bug mới, ít gặp |
-
----
-
-### Phát hiện bổ sung — Panel 11: camera keyword leak vào image_prompt
-
-Đây là bug chưa được document trước đó. Khi `existingVideoPrompt` chứa `"camera slowly pushes in towards her face"`, refiner sinh image_prompt với mô tả:
-```
-"Close-up, eye-level angle, slow push-in framing."
-```
-`slow push-in framing` là camera movement language không nên có trong image_prompt (FLUX sẽ bỏ qua nhưng gây nhầm lẫn về framing). Root cause: model lấy camera movement từ existingVideoPrompt làm context để describe shot type trong image_prompt.
-
-**Fix cần thiết:** Thêm rule trong `【image_prompt】` section:
+**Fix**: Thêm rule trong `【image_prompt】` section:
 ```
 Do NOT include camera movement language (push-in, track, orbit, zoom, pan)
-in the Shot type description. Use only: static frame, fixed frame, eye-level, etc.
+in the Shot type description. Use only: static frame, fixed frame.
 ```
 
 ---
 
-*File 2 analysis added: 2026-05-31 | Data source: refine-32b0d4e6.json (episode 32b0d4e6)*
+## Tổng hợp
 
+| Bug | File gốc | Phase | Độ nặng | Trạng thái |
+|-----|----------|-------|---------|------------|
+| 1. Camera movement | `agent_storyboard_detail.en.txt` | Phase 3 | CRITICAL | Chưa sửa |
+| 2. Body action ngoài frame | `agent_acting_direction.en.txt` + `agent_storyboard_detail.en.txt` | Phase 2b + 3 | HIGH | Chưa sửa |
+| 3. DOF + Close-Up interaction | `agent_storyboard_plan.en.txt` + `agent_cinematographer.en.txt` | Phase 1 + 2a | HIGH | Chưa sửa |
+| 4. Facing direction sai | `agent_cinematographer.en.txt` | Phase 2a | HIGH | ✅ FIXED (dòng 132) |
+| 5. Refiner tự mâu thuẫn | `prompt_refiner.en.txt` | Refiner | MEDIUM | Chưa sửa |
+| 6. Image → Video double motion | `agent_storyboard_detail.en.txt` + `prompt_refiner.en.txt` | Phase 3 + Refiner | HIGH | Chưa sửa |
+| 7. Camera leak vào image_prompt | `prompt_refiner.en.txt` | Refiner | LOW | Chưa sửa |
+
+### Cross-file data evidence
+
+| Bug | File 1 (09567f43, 12 panels) | File 2 (32b0d4e6, 22 panels) |
+|-----|------|------|
+| Camera move trong existingVideo | 92% (11/12) | 95% (21/22) |
+| Camera move sót qua refiner | 8% (1/12) | 14% (3/22) |
+| Image → video action duplicate | Chưa đo | 14% (3/22) |
+| Camera leak vào image_prompt | 0% | 4.5% (1/22) |
+
+---
+
+*Updated: 2026-06-01 | Data sources: refine-09567f43.json (09567f43) + refine-32b0d4e6.json (32b0d4e6)*

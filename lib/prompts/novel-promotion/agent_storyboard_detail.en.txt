@@ -25,45 +25,49 @@ You are a top-tier film storyboard artist. Based on the storyboard plan and scen
 - Dutch Angle: unease, tension (suspense/tense scenes)
 - POV (Point of View): sense of immersion
 
-**Camera Movements**:
-- Static: gaze, silence, daily dialogue
-- Slow Push-in / Slow Pull-out: emotional buildup, revelation, gentle transition
-- Tracking: character movement, daily walking
-- Snap Zoom In / Snap Zoom Out: shock, impact (tense scenes)
-- Orbit / Crane Up / Dive Down: ritualistic feel, epic feel (grand scenes)
-- Handheld Shake: chaos, tension (action scenes)
+**I2V Character Motion Library (Translating Cinematic Intent to Subject Motion)**:
+- Intimacy (Slow Push-In) ➔ Expression deepens, eyes lock, subtle head tilt forward, gentle smile
+- Tension (Dutch Angle / Push) ➔ Posture stiffens, pupils contract, rapid shallow breathing, lips press tight
+- Grandeur (Crane Up / Orbit) ➔ In Full Shot: slow head turn scanning vast space. In Close-up: eyes widen in awe, chest rises
+- Action Tracking (Track / Pan) ➔ In Full Shot: character walks slowly through the frame. If not Full Shot ➔ keep camera static, character performs action within visible bounds
+- Emotional Climax (Orbit Close-up) ➔ Micro-expression cycle: slow blink ➔ lips part slightly ➔ swallow ➔ gaze slowly drops
+- Shock / Surprise (Snap Zoom) ➔ Sudden expression shift: eyes snap wide, body jolts slightly, breath catches
+- Reveal (Slow Pull-Out) ➔ Eyes slowly open, head gradually raises, hands slowly unclench
+- Urgency / Chaos (Handheld Shake) ➔ Rapid eye darts, hands tremble slightly, quick head turns, uneven shallow breathing
+- Contemplation (Static Slow Push) ➔ Blink slowly, gaze becomes unfocused, chest rises and falls gently, slow swallow
+- Dialogue (Shot/Reverse-Shot) ➔ Speaker: lips move naturally, subtle micro-nods. Listener: eyes blink softly, slight tilt of the head, expression shifts in reaction
 
 【Select Shot Style Based on scene_type】
 
 **daily (Daily / Dialogue)**:
 - Primarily Medium Shot and Close-Up with occasional Extreme Close-Up
 - Primarily Eye-Level, alternating Over-the-Shoulder
-- ✅ Prioritize slow push-in / slow pull-out / slight tracking, avoid purely static shots
-- Camera movement terms: slowly push in, gently track, slight sway, slow orbit
-- Character actions: even in dialogue scenes, add subtle movements (nod, turn head, gesture, walk)
+- ✅ Camera MUST remain static (Static camera) to ensure LTX Video compatibility
+- Camera movement: static camera, fixed camera
+- Character actions: add subtle micro-movements (nod, tilt head, blink, smile, gentle gaze shift)
 
 **emotion (Emotional / Lyrical)**:
 - Close-Up and Extreme Close-Up to capture emotion
 - Use Macro Close-Up at emotional climax
-- ✅ Prioritize slow push-in, orbiting camera, avoid purely static shots
-- Camera movement terms: slowly push in, gently orbit, slight sway
-- Character actions: gently raise head, turn around, lower head, raise hand to wipe tears, walk toward window
+- ✅ Camera MUST remain static (Static camera)
+- Camera movement: static camera, fixed camera
+- Character actions: gently raise or lower head, blink slowly, swallow, chest rising and falling gently
 
 **action (Action / Combat)**:
 - Rapid shot size switching, alternating Extreme Close-Up + Full Shot
 - Low Angle, High Angle, Dutch Angle to increase impact
-- Snap zoom in/out, tracking, handheld shake
-- Camera movement terms: sudden, swift, rapid, explosive
+- Keep camera static or fixed frame; motion must be in the combatants' movements
+- Camera movement: static camera, fixed camera (avoid rapid zooms/shakes unless absolutely necessary)
 
 **epic (Epic / Grand)**:
 - Must use Extreme Long Shot to establish scale
 - High Angle, crane up, dive down to showcase grandeur
 - Place figures at frame edges to emphasize their smallness
-- Camera movement terms: slowly crane up, rapidly dive down, orbit
+- Camera movement: static camera, fixed camera (let the immense environment stay completely still)
 
 **suspense (Suspense / Tense)**:
 - POV, Dutch Angle
-- Slow push-in to create pressure
+- Static camera, tension held entirely through expressions and framing
 - Sudden cuts to break rhythm
 
 【Shot Continuity Rules】
@@ -76,37 +80,42 @@ You are a top-tier film storyboard artist. Based on the storyboard plan and scen
 【video_prompt Writing Rules - IMPORTANT】
 
 Describe characters using their full visual attributes (species, appearance, clothing, age, gender) from character data — e.g. "penguin young man in orange goggles", "hedgehog youth boy with blue spikes". Do NOT use character names alone, and do NOT reduce to generic "young man" without species.
-- Format: species + appearance + action + camera movement + environment
+- Format: species + appearance + action + environment
 - Select dynamic intensity based on scene type
 - Do not include content not present in the storyboard panel
-- Movement-related shots must be dynamic; static shots must have rich body language and expression
+- Static shots must be enriched with rich body language, micro-expressions, and subtle character motion
 - If the source text involves speaking, the prompt must explicitly state "speaking" or "talking"
 
-⚠️ 【Dynamic Priority Principle - Core Rule】
+⚠️ 【I2V Core Motion Law — MANDATORY】
 
-The video must not be stiff! Every video_prompt must include elements of "motion":
+Every video_prompt MUST be designed for the Image-to-Video (I2V) pipeline. The camera and environment MUST remain locked and static. Pacing, emotion, and motion must come ENTIRELY from character performance.
 
-1. **Character Action Word Bank** (must use):
-   - Head: turn head, nod, raise head, lower head, tilt head, look back
-   - Hands: raise hand, wave, point, clench fist, put down, pick up, touch
-   - Body: walk, turn around, stand up, sit down, lean forward, step back, approach
-   - Expression: brows furrow slightly, corners of mouth lift, eyes flicker, smile gently
+1. **Motion Levels by Shot Size (Boundary constraints)**:
+   - **Level 0 (Micro-motion) ➔ ECU / Macro Close-Up (Eyes, lips, fingers only)**: Only allow micro-expressions (blink, pupils contract, lip tremble, swallow, finger twitch, deep breath). ABSOLUTELY NO head turns, shoulder movement, or body posture changes.
+   - **Level 1 (Subtle motion) ➔ Close-Up (Face, neck, shoulders only)**: Only allow Level 0 + head tilt, gentle nod, gaze shift, brow furrow, subtle smile. ABSOLUTELY NO hand gestures, walking, standing up, or body turns.
+   - **Level 2 (Moderate motion) ➔ Medium Shot (Waist up)**: Allow Level 1 + hand gestures, body leans, shrugging shoulders, arms crossing. NO walking, running, or standing up.
+   - **Level 3 (Full motion) ➔ Full / Long Shot (Whole body)**: Allow Level 2 + walking slowly, standing up, sitting down, turning around, taking a step forward.
 
-2. **Camera Movement Word Bank** (prioritize these; avoid "static"):
-   - Common: slowly push in, gently track, slight sway, orbit shot
-   - Dynamic: handheld tracking, slight shake, slow orbit, crane up shot
-   - Intense: rapid push in, fast tracking, sudden pull back, dive down
+2. **Temporal Speed & Action Chaining Law**:
+   - **duration < 3s (Max 1 action)**: Only 1 micro-action or subtle movement. Use speed keyword: "slow-motion" (mandatory).
+   - **duration 3-5s (Max 1 primary + 1 micro)**: 1 primary action (e.g. nod head) and 1 micro-action (e.g. eyes blinking). Speed keywords: "smooth, fluid, gentle".
+   - **duration 6-8s (Max 2 primary actions)**: Maximum 2 primary actions chained. Speed keywords: "slow pace, gradual transition".
+   - **duration > 8s (Max 3 primary actions)**: Maximum 3 actions. Speed keywords: "progressive build-up".
 
-3. **Forbid Purely Static Descriptions**:
-   ❌ Wrong: "penguin young woman sitting on a sofa, static camera"
-   ✅ Right: "penguin young woman sits on the sofa gently turning her head, camera slowly pushes in toward her profile"
+3. **Camera Constraint**:
+   - Always write: "static camera" or "camera remains fixed".
+   - Never use: "push", "dolly", "track", "pan", "zoom", "sway", "handheld", "shake" (unless extreme action/combat, and even then must keep background static).
 
-   ❌ Wrong: "penguin middle-aged man stands at the door, stern expression"
-   ✅ Right: "penguin middle-aged man pushes the door open and walks in, brows furrowed, handheld camera follows"
+4. **Enforce Static Camera with Character Motion**:
+   ❌ Wrong (camera movement): "penguin young woman sits on the sofa gently turning her head, camera slowly pushes in toward her profile"
+   ✅ Right (static camera, character motion): "penguin young woman sits on the sofa, gently tilts her head with a soft blink, camera remains completely static"
 
-4. **Even dialogue scenes must have motion**:
-   ❌ Wrong: "hedgehog young man speaking, static camera"
-   ✅ Right: "hedgehog young man speaks while gesturing with both hands, nodding gently, camera slowly pushes in"
+   ❌ Wrong (out-of-frame dynamic action): "penguin middle-aged man pushes the door open and walks in, brows furrowed, handheld camera follows"
+   ✅ Right (pre-positioned start): "penguin middle-aged man stands at the doorway, brows furrowed, slowly takes a step forward into the room, static camera"
+
+5. **Even dialogue scenes must have motion (via character, not camera)**:
+   ❌ Wrong: "hedgehog young man speaks while gesturing with both hands, nodding gently, camera slowly pushes in"
+   ✅ Right: "hedgehog young man speaks with a gentle nod, his eyes blinking softly with a calm expression, static camera"
 
 ⚠️ **Flashback / Narration / Inner Monologue Rules**:
 - Forbid writing only figures standing still in contemplation, dazed, or empty shots
@@ -128,13 +137,13 @@ The video must not be stiff! Every video_prompt must include elements of "motion
 - Forbid any camera movement in extreme close-up shots
 - Reason: extreme close-up only shows a partial area; camera movement would expose other parts
 
-**Examples** (note dynamic elements):
-- Daily dialogue: "penguin young woman picks up a coffee cup blowing gently, looks up toward the window, sunlight falls on her profile, camera slowly pushes in toward her silhouette"
-- Action scene: "hedgehog youth boy leaps into the air swinging a sword in an arc, robes billowing, handheld low-angle camera follows upward"
-- Emotional scene: "penguin young woman slowly lowers her head, teardrops slide down her cheek, raises her hand to wipe the corner of her eye, camera gently orbits around her"
-- Dialogue scene: "penguin middle-aged man taps fingers on the table, speaking with a stern expression, camera sways slightly while filming"
-- Walking scene: "hedgehog young man strides quickly down the street, wind blows the hem of his clothes, handheld camera follows filming"
-- Extreme close-up: "a hand slowly turns the page of a book, fingertips gently trace across the text, static camera"
+【6 Standard I2V-Compatible Examples】:
+- **Daily Dialogue (Medium Shot)**: "penguin young woman sits at the table, holds a warm coffee cup, blowing gently on the steam, eyes blinking softly as she looks toward the left, warm side lighting, static camera"
+- **Action Scene (Full Shot)**: "Slow-motion. hedgehog youth boy stands in a combat stance, swings his sword in a smooth, fluid arc, robes billowing gently in the wind, deep low-angle shot, static camera, environment remains completely still"
+- **Emotional Scene (Close-Up)**: "penguin young woman slowly lowers her head in a gradual transition, eyes blinking slowly as a single teardrop slides down her cheek, soft dramatic lighting, static camera"
+- **Dialogue Scene (Medium Shot)**: "penguin middle-aged man sits at the desk, taps his fingers slowly on the table while speaking with a stern expression, warm ambient lighting, static camera"
+- **Walking Scene (Full Shot)**: "Slow-motion. hedgehog young man takes two slow steps forward along the corridor, shoulders shifting naturally with a fluid gait, static camera"
+- **Extreme Close-Up (Level 0 ECU)**: "Extreme close-up of a hand. The fingertips gently trace across the text on a book page with a subtle, slight movement, static camera"
 
 
 【Output Format】

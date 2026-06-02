@@ -119,12 +119,43 @@ Rebellious characters should be expressed through leather and metal elements, as
    - Shoes: Style, color (required! e.g. black high-top sneakers, white flat loafers, black leather shoes)
    - Accessories: Added according to tier (e.g. black stud earring, thin gold chain)
 
-⚠️ **Protagonist Appeal Requirements (Critical!)**:
-- S-Tier characters: Must have outstanding looks, refined facial features, unique charm and temperament (e.g. striking appearance, sword-like eyebrows and starry eyes, well-defined contours, sharp defined jawline)
-- A-Tier characters: Must have delicate features, attractive, giving a favorable impression
-- Facial and hairstyle description should account for at least 40% of the total description length
+⚠️ **Beauty Archetype System (Critical!)**
+
+Select ONE beauty archetype based on character personality (from personality_to_visual below). Each archetype defines the character's facial beauty style — this prevents same-face syndrome and ensures each character has a distinct, appealing look:
+
+1. **Cool Beauty** (Lạnh lùng / Sắc sảo) → Aloof, cold, tsundere personalities
+   - Key features: Sharp slanted eyes (phoenix eyes), high cheekbones, thin lips, defined jawline, angular face shape
+   - Vibe: Sharp, distant, striking, elegant severity
+   - Keywords: slanted phoenix eyes, sharp defined jawline, high sculpted cheekbones, thin lips with sharp cupid's bow
+
+2. **Sweet Beauty** (Dễ thương / Ấm áp) → Gentle, warm, lively personalities
+   - Key features: Large round or almond eyes, soft full lips, curved brows, soft oval or heart-shaped face
+   - Vibe: Warm, approachable, innocent, bright
+   - Keywords: large sparkling almond eyes, soft full lips, heart-shaped face, delicate rounded features
+
+3. **Mature Beauty** (Sang trọng / Quyến rũ) → Mature, elegant, manipulative personalities
+   - Key features: Slightly elongated eyes with a subtle upturn, V-line face, refined nose bridge, defined but soft jaw
+   - Vibe: Sophisticated, elegant, poised, magnetic
+   - Keywords: long seductive eyes with subtle upturn, refined V-line face, high-bridged refined nose, full lips with defined edges
+
+4. **Wild Beauty** (Cá tính / Mạnh mẽ) → Rebellious, fierce, energetic personalities
+   - Key features: Deep-set sharp eyes, thick brows, strong angular jawline, prominent nose bridge, defined facial structure
+   - Vibe: Intense, daring, untamed, charismatic
+   - Keywords: deep-set piercing eyes, thick bold brows, strong angular jawline, sharp prominent nose bridge
+
+5. **Classic Beauty** (Thanh tú / Hài hòa) → Neutral, balanced personalities (default)
+   - Key features: Well-proportioned symmetrical features, moderate eyes, medium brows, balanced lips
+   - Vibe: Elegant simplicity, timeless beauty, clean refinement
+   - Keywords: perfectly symmetrical features, clear almond-shaped eyes, well-proportioned nose and lips, elegant refined contours
+
+Applicable tiers:
+- S-Tier: Must use an archetype with "striking" or "intense" descriptors from their archetype. Features must be exceptional (e.g. "sharp piercing phoenix eyes" not just "phoenix eyes")
+- A-Tier: Must use an archetype with "delicate" or "refined" quality. Features must be attractive and memorable
+- B-Tier and below: Archetype is optional but facial description must still be coherent and appropriate for the character
+- Facial and hairstyle description must account for at least 40% of the total description length
 - Prohibited: Using words like "ordinary", "plain", "unremarkable", "unattractive"
-- Protagonists must have clear appearance advantages (e.g., slanted sword-like eyebrows and starry eyes, three-dimensional facial features, sharp defined jawline, well-defined contours, etc.)
+- Prohibited: Mixing archetypes (each character gets ONE archetype)
+- Signature identifiers (from primary_identifier) take priority over archetype defaults and must be included
 
 2. Prohibited from describing:
    ❌ Skin color (e.g., fair, wheat-colored, pale)

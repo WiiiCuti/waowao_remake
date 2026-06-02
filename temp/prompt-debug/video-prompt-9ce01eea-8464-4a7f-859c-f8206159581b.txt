@@ -1,0 +1,5 @@
+[Scene] The living room remains completely static; sunlight streams steadily through the window, the electric fan blades are still, and no background movement occurs. The only motion will be from the characters.
+[Characters] Bạch Dương: 25-year-old male with a defined jaw, high nose, brows perpetually furrowed, sharp almond eyes, thin lips, short black hair side-parted, tall slender, wearing a light blue shirt, gray trousers, black shoes, stern and commanding. Tiểu Hy: 20-year-old female with a heart-shaped face, large double-lidded almond eyes, slender arched brows, small straight nose, full lips, long black hair slightly windswept, slim build, wearing a pink t-shirt, light blue denim shorts, white canvas sneakers, surprised and frozen.
+Shot 1 (Eye-Level Medium Two-Shot, 2.71s): Static camera, environment remains unchanged.
+Bạch Dương: "Hurry up and go to your room!"
+Action: Slow-motion. Bạch Dương speaks the command firmly, his lips moving crisply while his pointed arm stays rigid. Tiểu Hy remains still initially, then her eyelids slowly descend in a delayed blink, her expression frozen in surprise.

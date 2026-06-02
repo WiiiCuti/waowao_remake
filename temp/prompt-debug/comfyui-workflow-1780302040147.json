@@ -1,0 +1,212 @@
+{
+  "endpoint": "http://127.0.0.1:8188",
+  "mode": "txt2img",
+  "refCount": 0,
+  "workflow": {
+    "6": {
+      "inputs": {
+        "text": [
+          "220",
+          0
+        ],
+        "clip": [
+          "195",
+          0
+        ]
+      },
+      "class_type": "CLIPTextEncode",
+      "_meta": {
+        "title": "CLIP Text Encode (Positive Prompt)"
+      }
+    },
+    "163": {
+      "inputs": {
+        "seed": 126333154048402,
+        "steps": 4,
+        "cfg": 1,
+        "sampler_name": "euler",
+        "scheduler": "simple",
+        "denoise": 1,
+        "model": [
+          "216",
+          0
+        ],
+        "positive": [
+          "6",
+          0
+        ],
+        "negative": [
+          "232",
+          0
+        ],
+        "latent_image": [
+          "221",
+          0
+        ]
+      },
+      "class_type": "KSampler",
+      "_meta": {
+        "title": "KSampler"
+      }
+    },
+    "164": {
+      "inputs": {
+        "samples": [
+          "163",
+          0
+        ],
+        "vae": [
+          "196",
+          0
+        ]
+      },
+      "class_type": "VAEDecode",
+      "_meta": {
+        "title": "VAE Decode"
+      }
+    },
+    "194": {
+      "inputs": {
+        "unet_name": "Flux2/flux-2-klein-9b-kv-fp8.safetensors",
+        "weight_dtype": "fp8_e4m3fn_fast"
+      },
+      "class_type": "UNETLoader",
+      "_meta": {
+        "title": "Load Diffusion Model"
+      }
+    },
+    "195": {
+      "inputs": {
+        "clip_name": "qwen3/qwen_3_8b_fp8mixed.safetensors",
+        "type": "flux2",
+        "device": "default"
+      },
+      "class_type": "CLIPLoader",
+      "_meta": {
+        "title": "Load CLIP"
+      }
+    },
+    "196": {
+      "inputs": {
+        "vae_name": "Flux2/flux2-vae.safetensors"
+      },
+      "class_type": "VAELoader",
+      "_meta": {
+        "title": "Load VAE"
+      }
+    },
+    "203": {
+      "inputs": {
+        "filename_prefix": "img",
+        "images": [
+          "164",
+          0
+        ]
+      },
+      "class_type": "SaveImage",
+      "_meta": {
+        "title": "$image.save"
+      }
+    },
+    "216": {
+      "inputs": {
+        "model": [
+          "233",
+          0
+        ]
+      },
+      "class_type": "FluxKVCache",
+      "_meta": {
+        "title": "Flux KV Cache"
+      }
+    },
+    "220": {
+      "inputs": {
+        "value": "「沈家别墅客厅_夜晚」广角展示客厅全貌。中央放置深色欧式沙发，配刺绣抱枕，前有矮茶几上有烛台。左侧壁炉上方挂油画，右侧大型落地窗挂丝绸窗帘，窗边摆放落地灯。天花水晶吊灯散发暖光。沙发前铺织花地毯，形成开放活动区域。\n\nThis scene must clearly support the following fixed character positions:\nAvailable character slots:\n- 沙发和茶几之间的地毯区域\n- 壁炉前的地面位置\n- 右侧落地窗旁的空地\n- 客厅入门处的玄关区域\n\nUse a wide, complete environment composition that clearly shows the main structure, foreground/midground/background, and visible spatial boundaries. Every anchor object or anchor area implied by the available slots must be clearly visible in the frame, and each slot must still have enough open space around it for a character to be placed there later. Do not generate a generic partial background, cropped anchor, or ambiguous layout that makes the slot positions unusable., artwork in cgstyle_9b, ultimate CG texture with Iray skin rendering, realistic physical light and shadow, transparent and deep imagery, translucent rosy smooth skin texture, anime-to-CG transformation, high-detail skin surface, cinematic render quality, 2.5D semi-realistic style."
+      },
+      "class_type": "PrimitiveString",
+      "_meta": {
+        "title": "$promt.value"
+      }
+    },
+    "221": {
+      "inputs": {
+        "width": [
+          "222",
+          0
+        ],
+        "height": [
+          "224",
+          0
+        ],
+        "batch_size": 1
+      },
+      "class_type": "EmptyLatentImage",
+      "_meta": {
+        "title": "Empty Latent Image"
+      }
+    },
+    "222": {
+      "inputs": {
+        "value": 1024
+      },
+      "class_type": "INTConstant",
+      "_meta": {
+        "title": "$with.value"
+      }
+    },
+    "224": {
+      "inputs": {
+        "value": 1024
+      },
+      "class_type": "INTConstant",
+      "_meta": {
+        "title": "$height.value"
+      }
+    },
+    "230": {
+      "inputs": {
+        "lora_name": "AniEdit9B_v2.safetensors",
+        "strength_model": 0.7,
+        "model": [
+          "194",
+          0
+        ]
+      },
+      "class_type": "LoraLoaderModelOnly",
+      "_meta": {
+        "title": "Load LoRA"
+      }
+    },
+    "232": {
+      "inputs": {
+        "conditioning": [
+          "6",
+          0
+        ],
+        "latent": [
+          "221",
+          0
+        ]
+      },
+      "class_type": "ReferenceLatent",
+      "_meta": {
+        "title": "ReferenceLatent"
+      }
+    },
+    "233": {
+      "inputs": {
+        "lora_name": "nnegrat_cgstyle_9b_1800.safetensors",
+        "strength_model": 0.85,
+        "model": [
+          "230",
+          0
+        ]
+      },
+      "class_type": "LoraLoaderModelOnly",
+      "_meta": {
+        "title": "Load LoRA"
+      }
+    }
+  }
+}

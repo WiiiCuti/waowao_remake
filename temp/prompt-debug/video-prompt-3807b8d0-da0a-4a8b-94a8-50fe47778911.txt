@@ -1,0 +1,10 @@
+[Scene] Interior of a bright living room during daytime. A large window on the left wall lets in daylight, white curtains are half-drawn. A ceiling fan stands in the center of the room. The environment remains completely static throughout the scene.
+[Characters] Tiểu Hy: A young woman in her early twenties with a heart-shaped face, large double-lidded almond eyes, slender arched brows, a small straight nose, and full lips. Her long black hair rests loosely around her shoulders, she wears a pink t-shirt, light blue denim shorts, and white canvas sneakers. Her expression is playful and teasing.
+
+Shot 1 (Close-Up, 2.08s): Static camera, environment remains unchanged.
+Tiểu Hy: "Anh Bạch, it's so hot outside..."
+Action: In slow motion, she begins to speak, her lips curving into a slightly wider playful grin from her starting expression, a soft, mischievous light flickering in her eyes as she holds her intense gaze off-screen. Smooth and fluid motion throughout.
+
+Shot 2 (Close-Up, 2.08s): Static camera, environment remains unchanged.
+Tiểu Hy: "...what are you making a fuss about?"
+Action: She continues speaking, her head tilting just a fraction further to the side, her eyebrow lifting playfully higher as she delivers the teasing line, her eyes glinting with amusement. Subtle, fluid micro-movements across her face.

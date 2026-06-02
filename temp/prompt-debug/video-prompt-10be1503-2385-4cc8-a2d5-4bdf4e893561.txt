@@ -1,0 +1,6 @@
+[Scene] The spacious office room with floor-to-ceiling glass walls reveals the bright city lights at night. Minimalist decor features a dark wood desk on the left and a gray sofa set on the right. The environment is completely static, with no ambient motion.
+[Characters] None.
+Shot 1 (Eye-Level Full Shot, 2.17s): Static camera, environment remains unchanged.
+Action: The scene remains perfectly still; no character movement or ambient changes.
+Shot 2 (Eye-Level Full Shot, 2.16s): Static camera.
+Action: The stillness continues; no motion.

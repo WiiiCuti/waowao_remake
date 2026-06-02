@@ -25,13 +25,34 @@ async function updatePanelDurationAfterTTS(
     where: { id: lineId },
     select: {
       matchedPanelId: true,
+      matchedPanelIndex: true,
+      matchedStoryboardId: true,
       audioDuration: true,
       isNarration: true,
     },
   })
-  if (!voiceLine?.matchedPanelId) return null
+  if (!voiceLine) return null
 
-  const panelId = voiceLine.matchedPanelId
+  let panelId = voiceLine.matchedPanelId
+
+  if (!panelId && voiceLine.matchedPanelIndex != null && voiceLine.matchedStoryboardId) {
+    const resolved = await prisma.novelPromotionPanel.findFirst({
+      where: {
+        storyboardId: voiceLine.matchedStoryboardId,
+        panelIndex: voiceLine.matchedPanelIndex,
+      },
+      select: { id: true },
+    })
+    if (resolved) {
+      panelId = resolved.id
+      await prisma.novelPromotionVoiceLine.update({
+        where: { id: lineId },
+        data: { matchedPanelId: panelId },
+      })
+    }
+  }
+
+  if (!panelId) return null
 
   // Fetch all voice lines matched to this panel
   const allPanelVoiceLines = await prisma.novelPromotionVoiceLine.findMany({

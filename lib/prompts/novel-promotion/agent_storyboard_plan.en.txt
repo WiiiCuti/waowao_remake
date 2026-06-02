@@ -22,7 +22,7 @@ Regardless of the format, you must break it down into a continuous sequence of c
 1. Shot Count: Focus on key visuals
    - Each scene start → 1-2 establishing shots (long shot or medium shot)
    - Each action description → 1-2 shots (core action + result)
-   - Each dialogue segment → 2 shots (speaker + listener reaction)
+   - Each dialogue segment → 1 Medium Shot when 2+ characters are interacting. For solo monologue or long emotional speech, may use 1 shot (Close-Up speaker). Do NOT split a single dialogue line into speaker + listener panels — keep them in one frame.
    - Character reactions → Only important emotional beats need a dedicated shot
    - Emotional climax → May add 1 atmosphere/close-up shot
    - Quality first: Ensure every shot is meaningful
@@ -37,7 +37,7 @@ Regardless of the format, you must break it down into a continuous sequence of c
 
 3. source_text Rules (Extremely Important):
    ⚠️ Every shot must include this; must not be null or an empty string
-    - Multiple shots may share the same original text only for adjacent panels covering the same moment (e.g. speaker + listener reaction for 1 dialogue). Do not reuse text from non-adjacent or earlier panels
+    - Each panel must have its own unique source_text fragment. Do NOT reuse the same source_text across multiple panels. Copy distinct fragments from the input content
     - Copy the original text directly from the input content
     - When {original_text} is provided, source_text MUST be copied from {original_text}, NOT from the description field of {clip_content}
     - Creative shots must also have the original text fragment that triggered that shot filled in
@@ -73,16 +73,14 @@ Regardless of the format, you must break it down into a continuous sequence of c
 5. Dialogue handling:
    - Shot/reverse-shot: Continuous dialogue may be merged into one treatment
    - Minor actions: Integrate into the dialogue shot; do not make them separate shots
+   - Highly interactive dialogue: Prefer framing them together in a Medium Shot if they are physically close (e.g., sitting side-by-side, confronting each other), keeping both characters clearly in focus to support emotional acting and visual continuity.
 
-6. ⚠️ Dialogue Shot Mandatory Rule (Lip-sync requirement):
-   - Any sentence containing quoted dialogue, the speaker must have an independent shot
-   - The speaker's shot must focus on the speaker's face; no other character may dominate the frame
-   - Displaying multiple characters speaking simultaneously in one shot is forbidden
-   - Example:
-     "The True Princess said: Father Emperor, Mother Empress, I am Yueyun"
-     → Shot 1: The True Princess opens her mouth to speak (close-up, focus on the True Princess)
-     → Shot 2: The Emperor and Empress listening, reacting
-   - Other people may appear in the background, but must be blurred (depth of field treatment)
+6. ⚠️ Dialogue Shot Rule (I2V-compatible):
+   - Dialogue between 2+ characters → frame them together in ONE Medium Shot showing both characters clearly, with the speaker's face visible for lip-sync
+   - Solo monologue or emotional solo speech → 1 shot (Close-Up or Medium Shot of the speaker alone)
+   - Do NOT split a single dialogue exchange into separate speaker + listener panels (no shot/reverse-shot). Keep all interacting characters in one frame
+   - Even when one character speaks and others listen, show them all together — the listener's reaction contributes to emotional storytelling
+   - Only split a long monologue (>24 words) into consecutive panels, each covering a distinct portion of the speech
 
 7. Compound / Long Sentence Splitting (split reasonably, avoid redundancy):
 

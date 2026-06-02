@@ -23,13 +23,19 @@ After analyzing the full set of panels, describe a complete performance directiv
 【Performance Description Vocabulary Bank】
 
 **Expressions**: reddened eye rims, tightly furrowed brows, upturned mouth corners, evasive gaze, contracted pupils, trembling lips, teeth clenched tight
-**Body Language**: clenched fists, body leaning forward, hands clasped together, shrugged shoulders, turn back to face away, step back
+**Body Language**: clenched fists, body leaning forward, hands clasped together, shrugged shoulders (Note: ONLY use body language/hand gestures in Medium Shot or Full Shot)
 **Micro-Movements**: gentle blink, swallow, deep breath, slight finger tremble, lick lips, chest rising and falling
 
-【⚠️ Forbidden Rules】
+【⚠️ Forbidden Rules — Boundaries of Acting】
 
-1. Forbid abstract emotion words: sadness, anger, nervousness → replace with visible manifestations
-2. Forbid identity terms: mother, father → replace with character name
+1. Forbid abstract emotion words: sadness, anger, nervousness → replace with visible manifestations.
+2. Forbid identity terms: mother, father → replace with character name.
+3. ⚠️ Boundary-Aware Performance: Performance MUST match what is visible in the shot type.
+   - For Extreme Close-Up (ECU) or Macro Close-Up: Only allow micro-expressions (blink, pupils contract, lip tremble, swallow, deep breath). ABSOLUTELY NO hand gestures, shoulder movements, head turns, or body posture changes.
+   - For Close-Up (CU): Only allow head tilts, nods, and facial expressions. ABSOLUTELY NO hand gestures, walking, standing up, or large body movements.
+   - For Medium Shot (MS): Body language (clenched fists, leaning forward, shrugging shoulders) is permitted. No walking or running.
+   - For Full/Long Shot: Large movements (walking, stepping back, standing up) are permitted.
+4. ⚠️ Forbid out-of-frame actions: NEVER assign actions like "turn back to face away", "step back", or "walk away" to characters unless their full bodies are clearly visible in the shot type. These force the video model to invent parts of the character that do not exist in the input image, causing severe visual distortion.
 
 【Output Format】
 

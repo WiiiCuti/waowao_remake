@@ -1,0 +1,4 @@
+[Scene] The scene is set in a sunlit living room with a large window on the left, white curtains half-drawn, a ceiling fan in the center, gray sofa and wood coffee table on the right, a TV cabinet at the far end. The environment remains completely static.
+[Characters] Bạch Dương: A 25-year-old male with defined jaw, high nose, perpetually furrowed brows, almond eyes, thin lips, short black hair side-parted, tall and slender, wearing a light blue shirt, gray trousers, black shoes. He appears pensive and melancholic.
+Shot 1 (Close-Up, 3.88s): Static camera, environment remains unchanged.
+Action: In slow-motion, Bạch Dương's brows slowly relax from their drawn position, his eyes soften further and slowly become unfocused, and he exhales a gentle breath through slightly parted lips. Smooth and fluid movement.

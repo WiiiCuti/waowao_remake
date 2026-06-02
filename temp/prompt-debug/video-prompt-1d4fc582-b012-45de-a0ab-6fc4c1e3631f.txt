@@ -1,0 +1,6 @@
+[Scene] A 30-square-meter living room with a window on the left, a grey sofa and a wooden table in the center, an electric fan on the right, and a hallway door at the far end. The environment remains completely static and unchanging throughout the shot.
+[Characters] Tiểu Hy: Approximately twenty-year-old woman with a heart-shaped face, large double-lidded almond eyes, slender arched brows, a small straight nose, full lips, long black hair, wearing a pink t-shirt, light blue denim shorts, and white canvas sneakers. Emotional state: annoyed and dismissive. Bạch Dương: Approximately twenty-five-year-old man with a defined jaw, a high nose, perpetually furrowed brows over sharp almond eyes, thin lips, and short black side-parted hair, wearing a light blue shirt, gray trousers, and black shoes. Emotional state: calm and observant.
+
+Shot 1 (Full Shot, 1.96s): Static camera, environment remains unchanged.
+Tiểu Hy: "Hmph, I know, I know."
+Action: In slow motion, Tiểu Hy smoothly rises fully from the wooden chair, her body straightening as she takes a deliberate step toward the hallway, her shoulders relaxing slightly as she lets out a quiet dismissive huff. Bạch Dương remains perfectly motionless in the doorway, his eyes tracking her movement steadily, his expression unchanged.

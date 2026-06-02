@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { useProjectAssets } from '@/lib/query/hooks/useProjectAssets'
@@ -15,6 +15,8 @@ import {
   useUpdateSpeakerVoice,
 } from '@/lib/query/hooks'
 import { apiFetch } from '@/lib/api-fetch'
+import { TASK_EVENT_TYPE, TASK_SSE_EVENT_TYPE, type SSEEvent } from '@/lib/task/types'
+import { useWorkspaceProvider } from '@/app/[locale]/workspace/[projectId]/modes/novel-promotion/WorkspaceProvider'
 import VoiceLineList from '@/app/[locale]/workspace/[projectId]/modes/novel-promotion/components/voice-stage/VoiceLineList'
 import VoiceControlPanel from '@/app/[locale]/workspace/[projectId]/modes/novel-promotion/components/voice-stage/VoiceControlPanel'
 import SpeakerVoiceBindingDialog from '@/app/[locale]/workspace/[projectId]/modes/novel-promotion/components/voice/SpeakerVoiceBindingDialog'
@@ -252,6 +254,30 @@ export function useVoiceStageRuntime({
     }
     setInlineBindingSpeaker(null)
   }, [episodeId, loadData, updateSpeakerVoiceMutation])
+
+  // ─── SSE task completion → immediate data refresh ─────
+  const { subscribeTaskEvents } = useWorkspaceProvider()
+  const loadDataRef = useRef(loadData)
+  loadDataRef.current = loadData
+  useEffect(() => {
+    return subscribeTaskEvents((event: SSEEvent) => {
+      if (event.type !== TASK_SSE_EVENT_TYPE.LIFECYCLE) return
+      const lifecycleType =
+        typeof event.payload?.lifecycleType === 'string' ? event.payload.lifecycleType : null
+      if (
+        lifecycleType !== TASK_EVENT_TYPE.COMPLETED &&
+        lifecycleType !== TASK_EVENT_TYPE.FAILED
+      ) return
+      const targetType =
+        typeof event.targetType === 'string'
+          ? event.targetType
+          : typeof event.payload?.targetType === 'string'
+            ? event.payload.targetType
+            : null
+      if (targetType !== 'NovelPromotionVoiceLine') return
+      loadDataRef.current()
+    })
+  }, [subscribeTaskEvents])
 
   // ─── Narrator Toggle State ────────────────────────────
   const [narratorEnabled, setNarratorEnabled] = useState(true)

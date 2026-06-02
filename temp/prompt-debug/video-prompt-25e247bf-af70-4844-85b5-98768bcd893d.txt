@@ -1,0 +1,4 @@
+[Scene] The environment is a fully static, softly blurred living room. A large window sits on the left with white curtains half-drawn, grey fabric sofa and wooden coffee table on the right, an electric fan stands motionless in the center. The daylight lighting remains completely fixed and static, no ambient motion.
+[Characters] Tiểu Hy: A human young woman approximately twenty years old, heart-shaped face with large double-lidded almond eyes, slender arched brows, small straight nose, full lips, long black hair, slim build, moderate height, pink t-shirt, light blue denim shorts, white canvas sneakers. Current emotional state: relaxed and serene, gently savoring the breeze.
+Shot 1 (Eye-Level Close-Up, 1.83s): Static camera, environment remains unchanged.
+Action: Slow-motion. Tiểu Hy completes a gentle, languid blink, her gaze softening and a subtle, contented breath causing a slight flutter in her lower lip. Smooth and fluid movement without any camera motion.

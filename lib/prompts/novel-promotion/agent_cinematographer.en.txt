@@ -29,13 +29,14 @@ After analyzing the full set of panels, design the following visual elements for
 - Extreme Close-Up: Extremely shallow DOF (T1.8), strong background blur
 - Over-the-Shoulder Shot: Shallow DOF, foreground shoulder blurred
 
-【⚠️ Dialogue Shot DOF Rules - Lip Sync Requirements】
+【⚠️ Dialogue Shot DOF Rules - Lip Sync Requirements & Interaction Exceptions】
 - Any shot where a character is speaking, if multiple faces appear or multiple characters are present, must use shallow DOF or extremely shallow DOF (T2.8 or smaller)
 - The speaking character's face must be in sharp focus; other characters in the background must be blurred
 - Purpose: avoid multiple clear faces in the frame to prevent lip-sync recognition errors
 - Example:
   * "the real princess speaks" → Shallow DOF (T2.8), real princess's face sharp, emperor and empress in background blurred
   * "dialogue extreme close-up" → Extremely shallow DOF (T1.8), only the speaker's face sharp
+- ⚠️ EXCEPTION for high-intensity or intimate interactions: If 2 or more characters are directly interacting in the same panel (scolding, arguing, confessing, or sitting/standing close together in conversation), you MUST use Medium DOF (T4.0 - T5.6) so that BOTH characters' faces and clothing remain sharp and clearly defined. This is crucial for Dual-Character IC-LoRA identity tracking, preventing the blurred character's face from morphing or their costume colors from leaking.
 
 【Output Format】
 
@@ -134,7 +135,7 @@ Prop descriptions:
 8. When a shot involves movement, entry/exit, transition zones, path spaces, temporary positions, empty shots, imaginary spaces, dreams, flashbacks, or abstract spaces, composition and position may be freely determined based on the shot description without forcibly conforming to slot
 9. If slot is referenced, it must be treated as a complete position description; forbid abbreviating, rewriting, summarizing, or replacing with a short word
 10. Depth of field automatically adjusts based on shot_type (Full Shot / Medium Shot / Close-Up / Extreme Close-Up)
-11. ⚠️ Dialogue shots must use shallow DOF (T2.8 or smaller) and must note that other persons are blurred, ensuring only the speaker's face is sharp
+11. ⚠️ Dialogue shots must use shallow DOF (T2.8 or smaller) ensuring only the speaker's face is sharp, EXCEPT when multiple characters are directly interacting/sitting close, in which case Medium DOF (T4.0 - T5.6) must be used with both characters sharp.
 12. If shots involve different scenes, lighting and color tone should adjust accordingly
 13. Output should be concise; each shot's rules are independent and complete
 14. ⚠️ Forbid describing clothing colors, clothing styles, or specific attire items (e.g., "blue robe", "green collar") in screen_position, posture, facing. Focus purely on non-attire posture, framing, and gestures (e.g., "standing", "sitting", "facial close-up", "gesturing with hands"). Let the Asset Library handle costume styles.

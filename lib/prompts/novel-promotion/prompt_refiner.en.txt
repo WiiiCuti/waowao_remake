@@ -54,10 +54,19 @@ Structure the paragraph exactly in this sequence, separated by commas:
 3. Background & Environment: Detail the setting, time of day, and key visible props (from location description).
 4. Lighting & Color: Specify lighting direction and quality, color tone, and depth of field (from photographyRules, e.g., "soft side lighting, warm golden color tone, shallow depth of field").
 5. Art Style: Apply the top-level style parameter directly (from style, e.g., "Japanese anime art style, clean line art, vibrant colors").
+6. ⚠️ Face & Skin Quality Modifiers: Append face-focused quality tags to ensure the character's face renders beautifully. Choose from the list below based on the character's personality and scene lighting (include at least 3-4 tags):
+   - Skin texture: "smooth radiant skin texture", "translucent rosy skin", "delicate soft skin with subtle glow", "flawless clear complexion"
+   - Facial detail: "sharply defined facial features", "perfect symmetrical face", "refined elegant facial structure"
+   - Eyes: "clear sparkling eyes with natural highlights", "deep expressive eyes" (only if eyes are fully visible per shot type)
+   - Lighting effect: "soft natural makeup", "gentle diffused lighting on face", "natural skin undertones with warm glow"
+   - Quality: "cinematic portrait quality", "ultra high detail face rendering"
+   ⚠️ IMPORTANT: Do NOT overuse. Pick 3-4 modifiers that fit the scene lighting and character's beauty archetype. Do NOT add quality tags that contradict the scene's mood (e.g., do not add "soft natural makeup" to a battle scene). If the character is in extreme close-up (face visible), use more facial detail tags. If the character is at a distance or back is visible, use fewer or none.
 
 Requirements:
 - Describe ONLY what is VISIBLE in the frame. Do NOT include audio, off-screen sounds, dialogue, text, subtitles, or speech.
 - Ensure all details are translated into natural, fluent English.
+- ⚠️ NO camera movement language: Do NOT include any camera movement vocabulary (e.g. push-in, track, zoom, pan, orbit, handheld, sway) in the shot composition description. Use only static framing terms: static frame, fixed frame, fixed shot, static camera.
+- ⚠️ "Freeze" dynamic actions: The `description` field of the panel often contains highly dynamic actions (e.g., "pushes open the door", "stands up and walks"). In `image_prompt`, you MUST convert these into a **perfectly static, frozen posture/pose** representing the exact starting moment (T=0) — e.g. "paused mid-stride in the doorway", "hand resting on the table as she begins to rise", or "eyes fixed forward with mouth slightly open". Avoid active dynamic verbs.
 
 ---
 
@@ -84,11 +93,17 @@ FIRST panel in batch (previous = null):
 
 【IMAGE → VIDEO CONTINUITY — MANDATORY】
 
-The generated image_prompt describes Frame 0 of the video — the exact visual state at the moment the video begins.
+The generated image_prompt describes Frame 0 of the video — the exact visual state at the moment the video begins (T = 0).
 
-The video_prompt Action lines MUST describe what happens NEXT, after the state shown in image_prompt.
-NEVER repeat, restart, or re-describe any action that is already shown as a completed or in-progress state in image_prompt.
+The video_prompt Action lines MUST describe what happens NEXT (T > 0), after the state shown in image_prompt.
+NEVER repeat, restart, or re-describe any action or dynamic verb that is already shown as a completed or in-progress state in image_prompt.
 Treat visible poses, facial expressions, gaze directions, and body states in image_prompt as already established. Do not recreate or reinforce them in video_prompt.
+
+⚠️ Action Splitting Logic (Prevent Double Motion):
+- If the storyboard `description` contains a highly dynamic action like "walks toward the table and sits down", you MUST split it cleanly:
+  - `image_prompt` (T = 0) represents the starting/frozen moment: "standing near the chair, body slightly turned toward the table".
+  - `video_prompt` (T > 0) represents the continuation motion: "Action: takes a slow step forward and sits down on the chair".
+- Never use the same verb in both fields. If `image_prompt` has "stands up", the `video_prompt` Action MUST only describe what happens *after* standing up (e.g. "takes a step forward", "tilts head").
 
 Examples:
   ❌ image_prompt: "opens the door"      → video Action: "opens the door"
@@ -117,7 +132,8 @@ Output format — follow this EXACT structure. Each panel's video_prompt may con
 
 ```
 [Scene] <environment description - static, no ambient motion>
-[Characters] <character 1 name>: <appearance/clothing from character.description> + <current emotional state in ≤5 words>. <character 2 name>: <same>.
+[Characters] <ALWAYS include this section. Filter description by shot type per rule 1.>
+<character 1 name>: <FULL description (Full/Wide) or UPPER BODY only (Medium) per rule 1 + emotional state in ≤5 words>. <character 2 name>: <same>.
 
 Shot 1 (<shotType>, <duration_seconds>s): Static camera, character actions allowed
 <Character 1>: "<dialogue from srtSegment (only if present, max 10 words)>"
@@ -133,7 +149,15 @@ Number of Shot blocks per video_prompt is determined by duration:
 Number Shot starting from 1 within each video_prompt entry.
 
 Key rules:
-1. [Characters] defines each character ONCE with FULL appearance/clothing from character.description. Do NOT abbreviate — use full description from source data. Then append current emotional state in ≤5 words derived from current.characters[].acting and srtSegment context (e.g. "tense and guarded", "soft and nervous", "calm with hidden grief"). Do NOT invent emotional states — derive only from acting field data.
+1. [Characters] section is CONDITIONAL but NEVER fully omitted — ALWAYS include character names and a filtered description matching ONLY the body parts visible in the shot. Full character.description is the source; prune it to what the frame actually shows. This prevents the model from generating body parts not present in the input image.
+   - **Full Shot / Long Shot / Wide Shot** (whole body visible): FULL character.description — face, hair, outfit from head to toe, shoes. All text matches pixels.
+   - **Medium Shot** (waist up visible): UPPER BODY only — face, hair, upper clothing (top, tie, jacket). Do NOT describe trousers, skirt, shoes.
+   - **Close-Up / Over-the-Shoulder** (face & neck visible): HEAD+NECK only — face shape, eyes, brows, nose, lips, hair, visible neck/collar clothing. Do NOT describe torso, full outfit, lower body.
+   - **Extreme Close-Up / Detail Shot** (only one body part visible): THAT PART ONLY.
+     - Hand visible → describe hand: fingers, nails, cuff/sleeve end. Nothing else.
+     - Eye visible → describe eye: iris, lashes, skin around eye. Nothing else.
+     - Lips visible → describe lips: shape, texture. Nothing else.
+   - Always append current emotional state in ≤5 words from current.characters[].acting and srtSegment context. Do NOT invent.
 2. After [Characters] definition, use only the character's NAME in the Shot blocks (Dialogue/Action lines) — the model already knows who they are.
 3. The [Scene] section MUST include:
    a. Full environment from current.description and location data — do not summarize.
@@ -149,15 +173,12 @@ Key rules:
    - You MUST NEVER zoom out or transition from a tight/close-up/detail shot to a wider shot (e.g., transitioning from a Close-Up of a hand in Shot 1 to a Wide Shot of the room in Shot 2). AI video models cannot maintain facial or clothing consistency when "outpainting" or hallucinating areas not present in the input image.
    - If current.shotType is a Close-Up, Extreme Close-Up, or Detail Shot (e.g., close-up of a prop, hands, or eyes), ALL Shot blocks in the video_prompt must remain strictly locked within that close-up boundary.
    - For close-up panels, only allow: static camera, slow panning/tracking within the close-up, or micro-movements (e.g., fingers twitching, eyes blinking, lips quivering). Do NOT attempt to reveal the face, body, or wider background if they are not visible in the close-up image.
-9. Visibility Constraint — CHARACTER LEVEL (MANDATORY): Action for each character in the Action line MUST be strictly restricted to the body parts that are actually VISIBLE in the image_prompt:
-   - Hand close-up / Hand visible only   → only hand movements (fingers twitching, tightening, holding)
-   - Eye close-up / Eyes visible only    → only eye movements (blinking, pupil dilation, gaze shifts)
-   - Blurred back / Background silhouette → static anchor only, body micro-movements (breathing) permitted; NO face/head/limb actions
-   - Over-the-shoulder (OTS back visible)→ only subtle shoulder/back shifts or breathing, ABSOLUTELY NO face actions or head rotations
-   - Partial/Half-face visible           → only actions/expressions on the visible half of the face
-   - Full body visible                   → full body movements, posture changes, walking
-   - Full face visible                   → facial expressions, eyes, lips, and head movement
-   - NEVER assign actions, rotations, or expressions to body parts that are NOT visible or blurred in the generated static image.
+9. Action Visibility Constraint (MANDATORY): Action lines MUST NOT describe or imply any body part, feature, or motion that is NOT visible in the input image. Violating this forces the model to recompose the frame to show the referenced body part, causing scene drift:
+   - Hand visible only   → only hand movements (fingers curling, tightening, holding). NO gaze, face, expressions.
+   - Eye visible only    → only eye movements (blinking, pupil shifts). NO hand, head rotation.
+   - Face visible        → facial expressions, eyes, lips, head movement.
+   - Full body visible   → full body movements, posture changes, walking.
+   - If an action requires showing a body part outside the frame, DO NOT write that action. Drop it or reframe.
 
 ⚠️ **Anti-Jitter / Speed Control Rules** (violation causes stutter, distortion):
 - LIMIT ACTIONS per Shot: < 4s → 1 primary action only (a secondary micro-expression is optional but not required). 4-5s → max 2 actions. Never chain 3+ actions in one shot — the AI will rush through them causing jitter
@@ -172,16 +193,16 @@ If existingVideoPrompt is NOT empty:
   2. RE-VERIFY Shot block count matches the duration rule above — add or remove Shot blocks if needed
   3. Preserve narrative meaning while rewriting actions to satisfy all constraints — do NOT preserve exact actions verbatim
   4. RESTRUCTURE to match the format above if it doesn't already
-  5. ENRICH: add missing species from character.description, complete camera movement, specific actions
+  5. ENRICH: focus purely on character micro-actions (NO camera movements allowed). Apply rule 1 to filter [Characters] section by shot type — prune full character.description to visible parts only. Trim to upper body for Medium, head/neck for Close-Up, the specific visible part for ECU/Detail.
   6. ABSOLUTELY DO NOT re-describe the static scene already in image_prompt
-  7. Always have a "motion" element — no static descriptions
+  7. Enforce static camera: Ensure all camera parameters are set to "static camera", "camera remains fixed".
 
 If existingVideoPrompt IS EMPTY → generate from scratch:
   - duration < 4s: micro-motion only (blink, breathe, lip quiver, subtle gaze shift) — 1 Shot block, keep format concise
   - duration 4-5s: moderate motion (slow head turn, gentle gesture, breathing) — 2 Shot blocks, NO camera movement
   - duration ≥ 6s: moderate motion (standing up, walking slowly, turning body) — 3+ Shot blocks, NO camera movement, keep slow-motion
   - duration null: subtle motion
-  - Always use the EXACT format: [Scene] + [Characters] + Shot
+   - Always use the EXACT format: [Scene] + [Characters] + Shot
 
 ---
 

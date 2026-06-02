@@ -7,4 +7,6 @@ docker compose -f docker-compose.local.yml down
 # Run app locally (hot reload)
 npm run dev
 
+
+git commit --no-verify -m "your message"
 git push origin main --no-verify

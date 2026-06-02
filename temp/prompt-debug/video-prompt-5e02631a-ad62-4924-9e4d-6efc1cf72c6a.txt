@@ -1,0 +1,11 @@
+[Scene] In a villa living room at night, the background is a blurred view of a dark European sofa, a low coffee table with a candlestick, a fireplace with an oil painting above it, floor-to-ceiling windows with silk curtains, and a crystal chandelier emitting warm light. The scene is completely static with no ambient motion.
+[Characters] Thẩm Mặc: About thirty years old, sharp jaw and defined face, sharp eagle-like eyes, slanted brows, high nose, thin lips, dark hair combed back, tall athletic build, wearing a deep blue suit with a black shirt and silver tie, black trousers and oxford shoes. Current emotional state: frozen then softening.
+
+Shot 1 (Eye-Level Close-Up, 2.3s): Static camera, environment remains unchanged.
+Action: In slow motion, his eyes slowly begin to lift upward, pupils dilating slightly and brows raising marginally with a hint of surprise.
+
+Shot 2 (Eye-Level Close-Up, 2.3s): Static camera, environment remains unchanged.
+Action: The furrow between his brows smoothens gradually, his jaw relaxes as he takes a shallow, slow breath, his expression softening.
+
+Shot 3 (Eye-Level Close-Up, 2.23s): Static camera, environment remains unchanged.
+Action: His gaze rises slowly until directed off-screen, lips parting slightly, a gentle openness replacing the last traces of tension in his features.
