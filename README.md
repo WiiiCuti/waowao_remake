@@ -1,152 +1,85 @@
-<p align="center">
-  <a href="https://www.waoowaoo.com/">
-    <img src="images/cta-banner.png" alt="🚀 探索 AI 影视的下一代创作流 | 立即加入 waoowaoo 在线网页版内测候补" width="800">
-  </a>
-</p>
+# waoowaoo AI Studio
 
-<p align="center">
-  <img src="public/banner.png" alt="waoowaoo" width="600">
-</p>
-
-<h1 align="center">waoowaoo AI 影视 Studio</h1>
-
-<p align="center">
-  一款基于 AI 技术的短剧/漫画视频制作工具，支持从小说文本自动生成分镜、角色、场景，并制作成完整视频。
-</p>
-
-<p align="center">
-  <a href="README_en.md">English</a> · <a href="https://www.waoowaoo.com/">加入内测候补</a> · <a href="https://github.com/saturndec/waoowaoo/issues">反馈问题</a>
-</p>
+Công cụ sản xuất video phim ngắn/truyện tranh dựa trên AI, tự động tạo phân cảnh, nhân vật, bối cảnh từ tiểu thuyết và ghép thành video hoàn chỉnh.
 
 > [!IMPORTANT]
-> ⚠️ **测试版声明**：本项目目前处于测试初期阶段，由于暂时只有我一个人开发，存在部分 bug 和不完善之处。我们正在快速迭代更新中，**欢迎进群反馈问题和需求，及时关注项目更新！目前更新会非常频繁，后续会增加大量新功能以及优化效果，我们的目标是成为行业最强AI工具！**
-
-<img src="https://github.com/user-attachments/assets/d190bf41-488d-47df-a5df-06346ef0f2f5" width="30%">
-
----
-## ✨ 功能特性
-
-- 🎬 **AI 剧本分析** — 自动解析小说，提取角色、场景、剧情
-- 🎨 **角色 & 场景生成** — AI 生成一致性人物和场景图片
-- 📽️ **分镜视频制作** — 自动生成分镜头并合成视频
-- 🎙️ **AI 配音** — 多角色语音合成
-- 🌐 **多语言支持** — 中文 / 英文界面，右上角一键切换
+> ⚠️ **Bản beta**: Dự án hiện ở giai đoạn đầu thử nghiệm, do một người phát triển nên còn một số lỗi và chưa hoàn thiện. Chúng tôi đang cập nhật nhanh chóng.
 
 ---
 
-## 🚀 快速开始
+## ✨ Tính năng
 
-**前提条件**：安装 [Docker Desktop](https://docs.docker.com/get-docker/)
+- 🎬 **Phân tích kịch bản AI** — Tự động phân tích tiểu thuyết, trích xuất nhân vật, bối cảnh, cốt truyện
+- 🎨 **Tạo nhân vật & bối cảnh** — AI tạo hình ảnh nhân vật và bối cảnh nhất quán
+- 📽️ **Sản xuất video phân cảnh** — Tự động sinh phân cảnh và ghép video
+- 🎙️ **Lồng tiếng AI** — Tổng hợp giọng nói đa nhân vật
+- 🌐 **Đa ngôn ngữ** — Giao diện Tiếng Việt / English, chuyển đổi một chạm
 
-### 方式一：拉取预构建镜像（最简单）
+---
 
-无需克隆仓库，下载即用：
+## 🚀 Bắt đầu nhanh
+
+**Yêu cầu**: Cài [Docker Desktop](https://docs.docker.com/get-docker/)
+
+### Docker Compose
 
 ```bash
-# 下载 docker-compose.yml
-curl -O https://raw.githubusercontent.com/saturndec/waoowaoo/main/docker-compose.yml
-
-# 启动所有服务
 docker compose up -d
 ```
 
-> ⚠️ 当前为测试版，版本间数据库不兼容。升级请先清除旧数据：
+> ⚠️ Bản beta không tương thích database giữa các phiên bản. Khi nâng cấp hãy xoá dữ liệu cũ:
+> ```bash
+> docker compose down -v
+> docker compose up -d
+> ```
+
+### Local dev (cho developer)
 
 ```bash
-docker compose down -v
-docker rmi ghcr.io/saturndec/waoowaoo:latest
-curl -O https://raw.githubusercontent.com/saturndec/waoowaoo/main/docker-compose.yml
-docker compose up -d
-```
-
-> 启动后请**清空浏览器缓存**并重新登录，避免旧版本缓存导致异常。
-
-### 方式二：克隆仓库 + Docker 构建（完全控制）
-
-```bash
-git clone https://github.com/saturndec/waoowaoo.git
-cd waoowaoo
-docker compose up -d
-```
-
-更新版本：
-```bash
-git pull
-docker compose down && docker compose up -d --build
-```
-
-### 方式三：本地开发模式（开发者）
-
-```bash
-git clone https://github.com/saturndec/waoowaoo.git
-cd waoowaoo
-
-# 复制环境变量配置文件（必须在 npm install 之前完成）
+# Copy file env
 cp .env.example .env
-# ⚠️ 编辑 .env，填入你的 AI API Key（NEXTAUTH_URL 默认已是 http://localhost:3000，无需修改）
+# ⚠️ Sửa .env, nhập AI API Key của bạn
 
 npm install
 
-# 只启动基础设施
-# 注意：docker-compose.yml 将服务映射到非标准端口，.env.example 已按此预设
-mysql:13306  redis:16379  minio:19000
+# Chạy hạ tầng
 docker compose up mysql redis minio -d
 
-# 初始化数据库表结构（首次必须执行，跳过会导致启动后报错）
+# Khởi tạo database (bắt buộc lần đầu)
 npx prisma db push
 
-# 启动开发服务器
+# Chạy dev server
 npm run dev
 ```
 
 > [!WARNING]
-> 跳过 `npx prisma db push` 会导致所有数据库表不存在，启动后报错 `The table 'tasks' does not exist`。请务必先运行此命令再启动开发服务器。
+> Bỏ qua `npx prisma db push` sẽ gây lỗi `The table 'tasks' does not exist`. Chạy lệnh này trước khi start dev server.
 
 ---
 
-访问 [http://localhost:13000](http://localhost:13000)（方式一、二）或 [http://localhost:3000](http://localhost:3000)（方式三）开始使用！
-
-> 首次启动会自动完成数据库初始化，无需任何额外配置。
-
-> [!TIP]
-> **如果遇到网页卡顿**：HTTP 模式下浏览器可能限制并发连接。可安装 [Caddy](https://caddyserver.com/docs/install) 启用 HTTPS：
-> ```bash
-> caddy run --config Caddyfile
-> ```
-> 然后访问 [https://localhost:1443](https://localhost:1443)
+Truy cập [http://localhost:13000](http://localhost:13000) để bắt đầu!
 
 ---
 
-## 🔧 API 配置
+## 🔧 Cấu hình API
 
-启动后进入**设置中心**配置 AI 服务的 API Key，内置配置教程。
-
-> 💡 **注意**：目前仅推荐使用各服务商官方 API，第三方兼容格式（OpenAI Compatible）尚不完善，后续版本会持续优化。
+Sau khi khởi động vào **Settings** để cấu hình API Key cho AI. Có hướng dẫn tích hợp sẵn.
 
 ---
 
-## 📦 技术栈
+## 📦 Công nghệ
 
-- **框架**: Next.js 15 + React 19
-- **数据库**: MySQL + Prisma ORM
-- **队列**: Redis + BullMQ
-- **样式**: Tailwind CSS v4
-- **认证**: NextAuth.js
-
----
-
-## 📦 页面功能预览
-
-![4f7b913264f7f26438c12560340e958c67fa833a](https://github.com/user-attachments/assets/fa0e9c57-9ea0-4df3-893e-b76c4c9d304b)
-![67509361cbe6809d2496a550de5733b9f99a9702](https://github.com/user-attachments/assets/f2fb6a64-5ba8-4896-a064-be0ded213e42)
-![466e13c8fd1fc799d8f588c367ebfa24e1e99bf7](https://github.com/user-attachments/assets/09bbff39-e535-4c67-80a9-69421c3b05ee)
-![c067c197c20b0f1de456357c49cdf0b0973c9b31](https://github.com/user-attachments/assets/688e3147-6e95-43b0-b9e7-dd9af40db8a0)
+- **Framework**: Next.js 15 + React 19
+- **Database**: MySQL + Prisma ORM
+- **Queue**: Redis + BullMQ
+- **Style**: Tailwind CSS v4
+- **Auth**: NextAuth.js
 
 ---
 
-## 🧠 LLM Reasoning 分析
+## 🧠 Phân tích LLM Reasoning
 
-Tổng quan các chỗ gọi LLM trong dự án, phân loại mức độ cần thinking/reasoning.
+Tổng quan các nơi gọi LLM trong dự án, phân loại mức độ cần thinking/reasoning.
 
 ### Call chain
 
@@ -157,16 +90,16 @@ Callers (worker handlers, storyboard phases, etc.)
       → chatCompletion / chatCompletionStream (src/lib/llm/)
 ```
 
-`reasoning` và `reasoningEffort` được pass xuyên suốt chain. Default ở tầng cuối: `reasoning = true`, `reasoningEffort = 'high'`.
+`reasoning` và `reasoningEffort` được truyền xuyên suốt. Default: `reasoning = true`, `reasoningEffort = 'high'`.
 
 ### ✅ KHÔNG CẦN THINK (fill-form / map data)
 
 | File | Action | Trạng thái |
 |------|--------|-----------|
-| `src/lib/workers/handlers/character-profile.ts` | Confirm profile → sinh mô tả ngoại hình | ✅ Đã tắt |
-| `src/lib/novel-promotion/prompt-refiner.ts` | Tinh chỉnh panel prompt → image/video prompt | ✅ Đã tắt |
+| `src/lib/workers/handlers/character-profile.ts` | Confirm → sinh mô tả ngoại hình | ✅ Đã tắt |
+| `src/lib/novel-promotion/prompt-refiner.ts` | Tinh chỉnh panel prompt | ✅ Đã tắt |
 | `src/lib/workers/handlers/voice-analyze.ts` | Phân tích voice lines | ❌ Chưa tắt |
-| `src/lib/workers/handlers/clips-build.ts` | Tách clip theo boundary | ❌ Chưa tắt |
+| `src/lib/workers/handlers/clips-build.ts` | Tách clip | ❌ Chưa tắt |
 | `src/lib/workers/handlers/asset-hub-ai-modify.ts` | Sửa mô tả asset | ❌ Chưa tắt |
 | `src/lib/workers/handlers/modify-description-sync.ts` | Đồng bộ mô tả sau edit ảnh | ❌ Chưa tắt |
 | `src/lib/workers/handlers/reference-to-character.ts` | Trích mô tả từ ảnh tham khảo | ❌ Chưa tắt |
@@ -176,12 +109,12 @@ Callers (worker handlers, storyboard phases, etc.)
 | File | Action | Lý do |
 |------|--------|-------|
 | `src/lib/storyboard-phases.ts` (phase 2 cinematography) | Xác định lighting, composition, camera angle | Rule rõ ràng, fill JSON |
-| `src/lib/storyboard-phases.ts` (phase 2 acting) | Xác định diễn xuất nhân vật | Rule rõ ràng |
+| `src/lib/storyboard-phases.ts` (phase 2 acting) | Xác định diễn xuất | Rule rõ ràng |
 | `src/lib/storyboard-phases.ts` (phase 3 detail) | Refine panel detail + video prompt | Gần giống prompt-refiner |
 | `src/lib/workers/handlers/shot-ai-variants.ts` | Vision phân tích biến thể shot | Output có cấu trúc |
 | `src/lib/workers/handlers/shot-ai-prompt-runtime.ts` | Sinh action động cho shot | Template-driven |
 | `src/lib/workers/text.worker.ts` | Insert panel generate text | Template fill |
-| `src/lib/asset-utils/ai-design.ts` | AI design nhân vật/location | Sáng tạo nhưng template |
+| `src/lib/asset-utils/ai-design.ts` | AI design nhân vật/location | Sáng tạo nhưng có template |
 
 ### 🔥 CẦN THINK (nên giữ)
 
@@ -191,23 +124,9 @@ Callers (worker handlers, storyboard phases, etc.)
 | `src/lib/workers/handlers/script-to-storyboard.ts` | Orchestrator script→storyboard | Cần continuity |
 | `src/lib/workers/handlers/episode-split.ts` | Tách episode thông minh | Cần hiểu cốt truyện |
 | `src/lib/workers/handlers/screenplay-convert.ts` | Convert novel → screenplay | Cần chuyển thể |
-| `src/lib/workers/handlers/analyze-novel.ts` | Phân tích truyện → nhân vật/location/prop | Cần extract thông tin |
+| `src/lib/workers/handlers/analyze-novel.ts` | Phân tích truyện | Cần extract thông tin |
 | `src/lib/workers/handlers/analyze-global.ts` | Global analyze assets | Cần extract thông tin |
 | `src/lib/workers/handlers/ai-story-expand.ts` | Mở rộng nội dung truyện | Creative writing |
 | `src/lib/workers/handlers/story-to-script.ts` | Story → script pipeline | Tổng hợp nhiều bước |
 
-## 🤝 参与方式
-
-本项目由核心团队独立维护。欢迎你通过以下方式参与：
-
-- 🐛 提交 [Issue](https://github.com/saturndec/waoowaoo/issues) 反馈 Bug
-- 💡 提交 [Issue](https://github.com/saturndec/waoowaoo/issues) 提出功能建议
-- 🔧 提交 Pull Request 供参考 — 我们会认真审阅每一个 PR 的思路，但最终由团队自行实现修复，不会直接合并外部 PR
-
 ---
-
-**Made with ❤️ by waoowaoo team**
-
-## Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=saturndec/waoowaoo&type=date&legend=top-left)](https://www.star-history.com/#saturndec/waoowaoo&type=date&legend=top-left)
