@@ -48,7 +48,7 @@ export const IMAGE_MODEL_OPTIONS = [
   { value: 'banana', label: 'Banana Pro (FAL)' },
   { value: 'banana-2', label: 'Banana 2 (FAL)' },
   { value: 'gemini-3-pro-image-preview', label: 'Banana (Google)' },
-  { value: 'gemini-3-pro-image-preview-batch', label: 'Banana (Google Batch) 省50%' },
+  { value: 'gemini-3-pro-image-preview-batch', label: 'Banana (Google Batch) -50%' },
   { value: 'doubao-seedream-4-0-250828', label: 'Seedream 4.0' },
   { value: 'doubao-seedream-4-5-251128', label: 'Seedream 4.5' },
   { value: 'imagen-4.0-generate-001', label: 'Imagen 4.0 (Google)' },
@@ -58,8 +58,8 @@ export const IMAGE_MODEL_OPTIONS = [
 
 // Banana 模型分辨率选项（仅用于九宫格分镜图，单张生成固定2K）
 export const BANANA_RESOLUTION_OPTIONS = [
-  { value: '2K', label: '2K (推荐，快速)' },
-  { value: '4K', label: '4K (高清，较慢)' }
+  { value: '2K', label: '2K (Recommended, Fast)' },
+  { value: '4K', label: '4K (HD, Slower)' }
 ]
 
 // 支持分辨率选择的 Banana 模型
@@ -69,13 +69,13 @@ export const VIDEO_MODELS = [
   { value: 'doubao-seedance-2-0-260128', label: 'Seedance 2.0' },
   { value: 'doubao-seedance-2-0-fast-260128', label: 'Seedance 2.0 Fast' },
   { value: 'doubao-seedance-1-0-pro-fast-251015', label: 'Seedance 1.0 Pro Fast' },
-  { value: 'doubao-seedance-1-0-pro-fast-251015-batch', label: 'Seedance 1.0 Pro Fast (批量) 省50%' },
+  { value: 'doubao-seedance-1-0-pro-fast-251015-batch', label: 'Seedance 1.0 Pro Fast (Batch) -50%' },
   { value: 'doubao-seedance-1-0-lite-i2v-250428', label: 'Seedance 1.0 Lite' },
-  { value: 'doubao-seedance-1-0-lite-i2v-250428-batch', label: 'Seedance 1.0 Lite (批量) 省50%' },
+  { value: 'doubao-seedance-1-0-lite-i2v-250428-batch', label: 'Seedance 1.0 Lite (Batch) -50%' },
   { value: 'doubao-seedance-1-5-pro-251215', label: 'Seedance 1.5 Pro' },
-  { value: 'doubao-seedance-1-5-pro-251215-batch', label: 'Seedance 1.5 Pro (批量) 省50%' },
+  { value: 'doubao-seedance-1-5-pro-251215-batch', label: 'Seedance 1.5 Pro (Batch) -50%' },
   { value: 'doubao-seedance-1-0-pro-250528', label: 'Seedance 1.0 Pro' },
-  { value: 'doubao-seedance-1-0-pro-250528-batch', label: 'Seedance 1.0 Pro (批量) 省50%' },
+  { value: 'doubao-seedance-1-0-pro-250528-batch', label: 'Seedance 1.0 Pro (Batch) -50%' },
   { value: 'fal-wan25', label: 'Wan 2.6' },
   { value: 'fal-veo31', label: 'Veo 3.1 Fast' },
   { value: 'fal-sora2', label: 'Sora 2' },
@@ -102,16 +102,16 @@ export const AUDIO_SUPPORTED_MODELS = [
 
 // 首尾帧视频模型（能力权威来源是 standards/capabilities；此常量仅作静态兜底展示）
 export const FIRST_LAST_FRAME_MODELS = [
-  { value: 'doubao-seedance-2-0-260128', label: 'Seedance 2.0 (首尾帧)' },
-  { value: 'doubao-seedance-2-0-fast-260128', label: 'Seedance 2.0 Fast (首尾帧)' },
-  { value: 'doubao-seedance-1-5-pro-251215', label: 'Seedance 1.5 Pro (首尾帧)' },
-  { value: 'doubao-seedance-1-5-pro-251215-batch', label: 'Seedance 1.5 Pro (首尾帧/批量) 省50%' },
-  { value: 'doubao-seedance-1-0-pro-250528', label: 'Seedance 1.0 Pro (首尾帧)' },
-  { value: 'doubao-seedance-1-0-pro-250528-batch', label: 'Seedance 1.0 Pro (首尾帧/批量) 省50%' },
-  { value: 'doubao-seedance-1-0-lite-i2v-250428', label: 'Seedance 1.0 Lite (首尾帧)' },
-  { value: 'doubao-seedance-1-0-lite-i2v-250428-batch', label: 'Seedance 1.0 Lite (首尾帧/批量) 省50%' },
-  { value: 'veo-3.1-generate-preview', label: 'Veo 3.1 (首尾帧)' },
-  { value: 'veo-3.1-fast-generate-preview', label: 'Veo 3.1 Fast (首尾帧)' }
+  { value: 'doubao-seedance-2-0-260128', label: 'Seedance 2.0 (First-Last Frame)' },
+  { value: 'doubao-seedance-2-0-fast-260128', label: 'Seedance 2.0 Fast (First-Last Frame)' },
+  { value: 'doubao-seedance-1-5-pro-251215', label: 'Seedance 1.5 Pro (First-Last Frame)' },
+  { value: 'doubao-seedance-1-5-pro-251215-batch', label: 'Seedance 1.5 Pro (First-Last/Batch) -50%' },
+  { value: 'doubao-seedance-1-0-pro-250528', label: 'Seedance 1.0 Pro (First-Last Frame)' },
+  { value: 'doubao-seedance-1-0-pro-250528-batch', label: 'Seedance 1.0 Pro (First-Last/Batch) -50%' },
+  { value: 'doubao-seedance-1-0-lite-i2v-250428', label: 'Seedance 1.0 Lite (First-Last Frame)' },
+  { value: 'doubao-seedance-1-0-lite-i2v-250428-batch', label: 'Seedance 1.0 Lite (First-Last/Batch) -50%' },
+  { value: 'veo-3.1-generate-preview', label: 'Veo 3.1 (First-Last Frame)' },
+  { value: 'veo-3.1-fast-generate-preview', label: 'Veo 3.1 Fast (First-Last Frame)' }
 ]
 
 export const VIDEO_RESOLUTIONS = [
@@ -137,15 +137,15 @@ export const TTS_VOICES = [
 export const ART_STYLES = [
   {
     value: 'american-comic',
-    label: '漫画风',
-    preview: '漫',
+    label: 'American Comic',
+    preview: 'AC',
     promptZh: '美式漫画风格，粗犷有力的线条，鲜明的色彩对比，美式超级英雄漫画质感，高质量2D风格',
     promptEn: 'American comic book style, bold dynamic line art, vibrant color contrast, superhero comic aesthetic, high-quality 2D style.'
   },
   {
     value: 'chinese-comic',
-    label: '精致国漫',
-    preview: '国',
+    label: 'Chinese Comic',
+    preview: 'CC',
     promptZh: '现代高质量漫画风格，动漫风格，细节丰富精致，线条锐利干净，质感饱满，超清，干净的画面风格，2D风格，动漫风格。',
     promptEn: 'Modern premium Chinese comic style, rich details, clean sharp line art, full texture, ultra-clear 2D anime aesthetics.'
   },
@@ -158,15 +158,15 @@ export const ART_STYLES = [
   },
   {
     value: 'cg-2-5d',
-    label: 'CG 2.5D',
+    label: 'CG 2.5D Semi-Realistic',
     preview: 'CG',
     promptZh: 'artwork in cgstyle_9b，极致CG质感与3S皮肤渲染，Iray风格光照，物理真实的光影感，画面通透富有深度，皮肤材质通透红润极其光滑，动漫转CG写实质感，高细节皮肤纹理，电影级渲染品质，2.5D半写实风格。',
     promptEn: 'artwork in cgstyle_9b, ultimate CG texture with Iray skin rendering, realistic physical light and shadow, transparent and deep imagery, translucent rosy smooth skin texture, anime-to-CG transformation, high-detail skin surface, cinematic render quality, 2.5D semi-realistic style.'
   },
   {
     value: 'realistic',
-    label: '真人风格',
-    preview: '实',
+    label: 'Realistic',
+    preview: 'RL',
     promptZh: '真实电影级画面质感，真实现实场景，色彩饱满通透，画面干净精致，真实感',
     promptEn: 'Realistic cinematic look, real-world scene fidelity, rich transparent colors, clean and refined image quality.'
   },
@@ -194,7 +194,7 @@ export const ART_STYLES = [
   {
     value: 'disney-3d',
     label: '3D Disney/Pixar',
-    preview: 'D',
+    preview: '3D',
     promptZh: 'Disney Pixar风格3D渲染，角色造型圆润可爱，表情生动丰富，皮肤质感细腻，毛发细节丰富，色彩饱和温暖，灯光柔和自然，卡通写实风格，皮克斯电影质感。',
     promptEn: 'Disney Pixar style 3D render, round cute character design, expressive lively faces, smooth skin texture, detailed hair, saturated warm colors, soft natural lighting, cartoon realism, Pixar film quality.'
   },
@@ -279,7 +279,7 @@ export function removeCharacterPromptSuffix(prompt: string): string {
 }
 
 // 添加角色系统后缀到提示词（用于生成图片）
-export function addCharacterPromptSuffix(prompt: string, locale: 'zh' | 'en' = 'zh'): string {
+export function addCharacterPromptSuffix(prompt: string, locale: 'zh' | 'en' = 'en'): string {
   const suffix = locale === 'en' ? CHARACTER_PROMPT_SUFFIX_EN : CHARACTER_PROMPT_SUFFIX_ZH
   if (!prompt) return suffix
   const cleanPrompt = removeCharacterPromptSuffix(prompt)
@@ -297,7 +297,7 @@ export function removePropPromptSuffix(prompt: string): string {
     .trim()
 }
 
-export function addPropPromptSuffix(prompt: string, locale: 'zh' | 'en' = 'zh'): string {
+export function addPropPromptSuffix(prompt: string, locale: 'zh' | 'en' = 'en'): string {
   const suffix = locale === 'en' ? PROP_PROMPT_SUFFIX_EN : PROP_PROMPT_SUFFIX_ZH
   if (!prompt) return suffix
   const cleanPrompt = removePropPromptSuffix(prompt)
@@ -328,7 +328,7 @@ export function addLocationPromptSuffix(prompt: string): string {
  */
 export function buildCharactersIntroduction(
   characters: Array<{ name: string; introduction?: string | null }>,
-  locale: 'zh' | 'en' = 'zh',
+  locale: 'zh' | 'en' = 'en',
 ): string {
   const fallback = locale === 'en' ? 'No character introductions available' : '暂无角色介绍'
   if (!characters || characters.length === 0) return fallback
@@ -364,6 +364,6 @@ export const PROMPT_STRINGS = {
   position: { zh: '位置', en: 'position' },
 } as const
 
-export function t(key: keyof typeof PROMPT_STRINGS, locale: 'zh' | 'en' = 'zh'): string {
-  return PROMPT_STRINGS[key][locale === 'en' ? 'en' : 'zh']
+export function t(key: keyof typeof PROMPT_STRINGS, locale: 'zh' | 'en' = 'en'): string {
+  return PROMPT_STRINGS[key][locale === 'zh' ? 'zh' : 'en']
 }

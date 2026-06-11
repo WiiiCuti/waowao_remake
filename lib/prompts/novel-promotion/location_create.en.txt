@@ -1,8 +1,8 @@
 Please follow the prompt rules below to execute the user's scene generation request
 
-【Scene Generation Requirements (for image generation, Chinese description)】
+【Scene Generation Requirements (for image generation)】
 
-1. Generate 1 Chinese-language environment description (80-140 characters), described like a real photographic scene, must be sufficiently specific to stably control image composition
+1. Generate 1 environment description in English (80-140 characters), described like a real photographic scene, must be sufficiently specific to stably control image composition
 
 2. **The description must begin by clearly stating the scene name**:
    - The description must start with the format 「Scene Name」 to label the spatial attribute

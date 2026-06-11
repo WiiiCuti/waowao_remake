@@ -67,7 +67,7 @@ function pickAppearanceDescription(appearance: {
   descriptions?: string | null
   description?: string | null
   selectedIndex?: number | null
-}, locale: 'zh' | 'en' = 'zh'): string {
+}, locale: 'zh' | 'en' = 'en'): string {
   const descriptions = (() => {
     if (!appearance.descriptions) return []
     try {
@@ -120,7 +120,7 @@ function buildCharacterResources(
       selectedIndex: number | null
     }>
   }>,
-  locale: 'zh' | 'en' = 'zh',
+  locale: 'zh' | 'en' = 'en',
 ): Array<{ name: string; appearance: string | null; description: string }> {
   return charRefs.map((ref) => {
     const char = findCharacterByName(characters, ref.name)
@@ -352,7 +352,7 @@ export async function refinePanelPrompts(params: {
 }): Promise<RefineResult[]> {
   const { projectId, episodeId, userId, model, locale, artStyle, panelIds, onPanelStart } = params
 
-  const styleText = getArtStylePrompt(artStyle, locale === 'zh' ? 'zh' : 'en') || 'Japanese anime style'
+  const styleText = getArtStylePrompt(artStyle, locale === 'en' ? 'en' : 'zh') || 'Japanese anime style'
 
   const debugEntries: DebugEntry[] = []
 

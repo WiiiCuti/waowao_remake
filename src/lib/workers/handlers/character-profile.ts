@@ -7,6 +7,9 @@ import { withInternalLLMStreamCallbacks } from '@/lib/llm-observe/internal-strea
 import { reportTaskProgress } from '@/lib/workers/shared'
 import { assertTaskActive } from '@/lib/workers/utils'
 import { TASK_TYPE, type TaskJobData } from '@/lib/task/types'
+import { submitTask } from '@/lib/task/submitter'
+import { createScopedLogger } from '@/lib/logging/core'
+import { getProjectModelConfig } from '@/lib/config-service'
 import {
   type AnyObj,
   parseVisualResponse,
@@ -16,6 +19,11 @@ import {
 } from './character-profile-helpers'
 import { createWorkerLLMStreamCallbacks, createWorkerLLMStreamContext } from './llm-stream'
 import { buildPrompt, PROMPT_IDS } from '@/lib/prompt-i18n'
+
+const logger = createScopedLogger({
+  module: 'worker.character-profile',
+  action: 'character_profile_confirm',
+})
 
 type ConfirmProfileOptions = {
   suppressProgress?: boolean
@@ -72,6 +80,7 @@ async function handleConfirmProfile(
         null,
         2,
       ),
+      source_text: project.novelPromotionData!.globalAssetText || '',
     },
   })
 
@@ -175,6 +184,44 @@ async function handleConfirmProfile(
       },
     })
   })
+
+  const autoGenImages = job.data.payload?.autoGenImages !== false
+  if (autoGenImages && !suppressProgress) {
+    const mainAppearance = await prisma.characterAppearance.findFirst({
+      where: { characterId: character.id, appearanceIndex: 0 },
+    })
+    if (mainAppearance) {
+      try {
+        const modelConfig = await getProjectModelConfig(job.data.projectId, job.data.userId)
+        const imageModel = modelConfig?.characterModel || null
+        await submitTask({
+          userId: job.data.userId,
+          locale: job.data.locale,
+          projectId: job.data.projectId,
+          type: TASK_TYPE.IMAGE_CHARACTER,
+          targetType: 'CharacterAppearance',
+          targetId: mainAppearance.id,
+          payload: {
+            appearanceId: mainAppearance.id,
+            id: character.id,
+            imageIndex: 0,
+            count: 1,
+            imageModel,
+            meta: { autoGen: true, characterName: character.name },
+          },
+          dedupeKey: `auto_gen_character:${mainAppearance.id}`,
+        })
+      } catch (err) {
+        const message = err instanceof Error ? err.message : String(err)
+        logger.warn({
+          message: 'auto-gen character main image submit failed (non-fatal)',
+          characterId: character.id,
+          characterName: character.name,
+          error: message,
+        })
+      }
+    }
+  }
 
   if (!suppressProgress) {
     await reportTaskProgress(job, 96, {

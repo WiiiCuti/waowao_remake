@@ -191,6 +191,10 @@ const OPTIONAL_PRICING_PROVIDER_KEYS = new Set([
   'bailian',
   'siliconflow',
 ])
+
+function isOptionalPricingProvider(key: string): boolean {
+  return OPTIONAL_PRICING_PROVIDER_KEYS.has(key) || key.startsWith('comfyui')
+}
 const OFFICIAL_ONLY_PROVIDER_KEYS = new Set(['bailian', 'siliconflow'])
 const RETIRED_PROVIDER_KEYS = new Set(['qwen'])
 const MINIMAX_OFFICIAL_BASE_URL = 'https://api.minimaxi.com/v1'
@@ -1221,7 +1225,7 @@ function validateBillableModelPricing(models: StoredModel[]) {
 
     // Skip validation if user provided custom pricing
     if (hasCustomPricingForType(model)) continue
-    if (OPTIONAL_PRICING_PROVIDER_KEYS.has(getProviderKey(model.provider))) continue
+    if (isOptionalPricingProvider(getProviderKey(model.provider))) continue
 
     if (!hasBuiltinPricingForModel(apiType, model.provider, model.modelId)) {
       throw new ApiError('INVALID_PARAMS', {
@@ -1331,7 +1335,7 @@ function validateDefaultModelPricing(defaultModels: DefaultModelsPayload) {
 
     const parsed = parseModelKeyStrict(modelKey)
     if (!parsed) continue
-    if (OPTIONAL_PRICING_PROVIDER_KEYS.has(getProviderKey(parsed.provider))) continue
+    if (isOptionalPricingProvider(getProviderKey(parsed.provider))) continue
     const apiType = DEFAULT_FIELD_TO_PRICING_API_TYPE[field]
 
     if (!hasBuiltinPricingForModel(apiType, parsed.provider, parsed.modelId)) {
@@ -1349,7 +1353,7 @@ function isModelPricedForBilling(model: StoredModel): boolean {
   const apiType = BILLABLE_MODEL_TYPE_TO_PRICING_API_TYPE[model.type]
   if (!apiType) return true
   if (hasCustomPricingForType(model)) return true
-  if (OPTIONAL_PRICING_PROVIDER_KEYS.has(getProviderKey(model.provider))) return true
+  if (isOptionalPricingProvider(getProviderKey(model.provider))) return true
   return hasBuiltinPricingForModel(apiType, model.provider, model.modelId)
 }
 
@@ -1374,7 +1378,7 @@ function sanitizeDefaultModelsForBilling(defaultModels: DefaultModelsPayload): D
       sanitized[field] = ''
       continue
     }
-    if (OPTIONAL_PRICING_PROVIDER_KEYS.has(getProviderKey(parsed.provider))) {
+    if (isOptionalPricingProvider(getProviderKey(parsed.provider))) {
       sanitized[field] = parsed.modelKey
       continue
     }

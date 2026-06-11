@@ -73,7 +73,7 @@ export async function handleScreenplayConvertTask(job: Job<TaskJobData>) {
     throw new Error('No clips found, please split clips first')
   }
 
-  const locale = job.data.locale === 'en' ? 'en' : 'zh'
+  const locale = job.data.locale === 'zh' ? 'zh' : 'en'
   const t_none = t('none', locale)
   const sep = locale === 'en' ? ', ' : '、'
 

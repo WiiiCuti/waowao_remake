@@ -1,0 +1,11 @@
+[Scene] The scene takes place at a daytime temple fair with a red brick ground, a ring-toss booth counter displaying prizes, a brown railing extending on the left, and in the soft-focus background, temple eaves and ancient trees. Sunlight casts high slanting shadows from the booth and railing on the ground. The environment remains static throughout.
+
+[Characters] Bạch Ngưng Băng: A young woman seen from behind, shoulder and back in the foreground, head turned partially to the right revealing a refined profile with a sharp jawline, high nose, long black hair in a tight bun, wearing a white silk blouse and dark blue jacket, her expression curious and thoughtful. Ông chủ: A middle-aged man with gray hair, lean build, V-jaw, slanted eyes, thick brows, high nose, thin lips, wearing a brown jacket over a gray hoodie, leaning forward with his right hand raised and pointing, his face animated with a wide grin and crinkled eyes, exuding enthusiasm. Tôi: A young man with a boyish oval face, almond eyes, wavy hair with bangs, wearing a light blue shirt over a white t-shirt, standing in the background with an awkward half-smile, one hand touching the back of his neck.
+
+Shot 1 (Over-the-Shoulder Medium Close-Up, 2s): Static camera, environment remains unchanged.
+Ông chủ: "Look at that handsome young man,"
+Action: Slow-motion. The middle-aged man continues his speech, his mouth moving in a deliberate rhythm while his pointing hand makes a subtle forward jab; the young woman's gaze remains fixed, her eyes shifting slowly; the young man blinks, his half-smile fading gently.
+
+Shot 2 (Over-the-Shoulder Medium Close-Up, 2.11s): Static camera, environment remains unchanged.
+Ông chủ: "he must be itching to play!"
+Action: Slow-motion. The man's grin widens as his hand lowers in a smooth motion; the young woman's lips part slightly, exhaling softly; the young man shrugs awkwardly, his hand sliding down to rest at his side.

@@ -35,7 +35,7 @@ export function stringifyLocationAvailableSlots(slots: LocationAvailableSlot[]):
 
 export function formatLocationAvailableSlotsText(
   slots: LocationAvailableSlot[],
-  locale: LocationSlotLocale = 'zh',
+  locale: LocationSlotLocale = 'en',
 ): string {
   const normalized = normalizeLocationAvailableSlots(slots)
   if (normalized.length === 0) return ''

@@ -1,0 +1,8 @@
+[Scene] The scene takes place in the president's office at night. In the background, a floor-to-ceiling window reveals the city skyline lit up against the dark sky, slightly blurred. The office interior is dimly lit with warm ambient light. The environment remains completely static and still throughout, with no movement of any objects or lighting changes.
+[Characters]
+Thẩm Mặc: Sharp-jawed man in his thirties with combed-back dark hair, sharp eagle-like eyes, slanted brows, high nose, thin lips. He wears a dark suit collar and silver tie visible at neck. Current emotional state: slight controlled smile.
+Hạ An: Young woman in her twenties with oval face, delicate eyebrows, large round eyes with melancholic gaze, high nose bridge, full lips with slightly thicker lower lip. Black straight hair with airy bangs, white stand-collar shirt with black thin tie at neck. Current emotional state: brows pressed together, lips slightly parted.
+Shot 1 (Eye-Level Close-Up, 2.4s): Static camera, environment remains unchanged.
+Action: Hạ An's lips slowly press together as a subtle swallow moves in her throat, her eyes holding his gaze. Thẩm Mặc remains still, his slight smile fixed. Slow-motion.
+Shot 2 (Eye-Level Close-Up, 2.42s): Static camera, environment remains unchanged.
+Action: Thẩm Mặc's head inches a fraction closer to hers, his pupils contracting slightly, his gaze sharpening. Hạ An's brows press together more firmly, her eyes continuing to meet his without blinking. Gentle, slow movement.

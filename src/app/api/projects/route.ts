@@ -192,7 +192,7 @@ export const POST = apiHandler(async (request: NextRequest) => {
   const draft = readProjectDraftBody(body)
   const validationIssue = validateProjectDraft(draft)
   if (validationIssue) {
-    const locale = resolveTaskLocale(request, body) ?? 'zh'
+    const locale = resolveTaskLocale(request, body) ?? 'en'
     throw new ApiError('INVALID_PARAMS', {
       code: validationIssue.code,
       field: validationIssue.field,

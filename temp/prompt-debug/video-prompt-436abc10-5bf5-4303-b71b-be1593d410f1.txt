@@ -1,0 +1,8 @@
+[Scene] A modern office at night seen from a medium shot. A floor-to-ceiling window displays the city skyline; a curtain is partially drawn on the left. A black desk with folders and a pen sits on the left side. A gray sofa set and glass coffee table are against the wall on the right. Dark wood floors and recessed ceiling lights with spotlights create a still, static environment. No movement in the background.
+[Characters] 
+Hạ An: A young woman with an oval face, delicate chin, soft willow-leaf eyebrows, almond-shaped eyes with clear double eyelids, glistening eyes rimmed red, melancholy expression, high nose bridge, full lips with lower lip slightly thickened, black straight hair with air bangs, wearing a white button-up shirt with a black thin ribbon tie. Emotional state: choked voice, teary-eyed.
+Thẩm Mặc: A man in his thirties with a sharp jaw, defined face, slanted brows, narrow eagle-like eyes, high nose, thin lips set in a firm line, dark hair combed back, wearing a deep blue suit jacket, black shirt, and silver tie. Emotional state: cold, stern expression.
+
+Shot 1 (Medium Shot, 2.12s): Static camera
+Hạ An: "I hope President Thẩm keeps his promise."
+Action: In slow motion, Hạ An's lips form the words, a gentle tremble in her chin, and she blinks slowly, holding back tears. Thẩm Mặc remains motionless, his gaze unwavering, with a faint tightening of his jaw.

@@ -172,7 +172,19 @@ When the input is in [Script Format] JSON:
 1. Character selection:
    - characters: [{name: "Character Name", appearance: "Appearance Name"}]
    - name must match the asset library exactly
-   - appearance: Choose the most suitable appearance based on the shot context
+   
+   ⚠️ APPEARANCE PERSISTENCE RULE (this is critical for visual continuity):
+   - The DEFAULT appearance for all panels is the first appearance in {characters_appearance_list}
+   - KEEP the same appearance across consecutive panels unless the source text explicitly describes a clothing/outfit CHANGE
+   - Outfit change triggers in the source text: "changed clothes", "took off her coat", "undressed", "put on armor", "wrapped herself in a towel", "let down her hair", "wore a different dress"
+   - Once you switch to a new appearance, KEEP it for all subsequent panels until another change is described
+   - Do NOT randomly alternate between appearances — outfit should be persistent
+   - If the source text says nothing about clothing changes for the entire clip → use the SAME appearance for every panel
+   
+   ⚠️ PROPOSE NEW APPEARANCE if scene demands an outfit not in the list:
+   - If story context demands a clothing change but no matching appearance exists in {characters_appearance_list}, propose a descriptive name (e.g. "Pajamas", "Armor", "Swimsuit", "Towel wrap") in the appearance field so the system can register it.
+   - If the required appearance is already in the list, use its exact name — do NOT invent a duplicate name
+   
    - All characters appearing in the frame must be selected
 
 2. Scene selection: location must be selected from the scene asset library, with an exact name match

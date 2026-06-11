@@ -363,7 +363,7 @@ export async function runScriptToStoryboardAtomicRetry(params: {
   const filteredLocationsDescription = getFilteredLocationsDescription(
     params.novelPromotionData.locations || [],
     clipLocation,
-    params.locale ?? 'zh',
+    params.locale ?? 'en',
   )
   const filteredPropsDescription = compileAssetPromptFragments(buildPromptAssetContext({
     characters: [],
@@ -416,7 +416,7 @@ export async function runScriptToStoryboardAtomicRetry(params: {
       throw new Error(`Clip ${formatClipId(params.clip)} content is empty`)
     }
     const filteredAppearanceList = getFilteredAppearanceList(params.novelPromotionData.characters || [], clipCharacters)
-    const locale = params.locale === 'en' ? 'en' : 'zh'
+    const locale = params.locale === 'zh' ? 'zh' : 'en'
     const t_none = locale === 'en' ? 'None' : '无'
     const joinSep = locale === 'en' ? ', ' : '、'
     const charactersLibName = (params.novelPromotionData.characters || []).map((item) => item.name).join(joinSep) || t_none

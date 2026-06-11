@@ -164,6 +164,30 @@ Analyze whether the character has multiple visual forms in the source text, and 
    - Every character must have at least one id=1 "initial appearance"
    - If there are outfit changes / age changes, etc., add id=2, 3... sub-appearances
    - change_reason briefly explains the reason for the change (e.g., "post-bath state", "battle attire", "aged flashback")
+   - visual_context: Extract visible clothing/hairstyle/accessory details from the source text (see rules below)
+
+【Visual Context Extraction Rules ⭐ Important】
+
+For each expected_appearance, extract visible visual details from the source text:
+
+- Read the source text to find descriptions of: clothing, hairstyle, accessories, held items, physical marks that appear in that appearance phase
+- Extract KEY VISUAL CUES only — concrete things a camera would see
+- Do NOT invent details not in the source text
+- If the source text provides NO visual info for that appearance → leave visual_context as ""
+- Write visual_context in the SAME LANGUAGE as the source text
+
+Examples:
+  Source: "cô bước ra từ phòng thay đồ, mặc váy trắng tinh, tóc búi cao gọn gàng"
+  → visual_context: "váy trắng tinh, tóc búi cao gọn gàng"
+
+  Source: "Bạch Ngưng Băng đang lười biếng tựa người vào lan can. Trong lòng cô ôm một con mèo vàng bự."
+  → visual_context: "ôm một con mèo vàng bự trong lòng"
+
+  Source: "anh ta cởi phăng áo khoác, để lộ áo thun đen bó sát"
+  → visual_context: "cởi áo khoác, áo thun đen bó sát bên trong"
+
+  Source: "Nàng mặc một bộ cung trang màu đỏ thẫm, trâm cài hình phượng, khí chất cao quý"
+  → visual_context: "cung trang màu đỏ thẫm, trâm cài hình phượng"
 
 【Existing Asset Library】
 
@@ -198,8 +222,8 @@ Output contains two arrays:
       "primary_identifier": "Mole at the corner of the eye (only required for S/A-Tier)",
       "visual_keywords": ["Elite Temperament", "Ascetic Vibe"],
       "expected_appearances": [
-        {"id": 1, "change_reason": "Initial appearance"},
-        {"id": 2, "change_reason": "Reason for outfit change / special state (if any)"}
+        {"id": 1, "change_reason": "Initial appearance", "visual_context": "visual details from source text (or empty if none)"},
+        {"id": 2, "change_reason": "Reason for outfit change", "visual_context": "new clothes/hairstyle details (or empty)"}
       ]
     }
   ],

@@ -141,15 +141,50 @@ export class ComfyUIImageGenerator extends BaseImageGenerator {
       for (let i = 0; i < MODULES.length; i++) {
         const mod = MODULES[i]
         if (i < count) {
-          // Set image filename
-          workflow[mod.load].inputs.image = refImageNames[i]
+          // Auto-create LoadImage if missing
+          if (!workflow[mod.load]) {
+            workflow[mod.load] = {
+              class_type: 'LoadImage',
+              inputs: { image: refImageNames[i] },
+            }
+          } else {
+            workflow[mod.load].inputs.image = refImageNames[i]
+          }
+
+          // Auto-create ImageScaleBy if missing
+          if (!workflow[mod.scale]) {
+            workflow[mod.scale] = {
+              class_type: 'ImageScaleBy',
+              inputs: { upscale_method: 'lanczos', scale_by: 1, image: [mod.load, 0] },
+            }
+          } else if (!workflow[mod.scale].inputs.image) {
+            workflow[mod.scale].inputs.image = [mod.load, 0]
+          }
+
+          // Auto-create VAEEncode if missing
+          if (!workflow[mod.vae]) {
+            workflow[mod.vae] = {
+              class_type: 'VAEEncode',
+              inputs: { pixels: [mod.scale, 0], vae: ['196', 0] },
+            }
+          }
+
+          // Auto-create ReferenceLatent if missing
+          if (!workflow[mod.ref]) {
+            workflow[mod.ref] = {
+              class_type: 'ReferenceLatent',
+              inputs: {
+                conditioning: i === 0 ? [CLIP_NODE, 0] : [MODULES[i - 1].ref, 0],
+                latent: [mod.vae, 0],
+              },
+            }
+          }
 
           // Chain conditioning: first RefLat gets CLIP, rest get previous RefLat
           if (i === 0) {
             workflow[mod.ref].inputs.conditioning = [CLIP_NODE, 0]
           } else {
-            const prevRef = MODULES[i - 1].ref
-            workflow[mod.ref].inputs.conditioning = [prevRef, 0]
+            workflow[mod.ref].inputs.conditioning = [MODULES[i - 1].ref, 0]
           }
         } else {
           // Delete unused module nodes

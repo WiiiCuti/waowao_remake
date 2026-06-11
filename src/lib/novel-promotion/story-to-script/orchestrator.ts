@@ -249,7 +249,7 @@ export async function runStoryToScriptOrchestrator(
 ): Promise<StoryToScriptOrchestratorResult> {
   const {
     concurrency: rawConcurrency,
-    locale: rawLocale = 'zh',
+    locale: rawLocale = 'en',
     content,
     baseCharacters,
     baseLocations,
@@ -265,7 +265,7 @@ export async function runStoryToScriptOrchestrator(
     DEFAULT_ANALYSIS_WORKFLOW_CONCURRENCY,
   )
 
-  const locale = rawLocale === 'en' ? 'en' : 'zh'
+  const locale = rawLocale === 'zh' ? 'zh' : 'en'
   const t_none = locale === 'en' ? 'None' : '无'
   const t_no_intro = locale === 'en' ? 'No existing characters' : '暂无已有角色'
   const sep = locale === 'en' ? ', ' : '、'

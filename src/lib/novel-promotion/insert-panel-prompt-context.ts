@@ -19,7 +19,7 @@ type Locale = 'zh' | 'en'
 export function buildInsertPanelLocationsDescription(
   locations: PromptLocationAsset[],
   relatedLocations: string[],
-  locale: Locale = 'zh',
+  locale: Locale = 'en',
 ): string {
   const filteredLocations = locations.filter(
     (location) => relatedLocations.length === 0 || relatedLocations.includes(location.name),

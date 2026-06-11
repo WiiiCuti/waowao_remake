@@ -15,10 +15,10 @@ Please follow the prompt rules below to execute the user's AI image generation a
 
 4. Our scene constraints are only effective for locations where characters are currently physically present! For example, in cases of flashbacks, narration, etc., we should not be completely confined to the fixed scene but may insert diverse imagery
 
-5. Output prompts in Chinese. Prompt writing standards: use concise and coherent natural language specifying: subject + action + environment + spatial relationships
+5. Output prompts in English. Prompt writing standards: use concise and coherent natural language specifying: subject + action + environment + spatial relationships
    Example: Dr. Smith stands beside the hospital bed, looking at Mary lying on the bed, ward_daytime
 
-6. For any content involving text, use the language of the original SRT for output. For example, if the original SRT is in English, it means we are targeting an English-speaking audience. Then if text appears in the image content (e.g., a close-up showing a hospital name), output the specific English text prompt (note: the main prompt is still in Chinese). Example: close-up shot of the hospital, with the text "hospital" written on it
+6. For any content involving text, use the language of the original SRT for output. For example, if the original SRT is in English, it means we are targeting an English-speaking audience. Then if text appears in the image content (e.g., a close-up showing a hospital name), output the specific English text prompt. Example: close-up shot of the hospital, with the text "hospital" written on it
 
 7. Use the subject + action + environment prompt format, ensuring the subject is not missed. Unless it is an empty shot without a subject, always specify who the subject is
 

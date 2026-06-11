@@ -65,7 +65,7 @@ export function parseAliases(raw: string | null): string[] {
   }
 }
 
-export function buildCharactersLibInfo(characters: CharacterBrief[], locale: 'zh' | 'en' = 'zh'): string {
+export function buildCharactersLibInfo(characters: CharacterBrief[], locale: 'zh' | 'en' = 'en'): string {
   if (characters.length === 0) return t('no_existing_chars', locale)
   const isEn = locale === 'en'
   const colon = isEn ? ': ' : '：'

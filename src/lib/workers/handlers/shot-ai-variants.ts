@@ -28,7 +28,7 @@ function parseJsonArrayResponse(responseText: string): AnyObj[] {
   return safeParseJsonArray(responseText) as AnyObj[]
 }
 
-function parsePanelCharacters(value: string | null, locale: TaskJobData['locale'] = 'zh'): string {
+function parsePanelCharacters(value: string | null, locale: TaskJobData['locale'] = 'en'): string {
   const isEn = locale === 'en'
   const fallback = isEn ? 'None' : '无'
   const sep = isEn ? ', ' : '、'

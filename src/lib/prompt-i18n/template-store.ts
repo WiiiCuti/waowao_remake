@@ -25,7 +25,10 @@ export function getPromptTemplate(promptId: PromptId, locale: PromptLocale): str
   const cached = templateCache.get(cacheKey)
   if (cached) return cached
 
-  const filePath = path.join(process.cwd(), 'lib', 'prompts', `${entry.pathStem}.${locale}.txt`)
+  let filePath = path.join(process.cwd(), 'lib', 'prompts', `${entry.pathStem}.${locale}.txt`)
+  if (!fs.existsSync(filePath) && locale !== 'en') {
+    filePath = path.join(process.cwd(), 'lib', 'prompts', `${entry.pathStem}.en.txt`)
+  }
   let template = ''
   try {
     template = fs.readFileSync(filePath, 'utf-8')
@@ -33,7 +36,7 @@ export function getPromptTemplate(promptId: PromptId, locale: PromptLocale): str
     throw new PromptI18nError(
       'PROMPT_TEMPLATE_NOT_FOUND',
       promptId,
-      `Prompt template not found: ${filePath}`,
+      `Prompt template not found: ${filePath} (original locale: ${locale})`,
       { filePath, locale },
     )
   }

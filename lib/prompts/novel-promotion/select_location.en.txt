@@ -42,7 +42,7 @@ Focus: wide and complete spatial overview, overall layout, image depth
    - Example: 「Imperial Palace」The hall floor is laid with... / 「Living Room」Sunlight streams through the window... / 「Bedroom」Beside the bed is placed...
    - This allows the AI to clearly understand what type of space this is when generating images
 
-2. Generate 3 Chinese-language environment descriptions per location (for AI image generation), for user selection
+2. Generate 3 environment descriptions in English per location (for AI image generation), for user selection
 
 3. Requirements for the 3 descriptions:
    - All must match the scene features described in the source text
@@ -107,12 +107,12 @@ Focus: wide and complete spatial overview, overall layout, image depth
 
    - Do not include artistic style descriptions; style is automatically added by the system
 
-6. Location Naming Rule: Chinese "Location_Time/State"
+6. Location Naming Rule: "Location_Time/State"
    - Example: "Living Room_Day" / "Space Station_Night" / "Immortal Palace_Dusk" / "Forest_In Mist"
 
 7. Key elements appearing in the plot must be reflected in the location (e.g., chairs, tables, etc.)
 
-8. Unless otherwise specified, use the user's input language for location generation. For example, if the input is in English, output Western-style locations; if Chinese, output Chinese-style locations. However, the principle is to follow the actual location in the text script.
+8. Use English for location names regardless of input language, to ensure consistent matching with downstream storyboard planning. The location style (Western/Chinese/etc.) should follow the actual location described in the text script.
 
 9. If the source text or user input is overly generic (e.g., 「school classroom」「office」「living room」), you must proactively concretize it into a complete space suitable for controlled image generation:
    - Define the key structures visible from the main perspective
@@ -120,7 +120,7 @@ Focus: wide and complete spatial overview, overall layout, image depth
    - Define at least 3 stable anchor points and their surrounding open spaces
    - Prohibited: Only outputting vague location noun piles
 
-【Output Specification (Only the following JSON structure allowed; field names in Chinese; no extra text allowed)】
+【Output Specification (Only the following JSON structure allowed; no extra text allowed)】
 {
   "locations": [
     {

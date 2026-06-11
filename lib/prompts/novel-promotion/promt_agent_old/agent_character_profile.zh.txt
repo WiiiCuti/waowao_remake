@@ -164,6 +164,30 @@ D级（群众演员）：
    - 每个角色必须至少有一个 id=1 的"初始形象"
    - 如有换装/年龄变化等，添加 id=2, 3... 的子形象
    - change_reason 简要说明变化原因（如"出浴状态"、"战斗装束"、"年老回忆"）
+   - visual_context: 从原文中提取可见的服装/发型/配饰细节（见下方规则）
+
+【视觉上下文提取规则 ⭐重要】
+
+为每个 expected_appearance 从原文中提取可见的视觉细节：
+
+- 阅读原文，找到该外观阶段对应的：服装、发型、配饰、手持物品、身体标记
+- 提取关键视觉线索——摄像机能拍到的东西
+- 不要编造原文中没有的细节
+- 如果原文对该外观没有视觉描写 → visual_context 留空 ""
+- visual_context 使用与原文相同的语言书写
+
+示例：
+  原文: "cô bước ra từ phòng thay đồ, mặc váy trắng tinh, tóc búi cao gọn gàng"
+  → visual_context: "váy trắng tinh, tóc búi cao gọn gàng"
+
+  原文: "Bạch Ngưng Băng đang lười biếng tựa người vào lan can. Trong lòng cô ôm một con mèo vàng bự."
+  → visual_context: "ôm một con mèo vàng bự trong lòng"
+
+  原文: "anh ta cởi phăng áo khoác, để lộ áo thun đen bó sát"
+  → visual_context: "cởi áo khoác, áo thun đen bó sát bên trong"
+
+  原文: "Nàng mặc một bộ cung trang màu đỏ thẫm, trâm cài hình phượng, khí chất cao quý"
+  → visual_context: "cung trang màu đỏ thẫm, trâm cài hình phượng"
 
 【已有资产库】
 
@@ -198,8 +222,8 @@ D级（群众演员）：
       "primary_identifier": "眼角泪痣（仅S/A级需要）",
       "visual_keywords": ["精英气质", "禁欲系"],
       "expected_appearances": [
-        {"id": 1, "change_reason": "初始形象"},
-        {"id": 2, "change_reason": "换装/特殊状态的原因（如有）"}
+        {"id": 1, "change_reason": "初始形象", "visual_context": "原文中的视觉细节（或无则留空）"},
+        {"id": 2, "change_reason": "换装/特殊状态的原因（如有）", "visual_context": "新服装/发型细节（或无则留空）"}
       ]
     }
   ],

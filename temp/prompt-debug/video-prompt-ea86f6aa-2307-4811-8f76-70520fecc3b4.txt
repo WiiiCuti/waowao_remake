@@ -1,0 +1,8 @@
+[Scene] A temple fair square with red brick pavement, a brown railing on the left, a ring-toss stall on the right with a counter displaying prizes, an empty area in front, distant temple eaves and ancient trees, crowds standing still beyond the railing, under high-angle sunlight casting shadows of the stall and railing on the ground.
+[Characters]
+Ông chủ: Middle-aged man with graying hair, V-jaw, slanted eyes, high nose, thin lips, thick brows, lean build, wearing a brown jacket over a gray hoodie, upper body visible; forced laughing, nervous mirth, expression strained.
+Bạch Ngưng Băng: Early-twenties woman with melon-seed face, sharp jawline, high cheekbones, phoenix eyes, high nose, thin lips, long sword-like eyebrows, black hair in a tight bun, wearing a white silk blouse and dark blue blazer, silver necklace; expression cold and unreadable, gaze fixed.
+
+Shot 1 (Medium Shot, 2.58s): Static camera, environment remains unchanged.
+Ông chủ: "No, no, I'll return the change."
+Action: In slow motion, his hands continue the dismissive gesture, gradually lowering as his forced laughter fades into an awkward sigh, his eyes shifting uneasily. Bạch Ngưng Băng remains motionless, her gaze unwavering but with a faint, almost imperceptible narrowing of her eyes.

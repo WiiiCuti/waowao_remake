@@ -1,0 +1,8 @@
+[Scene] The temple fair during the afternoon, a ring-toss stall occupies the center background with prizes on its counter, red bricks pave the ground, temple eaves and an ancient tree in the distance. The environment is completely static with no ambient motion.
+[Characters]
+Ông chủ: Upper body visible, middle-aged man with gray hair, thick brows, V-jaw, slanted eyes, high nose, thin lips. Wearing a brown jacket over a gray hoodie. Emotional state: expectant, pleasant.
+Bạch Ngưng Băng: Upper body visible, early twenties woman with a coldly glamorous oval face, sharp jaw, prominent cheekbones, long narrow phoenix eyes slanting upwards, high nose, thin lips curved in a subtle smirk. Black hair coiled in a tight bun. Wearing a white silk shirt under a dark blue tailored blazer, a thin silver chain around her neck. Emotional state: thoughtful, assessing.
+Tôi: Upper body visible, young man with a boyish oval face, almond-shaped sparkling eyes, naturally arched eyebrows, straight nose, full lips. Wavy hair with sweeping bangs. Wearing a light blue shirt over a white t-shirt. Emotional state: hesitant, nervous.
+Shot 1 (Medium Shot, 2.12s): Static camera, environment remains unchanged.
+Ông chủ: "Just treat it as giving way to him a little."
+Action: In a slow, smooth motion, the middle-aged man firmly nods his head towards the young man on the right. Bạch Ngưng Băng slowly strokes the cat's chin with her fingertips, a subtle smirk deepening on her lips. The young man on the right lets out a slow, quiet exhale, his hesitant smile flickering nearly imperceptibly.

@@ -1,0 +1,436 @@
+{
+  "endpoint": "http://127.0.0.1:8188",
+  "mode": "img2img",
+  "refCount": 3,
+  "uploadedNames": [
+    "reference (625).png",
+    "reference (626).png",
+    "reference (628).png"
+  ],
+  "workflow": {
+    "6": {
+      "inputs": {
+        "text": [
+          "220",
+          0
+        ],
+        "clip": [
+          "195",
+          0
+        ]
+      },
+      "class_type": "CLIPTextEncode",
+      "_meta": {
+        "title": "CLIP Text Encode (Positive Prompt)"
+      }
+    },
+    "164": {
+      "inputs": {
+        "samples": [
+          "276",
+          0
+        ],
+        "vae": [
+          "196",
+          0
+        ]
+      },
+      "class_type": "VAEDecode",
+      "_meta": {
+        "title": "VAE Decode"
+      }
+    },
+    "194": {
+      "inputs": {
+        "unet_name": "Flux2/flux-2-klein-9b-kv-fp8.safetensors",
+        "weight_dtype": "fp8_e4m3fn_fast"
+      },
+      "class_type": "UNETLoader",
+      "_meta": {
+        "title": "Load Diffusion Model"
+      }
+    },
+    "195": {
+      "inputs": {
+        "clip_name": "qwen3/qwen_3_8b_fp8mixed.safetensors",
+        "type": "flux2",
+        "device": "default"
+      },
+      "class_type": "CLIPLoader",
+      "_meta": {
+        "title": "Load CLIP"
+      }
+    },
+    "196": {
+      "inputs": {
+        "vae_name": "Flux2/flux2-vae.safetensors"
+      },
+      "class_type": "VAELoader",
+      "_meta": {
+        "title": "Load VAE"
+      }
+    },
+    "198": {
+      "inputs": {
+        "image": "reference (625).png"
+      },
+      "class_type": "LoadImage",
+      "_meta": {
+        "title": "$image.load1"
+      }
+    },
+    "203": {
+      "inputs": {
+        "filename_prefix": "img",
+        "images": [
+          "164",
+          0
+        ]
+      },
+      "class_type": "SaveImage",
+      "_meta": {
+        "title": "$image.save"
+      }
+    },
+    "204": {
+      "inputs": {
+        "conditioning": [
+          "6",
+          0
+        ],
+        "latent": [
+          "206",
+          0
+        ]
+      },
+      "class_type": "ReferenceLatent",
+      "_meta": {
+        "title": "ReferenceLatent"
+      }
+    },
+    "206": {
+      "inputs": {
+        "pixels": [
+          "270",
+          0
+        ],
+        "vae": [
+          "196",
+          0
+        ]
+      },
+      "class_type": "VAEEncode",
+      "_meta": {
+        "title": "VAE Encode1"
+      }
+    },
+    "216": {
+      "inputs": {
+        "model": [
+          "284",
+          0
+        ]
+      },
+      "class_type": "FluxKVCache",
+      "_meta": {
+        "title": "Flux KV Cache"
+      }
+    },
+    "220": {
+      "inputs": {
+        "value": "Over-the-Shoulder Medium Shot, eye-level angle, static frame. Two distinct characters with completely different outfits and features, standing separately with clear space between them: On the left foreground of the frame, a shoulder and the back of a young man's head are visible, his wavy brown hair slightly mussed from the crowd, his silhouette defined against the bright daylight, wearing a light blue shirt collar over a white t-shirt, paused mid-step with his gaze locked forward intently toward the right side of the frame. While on the right side of the frame, in the exact center of the composition, a young woman with a sharp chin and high cheekbones leans lazily against a brown wooden railing, her slender phoenix eyes cast downward at a large yellow cat resting in her arms. Her jet-black hair is swept back into a tight elegant bun. She wears a white silk blouse under a tailored deep blue blazer, her posture relaxed. The background reveals a bustling temple fair square, red brick floor tiles extending outward, blurred crowd figures in the distance, and a prize booth on the far right, with long shadows cast by the warm afternoon sun. Lighting is keyed from the right side of the frame, providing a warm backlight effect on the foreground character, with a warm golden color tone and a medium depth of field (T4.0). Art style is a 2.5D semi-realistic CG render with ultimate Iray skin texture, translucent rosy smooth skin, and cinematic portrait quality. Face quality: clear sparkling eyes with warm highlights directed downward, sharply defined facial features, refined elegant facial structure, flawless clear complexion, delicate soft skin with a subtle glow."
+      },
+      "class_type": "PrimitiveString",
+      "_meta": {
+        "title": "$promt.value"
+      }
+    },
+    "221": {
+      "inputs": {
+        "width": [
+          "222",
+          0
+        ],
+        "height": [
+          "224",
+          0
+        ],
+        "batch_size": 1
+      },
+      "class_type": "EmptyLatentImage",
+      "_meta": {
+        "title": "Empty Latent Image"
+      }
+    },
+    "222": {
+      "inputs": {
+        "value": 1217
+      },
+      "class_type": "INTConstant",
+      "_meta": {
+        "title": "$with.value"
+      }
+    },
+    "224": {
+      "inputs": {
+        "value": 673
+      },
+      "class_type": "INTConstant",
+      "_meta": {
+        "title": "$height.value"
+      }
+    },
+    "229": {
+      "inputs": {
+        "image": "reference (626).png"
+      },
+      "class_type": "LoadImage",
+      "_meta": {
+        "title": "$image.load2"
+      }
+    },
+    "233": {
+      "inputs": {
+        "image": "reference (628).png"
+      },
+      "class_type": "LoadImage",
+      "_meta": {
+        "title": "$image.load3"
+      }
+    },
+    "257": {
+      "inputs": {
+        "conditioning": [
+          "204",
+          0
+        ],
+        "latent": [
+          "262",
+          0
+        ]
+      },
+      "class_type": "ReferenceLatent",
+      "_meta": {
+        "title": "ReferenceLatent"
+      }
+    },
+    "258": {
+      "inputs": {
+        "conditioning": [
+          "257",
+          0
+        ],
+        "latent": [
+          "263",
+          0
+        ]
+      },
+      "class_type": "ReferenceLatent",
+      "_meta": {
+        "title": "ReferenceLatent"
+      }
+    },
+    "262": {
+      "inputs": {
+        "pixels": [
+          "272",
+          0
+        ],
+        "vae": [
+          "196",
+          0
+        ]
+      },
+      "class_type": "VAEEncode",
+      "_meta": {
+        "title": "VAE Encode1"
+      }
+    },
+    "263": {
+      "inputs": {
+        "pixels": [
+          "273",
+          0
+        ],
+        "vae": [
+          "196",
+          0
+        ]
+      },
+      "class_type": "VAEEncode",
+      "_meta": {
+        "title": "VAE Encode1"
+      }
+    },
+    "270": {
+      "inputs": {
+        "upscale_method": "lanczos",
+        "scale_by": 1,
+        "image": [
+          "198",
+          0
+        ]
+      },
+      "class_type": "ImageScaleBy",
+      "_meta": {
+        "title": "Upscale Image By"
+      }
+    },
+    "272": {
+      "inputs": {
+        "upscale_method": "lanczos",
+        "scale_by": 1,
+        "image": [
+          "229",
+          0
+        ]
+      },
+      "class_type": "ImageScaleBy",
+      "_meta": {
+        "title": "Upscale Image By"
+      }
+    },
+    "273": {
+      "inputs": {
+        "upscale_method": "lanczos",
+        "scale_by": 1,
+        "image": [
+          "233",
+          0
+        ]
+      },
+      "class_type": "ImageScaleBy",
+      "_meta": {
+        "title": "Upscale Image By"
+      }
+    },
+    "276": {
+      "inputs": {
+        "noise": [
+          "277",
+          0
+        ],
+        "guider": [
+          "278",
+          0
+        ],
+        "sampler": [
+          "280",
+          0
+        ],
+        "sigmas": [
+          "281",
+          0
+        ],
+        "latent_image": [
+          "221",
+          0
+        ]
+      },
+      "class_type": "SamplerCustomAdvanced",
+      "_meta": {
+        "title": "SamplerCustomAdvanced"
+      }
+    },
+    "277": {
+      "inputs": {
+        "noise_seed": 880785948532512
+      },
+      "class_type": "RandomNoise",
+      "_meta": {
+        "title": "RandomNoise"
+      }
+    },
+    "278": {
+      "inputs": {
+        "cfg": 1,
+        "model": [
+          "216",
+          0
+        ],
+        "positive": [
+          "258",
+          0
+        ],
+        "negative": [
+          "283",
+          0
+        ]
+      },
+      "class_type": "CFGGuider",
+      "_meta": {
+        "title": "CFGGuider"
+      }
+    },
+    "280": {
+      "inputs": {
+        "sampler_name": "euler"
+      },
+      "class_type": "KSamplerSelect",
+      "_meta": {
+        "title": "KSamplerSelect"
+      }
+    },
+    "281": {
+      "inputs": {
+        "steps": 4,
+        "width": [
+          "222",
+          0
+        ],
+        "height": [
+          "224",
+          0
+        ]
+      },
+      "class_type": "Flux2Scheduler",
+      "_meta": {
+        "title": "Flux2Scheduler"
+      }
+    },
+    "282": {
+      "inputs": {
+        "lora_name": "AniEdit9B_v2.safetensors",
+        "strength_model": 0.7,
+        "model": [
+          "194",
+          0
+        ]
+      },
+      "class_type": "LoraLoaderModelOnly",
+      "_meta": {
+        "title": "Load LoRA"
+      }
+    },
+    "283": {
+      "inputs": {
+        "conditioning": [
+          "6",
+          0
+        ],
+        "latent": [
+          "221",
+          0
+        ]
+      },
+      "class_type": "ReferenceLatent",
+      "_meta": {
+        "title": "ReferenceLatent"
+      }
+    },
+    "284": {
+      "inputs": {
+        "lora_name": "nnegrat_cgstyle_9b_1800.safetensors",
+        "strength_model": 0.85,
+        "model": [
+          "282",
+          0
+        ]
+      },
+      "class_type": "LoraLoaderModelOnly",
+      "_meta": {
+        "title": "Load LoRA"
+      }
+    }
+  }
+}

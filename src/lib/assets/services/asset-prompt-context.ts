@@ -94,7 +94,7 @@ function parseDescriptions(raw: string[] | string | null | undefined): string[] 
   }
 }
 
-export function getFilteredPropsDescription(props: PromptPropAsset[], clipProps: string[], locale: PromptLocale = 'zh'): string {
+export function getFilteredPropsDescription(props: PromptPropAsset[], clipProps: string[], locale: PromptLocale = 'en'): string {
   const t_none = locale === 'en' ? 'None' : '无'
   const t_no_description = locale === 'en' ? 'No description' : '无描述'
   if (clipProps.length === 0) return t_none
@@ -107,7 +107,7 @@ export function getFilteredPropsDescription(props: PromptPropAsset[], clipProps:
 }
 
 export function buildPromptAssetContext(input: PromptAssetContextInput): PromptAssetContext {
-  const locale = input.locale === 'en' ? 'en' : 'zh'
+  const locale = input.locale === 'zh' ? 'zh' : 'en'
   const t_none = locale === 'en' ? 'None' : '无'
   const t_no_description = locale === 'en' ? 'No description' : '无描述'
   const t_no_appearance_desc = locale === 'en' ? 'No appearance description' : '无形象描述'
@@ -153,7 +153,7 @@ export function buildPromptAssetContext(input: PromptAssetContextInput): PromptA
   const locationDescription = selectedImage?.description || t_none
   const locationSlotsText = formatLocationAvailableSlotsText(
     parseLocationAvailableSlots(selectedImage?.availableSlots),
-    input.locale ?? 'zh',
+    input.locale ?? 'en',
   )
   const locationDescriptionText = locationSlotsText
     ? `${locationDescription}\n\n${locationSlotsText}`

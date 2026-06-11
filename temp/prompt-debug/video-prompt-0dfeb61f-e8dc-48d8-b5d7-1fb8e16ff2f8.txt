@@ -1,0 +1,8 @@
+[Scene] Temple fair square under bright daylight, red brick paving underfoot, a brown railing extending along the left side. The main ring-toss stall stands at the center of the frame with colorful prizes displayed on its counter, a spacious open ground directly in front of the stall. Distant temple eaves and ancient trees frame the background, with warm sun casting crisp shadows of the stall and railings. The entire background environment remains completely static with no ambient motion.
+[Characters]
+Bạch Ngưng Băng: Early twenties female, exquisitely cold beautiful oval face with sharp jawline and high cheekbones, slender phoenix eyes slanting upward, high straight nose, thin lips, long saber-like eyebrows. Long black smooth hair coiled into a sleek bun exposing elegant neck. White silk blouse, tailored dark blue suit jacket. Silver chain necklace, silver bangle on left wrist. Emotional state: calmly questioning, coolly confident.
+Ông chủ: Middle-aged man, V-shaped jaw, slanted eyes, high nose, thin lips, thick brows, gray hair. Brown jacket, gray hoodie. Emotional state: anxious, worried.
+
+Shot 1 (Eye-Level Medium Shot, 3.63s): Static camera, environment remains unchanged.
+Bạch Ngưng Băng: "I bought a full fifty rings, only threw twenty."
+Action: Slow-motion. Bạch Ngưng Băng's lips move fluidly in a calm, measured voice as she speaks, her hand slowly resuming a gentle stroking motion along the cat's back. Ông chủ's clasped fingers give a subtle nervous twitch, his worried gaze shifting briefly downwards before returning to her face. Smooth and gentle micro-movements throughout.

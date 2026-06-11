@@ -176,7 +176,7 @@ export function getFilteredFullDescription(characters: CharacterAsset[], clipCha
 export function getFilteredLocationsDescription(
     locations: LocationAsset[],
     clipLocation: string | null,
-    locale: Locale = 'zh',
+    locale: Locale = 'en',
 ): string {
     return compileAssetPromptFragments(buildPromptAssetContext({
         characters: [],

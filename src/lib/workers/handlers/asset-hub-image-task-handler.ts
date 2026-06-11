@@ -152,7 +152,7 @@ export async function handleAssetHubImageTask(job: Job<TaskJobData>) {
         : buildLocationImagePromptCore({
           description: image.description,
           availableSlotsRaw: image.availableSlots,
-          locale: job.data.locale === 'en' ? 'en' : 'zh',
+          locale: job.data.locale === 'zh' ? 'zh' : 'en',
         })
       const promptWithSuffix = payload.type === 'prop'
         ? addPropPromptSuffix(promptCore, job.data.locale)

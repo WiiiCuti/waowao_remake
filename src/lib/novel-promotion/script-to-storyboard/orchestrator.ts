@@ -304,7 +304,7 @@ export async function runScriptToStoryboardOrchestrator(
     DEFAULT_ANALYSIS_WORKFLOW_CONCURRENCY,
   )
 
-  const locale = input.locale === 'en' ? 'en' : 'zh'
+  const locale = input.locale === 'zh' ? 'zh' : 'en'
   const t_none = locale === 'en' ? 'None' : '无'
   const totalStepCount = clips.length * 4 + 2
   const charactersLibName = (novelPromotionData.characters || []).map((c) => c.name).join(locale === 'en' ? ', ' : '、') || t_none
@@ -333,7 +333,7 @@ export async function runScriptToStoryboardOrchestrator(
       const filteredLocationsDescription = getFilteredLocationsDescription(
         novelPromotionData.locations || [],
         clipLocation,
-        input.locale ?? 'zh',
+        input.locale ?? 'en',
       )
       const filteredPropsDescription = compileAssetPromptFragments(buildPromptAssetContext({
         characters: [],

@@ -3,9 +3,11 @@ import { getProviderConfig } from '@/lib/api-config'
 import { imageUrlToBase64, resolveComfyDimensions } from '@/lib/cos'
 import videoNormalTemplate from './video_LTXV-normal.json'
 import videoFlTemplate from './video_LTXV-firstlastframe.json'
+import videoPromptRelayTemplate from './video_LTXV-normal-promptrelay.json'
 
 const NORMAL_TEMPLATE = videoNormalTemplate as Record<string, unknown>
 const FL_TEMPLATE = videoFlTemplate as Record<string, unknown>
+const PROMPTRELAY_TEMPLATE = videoPromptRelayTemplate as Record<string, unknown>
 
 export class ComfyUIVideoGenerator extends BaseVideoGenerator {
   private readonly providerId?: string
@@ -35,10 +37,13 @@ export class ComfyUIVideoGenerator extends BaseVideoGenerator {
         uploadedLastFrameName = await this.uploadImageToComfyUI(endpoint, lastFrameImageUrl)
       }
 
-      // Choose workflow template: normal vs first/last frame
+      // Choose workflow template: normal vs first/last frame vs promptrelay
       const useFlWorkflow = !!uploadedLastFrameName
-      const template = useFlWorkflow ? FL_TEMPLATE : NORMAL_TEMPLATE
-      const mode = useFlWorkflow ? 'firstlastframe' : 'normal'
+      const usePromptRelay = !useFlWorkflow // hardcode promptrelay, fix model selection later
+      const template = useFlWorkflow ? FL_TEMPLATE
+        : usePromptRelay ? PROMPTRELAY_TEMPLATE
+        : NORMAL_TEMPLATE
+      const mode = useFlWorkflow ? 'firstlastframe' : usePromptRelay ? 'promptrelay' : 'normal'
 
       console.log(`[ComfyUI Video] using ${mode} workflow, firstFrame: ${uploadedImageName || 'none'}, lastFrame: ${uploadedLastFrameName || 'none'}`)
 
@@ -105,6 +110,15 @@ export class ComfyUIVideoGenerator extends BaseVideoGenerator {
     return result.name
   }
 
+  private splitPromptRelay(fullPrompt: string): { global: string; local: string } {
+    const shotIdx = fullPrompt.search(/^Shot\s+\d+/m)
+    if (shotIdx === -1) return { global: fullPrompt, local: '' }
+    return {
+      global: fullPrompt.slice(0, shotIdx).trim(),
+      local: fullPrompt.slice(shotIdx).trim(),
+    }
+  }
+
   private buildWorkflow(
     template: Record<string, unknown>,
     prompt: string,
@@ -129,9 +143,18 @@ export class ComfyUIVideoGenerator extends BaseVideoGenerator {
       const meta = node._meta
       if (!meta?.title) continue
 
+      const isPromptRelay = true // hardcode promptrelay, fix model selection later
+
       switch (meta.title) {
         case '$prompt.value!':
-          node.inputs.value = prompt || 'video generation'
+          if (isPromptRelay) {
+            node.inputs.value = this.splitPromptRelay(prompt).local || 'video generation'
+          } else {
+            node.inputs.value = prompt || 'video generation'
+          }
+          break
+        case '$prompt_global.value!':
+          node.inputs.value = this.splitPromptRelay(prompt).global || 'video generation'
           break
         case '$width.value':
           node.inputs.value = dims.width

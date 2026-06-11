@@ -2,6 +2,8 @@ import { type Job } from 'bullmq'
 import { prisma } from '@/lib/prisma'
 import { CHARACTER_ASSET_IMAGE_RATIO, addCharacterPromptSuffix, getArtStylePrompt, isArtStyleValue, PRIMARY_APPEARANCE_INDEX, type ArtStyleValue } from '@/lib/constants'
 import { type TaskJobData } from '@/lib/task/types'
+import { submitTask } from '@/lib/task/submitter'
+import { TASK_TYPE } from '@/lib/task/types'
 import { encodeImageUrls } from '@/lib/contracts/image-urls-contract'
 import { normalizeImageGenerationCount } from '@/lib/image-generation/count'
 import { reportTaskProgress } from '../shared'
@@ -65,6 +67,52 @@ interface CharacterImageDb {
   }
   novelPromotionCharacter: {
     findUnique(args: Record<string, unknown>): Promise<CharacterRecord | null>
+  }
+}
+
+async function autoGenSubAppearances(
+  job: Job<TaskJobData>,
+  mainAppearance: CharacterAppearanceRecord,
+) {
+  if (!mainAppearance.characterId) return
+
+  const models = await getProjectModels(job.data.projectId, job.data.userId)
+  const imageModel = models.characterModel || null
+
+  const subAppearances = await prisma.characterAppearance.findMany({
+    where: {
+      characterId: mainAppearance.characterId,
+      appearanceIndex: { gt: PRIMARY_APPEARANCE_INDEX },
+      imageUrl: null,
+    },
+    orderBy: { appearanceIndex: 'asc' },
+  })
+
+  if (subAppearances.length === 0) return
+
+  for (const sub of subAppearances) {
+    try {
+      await submitTask({
+        userId: job.data.userId,
+        locale: job.data.locale,
+        projectId: job.data.projectId,
+        type: TASK_TYPE.IMAGE_CHARACTER,
+        targetType: 'CharacterAppearance',
+        targetId: sub.id,
+        payload: {
+          appearanceId: sub.id,
+          id: mainAppearance.characterId,
+          imageIndex: 0,
+          count: 1,
+          imageModel,
+          meta: { autoGen: true, subOf: mainAppearance.id },
+        },
+        dedupeKey: `auto_gen_character:${sub.id}`,
+      })
+    } catch (err) {
+      const message = err instanceof Error ? err.message : String(err)
+      console.warn(`[auto-gen] sub-appearance task submit failed: ${sub.id} - ${message}`)
+    }
   }
 }
 
@@ -189,6 +237,13 @@ export async function handleCharacterImageTask(job: Job<TaskJobData>) {
       imageUrl: mainImage || null,
     },
   })
+
+  const shouldCascadeSubs =
+    appearance.appearanceIndex === PRIMARY_APPEARANCE_INDEX
+    && ((job.data.payload as Record<string, unknown>)?.meta as Record<string, unknown>)?.autoGen === true
+  if (shouldCascadeSubs) {
+    await autoGenSubAppearances(job, appearance)
+  }
 
   return {
     appearanceId: appearance.id,

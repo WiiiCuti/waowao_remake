@@ -3,14 +3,14 @@ Please follow the prompt rules below to execute the user's scene modification re
 【Scene Name】
 {location_name}
 
-【Scene Generation Requirements (for image generation, Chinese description)】
+【Scene Generation Requirements (for image generation)】
 
 1. **The description must begin by clearly stating the scene name**:
    - The description must start with the format 「{location_name}」 to label the spatial attribute
    - Examples: 「Imperial Palace」the hall floor is laid with... / 「Living Room」sunlight streams through the window...
    - This ensures the AI clearly understands what type of space this is when generating the image
 
-2. Generate 1 Chinese-language environment description per scene for AI image generation
+2. Generate 1 environment description in English per scene for AI image generation
 
 3. Must include specific visual elements, described in the following structure:
 

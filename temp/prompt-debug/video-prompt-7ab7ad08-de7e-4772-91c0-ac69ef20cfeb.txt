@@ -1,0 +1,4 @@
+[Scene] A long hallway paved in polished granite tiles, with a crystal wall lamp hanging on a dark wooden paneled wall emanating a soft golden glow. The background leads to a living room entrance with a dark European sofa and a patterned carpet faintly visible, all static. No ambient motion.
+[Characters] None.
+Shot 1 (Eye-Level Medium Shot, 3.96s): Static camera, environment remains unchanged.
+Action: The lamp glows steadily, with no movement in the scene.

@@ -91,7 +91,7 @@ export async function handleClipsBuildTask(job: Job<TaskJobData>) {
     throw new Error('No novel text to process')
   }
 
-  const locale = job.data.locale === 'en' ? 'en' : 'zh'
+  const locale = job.data.locale === 'zh' ? 'zh' : 'en'
   const t_none = t('none', locale)
   const sep = locale === 'en' ? ', ' : '、'
 

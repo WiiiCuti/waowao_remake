@@ -150,7 +150,7 @@ export async function handleLocationImageTask(job: Job<TaskJobData>) {
       : buildLocationImagePromptCore({
         description: promptBody,
         availableSlotsRaw: item.availableSlots,
-        locale: job.data.locale === 'en' ? 'en' : 'zh',
+        locale: job.data.locale === 'zh' ? 'zh' : 'en',
       })
 
     const promptWithSuffix = assetType === 'prop'

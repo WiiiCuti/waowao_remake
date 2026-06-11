@@ -486,7 +486,7 @@ async function handleInsertPanelTask(job: Job<TaskJobData>) {
     2,
   )
 
-  const locale = job.data.locale === 'en' ? 'en' : 'zh'
+  const locale = job.data.locale === 'zh' ? 'zh' : 'en'
   const t_none = locale === 'en' ? 'None' : '无'
   const t_no_description = locale === 'en' ? 'No description' : '无描述'
   const t_no_appearance_info = locale === 'en' ? 'No appearance info' : '无形象信息'

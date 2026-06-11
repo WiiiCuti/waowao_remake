@@ -285,7 +285,7 @@ export async function handleStoryToScriptTask(job: Job<TaskJobData>) {
           throw new Error(`retry clip content is empty: ${retryClipId}`)
         }
 
-        const locale = job.data.locale === 'en' ? 'en' : 'zh'
+        const locale = job.data.locale === 'zh' ? 'zh' : 'en'
         const t_none = t('none', locale)
         const t_no_intro = t('no_char_intro', locale)
 

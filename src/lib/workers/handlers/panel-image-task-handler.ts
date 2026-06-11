@@ -48,7 +48,7 @@ function pickAppearanceDescription(appearance: {
   descriptions?: string | null
   description?: string | null
   selectedIndex?: number | null
-}, locale: 'zh' | 'en' = 'zh'): string {
+}, locale: 'zh' | 'en' = 'en'): string {
   const descriptions = parseDescriptionList(appearance.descriptions || null)
   if (descriptions.length > 0) {
     const selectedIndex = typeof appearance.selectedIndex === 'number' ? appearance.selectedIndex : 0
@@ -78,7 +78,7 @@ function buildPanelPromptContext(params: {
   projectData: Awaited<ReturnType<typeof resolveNovelData>>
   locale?: 'zh' | 'en'
 }) {
-  const locale = params.locale === 'en' ? 'en' : 'zh'
+  const locale = params.locale === 'zh' ? 'zh' : 'en'
   const panelCharacters = parsePanelCharacterReferences(params.panel.characters)
   const characterContexts = panelCharacters.map((reference) => {
     const character = findCharacterByName(params.projectData.characters || [], reference.name)

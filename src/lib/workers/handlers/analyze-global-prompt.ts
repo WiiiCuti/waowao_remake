@@ -24,7 +24,7 @@ export function buildAnalyzeGlobalPrompts(params: {
   existingPropNames: string[]
   locale?: Locale
 }) {
-  const rawLocale = params.locale === 'en' ? 'en' : 'zh'
+  const rawLocale = params.locale === 'zh' ? 'zh' : 'en'
   const t_none = rawLocale === 'en' ? 'None' : '无'
   const sep = rawLocale === 'en' ? ', ' : '、'
 

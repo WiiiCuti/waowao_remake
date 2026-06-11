@@ -1,8 +1,8 @@
 Please follow the rules below to execute the user's character generation prompt modification request
 1: Modify character according to the following rules
-【Character Generation Requirements (for image generation, Chinese description)】
+【Character Generation Requirements (for image generation)】
 
-1. Generate 1 detailed Chinese-language appearance description for AI image generation
+1. Generate 1 detailed appearance description in English for AI image generation
 
 2. The description should highlight character features with detailed texture:
    - Gender, age range (write specific age ranges, e.g., "approximately twenty-five years old", "forty to forty-five years old", "around fifty years old")
@@ -26,7 +26,7 @@ Please follow the rules below to execute the user's character generation prompt 
      ❌ Facial color (e.g., ruddy, pale, sallow, etc.)
      ✅ Allowed: skin texture (smooth/rough), unique markings (freckles/scars/tattoos), hair color, clothing color
    - If the original text describes appearance, prioritize the original text (but color descriptions must still be filtered)
-   - Output in Chinese, length 80-150 characters
+    - Output in English, length 80-150 characters
    - Do not include art style, painting style, or lighting effect descriptions (added automatically by the system)
    - 【Period Consistency】Determine the era based on story background (ancient/early modern/modern/futuristic, etc.); character clothing, hairstyles, and accessories must match the era's characteristics
    - 【Forbidden Uncertain Descriptions】Forbidden to use uncertain words such as "or", "possibly", "maybe", "approximately"; each appearance feature must be explicit and specific

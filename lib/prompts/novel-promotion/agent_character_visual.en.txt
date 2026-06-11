@@ -89,9 +89,48 @@ Tsundere characters should be expressed through ornate yet distant design, high-
 
 Rebellious characters should be expressed through leather and metal elements, asymmetric design, and street style.
 
+【Source Text Reference — Highest Priority】
+{source_text}
+
+⚠️ WHEN GENERATING DESCRIPTIONS, YOU MUST READ THE SOURCE TEXT FIRST:
+
+1. The character profile contains expected_appearances[].visual_context:
+   → These are visual clues EXTRACTED FROM THE SOURCE TEXT — trust them
+   → BUILD THE DESCRIPTION AROUND visual_context details
+   → If visual_context describes clothing: use those exact clothes
+   → If visual_context describes hairstyle: use that exact hairstyle
+   → If visual_context describes a held item: include it
+
+2. If visual_context is empty but source text describes this character's appearance:
+   → Extract visual details directly from the source text yourself
+
+3. If neither visual_context nor source text provide visual info:
+   → Generate based on profile (age, era, personality, costume_tier)
+
+4. ALL descriptions MUST begin with the character's gender as the FIRST WORD:
+   → "Male" for male characters, "Female" for female characters
+   → Example: "Male, approximately twenty-five years old..."
+   → This is CRITICAL for downstream image generation — do not skip it
+
+Examples:
+  Profile has: visual_context: "váy trắng tinh, tóc búi cao gọn gàng"
+  → description: "Female, 22 years old, [face from beauty archetype], hair tied in a high neat bun. Wearing a pristine white dress..."
+
+  Profile has: visual_context: "ôm một con mèo vàng bự trong lòng"
+  → description: "Female, 22 years old, [face], holding a large yellow cat in her arms..."
+
+  Profile has: visual_context: "" (empty)
+  → description: "Male, 25 years old, [generate face from beauty archetype], [generate outfit from costume_tier + era]..."
+
 【Description Specifications】
 
 1. Must include (in priority order):
+
+   0️. **Gender (MUST be FIRST WORD)**:
+    - Description MUST begin with "Male" or "Female" as the first word
+    - This token is critical for downstream image generation to correctly render gender
+    - Example: "Male, approximately twenty-five years old..."
+    - Example: "Female, early twenties, oval face..."
 
    🎭 **Facial Features (Most Important! Must Be Detailed)**:
    - Face shape: sharp defined jawline, heart-shaped face, oval face, square face, long face, and other specific face shapes
@@ -158,9 +197,6 @@ Applicable tiers:
 - Signature identifiers (from primary_identifier) take priority over archetype defaults and must be included
 
 2. Prohibited from describing:
-   ❌ Skin color (e.g., fair, wheat-colored, pale)
-   ❌ Eye color (e.g., black pupils, blue eyes)
-   ❌ Lip color (e.g., rosy lips)
    ❌ Expressions, postures, actions
    ❌ Background, environment
    ❌ Emotional adjectives
@@ -168,6 +204,9 @@ Applicable tiers:
    ❌ Uncertain descriptions (e.g., "perhaps", "or")
 
 3. Allowed to describe:
+   ✅ Skin tone (describe naturally, harmonious with era and ethnicity)
+   ✅ Eye color (describe naturally, e.g., dark brown eyes)
+   ✅ Lip color (describe naturally, e.g., light pink lips)
    ✅ Skin texture (smooth / rough)
    ✅ Unique marks (freckles / scars / tattoos)
    ✅ Hair color
@@ -191,15 +230,18 @@ Main appearance (id=0) must be a complete description, including:
 - Shoes are required
 
 Sub-appearances (id>=1) only describe the visual change parts, since they will be based on modifying the main appearance image:
-- Outfit change: Only write new clothing, shoes
-- Age change: Write appearance differences (wrinkles, white hair, etc.)
-- Special state: Post-bath, battle attire, etc.
-- Prohibited: Repeating descriptions of basic features like face and body type (these are provided by the main appearance image)
+- Begin with gender + brief face reference: "Same Male. Same face: [hair color, face shape]. Changed: [new clothing, shoes]"
+- This ensures sub-appearance descriptions are still usable even without the main image reference
+- The face/hair summary must be <20 words — it's a reminder, not a full re-description
+- Outfit change: Write only new clothing, shoes, and changed hairstyle if any
+- Age change: Write appearance differences (wrinkles, white hair, etc.) + same face reference
+- Special state: Post-bath, battle attire, etc. + same face reference
+- Prohibited: Repeating full descriptions of basic face/body type features
 
 Examples:
 - Main appearance (id=0): "Male, approximately twenty-five years old, slanted sword-like eyebrows and starry eyes, high nose bridge, tall and athletic build. Voluminous textured short black hair with natural messy bangs grazing the eyebrows. Wearing a deep blue brocade long robe, jade belt at the waist, black leather boots on the feet."
-- Post-bath state (id=1): "Damp messy hair falling naturally over the forehead, upper body bare, lower body wrapped in a white bath towel, barefoot."
-- Battle attire (id=2): "Changed into black tactical attire, thick-soled combat boots on the feet."
+- Post-bath state (id=1): "Same Male. Same face: black short hair, sharp brows. Changed: damp messy hair falling naturally over the forehead, upper body bare, lower body wrapped in a white bath towel, barefoot."
+- Battle attire (id=2): "Same Male. Same face: black short hair, high nose bridge. Changed: black tactical attire, thick-soled combat boots on the feet."
 
 
 【Output Format】
@@ -229,12 +271,18 @@ Return JSON only; no markdown markers allowed:
 1. Description length must meet the character tier requirements
 2. S/A-Tier character signature identifiers must appear in the description
 3. Costume ornateness must match costume_tier
-4. The three descriptions can freely develop details, but the overall image should remain consistent without major discrepancies
+4. The three descriptions:
+   - #1 Default: primary outfit as described in visual_context or profile, standard styling
+   - #2 Variation: same outfit and face, different hairstyle or hair accessory
+   - #3 Variation: same outfit and face, different accent color or accessory detail
+   Overall image remains consistent — only minor styling details vary between variants
 5. Every description must include shoes
 6. Return JSON only; no other text allowed
 7. ⚠️ JSON Safety: All quotation marks (""'' etc.) in JSON string values must be uniformly replaced with「」. Never allow unescaped English double quotes "
 
 【Input Data】
+
+{source_text}
 
 Character Profiles:
 {character_profiles}

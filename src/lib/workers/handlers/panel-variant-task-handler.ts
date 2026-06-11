@@ -71,7 +71,7 @@ function buildVariantPrompt(params: VariantPromptParams): string {
 function buildCharactersInfo(
   panel: { characters: string | null },
   projectData: { characters?: Array<{ name: string; introduction?: string | null; appearances?: Array<{ changeReason?: string | null }> }> },
-  locale: TaskJobData['locale'] = 'zh',
+  locale: TaskJobData['locale'] = 'en',
 ): string {
   const panelCharacters = parsePanelCharacterReferences(panel.characters)
   if (panelCharacters.length === 0) return locale === 'en' ? 'No characters' : '无角色'
@@ -92,7 +92,7 @@ function buildCharactersInfo(
 function buildCharacterAssetsDescription(
   panel: { characters: string | null },
   projectData: { characters?: Array<{ name: string; appearances?: Array<{ changeReason?: string | null; imageUrl?: string | null }> }> },
-  locale: TaskJobData['locale'] = 'zh',
+  locale: TaskJobData['locale'] = 'en',
 ): string {
   const panelCharacters = parsePanelCharacterReferences(panel.characters)
   if (panelCharacters.length === 0) return locale === 'en' ? 'No character reference images' : '无角色参考图'
