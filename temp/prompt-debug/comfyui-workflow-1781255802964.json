@@ -1,0 +1,483 @@
+{
+  "endpoint": "http://127.0.0.1:8188",
+  "mode": "img2img",
+  "refCount": 4,
+  "uploadedNames": [
+    "reference (651).png",
+    "reference (650).png",
+    "reference (649).png",
+    "reference (653).png"
+  ],
+  "workflow": {
+    "6": {
+      "inputs": {
+        "text": [
+          "220",
+          0
+        ],
+        "clip": [
+          "195",
+          0
+        ]
+      },
+      "class_type": "CLIPTextEncode",
+      "_meta": {
+        "title": "CLIP Text Encode (Positive Prompt)"
+      }
+    },
+    "164": {
+      "inputs": {
+        "samples": [
+          "276",
+          0
+        ],
+        "vae": [
+          "196",
+          0
+        ]
+      },
+      "class_type": "VAEDecode",
+      "_meta": {
+        "title": "VAE Decode"
+      }
+    },
+    "194": {
+      "inputs": {
+        "unet_name": "Flux2/flux-2-klein-9b-kv-fp8.safetensors",
+        "weight_dtype": "fp8_e4m3fn_fast"
+      },
+      "class_type": "UNETLoader",
+      "_meta": {
+        "title": "Load Diffusion Model"
+      }
+    },
+    "195": {
+      "inputs": {
+        "clip_name": "qwen3/qwen_3_8b_fp8mixed.safetensors",
+        "type": "flux2",
+        "device": "default"
+      },
+      "class_type": "CLIPLoader",
+      "_meta": {
+        "title": "Load CLIP"
+      }
+    },
+    "196": {
+      "inputs": {
+        "vae_name": "Flux2/flux2-vae.safetensors"
+      },
+      "class_type": "VAELoader",
+      "_meta": {
+        "title": "Load VAE"
+      }
+    },
+    "198": {
+      "inputs": {
+        "image": "reference (651).png"
+      },
+      "class_type": "LoadImage",
+      "_meta": {
+        "title": "$image.load1"
+      }
+    },
+    "203": {
+      "inputs": {
+        "filename_prefix": "img",
+        "images": [
+          "164",
+          0
+        ]
+      },
+      "class_type": "SaveImage",
+      "_meta": {
+        "title": "$image.save"
+      }
+    },
+    "204": {
+      "inputs": {
+        "conditioning": [
+          "6",
+          0
+        ],
+        "latent": [
+          "206",
+          0
+        ]
+      },
+      "class_type": "ReferenceLatent",
+      "_meta": {
+        "title": "ReferenceLatent"
+      }
+    },
+    "206": {
+      "inputs": {
+        "pixels": [
+          "270",
+          0
+        ],
+        "vae": [
+          "196",
+          0
+        ]
+      },
+      "class_type": "VAEEncode",
+      "_meta": {
+        "title": "VAE Encode1"
+      }
+    },
+    "216": {
+      "inputs": {
+        "model": [
+          "284",
+          0
+        ]
+      },
+      "class_type": "FluxKVCache",
+      "_meta": {
+        "title": "Flux KV Cache"
+      }
+    },
+    "220": {
+      "inputs": {
+        "value": "Over-the-shoulder medium shot, eye-level angle, static frame. Three distinct characters with completely different outfits and features, standing separately with clear space between them: On the right of the frame, a sturdy middle-aged man with sharp brows, narrow eyes, and gray hair combed back, wearing a dark green polo shirt, leaning forward as he holds the hand of the figure in front of him, his shoulders hunched and his face contorted into a desperate grimace, eyes wide and pleading, lips parted. On the left of the frame, a slim young woman with a sharp jawline, slanted phoenix eyes, and thin lips, her straight black hair falling smoothly, wearing a crisp white button-up shirt and a blue skirt, holding a large yellow cat in her arms, leaning against the wooden railing, her brows lifted in surprise and a playful smirk settling on her lips, her eyes sparkling with quiet amusement. Standing in the exact center of the frame in the background, a tall lean young man with a heart-shaped face, defined jawline, sparkling almond eyes, and black wavy center-parted hair, wearing a white oxford shirt with rolled sleeves and navy tailored trousers, his arms crossed, his gaze fixed on the scene before him, a slight frown just fading into a knowing, observant smile. The setting is a festive Tết ring toss booth during the day, with a wide counter in the foreground, a player area marked by a wooden railing in the midground, and a colorful prize wall in the distance, a bag resting on the floor. Soft natural side lighting from the left wraps the scene in a warm, slightly dramatic glow, with medium depth of field keeping the foreground pair sharply in focus while the background figure remains clearly defined. Transparent and deep imagery, cinematic CG render quality, 2.5D semi-realistic style, ultimate CG texture with Iray skin rendering, translucent rosy smooth skin texture, high-detail skin surface. Delicate soft skin with a subtle glow, translucent rosy skin texture, sharply defined facial features, clear sparkling eyes with natural highlights, gentle diffused lighting on the faces, cinematic portrait quality, flawless clear complexion."
+      },
+      "class_type": "PrimitiveString",
+      "_meta": {
+        "title": "$promt.value"
+      }
+    },
+    "221": {
+      "inputs": {
+        "width": [
+          "222",
+          0
+        ],
+        "height": [
+          "224",
+          0
+        ],
+        "batch_size": 1
+      },
+      "class_type": "EmptyLatentImage",
+      "_meta": {
+        "title": "Empty Latent Image"
+      }
+    },
+    "222": {
+      "inputs": {
+        "value": 673
+      },
+      "class_type": "INTConstant",
+      "_meta": {
+        "title": "$with.value"
+      }
+    },
+    "224": {
+      "inputs": {
+        "value": 1217
+      },
+      "class_type": "INTConstant",
+      "_meta": {
+        "title": "$height.value"
+      }
+    },
+    "229": {
+      "inputs": {
+        "image": "reference (650).png"
+      },
+      "class_type": "LoadImage",
+      "_meta": {
+        "title": "$image.load2"
+      }
+    },
+    "233": {
+      "inputs": {
+        "image": "reference (649).png"
+      },
+      "class_type": "LoadImage",
+      "_meta": {
+        "title": "$image.load3"
+      }
+    },
+    "236": {
+      "class_type": "LoadImage",
+      "inputs": {
+        "image": "reference (653).png"
+      }
+    },
+    "257": {
+      "inputs": {
+        "conditioning": [
+          "204",
+          0
+        ],
+        "latent": [
+          "262",
+          0
+        ]
+      },
+      "class_type": "ReferenceLatent",
+      "_meta": {
+        "title": "ReferenceLatent"
+      }
+    },
+    "258": {
+      "inputs": {
+        "conditioning": [
+          "257",
+          0
+        ],
+        "latent": [
+          "263",
+          0
+        ]
+      },
+      "class_type": "ReferenceLatent",
+      "_meta": {
+        "title": "ReferenceLatent"
+      }
+    },
+    "259": {
+      "class_type": "ReferenceLatent",
+      "inputs": {
+        "conditioning": [
+          "258",
+          0
+        ],
+        "latent": [
+          "264",
+          0
+        ]
+      }
+    },
+    "262": {
+      "inputs": {
+        "pixels": [
+          "272",
+          0
+        ],
+        "vae": [
+          "196",
+          0
+        ]
+      },
+      "class_type": "VAEEncode",
+      "_meta": {
+        "title": "VAE Encode1"
+      }
+    },
+    "263": {
+      "inputs": {
+        "pixels": [
+          "273",
+          0
+        ],
+        "vae": [
+          "196",
+          0
+        ]
+      },
+      "class_type": "VAEEncode",
+      "_meta": {
+        "title": "VAE Encode1"
+      }
+    },
+    "264": {
+      "class_type": "VAEEncode",
+      "inputs": {
+        "pixels": [
+          "274",
+          0
+        ],
+        "vae": [
+          "196",
+          0
+        ]
+      }
+    },
+    "270": {
+      "inputs": {
+        "upscale_method": "lanczos",
+        "scale_by": 1,
+        "image": [
+          "198",
+          0
+        ]
+      },
+      "class_type": "ImageScaleBy",
+      "_meta": {
+        "title": "Upscale Image By"
+      }
+    },
+    "272": {
+      "inputs": {
+        "upscale_method": "lanczos",
+        "scale_by": 1,
+        "image": [
+          "229",
+          0
+        ]
+      },
+      "class_type": "ImageScaleBy",
+      "_meta": {
+        "title": "Upscale Image By"
+      }
+    },
+    "273": {
+      "inputs": {
+        "upscale_method": "lanczos",
+        "scale_by": 1,
+        "image": [
+          "233",
+          0
+        ]
+      },
+      "class_type": "ImageScaleBy",
+      "_meta": {
+        "title": "Upscale Image By"
+      }
+    },
+    "274": {
+      "inputs": {
+        "upscale_method": "lanczos",
+        "scale_by": 1,
+        "image": [
+          "236",
+          0
+        ]
+      },
+      "class_type": "ImageScaleBy",
+      "_meta": {
+        "title": "Upscale Image By"
+      }
+    },
+    "276": {
+      "inputs": {
+        "noise": [
+          "277",
+          0
+        ],
+        "guider": [
+          "278",
+          0
+        ],
+        "sampler": [
+          "280",
+          0
+        ],
+        "sigmas": [
+          "281",
+          0
+        ],
+        "latent_image": [
+          "221",
+          0
+        ]
+      },
+      "class_type": "SamplerCustomAdvanced",
+      "_meta": {
+        "title": "SamplerCustomAdvanced"
+      }
+    },
+    "277": {
+      "inputs": {
+        "noise_seed": 880785948532512
+      },
+      "class_type": "RandomNoise",
+      "_meta": {
+        "title": "RandomNoise"
+      }
+    },
+    "278": {
+      "inputs": {
+        "cfg": 1,
+        "model": [
+          "216",
+          0
+        ],
+        "positive": [
+          "259",
+          0
+        ],
+        "negative": [
+          "283",
+          0
+        ]
+      },
+      "class_type": "CFGGuider",
+      "_meta": {
+        "title": "CFGGuider"
+      }
+    },
+    "280": {
+      "inputs": {
+        "sampler_name": "euler"
+      },
+      "class_type": "KSamplerSelect",
+      "_meta": {
+        "title": "KSamplerSelect"
+      }
+    },
+    "281": {
+      "inputs": {
+        "steps": 4,
+        "width": [
+          "222",
+          0
+        ],
+        "height": [
+          "224",
+          0
+        ]
+      },
+      "class_type": "Flux2Scheduler",
+      "_meta": {
+        "title": "Flux2Scheduler"
+      }
+    },
+    "282": {
+      "inputs": {
+        "lora_name": "AniEdit9B_v2.safetensors",
+        "strength_model": 0.7,
+        "model": [
+          "194",
+          0
+        ]
+      },
+      "class_type": "LoraLoaderModelOnly",
+      "_meta": {
+        "title": "Load LoRA"
+      }
+    },
+    "283": {
+      "inputs": {
+        "conditioning": [
+          "6",
+          0
+        ],
+        "latent": [
+          "221",
+          0
+        ]
+      },
+      "class_type": "ReferenceLatent",
+      "_meta": {
+        "title": "ReferenceLatent"
+      }
+    },
+    "284": {
+      "inputs": {
+        "lora_name": "nnegrat_cgstyle_9b_1800.safetensors",
+        "strength_model": 0.85,
+        "model": [
+          "282",
+          0
+        ]
+      },
+      "class_type": "LoraLoaderModelOnly",
+      "_meta": {
+        "title": "Load LoRA"
+      }
+    }
+  }
+}

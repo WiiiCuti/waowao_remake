@@ -305,6 +305,8 @@ export async function executePhase1(
         .replace('{characters_full_description}', filteredFullDescription)
         .replace('{props_description}', filteredPropsDescription)
         .replace('{clip_json}', clipJson)
+        .replace('{original_text}', clip.content || '')
+        .replace('{previous_clip_end_state}', 'None')
 
     if (screenplay) {
         planPrompt = planPrompt.replace('{clip_content}', `【剧本格式】\n${JSON.stringify(screenplay, null, 2)}`)

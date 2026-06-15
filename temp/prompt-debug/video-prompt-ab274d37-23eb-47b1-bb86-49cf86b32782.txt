@@ -1,0 +1,8 @@
+[Scene] The scene takes place at a daytime ring toss booth. The wooden counter is visible on the left, a player railing in the midground, and a prize wall in the background. A bag rests on the floor. The environment is completely static.
+[Characters]
+Ông chủ: Middle-aged man, sharp brows, narrow eyes, gray hair combed back, dark green polo. Emotional state: questioning, in control.
+Bạch Ngưng Băng: Young woman, early twenties, sharp jawline, slanted phoenix eyes, thin lips, straight black hair, holds a large yellow cat, white button-up, silver watch. Emotional state: thoughtful, hesitant.
+Tôi: Young man, early twenties, heart-shaped face defined jawline, sparkling almond eyes, high nose bridge full lips, black wavy center-parted hair, white oxford rolled sleeves, silver watch. Emotional state: intense, waiting.
+Shot 1 (Medium Shot, 2.08s): Static camera, environment remains unchanged.
+Ông chủ: "Just consider letting him have a try."
+Action: Slow-motion. Ông chủ's hands slowly release from their grip on the counter as he finishes speaking, his questioning gaze settling on the young woman. Bạch Ngưng Băng's fingers gently stop their motion on the ring edge as she blinks slowly in response. Smooth, fluid movement throughout the scene.

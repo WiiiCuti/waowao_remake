@@ -1,0 +1,8 @@
+[Scene] The ring-toss booth at a lively Tết festival. Background remains completely static: a prize wall filled with colorful stacked prizes, wooden railing boundaries near the player area, a booth counter, a canvas bag resting on the floor, and a crowd of completely still onlookers gathered at the edges.
+[Characters] Tôi: Early twenties, heart-shaped face with a defined jawline, sparkling almond eyes, high nose bridge and soft full lips, black wavy center-parted hair, white oxford with rolled sleeves. Surprised and attentive. Bạch Ngưng Băng: Early twenties, sharp jawline, slanted phoenix eyes, thin lips, straight black hair, white button-up. Confidently challenging. Ông chủ: Middle-aged, sharp brows, narrow eyes, gray hair combed back, dark green polo. Observing carefully.
+Shot 1 (Medium Shot, 1.85s): Static camera, environment remains unchanged.
+Action: Slow-motion. Tôi's forward momentum fully halts within the static crowd. His body settles into a subtle stillness, head kept turned toward Bạch Ngưng Băng, his shoulders rounding in a soft, smooth motion. Smooth and fluid movement.
+Shot 2 (Medium Shot, 1.85s): Static camera, environment remains unchanged.
+Action: Bạch Ngưng Băng delivers a slow, deliberate curl of her lips into a knowing smirk, her phoenix eyes maintaining their unwavering challenging gaze. Smooth and fluid movement.
+Shot 3 (Medium Shot, 1.86s): Static camera, environment remains unchanged.
+Action: In the background, Ông chủ subtly narrows his sharp eyes and shifts his weight behind the counter with a gentle, rigid motion, maintaining a steady observation of the crowd. Smooth and fluid movement.

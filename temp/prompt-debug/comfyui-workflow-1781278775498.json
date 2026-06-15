@@ -1,0 +1,324 @@
+{
+  "endpoint": "http://127.0.0.1:8188",
+  "mode": "img2img",
+  "refCount": 1,
+  "uploadedNames": [
+    "reference (691).png"
+  ],
+  "workflow": {
+    "6": {
+      "inputs": {
+        "text": [
+          "220",
+          0
+        ],
+        "clip": [
+          "195",
+          0
+        ]
+      },
+      "class_type": "CLIPTextEncode",
+      "_meta": {
+        "title": "CLIP Text Encode (Positive Prompt)"
+      }
+    },
+    "164": {
+      "inputs": {
+        "samples": [
+          "276",
+          0
+        ],
+        "vae": [
+          "196",
+          0
+        ]
+      },
+      "class_type": "VAEDecode",
+      "_meta": {
+        "title": "VAE Decode"
+      }
+    },
+    "194": {
+      "inputs": {
+        "unet_name": "Flux2/flux-2-klein-9b-kv-fp8.safetensors",
+        "weight_dtype": "fp8_e4m3fn_fast"
+      },
+      "class_type": "UNETLoader",
+      "_meta": {
+        "title": "Load Diffusion Model"
+      }
+    },
+    "195": {
+      "inputs": {
+        "clip_name": "qwen3/qwen_3_8b_fp8mixed.safetensors",
+        "type": "flux2",
+        "device": "default"
+      },
+      "class_type": "CLIPLoader",
+      "_meta": {
+        "title": "Load CLIP"
+      }
+    },
+    "196": {
+      "inputs": {
+        "vae_name": "Flux2/flux2-vae.safetensors"
+      },
+      "class_type": "VAELoader",
+      "_meta": {
+        "title": "Load VAE"
+      }
+    },
+    "198": {
+      "inputs": {
+        "image": "reference (691).png"
+      },
+      "class_type": "LoadImage",
+      "_meta": {
+        "title": "$image.load1"
+      }
+    },
+    "203": {
+      "inputs": {
+        "filename_prefix": "img",
+        "images": [
+          "164",
+          0
+        ]
+      },
+      "class_type": "SaveImage",
+      "_meta": {
+        "title": "$image.save"
+      }
+    },
+    "204": {
+      "inputs": {
+        "conditioning": [
+          "6",
+          0
+        ],
+        "latent": [
+          "206",
+          0
+        ]
+      },
+      "class_type": "ReferenceLatent",
+      "_meta": {
+        "title": "ReferenceLatent"
+      }
+    },
+    "206": {
+      "inputs": {
+        "pixels": [
+          "270",
+          0
+        ],
+        "vae": [
+          "196",
+          0
+        ]
+      },
+      "class_type": "VAEEncode",
+      "_meta": {
+        "title": "VAE Encode1"
+      }
+    },
+    "216": {
+      "inputs": {
+        "model": [
+          "284",
+          0
+        ]
+      },
+      "class_type": "FluxKVCache",
+      "_meta": {
+        "title": "Flux KV Cache"
+      }
+    },
+    "220": {
+      "inputs": {
+        "value": "请根据以下指令修改图片，保持人物核心特征一致：\n{\n  \"image_type\": \"anime illustration\",\n  \"style\": {\n    \"art_style\": \"modern anime\",\n    \"quality\": \"high detail\",\n    \"rendering\": \"soft digital painting\",\n    \"lighting\": {\n      \"type\": \"golden hour\",\n      \"direction\": \"backlight from window\",\n      \"temperature\": \"warm\",\n      \"effects\": [\n        \"soft glow\",\n        \"bokeh\",\n        \"ambient light\"\n      ]\n    },\n    \"color_palette\": {\n      \"primary\": [\n        \"warm beige\",\n        \"cream\",\n        \"light brown\",\n        \"soft orange\"\n      ],\n      \"accent\": [\n        \"green\",\n        \"white\"\n      ]\n    }\n  },\n  \"scene\": {\n    \"location\": \"coffee shop\",\n    \"environment\": \"indoor\",\n    \"time\": \"late afternoon\",\n    \"mood\": [\n      \"peaceful\",\n      \"cozy\",\n      \"romantic\",\n      \"relaxing\"\n    ]\n  },\n  \"composition\": {\n    \"camera\": {\n      \"angle\": \"eye level\",\n      \"shot\": \"medium portrait\",\n      \"framing\": \"center composition\",\n      \"orientation\": \"portrait\"\n    },\n    \"depth_of_field\": \"shallow\",\n    \"background_blur\": true\n  },\n  \"subject\": {\n    \"count\": 1,\n    \"gender\": \"female\",\n    \"age\": \"young adult\",\n    \"ethnicity\": \"anime style (not applicable)\",\n    \"expression\": {\n      \"emotion\": \"gentle smile\",\n      \"eyes\": \"looking toward viewer\",\n      \"face\": \"slightly blushing\"\n    },\n    \"pose\": {\n      \"head\": \"slightly tilted\",\n      \"left_hand\": \"supporting chin\",\n      \"right_hand\": \"resting on table\"\n    }\n  },\n  \"appearance\": {\n    \"hair\": {\n      \"color\": \"light brown\",\n      \"length\": \"long\",\n      \"style\": \"wavy\",\n      \"bangs\": true\n    },\n    \"eyes\": {\n      \"color\": \"light brown\",\n      \"shape\": \"large anime eyes\"\n    },\n    \"skin\": {\n      \"tone\": \"fair\"\n    }\n  },\n  \"clothing\": {\n    \"outerwear\": {\n      \"type\": \"long coat\",\n      \"color\": \"cream\"\n    },\n    \"top\": {\n      \"type\": \"long sleeve shirt\",\n      \"color\": \"white\"\n    },\n    \"belt\": {\n      \"color\": \"brown\"\n    },\n    \"accessories\": [\n      {\n        \"type\": \"necklace\",\n        \"pendant\": \"small oval\"\n      },\n      {\n        \"type\": \"earrings\",\n        \"style\": \"pearl drop\"\n      }\n    ]\n  },\n  \"objects\": [\n    {\n      \"name\": \"paper coffee cup\",\n      \"position\": \"front left\",\n      \"color\": \"white\",\n      \"logo\": \"green leaf\"\n    },\n    {\n      \"name\": \"espresso cup\",\n      \"position\": \"front right\",\n      \"color\": \"white\"\n    },\n    {\n      \"name\": \"wooden table\"\n    },\n    {\n      \"name\": \"window\"\n    },\n    {\n      \"name\": \"wall frames\"\n    }\n  ],\n  \"background\": {\n    \"window\": {\n      \"visible\": true,\n      \"outside\": \"blurred trees\",\n      \"lighting\": \"sunlight\"\n    },\n    \"decorations\": [\n      \"picture frames\",\n      \"warm interior\"\n    ]\n  },\n  \"lighting\": {\n    \"main_source\": \"window\",\n    \"rim_light\": true,\n    \"soft_shadow\": true,\n    \"volumetric\": false\n  },\n  \"image_effects\": {\n    \"bokeh\": true,\n    \"lens_flare\": false,\n    \"film_grain\": false,\n    \"bloom\": true\n  },\n  \"artistic_features\": {\n    \"line_art\": \"clean\",\n    \"shading\": \"soft\",\n    \"texture\": \"smooth\",\n    \"detail_level\": \"high\"\n  },\n  \"dominant_colors\": [\n    \"#f5ede3\",\n    \"#d8b9a1\",\n    \"#b8896d\",\n    \"#7d5f50\",\n    \"#5f4c43\"\n  ],\n  \"tags\": [\n    \"anime girl\",\n    \"coffee shop\",\n    \"warm lighting\",\n    \"golden hour\",\n    \"portrait\",\n    \"cozy\",\n    \"soft smile\",\n    \"bokeh\",\n    \"long brown hair\",\n    \"window light\"\n  ]\n}"
+      },
+      "class_type": "PrimitiveString",
+      "_meta": {
+        "title": "$promt.value"
+      }
+    },
+    "221": {
+      "inputs": {
+        "width": [
+          "222",
+          0
+        ],
+        "height": [
+          "224",
+          0
+        ],
+        "batch_size": 1
+      },
+      "class_type": "EmptyLatentImage",
+      "_meta": {
+        "title": "Empty Latent Image"
+      }
+    },
+    "222": {
+      "inputs": {
+        "value": 1200
+      },
+      "class_type": "INTConstant",
+      "_meta": {
+        "title": "$with.value"
+      }
+    },
+    "224": {
+      "inputs": {
+        "value": 800
+      },
+      "class_type": "INTConstant",
+      "_meta": {
+        "title": "$height.value"
+      }
+    },
+    "270": {
+      "inputs": {
+        "upscale_method": "lanczos",
+        "scale_by": 1,
+        "image": [
+          "198",
+          0
+        ]
+      },
+      "class_type": "ImageScaleBy",
+      "_meta": {
+        "title": "Upscale Image By"
+      }
+    },
+    "276": {
+      "inputs": {
+        "noise": [
+          "277",
+          0
+        ],
+        "guider": [
+          "278",
+          0
+        ],
+        "sampler": [
+          "280",
+          0
+        ],
+        "sigmas": [
+          "281",
+          0
+        ],
+        "latent_image": [
+          "221",
+          0
+        ]
+      },
+      "class_type": "SamplerCustomAdvanced",
+      "_meta": {
+        "title": "SamplerCustomAdvanced"
+      }
+    },
+    "277": {
+      "inputs": {
+        "noise_seed": 880785948532512
+      },
+      "class_type": "RandomNoise",
+      "_meta": {
+        "title": "RandomNoise"
+      }
+    },
+    "278": {
+      "inputs": {
+        "cfg": 1,
+        "model": [
+          "216",
+          0
+        ],
+        "positive": [
+          "204",
+          0
+        ],
+        "negative": [
+          "283",
+          0
+        ]
+      },
+      "class_type": "CFGGuider",
+      "_meta": {
+        "title": "CFGGuider"
+      }
+    },
+    "280": {
+      "inputs": {
+        "sampler_name": "euler"
+      },
+      "class_type": "KSamplerSelect",
+      "_meta": {
+        "title": "KSamplerSelect"
+      }
+    },
+    "281": {
+      "inputs": {
+        "steps": 4,
+        "width": [
+          "222",
+          0
+        ],
+        "height": [
+          "224",
+          0
+        ]
+      },
+      "class_type": "Flux2Scheduler",
+      "_meta": {
+        "title": "Flux2Scheduler"
+      }
+    },
+    "282": {
+      "inputs": {
+        "lora_name": "AniEdit9B_v2.safetensors",
+        "strength_model": 0.7,
+        "model": [
+          "194",
+          0
+        ]
+      },
+      "class_type": "LoraLoaderModelOnly",
+      "_meta": {
+        "title": "Load LoRA"
+      }
+    },
+    "283": {
+      "inputs": {
+        "conditioning": [
+          "6",
+          0
+        ],
+        "latent": [
+          "221",
+          0
+        ]
+      },
+      "class_type": "ReferenceLatent",
+      "_meta": {
+        "title": "ReferenceLatent"
+      }
+    },
+    "284": {
+      "inputs": {
+        "lora_name": "nnegrat_cgstyle_9b_1800.safetensors",
+        "strength_model": 0.85,
+        "model": [
+          "282",
+          0
+        ]
+      },
+      "class_type": "LoraLoaderModelOnly",
+      "_meta": {
+        "title": "Load LoRA"
+      }
+    }
+  }
+}

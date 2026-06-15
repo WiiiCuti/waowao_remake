@@ -1,0 +1,5 @@
+[Scene] The Ring Toss Booth at a Tết festival during the day. In the foreground, onlookers stand by the counter. The midground features a player area with a wooden railing. The background is a prize wall with colorful prizes. A bag sits on the floor. The environment remains static with no ambient motion.
+[Characters] Bạch Ngưng Băng: Upper body visible, young female with sharp jawline, slanted phoenix eyes, thin lips, straight black hair, wearing a white button-up. Confident smirk. Tôi: Upper body visible, young male with heart-shaped face defined jawline, sparkling almond eyes, high nose bridge, soft full lips, black wavy center-parted hair, wearing a white oxford with rolled sleeves. Wide-eyed, beginning to grin.
+Shot 1 (Low Angle Medium Shot, 2.76s): Static camera
+Bạch Ngưng Băng: "Casually tossed, lands perfectly."
+Action: Slow-motion. The bamboo ring glides smoothly through the air toward the wooden pegs in a gentle arc. Bạch Ngưng Băng's eyes follow the ring, her smirk deepening with satisfaction. Tôi's eyes widen further, and his lips curving into a delighted grin as his hands slowly start to come together for a clap.

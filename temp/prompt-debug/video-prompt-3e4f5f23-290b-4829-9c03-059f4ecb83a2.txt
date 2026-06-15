@@ -1,0 +1,4 @@
+[Scene] The ring toss booth on a bright day. A wooden counter fills the left foreground, with the prize wall of colorful stuffed animals in the background. The environment remains completely static with no ambient motion.
+[Characters] Ông chủ: middle-aged man, head and neck visible, sharp brows, narrow eyes, gray hair combed back, dark green polo collar, face in a placating expression. Bạch Ngưng Băng: young woman, foreground, head and shoulders visible slightly out of focus, sharp jawline, slanted phoenix eyes, straight black hair, neutral expression.
+Shot 1 (Eye-Level Close-Up, 2.96s): Static camera, environment remains unchanged.
+Action: Slow-motion. The man gently nods his head forward in a placating gesture, his smile subtly widening. His open palms rise slightly in a soft, measured motion. Smooth and fluid movement throughout.

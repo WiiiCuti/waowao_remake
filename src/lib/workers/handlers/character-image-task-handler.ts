@@ -159,7 +159,6 @@ export async function handleCharacterImageTask(job: Job<TaskJobData>) {
   const descriptions = parseJsonStringArray(appearance.descriptions)
   const baseDescriptions = descriptions.length > 0 ? descriptions : [appearance.description || '']
 
-  // 子形象（不是主形象）生成时，引用主形象图片保持一致性
   const primaryReferenceInputs: string[] = []
   if (appearance.appearanceIndex > PRIMARY_APPEARANCE_INDEX) {
     const primaryAppearance = await db.characterAppearance.findFirst({
@@ -176,6 +175,13 @@ export async function handleCharacterImageTask(job: Job<TaskJobData>) {
       if (primaryMainUrl) {
         primaryReferenceInputs.push(primaryMainUrl)
       }
+    }
+  } else {
+    const ownImageUrl = appearance.imageUrl
+      ? toSignedUrlIfCos(appearance.imageUrl, 3600)
+      : null
+    if (ownImageUrl) {
+      primaryReferenceInputs.push(ownImageUrl)
     }
   }
   const primaryReferenceImages = await normalizeReferenceImagesForGeneration(primaryReferenceInputs)

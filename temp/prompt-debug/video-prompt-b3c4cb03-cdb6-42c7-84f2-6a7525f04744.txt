@@ -1,0 +1,10 @@
+[Scene] A bright carnival ring-toss booth on a sunny day. On the left is a wooden booth counter. In the background, a prize wall displays colorful rings and trinkets. A rope barrier and a leather bag on the floor are visible. The entire environment remains completely static with no ambient motion.
+
+[Characters]
+Ông chủ: Upper body visible. Middle-aged, sharp brows, narrow eyes, gray hair combed back, dark green polo shirt. Emotion: eager, explaining.
+Bạch Ngưng Băng: Upper body visible. Young woman, straight black hair, sharp jawline, slanted phoenix eyes, thin lips, wearing a white button-up shirt, holding a large yellow cat. Emotion: calm, listening.
+Tôi: Upper body visible from behind. Young man, wavy black hair, white oxford shirt with rolled sleeves, arms crossed. Emotion: reserved, watching.
+
+Shot 1 (Over-the-Shoulder Medium Shot, 2.7s): Static camera, environment remains unchanged.
+Ông chủ: "He has been watching, he clearly wants to play."
+Action: In a slow, fluid motion, the middle-aged man continues his eager explanation, his hands gesturing toward the center. The young woman offers a subtle, slow nod, her eyes shifting quietly toward the foreground. The young man remains still, shoulders softly rising with a quiet breath. Smooth and fluid movement throughout.

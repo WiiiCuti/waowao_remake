@@ -441,6 +441,8 @@ export async function runScriptToStoryboardAtomicRetry(params: {
       .replace('{characters_full_description}', filteredFullDescription)
       .replace('{props_description}', filteredPropsDescription)
       .replace('{clip_json}', clipJson)
+      .replace('{original_text}', clipContent)
+      .replace('{previous_clip_end_state}', 'None')
     const screenplay = parseScreenplay(params.clip.screenplay)
     if (screenplay) {
       phase1Prompt = phase1Prompt.replace('{clip_content}', `【剧本格式】\n${JSON.stringify(screenplay, null, 2)}`)

@@ -185,7 +185,7 @@ async function handleConfirmProfile(
     })
   })
 
-  const autoGenImages = job.data.payload?.autoGenImages !== false
+  const autoGenImages = (job.data.payload?.autoGenImages ?? job.data.payload?.generateImage) !== false
   if (autoGenImages && !suppressProgress) {
     const mainAppearance = await prisma.characterAppearance.findFirst({
       where: { characterId: character.id, appearanceIndex: 0 },

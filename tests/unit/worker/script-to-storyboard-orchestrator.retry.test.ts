@@ -297,7 +297,7 @@ describe('script-to-storyboard orchestrator retry', () => {
 
       if (action === 'storyboard_phase1_plan' && stepId === 'clip_clip-2_phase1') {
         return {
-          text: JSON.stringify([{ panel_number: 1, description: '镜头2', location: '场景A', source_text: '原文2', characters: [] }]),
+          text: JSON.stringify([{ panel_number: 1, description: '镜头2', location: '场景B', source_text: '原文2', characters: [] }]),
           reasoning: '',
         }
       }
@@ -346,13 +346,13 @@ describe('script-to-storyboard orchestrator retry', () => {
           id: 'clip-2',
           content: '文本2',
           characters: JSON.stringify([{ name: '角色A' }]),
-          location: '场景A',
+          location: '场景B',
           screenplay: null,
         },
       ],
       novelPromotionData: {
         characters: [{ name: '角色A', appearances: [] }],
-        locations: [{ name: '场景A', images: [] }],
+        locations: [{ name: '场景A', images: [] }, { name: '场景B', images: [] }],
       },
       promptTemplates: {
         phase1PlanTemplate: '{clip_content} {clip_json} {characters_lib_name} {locations_lib_name} {characters_introduction} {characters_appearance_list} {characters_full_description}',
@@ -366,5 +366,72 @@ describe('script-to-storyboard orchestrator retry', () => {
     expect(result.summary.clipCount).toBe(2)
     expect(clip2Phase2Started).toBe(true)
     expect(clip1Phase1ResolvedAfterClip2Phase2).toBe(true)
+  })
+
+  it('runs clips with same location sequentially to preserve continuity', async () => {
+    const actionOrder: string[] = []
+
+    const runStep = vi.fn(async (meta, _prompt, action: string) => {
+      const stepId = String(meta.stepId)
+      actionOrder.push(`${action}:${stepId}`)
+      if (action === 'storyboard_phase1_plan') {
+        return {
+          text: JSON.stringify([{ panel_number: 1, description: '镜头', location: '场景A', source_text: '原文', characters: [{ name: '角色A', appearance: 'Default Appearance' }] }]),
+          reasoning: '',
+        }
+      }
+      if (action === 'storyboard_phase2_cinematography') {
+        return {
+          text: JSON.stringify([{ panel_number: 1, composition: '居中', lighting: '顶光', color_tone: '冷色', depth_of_field: 'T4.0', characters: [{ name: '角色A', screen_position: 'left', posture: 'standing', facing: 'right' }], scene_summary: 'test' }]),
+          reasoning: '',
+        }
+      }
+      if (action === 'storyboard_phase2_acting') {
+        return { text: JSON.stringify([{ panel_number: 1, characters: [{ name: '角色A', acting: 'smiles' }] }]), reasoning: '' }
+      }
+      if (action === 'storyboard_phase3_detail') {
+        return {
+          text: JSON.stringify([{ panel_number: 1, description: '细化镜头', location: '场景A', source_text: '原文', characters: [{ name: '角色A', appearance: 'Default Appearance' }] }]),
+          reasoning: '',
+        }
+      }
+      throw new Error(`unexpected action: ${action}:${stepId}`)
+    })
+
+    const result = await runScriptToStoryboardOrchestrator({
+      concurrency: 2,
+      clips: [
+        {
+          id: 'clip-1',
+          content: '文本1',
+          characters: JSON.stringify([{ name: '角色A' }]),
+          location: '场景A',
+          screenplay: null,
+        },
+        {
+          id: 'clip-2',
+          content: '文本2',
+          characters: JSON.stringify([{ name: '角色A' }]),
+          location: '场景A',
+          screenplay: null,
+        },
+      ],
+      novelPromotionData: {
+        characters: [{ name: '角色A', appearances: [] }],
+        locations: [{ name: '场景A', images: [] }],
+      },
+      promptTemplates: {
+        phase1PlanTemplate: '{clip_content} {clip_json} {characters_lib_name} {locations_lib_name} {characters_introduction} {characters_appearance_list} {characters_full_description} {previous_clip_end_state}',
+        phase2CinematographyTemplate: '{panels_json} {panel_count} {locations_description} {characters_info}',
+        phase2ActingTemplate: '{panels_json} {panel_count} {characters_info}',
+        phase3DetailTemplate: '{panels_json} {characters_age_gender} {locations_description}',
+      },
+      runStep,
+    })
+
+    expect(result.summary.clipCount).toBe(2)
+    const clip1Phase3 = actionOrder.indexOf('storyboard_phase3_detail:clip_clip-1_phase3_detail')
+    const clip2Phase1 = actionOrder.indexOf('storyboard_phase1_plan:clip_clip-2_phase1')
+    expect(clip2Phase1).toBeGreaterThan(clip1Phase3)
   })
 })

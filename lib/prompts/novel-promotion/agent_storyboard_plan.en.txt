@@ -341,6 +341,14 @@ Content input (script-format JSON or original text fragment):
 Original text (always the original novel content, use this for source_text):
 {original_text}
 
+Previous clip end state (carry-over continuity from adjacent clip in same location):
+{previous_clip_end_state}
+
+Rule: If the state above contains character positions and appearances:
+- The FIRST panel of this clip MUST use the SAME character positions, facing directions, and appearances, unless source_text explicitly describes character movement, clothing change, or location change.
+- Shot type may progress naturally (e.g. close-up → medium shot) but character spatial relationships (who is on left vs right) MUST be preserved.
+- If the state is "None", initialize positions freely based on the text.
+
 [Strict Requirements]
 1. Must output the required number of valid shots; empty shots are forbidden
 2. Character and scene names must be selected from the asset library
