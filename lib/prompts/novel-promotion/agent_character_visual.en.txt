@@ -50,44 +50,9 @@ D-Tier Characters:
   - Description length 50-80 characters
   - Basic image is sufficient
 
-【Costume Ornateness Tier costume_tier Reference】
+【Costume Ornateness Tier Guide】
+Tier 1 (Plain/Uniform) → Tier 2 (Everyday/Ordinary) → Tier 3 (Professional) → Tier 4 (Elite/Aristocracy) → Tier 5 (Royalty/Ultimate Luxury)
 
-⚠️ Determined by the character's social class and plot identity, unrelated to role_level!
-
-Tier 5 (Royalty/Ultimate Luxury): Royal family members, top billionaires, etc.; clothing with delicate embroidery, inlays, bespoke tailoring, rare fabrics.
-Tier 4 (Aristocracy/Elite): Nobility, entrepreneurs, etc.; high-grade fabrics, exquisite details, quality accessories.
-Tier 3 (Professional/Quality): Middle class, professionals; well-tailored, with design sensibility.
-Tier 2 (Everyday/Ordinary): Ordinary people; simple everyday styles.
-Tier 1 (Plain/Uniform): Commoners, students, etc.; basic styles, functionality-focused.
-
-【Signature Identifier Application Rules】
-
-If the character profile has a primary_identifier, it must be clearly reflected in the description:
-
-Examples:
-- primary_identifier: "Mole at the corner of the eye" → The description must include "a small, delicate mole at the corner of the eye"
-- primary_identifier: "Silver stud earring on left ear" → The description must include "a silver stud earring worn on the left ear"
-
-【Color Application Rules】
-
-Select the main color tones for clothing and accessories based on suggested_colors:
-- First color: Primary tone (outerwear / main clothing)
-- Second color: Secondary tone (inner layer / accessories)
-- Third color (if any): Accent color (small accessories / patterns)
-
-【Personality-to-Visual Conversion Rules】
-
-Aloof characters should be expressed through sharp tailoring, deep color tones, and minimalist accessories.
-
-Gentle characters should be expressed through soft color tones, flowing lines, and rounded accessories.
-
-Lively characters should be expressed through bright colors, lightweight materials, and playful accessories.
-
-Manipulative characters should be expressed through dark inner layers, refined details, and understated luxury.
-
-Tsundere characters should be expressed through ornate yet distant design, high-end but not ostentatious.
-
-Rebellious characters should be expressed through leather and metal elements, asymmetric design, and street style.
 
 【Source Text Reference — Highest Priority】
 {source_text}
@@ -106,6 +71,15 @@ Rebellious characters should be expressed through leather and metal elements, as
 
 3. If neither visual_context nor source text provide visual info:
    → Generate based on profile (age, era, personality, costume_tier)
+
+【Mood & Atmosphere Application】
+
+The profile may contain mood_keywords (emotional state like "Quiet Observer", "Gentle Solitude") and story_atmosphere (overall scene tone like "rainy afternoon, intimate, cool blue-gray"). Use these to guide the character's visual feel:
+
+- mood_keywords → shape the character's implied expression and demeanor in the description (e.g., "Quiet Observer" → describe eyes as thoughtful, distant gaze; "Warm Kindness" → gentle smile, soft eyes)
+- story_atmosphere → set the overall visual context for color choices and style consistency
+- mood_keywords do NOT replace facial feature descriptions — they ADD emotional depth to the face you describe
+- If mood_keywords are empty or absent, fall back to personality_tags for emotional tone
 
 4. ALL descriptions MUST begin with the character's gender as the FIRST WORD:
    → "Male" for male characters, "Female" for female characters
@@ -132,69 +106,52 @@ Examples:
     - Example: "Male, approximately twenty-five years old..."
     - Example: "Female, early twenties, oval face..."
 
-   🎭 **Facial Features (Most Important! Must Be Detailed)**:
-   - Face shape: sharp defined jawline, heart-shaped face, oval face, square face, long face, and other specific face shapes
-   - Facial feature combination: Shape and characteristics of eyes, nose, mouth, eyebrows (e.g. phoenix eyes, almond eyes, slanted sword-like eyebrows, straight dark brows, high-bridged nose, thin lips)
-   - Eyes: Double eyelid / single eyelid, eye shape (e.g. sharp single-lidded eyes, phoenix eyes, clear double-lidded almond eyes), size
-   - Nose: High-bridged, straight, refined, sharp nose bridge
-   - Lips: Thickness, shape (e.g. thin lips, full lips, corners of mouth slightly tilted)
-   - Eyebrows: Thickness, shape (e.g. slanted sword-like eyebrows, slender curved willow-leaf eyebrows)
-   - Unique marks: Moles (e.g. tear mole at the corner of the eye), freckles, small scars, etc.
+   🎭 **Facial Features**: Describe face shape, eyes, nose, lips, and unique marks in detail.
+   💇 **Hairstyle**: Describe hair color, length, style, and texture.
+   👤 **Physique**: Describe body type and height impression.
+   👔 **Clothing & Accessories**: Describe top, bottom, required shoes, and tier-appropriate accessories. Use suggested_colors (primary for main clothes, secondary for inner/accessories, third for accents).
 
-   💇 **Hairstyle Description (Must Be Detailed)**:
-   - Hair color: Jet black, dark brown, chestnut, golden brown, etc.
-   - Hair length: Ear-length short hair, shoulder-length, past shoulder, waist-length
-   - Hairstyle: Naturally flowing, high ponytail, low ponytail, bun, updo, buzz cut, center part, side part, slicked back, messy strands
-   - Hair texture: Smooth, naturally curly, slightly wavy, voluminous, sleek, messy texture
-   - Bangs: Straight bangs, see-through bangs, no bangs, center-parted bangs, side-swept bangs, wispy bangs
+⚠️ **Facial Archetype System (Critical!)**
 
-   👤 **Physique**:
-   - Body type: Slender, athletic, muscular, slim, well-proportioned
-   - Height impression: Tall, petite, moderate
+Select ONE facial archetype based on character personality, profile, and story genre. Each archetype defines the character's facial style — this prevents same-face syndrome and ensures each character has a distinct look fitting their story context:
 
-   👔 **Clothing & Accessories**:
-   - Top: Style, material, color scheme, details (e.g. loose hoodie, tailored blazer, brocade robe)
-   - Bottom: Pants / skirt style (e.g. drawstring cargo pants, pleated skirt, black trousers)
-   - Shoes: Style, color (required! e.g. black high-top sneakers, white flat loafers, black leather shoes)
-   - Accessories: Added according to tier (e.g. black stud earring, thin gold chain)
+1. **Ordinary Realism** (Đời thường / Bình dị) → For Slice-of-Life, realistic, or everyday characters
+   - Key features: Natural unassuming features, gentle everyday look, approachable plain beauty, soft realistic facial structure
+   - Vibe: Warm, grounded, realistic, unpretentious
+   - Keywords: natural unassuming features, soft everyday facial contours, gentle plain beauty, realistic proportions
 
-⚠️ **Beauty Archetype System (Critical!)**
-
-Select ONE beauty archetype based on character personality (from personality_to_visual below). Each archetype defines the character's facial beauty style — this prevents same-face syndrome and ensures each character has a distinct, appealing look:
-
-1. **Cool Beauty** (Lạnh lùng / Sắc sảo) → Aloof, cold, tsundere personalities
+2. **Cool Beauty** (Lạnh lùng / Sắc sảo) → Aloof, cold, tsundere personalities (Urban/Romance/Drama)
    - Key features: Sharp slanted eyes (phoenix eyes), high cheekbones, thin lips, defined jawline, angular face shape
    - Vibe: Sharp, distant, striking, elegant severity
    - Keywords: slanted phoenix eyes, sharp defined jawline, high sculpted cheekbones, thin lips with sharp cupid's bow
 
-2. **Sweet Beauty** (Dễ thương / Ấm áp) → Gentle, warm, lively personalities
+3. **Sweet Beauty** (Dễ thương / Ấm áp) → Gentle, warm, lively personalities (Romance/Drama)
    - Key features: Large round or almond eyes, soft full lips, curved brows, soft oval or heart-shaped face
    - Vibe: Warm, approachable, innocent, bright
    - Keywords: large sparkling almond eyes, soft full lips, heart-shaped face, delicate rounded features
 
-3. **Mature Beauty** (Sang trọng / Quyến rũ) → Mature, elegant, manipulative personalities
-   - Key features: Slightly elongated eyes with a subtle upturn, V-line face, refined nose bridge, defined but soft jaw
-   - Vibe: Sophisticated, elegant, poised, magnetic
-   - Keywords: long seductive eyes with subtle upturn, refined V-line face, high-bridged refined nose, full lips with defined edges
+4. **Weathered/Gritty** (Từng trải / Phong trần) → Thriller, mystery, action, or survivor characters
+   - Key features: Weathered skin, sharp tired eyes, rugged jawline, subtle signs of fatigue or experience
+   - Vibe: Intense, experienced, hardened, survivalist
+   - Keywords: weathered textured skin, sharp tired eyes, rugged jawline, subtle signs of fatigue
 
-4. **Wild Beauty** (Cá tính / Mạnh mẽ) → Rebellious, fierce, energetic personalities
-   - Key features: Deep-set sharp eyes, thick brows, strong angular jawline, prominent nose bridge, defined facial structure
-   - Vibe: Intense, daring, untamed, charismatic
-   - Keywords: deep-set piercing eyes, thick bold brows, strong angular jawline, sharp prominent nose bridge
+5. **Ethereal/Immortal** (Thần tiên / Siêu phàm) → Fantasy, cultivation, xianxia characters
+   - Key features: Flawless otherworldly skin, striking unearthly symmetry, mesmerizing gaze
+   - Vibe: Divine, untouchable, majestic, transcendent
+   - Keywords: flawless otherworldly skin, striking unearthly symmetry, mesmerizing transcendent gaze
 
-5. **Classic Beauty** (Thanh tú / Hài hòa) → Neutral, balanced personalities (default)
+6. **Classic Beauty** (Thanh tú / Hài hòa) → Neutral, balanced personalities (default for general fiction)
    - Key features: Well-proportioned symmetrical features, moderate eyes, medium brows, balanced lips
    - Vibe: Elegant simplicity, timeless beauty, clean refinement
    - Keywords: perfectly symmetrical features, clear almond-shaped eyes, well-proportioned nose and lips, elegant refined contours
 
 Applicable tiers:
-- S-Tier: Must use an archetype with "striking" or "intense" descriptors from their archetype. Features must be exceptional (e.g. "sharp piercing phoenix eyes" not just "phoenix eyes")
-- A-Tier: Must use an archetype with "delicate" or "refined" quality. Features must be attractive and memorable
-- B-Tier and below: Archetype is optional but facial description must still be coherent and appropriate for the character
-- Facial and hairstyle description must account for at least 40% of the total description length
-- Prohibited: Using words like "ordinary", "plain", "unremarkable", "unattractive"
-- Prohibited: Mixing archetypes (each character gets ONE archetype)
-- Signature identifiers (from primary_identifier) take priority over archetype defaults and must be included
+- S-Tier & A-Tier: Must use an archetype that perfectly matches their narrative role. For realistic characters, use Ordinary Realism and describe them as authentically everyday (do not force 'striking' features). For dramatic/fantasy characters, features should be more exceptional.
+- B-Tier and below: Archetype is optional but facial description must still be coherent and appropriate for the character.
+- Facial and hairstyle description must account for at least 40% of the total description length.
+- Prohibited: Using words like "ugly", "deformed", "repulsive" (unless specifically described as a monster).
+- Prohibited: Mixing archetypes (each character gets ONE archetype).
+- Signature identifiers (from primary_identifier) take priority over archetype defaults and must be included.
 
 2. Prohibited from describing:
    ❌ Expressions, postures, actions

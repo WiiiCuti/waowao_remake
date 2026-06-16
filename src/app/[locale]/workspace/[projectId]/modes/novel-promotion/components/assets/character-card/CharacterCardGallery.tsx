@@ -18,7 +18,9 @@ type CharacterCardGalleryProps =
     selectedIndex: number | null
     isGroupTaskRunning: boolean
     isImageTaskRunning: (imageIndex: number) => boolean
+    isAppearanceTaskRunning: boolean
     displayTaskPresentation: TaskPresentationState | null
+    appearanceErrorMessage?: string | null
     onImageClick: (imageUrl: string) => void
     onSelectImage?: (characterId: string, appearanceId: string, imageIndex: number | null) => void
   }
@@ -41,8 +43,24 @@ export default function CharacterCardGallery(props: CharacterCardGalleryProps) {
   const t = useTranslations('assets')
 
   if (props.mode === 'selection') {
+    const selectionErrorDisplay = resolveErrorDisplay({
+      code: props.appearanceErrorMessage || null,
+      message: props.appearanceErrorMessage || null,
+    })
+    const showSelectionError = selectionErrorDisplay && !props.isAppearanceTaskRunning
+
     return (
-      <div className="grid grid-cols-3 gap-3">
+      <div className="space-y-3">
+        {showSelectionError && (
+          <div className="flex flex-col items-center justify-center p-3 rounded-lg border border-[var(--glass-stroke-danger)] bg-[var(--glass-tone-danger-bg)]/30 text-[var(--glass-tone-danger-fg)] text-xs gap-1">
+            <AppIcon name="alert" className="w-4 h-4" />
+            <span>{t('common.generateFailed')}</span>
+            {selectionErrorDisplay.message && (
+              <span className="text-[var(--glass-text-tertiary)] text-[10px]">{selectionErrorDisplay.message}</span>
+            )}
+          </div>
+        )}
+        <div className="grid grid-cols-3 gap-3">
         {props.imageUrlsWithIndex.map(({ url, originalIndex }) => {
           const isThisSelected = props.selectedIndex === originalIndex
           const isThisTaskRunning = props.isImageTaskRunning(originalIndex) || props.isGroupTaskRunning
@@ -96,6 +114,7 @@ export default function CharacterCardGallery(props: CharacterCardGalleryProps) {
             </div>
           )
         })}
+      </div>
       </div>
     )
   }

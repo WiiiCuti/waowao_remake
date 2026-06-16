@@ -163,7 +163,10 @@
         "614",
         0
       ],
-      "length": 97,
+      "length": [
+        "616",
+        0
+      ],
       "batch_size": 1
     },
     "class_type": "EmptyLTXVLatentVideo",
@@ -368,6 +371,15 @@
     "class_type": "easy int",
     "_meta": {
       "title": "$width.value"
+    }
+  },
+  "616": {
+    "inputs": {
+      "value": 121
+    },
+    "class_type": "INTConstant",
+    "_meta": {
+      "title": "$duration_frame.value"
     }
   }
 }

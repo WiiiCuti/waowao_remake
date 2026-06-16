@@ -300,7 +300,9 @@ export default function CharacterCard({
           selectedIndex={selectedIndex}
           isGroupTaskRunning={isGroupTaskRunning}
           isImageTaskRunning={isImageTaskRunning}
+          isAppearanceTaskRunning={isAppearanceTaskRunning}
           displayTaskPresentation={displayTaskPresentation}
+          appearanceErrorMessage={appearance.lastError?.message || appearance.imageErrorMessage}
           onImageClick={onImageClick}
           onSelectImage={onSelectImage}
         />
@@ -310,9 +312,13 @@ export default function CharacterCard({
           selectedIndex={selectedIndex}
           isConfirmingSelection={isConfirmingSelection}
           confirmSelectionState={confirmSelectionState}
-          onConfirmSelection={() => {
+          onConfirmSelection={async () => {
             setIsConfirmingSelection(true)
-            onConfirmSelection?.(character.id, appearance.id)
+            try {
+              await onConfirmSelection?.(character.id, appearance.id)
+            } finally {
+              setIsConfirmingSelection(false)
+            }
           }}
           isPrimaryAppearance={isPrimaryAppearance}
           voiceSettings={selectionVoiceSettings}

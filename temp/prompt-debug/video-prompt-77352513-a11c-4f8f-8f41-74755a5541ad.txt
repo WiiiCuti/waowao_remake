@@ -1,0 +1,6 @@
+[Scene] The scene remains at a café entrance on a rainy day. The awning covers the sidewalk, the entrance door and large window are visible in the midground, a puddle lies on the ground in the foreground, and a misty city block forms the background. Environment is completely static, with no ambient motion.
+[Characters] Minh: UPPER BODY only — angular face, sharp jawline, slanted phoenix eyes, dark brown eyes, thin lips, messy black windswept short hair, dark blue hoodie over white tee, calm and neutral. Linh: UPPER BODY only — heart-shaped face, almond eyes, refined nose, soft lips, arched brows, brown hair, light green top layered with cream cardigan, holding pale blue umbrella, patient with a small smile.
+
+Shot 1 (Eye-Level Medium Shot, 1.97s): Static camera, environment remains unchanged.
+Minh: "I'm going towards Thống Nhất Park."
+Action: Slow-motion. Minh completes the small gesture, letting his hand gently drop to his side as he speaks in an even, calm tone, his gaze remaining fixed in the direction he indicated. Simultaneously, Linh's small smile deepens subtly as he speaks. Smooth and fluid micro-motion throughout.

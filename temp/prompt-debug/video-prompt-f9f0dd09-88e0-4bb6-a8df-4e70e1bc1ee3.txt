@@ -1,0 +1,9 @@
+[Scene] The entrance of a café on a rainy day under an awning. In the background a misty city block with passersby under umbrellas is visible, frozen in place. A puddle sits on the sidewalk in the foreground. The café entrance door and a large window with warm interior light are in the midground. No ambient motion, the environment remains completely still.
+
+[Characters]
+Linh: Over-the-shoulder view, the back of a young woman's head with soft brown hair, neck, and shoulder visible, wearing a light green top and cream cardigan, pale blue umbrella held at her side. Calm and waiting.
+Minh: Upper body visible, a young man with an angular face, sharp jawline, high cheekbones, slanted phoenix eyes, dark brown eyes, thin lips, messy black windswept hair, wearing a dark blue hoodie. Inquisitive and calm.
+
+Shot 1 (Over-the-Shoulder Medium Shot, 0.88s): Static camera, environment remains unchanged.
+Minh: "Yours?"
+Action: In slow-motion, Minh's lips gently close and press together briefly, then part again as he speaks the words, his gaze remaining locked on hers. A soft, subtle shift of his eyebrow and a single slow blink accompany the question. Smooth and fluid micro-movement.

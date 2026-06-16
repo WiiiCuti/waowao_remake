@@ -15,6 +15,7 @@ export type AnalyzeGlobalCharactersData = {
   new_characters?: Array<Record<string, unknown>>
   updated_characters?: Array<Record<string, unknown>>
   characters?: Array<Record<string, unknown>>
+  story_atmosphere?: string
 }
 
 export type AnalyzeGlobalLocationsData = {

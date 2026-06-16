@@ -71,8 +71,14 @@ export async function persistAnalyzedCharacters(params: {
       suggested_colors: toStringArray(item.suggested_colors),
       primary_identifier: item.primary_identifier,
       visual_keywords: toStringArray(item.visual_keywords),
+      mood_keywords: Array.isArray(item.mood_keywords)
+        ? toStringArray(item.mood_keywords)
+        : undefined,
       gender: item.gender,
       age_range: item.age_range,
+      expected_appearances: Array.isArray(item.expected_appearances)
+        ? item.expected_appearances
+        : undefined,
     }
 
     const createdRow = await db.novelPromotionCharacter.create({

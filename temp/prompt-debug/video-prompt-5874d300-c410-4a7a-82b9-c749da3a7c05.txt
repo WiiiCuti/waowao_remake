@@ -1,0 +1,8 @@
+[Scene] A café entrance on a rainy day, viewed from the street. A stationary awning covers the sidewalk. A puddle in the foreground reflects the muted sky. The café entrance door is in the midground, a large window glowing on the right, a menu board hanging on the left. In the background, a misty city block stretches out, occupied by completely frozen passersby holding umbrellas. The heavy curtain of rain hangs motionless in the air. The scene is illuminated by static diffused overcast light, with a constant warm spill from the café interior on the left. The desaturated cool tones with amber warmth remain entirely fixed. No ambient motion exists in the environment; the background remains completely still throughout the video.
+[Characters] Minh: Male, twenty-five years old. Angular face, sharp jawline, high cheekbones, slanted phoenix eyes, dark brown eyes, nose bridge, thin lips. Black short hair, messy and windswept, no umbrella. Dark blue hoodie, white tee, jeans, white sneakers. He stands at the center of the frame with his hands hanging at his sides, his posture relaxed, his gaze fixed forward. Emotional state: contemplative, relaxed, steady.
+Shot 1 (Full Shot, 1.84s): Static camera, environment remains completely unchanged.
+Action: In slow-motion, Minh slowly blinks, his breathing barely perceptible. Smooth and fluid movement throughout.
+Shot 2 (Full Shot, 1.84s): Static camera, environment remains completely unchanged.
+Action: He gently shifts his weight forward, a subtle, fluid motion through his shoulders and hips.
+Shot 3 (Full Shot, 1.83s): Static camera, environment remains completely unchanged.
+Action: His head turns an almost imperceptible degree to the side, his eyes following a path through the rain. Subtle, deep, contemplative.

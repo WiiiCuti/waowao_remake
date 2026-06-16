@@ -18,21 +18,16 @@ Output format (return JSON only, no markdown markers):
 
 Analysis Rules:
 
-1. [Dialogue & Narration Extraction - MOST IMPORTANT]
-   ✅ For panels with dialogue, extract the following types of content (set "isNarration": false):
-   - **Quoted dialogue**: "xxx" or "xxx" or 「xxx」
-   - **Direct speech**: He said: "xxx", She shouted: "xxx"
-   - **Inner monologue**: I thought: "xxx"
+1. [Pure Dialogue & Voice-over Extraction - MOST IMPORTANT]
+   ✅ Cinematic Movie Mode: We DO NOT use a Narrator for scene descriptions or actions. 
+   - For panels that only contain action descriptions, scene descriptions, or Cinematic Inserts (text inside `[...]`), you **MUST NOT** generate any voice record. Omit them entirely from the JSON output.
+   - It is completely normal and expected that many panels will have no voice records.
 
-   ✅ For panels with **no character dialogue at all**, you **MUST** generate one narration record:
-   - "speaker" must be set to "Narrator"
-    - "content" set to the panel's text_segment (the original novel text)
-   - "isNarration" must be set to true
-   - "emotionStrength" recommended as 0.1 (calm)
+   ✅ For panels with character dialogue or inner monologue, extract ONLY the spoken words:
+   - **Pure Dialogue**: Extract ONLY the content inside the quotation marks ("xxx", 'xxx', or 「xxx」). You MUST strip away any narrative tags (e.g., if the original text is `He said coldly, "Stop right there!"`, the "content" MUST be ONLY `"Stop right there!"`).
+   - **Inner Monologue / Thoughts**: If the text describes a character thinking (e.g., `He thought to himself: "I will survive."`), extract ONLY `"I will survive."` and assign the "speaker" to that character. Set "isNarration": false.
 
-   ⚠️ Ensure every panel has at least one corresponding voice record (dialogue or narration).
-
-   ⚠️ For panels that **do have character dialogue**, do **NOT** simultaneously generate a narration record. A panel can only have either dialogue or narration, never both.
+   ⚠️ Panels without spoken dialogue or inner monologue MUST NOT have any voice record. Do NOT use "Narrator".
 
 2. [Emotion Strength emotionStrength]
    Output a value between 0.1 and 0.5 based on the emotional intensity of the line (⚠️ Note: maximum does not exceed 0.5, to keep voice natural and steady):
@@ -51,7 +46,7 @@ Analysis Rules:
 3. [Speaker Identification]
    - Dialogue content: Identify the speaker, e.g. "He said", "She shouted"
    - Quoted content without speaker cues: Infer the speaker from context
-   - If the speaker cannot be determined, set to "Narrator"
+   - Do NOT use "Narrator". If it's a pure scene description without dialogue, do not generate a voice record.
 
 4. [Character Matching]
    - Character Library: {characters_lib_name}
@@ -116,58 +111,6 @@ Analysis Rules:
    - ✅ Correct: "content":"「Hello」"
    - ❌ Incorrect: "content":""Hello""
 
-8. [Stage Direction Stripping — CRITICAL, applies BEFORE setting narration content]
-   When generating a narration record (isNarration: true), the "content" field MUST be cleaned before use.
-   There are TWO different strip behaviors — do NOT confuse them:
-
-   ❌ TYPE 1: Strip the ENTIRE LINE (these lines have zero narrative value):
-   a) Scene header lines — they are ONLY location + time metadata:
-      - [CẢNH X: ...], [SCENE X: ...], [Scene X: ...]
-      - [INT. ...], [EXT. ...], [INT/EXT. ...]
-      - Any line that is entirely enclosed in [...] and describes a location or time period
-   b) Transcription noise/artifacts — tool watermarks and sound markers:
-      - Any line containing "TurboScribe"
-      - "[âm nhạc]", "[music]", "[tiếng nhạc]", "[background music]"
-      - "(Được chép bởi", "(Transcribed by"
-   c) Standalone stage direction lines (the ENTIRE line is a direction, no prose):
-      - Lines that are ONLY parenthetical director notes with no narrative: (V.O.), (O.S.), (O.C.), (CONT'D)
-
-   ⚠️ TYPE 2: Strip the LABEL PREFIX ONLY, KEEP the rest of the line (these lines have narrative content after the label):
-   a) Background/setting description lines — the content AFTER the label is valid narrative:
-      - "Bối cảnh: [content]" → strip "Bối cảnh: ", keep [content]
-      - "Background: [content]" → strip "Background: ", keep [content]
-      - "Setting: [content]" → strip "Setting: ", keep [content]
-      - "Mô tả cảnh: [content]" → strip "Mô tả cảnh: ", keep [content]
-
-   ✅ KEEP as-is in "content" (no stripping needed):
-      - Actual narrative prose describing events
-      - Inner monologue
-      - Sound descriptions that are part of the story (e.g. "Tiếng súng vang lên từ xa")
-
-   ✅ If after all stripping, the remaining text is empty or only whitespace:
-      - Do NOT create a narration record for that panel
-      - Set matchedPanel to null instead
-
-   ⚠️ CRITICAL EXAMPLE — study this carefully:
-   Input source_text:
-     "[CẢNH 8: PHÒNG NGỦ BIỆT THỰ HỌ TRANG - NỬA ĐÊM]\nBối cảnh: Ngọn lửa đỏ rực bùng lên dữ dội từ căn phòng ngủ."
-
-   Step 1: Strip TYPE 1 — remove entire scene header line:
-     Removed: "[CẢNH 8: PHÒNG NGỦ BIỆT THỰ HỌ TRANG - NỬA ĐÊM]"
-     Remaining: "Bối cảnh: Ngọn lửa đỏ rực bùng lên dữ dội từ căn phòng ngủ."
-
-   Step 2: Strip TYPE 2 — remove label prefix only, keep narrative content:
-     Removed prefix: "Bối cảnh: "
-     Kept content: "Ngọn lửa đỏ rực bùng lên dữ dội từ căn phòng ngủ."
-
-   ✅ Final correct content output:
-     "Ngọn lửa đỏ rực bùng lên dữ dội từ căn phòng ngủ."
-
-   ❌ Wrong output (stripped everything including narrative):
-     "" (empty string)
-
-   ❌ Wrong output (kept scene header in TTS):
-     "[CẢNH 8: PHÒNG NGỦ BIỆT THỰ HỌ TRANG - NỬA ĐÊM] Bối cảnh: Ngọn lửa..."
 
 Storyboard data as follows:
 {storyboard_json}

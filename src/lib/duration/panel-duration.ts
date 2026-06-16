@@ -56,30 +56,29 @@ export function calculatePanelVideoDuration(params: CalculatePanelDurationParams
   const voiceDurS = hasVoice ? (dialogueLines[0].audioDuration! / 1000) : 0
   const narrationDurS = hasNarration ? (narrationLines[0].audioDuration! / 1000) : 0
 
+  let calculatedDuration = DEFAULT_FALLBACK_DURATION_S
+
   // Rule 1: Lip sync ON + voice + narration → concat
   if (hasLipSync && hasVoice && hasNarration) {
-    return voiceDurS + narrationDurS
+    calculatedDuration = voiceDurS + narrationDurS
   }
-
   // Rule 2: Lip sync ON + voice + no narration → voiceDur
-  if (hasLipSync && hasVoice) {
-    return voiceDurS
+  else if (hasLipSync && hasVoice) {
+    calculatedDuration = voiceDurS
   }
-
   // Rule 3: Lip sync OFF + voice → voiceDur
-  if (hasVoice) {
-    return voiceDurS
+  else if (hasVoice) {
+    calculatedDuration = voiceDurS
   }
-
   // Rule 4: Lip sync OFF + no voice + narration → narrationDur
-  if (hasNarration) {
-    return narrationDurS
+  else if (hasNarration) {
+    calculatedDuration = narrationDurS
   }
-
   // Rule 5: Fallback to storyboard duration
-  if (typeof storyboardDuration === 'number' && storyboardDuration > 0) {
-    return storyboardDuration
+  else if (typeof storyboardDuration === 'number' && storyboardDuration > 0) {
+    calculatedDuration = storyboardDuration
   }
 
-  return DEFAULT_FALLBACK_DURATION_S
+  // Ensure minimum duration for better pacing and video generation quality
+  return Math.max(calculatedDuration, DEFAULT_FALLBACK_DURATION_S)
 }

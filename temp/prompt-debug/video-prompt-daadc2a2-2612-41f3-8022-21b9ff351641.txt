@@ -1,0 +1,9 @@
+[Scene] Rainy day at a café entrance under an awning. Foreground includes a blurred puddle. Background is a misty city block with passersby under umbrellas, heavily blurred. Rain streaks visible in the air catching ambient light. The environment remains completely static throughout the scene.
+[Characters] Minh: Head and neck visible, angular face, sharp jawline, high cheekbones, slanted phoenix eyes, dark brown eyes, defined nose bridge, thin lips, black short messy hair, dark blue hoodie collar. Emotional state: contemplative, calm, distant.
+
+Shot 1 (Close-Up, 2.5s): Static camera
+Action: After a moment of stillness, Minh performs a slow deep blink, eyelids closing gently and reopening smoothly. Breathing continues slowly and evenly, with a subtle rise and fall of the chest visible through the collarbone area. The gaze remains fixed forward. Slow-motion, smooth and fluid.
+
+Shot 2 (Close-Up, 2.5s): Static camera
+Minh: "Actually, I don't need to go anywhere urgently."
+Action: Lips part slightly as Minh speaks the line in a calm, low voice, then close again. He takes a slow breath through his nose after speaking. Gaze remains fixed on the rain with a distant expression. Slow-motion, smooth and fluid.

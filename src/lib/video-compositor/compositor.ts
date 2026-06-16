@@ -175,7 +175,6 @@ export async function mergePanel(
       '-b:a', '128k',
       '-map', '0:v',
       '-map', '1:a',
-      '-shortest',
       outputPath,
     ], 300_000)
   } else if (useNarration) {
@@ -196,7 +195,6 @@ export async function mergePanel(
       '-b:a', '128k',
       '-map', '0:v',
       '-map', '1:a',
-      '-shortest',
       outputPath,
     ], 300_000)
   } else {

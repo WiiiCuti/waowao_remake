@@ -233,8 +233,13 @@ export async function handleAnalyzeNovelTask(job: Job<TaskJobData>) {
   const charactersData = parseJsonResponse(characterResponseText)
   const locationsData = parseJsonResponse(locationResponseText)
   const propsData = parseJsonResponse(propResponseText)
-  const parsedCharacters = Array.isArray(charactersData.characters)
-    ? (charactersData.characters as Array<Record<string, unknown>>)
+  const parsedCharacters = Array.isArray(charactersData.new_characters)
+    ? (charactersData.new_characters as Array<Record<string, unknown>>)
+    : Array.isArray(charactersData.characters)
+      ? (charactersData.characters as Array<Record<string, unknown>>)
+      : []
+  const parsedUpdatedCharacters = Array.isArray(charactersData.updated_characters)
+    ? (charactersData.updated_characters as Array<Record<string, unknown>>)
     : []
   const parsedLocations = Array.isArray(locationsData.locations)
     ? (locationsData.locations as Array<Record<string, unknown>>)
@@ -271,8 +276,15 @@ export async function handleAnalyzeNovelTask(job: Job<TaskJobData>) {
       suggested_colors: toStringArray(item.suggested_colors),
       primary_identifier: item.primary_identifier,
       visual_keywords: toStringArray(item.visual_keywords),
+      mood_keywords: Array.isArray(item.mood_keywords)
+        ? toStringArray(item.mood_keywords)
+        : undefined,
       gender: item.gender,
       age_range: item.age_range,
+      expected_appearances: Array.isArray(item.expected_appearances)
+        ? item.expected_appearances
+        : undefined,
+      story_atmosphere: readText(charactersData.story_atmosphere) || undefined,
     }
 
     const created = await prisma.novelPromotionCharacter.create({
@@ -280,12 +292,52 @@ export async function handleAnalyzeNovelTask(job: Job<TaskJobData>) {
         novelPromotionProjectId: novelData.id,
         name,
         aliases: JSON.stringify(toStringArray(item.aliases)),
+        introduction: readText(item.introduction),
         profileData: JSON.stringify(profileData),
         profileConfirmed: false,
       },
       select: { id: true },
     })
     createdCharacters.push(created)
+  }
+
+  for (const update of parsedUpdatedCharacters) {
+    const targetName = readText(update.name).trim()
+    if (!targetName) continue
+    const existing = (novelData.characters || []).find(
+      (c) => c.name.toLowerCase() === targetName.toLowerCase(),
+    )
+    if (!existing) continue
+
+    try {
+      const updateData: Record<string, unknown> = {}
+      const updatedIntroduction = readText(update.updated_introduction).trim()
+      if (updatedIntroduction) {
+        updateData.introduction = updatedIntroduction
+        existing.introduction = updatedIntroduction
+      }
+      const updatedAliases = toStringArray(update.updated_aliases)
+      if (updatedAliases.length > 0) {
+        const currentAliases: string[] = (() => {
+          try { return JSON.parse(existing.aliases || '[]') as string[] }
+          catch { return [] }
+        })()
+        const newAliases = updatedAliases.filter(
+          (a) => !currentAliases.some((ca) => ca.toLowerCase() === a.toLowerCase()),
+        )
+        if (newAliases.length > 0) {
+          const merged = [...currentAliases, ...newAliases]
+          updateData.aliases = JSON.stringify(merged)
+          existing.aliases = JSON.stringify(merged)
+        }
+      }
+      if (Object.keys(updateData).length > 0) {
+        await prisma.novelPromotionCharacter.update({
+          where: { id: existing.id },
+          data: updateData,
+        })
+      }
+    } catch { /* skip failed update */ }
   }
 
   const createdLocations: Array<{ id: string }> = []

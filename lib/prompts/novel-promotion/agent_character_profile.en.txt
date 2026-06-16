@@ -89,25 +89,25 @@ Tier 1 (Plain/Uniform): Commoners, lower-class laborers; plain and uniform cloth
 
 【Character Archetype Reference Word Bank】
 
-Positive characters may choose from: Domineering CEO, Aloof Top Student, Gentle Warm Guy, Aspiring Youth, Virtuous Female Lead, Independent Career Woman, Loyal Guardian, etc.
-
-Antagonist characters may choose from: Scheming Woman, White Lotus, Sinister Villain, Crazy Beauty, Avenger, etc.
-
-Other types: Tsundere Princess, Yandere, Manipulative, Sharp-Tongued, Chatterbox, Cold Exterior Warm Heart, Quietly Passionate, etc.
+Slice-of-Life / Realism: Ordinary Reserved Urban Man, Quiet Observer, Everyday Student, Rain-Day Passerby, Weary Office Worker, Next-Door Neighbor, Low-Key Youth.
+Romance / Urban Drama: Domineering CEO, Aloof Top Student, Gentle Warm Guy, Virtuous Female Lead, Independent Career Woman, Scheming Woman, White Lotus.
+Fantasy / Cultivation: Ethereal Master, Reckless Swordsman, Demonic Cultivator, Fallen Noble, Aloof Immortal.
+Thriller / Mystery / Action: Weary Detective, Secretive Stranger, Cornered Survivor, Cold-Blooded Mastermind, Street-Smart Survivor.
+Other types: Loyal Guardian, Sinister Villain, Crazy Beauty, Avenger, Tsundere Princess, Yandere.
 
 【Personality Tags Reference Word Bank】
 
-Temperament tags: Aloof, Gentle, Sunny, Melancholic, Mysterious, Alluring, Cool and Distant, Passionate
-
-Personality tags: Manipulative, Tsundere, Sharp-Tongued, Chatterbox, Quietly Passionate, Straightforward, Smooth-Talking, Stubborn
-
-Attitude tags: Confident, Insecure, Reclusive, Sociable, Rebellious, Obedient
+Temperament tags: Aloof, Gentle, Sunny, Melancholic, Mysterious, Alluring, Cool and Distant, Passionate, Grounded, Unassuming, World-Weary, Ethereal.
+Personality tags: Manipulative, Tsundere, Sharp-Tongued, Chatterbox, Quietly Passionate, Straightforward, Smooth-Talking, Stubborn, Considerate, Pragmatic.
+Attitude tags: Confident, Insecure, Reclusive, Sociable, Rebellious, Obedient, Cautious, Cynical.
 
 【Visual Keywords Reference Word Bank】
 
-Style keywords: Elite Temperament, Street Trend, Preppy, Vintage Elegance, Athletic Energy, Artistic Flair, Cool Minimalist
-
-Feature keywords: Sickly Fragile Feel, Ascetic Vibe, Wolfish, Puppy-Like, Mature Sister Vibe, Lolita Feel, Uncle Flavor
+Realism & Everyday: Everyday Casual, Soft Realism, Urban Blend-In, Rain-Day Casual, Understated Natural, Quietly Handsome/Pretty, Unassuming Look.
+Gritty & Thriller: Weathered/Tired, Shadowy Demeanor, Messy/Unkempt, Rough Edges.
+Fantasy & Ethereal: Ethereal Beauty, Otherworldly Aura, Regal Presence, Ascetic Vibe.
+Style/Trend: Elite Temperament, Street Trend, Preppy, Vintage Elegance, Athletic Energy, Artistic Flair, Cool Minimalist.
+Feature keywords: Sickly Fragile Feel, Wolfish, Puppy-Like, Mature Sister Vibe, Lolita Feel, Uncle Flavor.
 
 【Color Suggestion Rules】
 
@@ -189,6 +189,32 @@ Examples:
   Source: "Nàng mặc một bộ cung trang màu đỏ thẫm, trâm cài hình phượng, khí chất cao quý"
   → visual_context: "cung trang màu đỏ thẫm, trâm cài hình phượng"
 
+【Mood Keywords — Character Emotional State ⭐ Important】
+
+For each character, extract the dominant emotional atmosphere they carry in the story. These are NOT personality traits — they describe HOW the character FEELS in their scenes, the mood they project through expression and body language:
+
+- Does the character seem lonely? thoughtful? worried? warm? distant?
+- What is their emotional relationship with the setting? (e.g., staring at rain, lost in thought)
+- Read BETWEEN the lines — even if the text doesn't say "he was sad", does the situation imply it?
+
+Choose 2-4 mood keywords from: Gentle Solitude, Quiet Observer, Rainy Reflection, Warm Kindness, Subtle Melancholy, Reserved, Contemplative, Intimate, Distant, Protective, Anxious, Hopeful, Weary, Serene, Restless, Tender, Bittersweet, Longing.
+
+Examples:
+  Character standing alone under awning watching rain → mood_keywords: ["Quiet Observer", "Rainy Reflection", "Gentle Solitude"]
+  Character cheerfully sharing umbrella with stranger → mood_keywords: ["Warm Kindness", "Tender", "Subtle Melancholy"]
+
+【Story Atmosphere — Scene-Level Context】
+
+Describe the overall visual and emotional atmosphere of the story in ONE sentence. This sets the tone for ALL character visuals:
+
+- Lighting/time: rainy afternoon, golden sunset, neon night, overcast morning
+- Mood: quiet, intimate, tense, melancholic, hopeful, warm
+- Setting flavor: urban, rural, luxurious, rundown, cozy, vast
+
+Examples:
+  "Rainy afternoon on a quiet city street, intimate two-person scene under a coffee shop awning, cool blue-gray tones with warm shop light."
+  "Bustling urban evening, neon reflections on wet pavement, lonely crowd atmosphere, cold but hopeful undertone."
+
 【Existing Asset Library】
 
 ⚠️ Important: Carefully read the introductions of existing characters to determine whether a newly discovered character name refers to the same person as an existing character!
@@ -199,11 +225,13 @@ Examples:
 
 Return JSON only; no markdown markers or comments allowed.
 
-Output contains two arrays:
+Output contains two arrays and a story-level field:
+- story_atmosphere: overall visual and emotional atmosphere of the story (one sentence)
 - new_characters: newly discovered characters
 - updated_characters: existing characters whose introductions need updating (e.g., newly discovered forms of address, relationships, or real names)
 
 {
+  "story_atmosphere": "Rainy afternoon on a quiet city street, intimate two-person scene under awning, cool blue-gray tones with warm interior light.",
   "new_characters": [
     {
       "name": "Character Name",
@@ -219,8 +247,9 @@ Output contains two arrays:
       "occupation": "Entrepreneur/Student/None",
       "costume_tier": 5,
       "suggested_colors": ["Deep Blue", "Gold"],
-      "primary_identifier": "Mole at the corner of the eye (only required for S/A-Tier)",
+      "primary_identifier": "Mole at the corner of the eye (only required for S/A-Tier if source text provides clear visual marker, otherwise leave as empty string \"\")",
       "visual_keywords": ["Elite Temperament", "Ascetic Vibe"],
+      "mood_keywords": ["Quiet Observer", "Gentle Solitude"],
       "expected_appearances": [
         {"id": 1, "change_reason": "Initial appearance", "visual_context": "visual details from source text (or empty if none)"},
         {"id": 2, "change_reason": "Reason for outfit change", "visual_context": "new clothes/hairstyle details (or empty)"}
@@ -255,7 +284,7 @@ Output contains two arrays:
 1. Return JSON only; no other text allowed
 2. role_level must be one of S/A/B/C/D
 3. costume_tier must be an integer from 1-5
-4. S/A-Tier characters must have primary_identifier
+4. S/A-Tier characters: primary_identifier is required ONLY if source text provides a clear visual marker. If none exists, leave it as empty string "".
 5. personality_tags minimum 2, maximum 5
 6. suggested_colors 2-3 colors
 7. introduction is required; describe character identity, relationships, address mapping
@@ -263,7 +292,9 @@ Output contains two arrays:
 9. The name in updated_characters must exactly match the name in the existing asset library
 10. expected_appearances is required, must include at least id=1 initial appearance
 11. Only add sub-appearances for sustained visual changes; do not add temporary effects/emotions/actions
-12. Output must be **strictly valid JSON**: strings must not contain raw newlines / carriage returns / tabs
+12. story_atmosphere is required at the top level: describe the overall visual+mood of the story in one sentence
+13. mood_keywords is required for S/A-tier characters (2-4 keywords), optional for B/C/D
+14. Output must be **strictly valid JSON**: strings must not contain raw newlines / carriage returns / tabs
 
 ⚠️⚠️⚠️【JSON Safe Output — Highest Priority】⚠️⚠️⚠️
 - All quotation marks in the source text (""''「」『』 etc.) must be uniformly replaced with Japanese-style corner bracket quotation marks「」in JSON string values

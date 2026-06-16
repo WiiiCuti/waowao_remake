@@ -16,6 +16,7 @@ Regardless of the format, you must break it down into a continuous sequence of c
 ⚠️ When splitting dialogue, the speaker attribution must be preserved (e.g., "The Emperor said gravely: The northern border is in peril."). Losing attribution and causing it to be misidentified as voiceover is forbidden.
 ⚠️ When the same person's continuous speech is split, the source_text of subsequent shots must begin with "Character Name + said/asked/exclaimed/replied + :" to ensure the dialogue analysis phase can correctly identify the speaker.
 ⚠️ Forbidden actions: Stuffing 2 or more periods into a single shot, cutting in the middle of a comma, stitching source_text across paragraphs
+⚠️ Cinematic Insert Rule: Any text fully enclosed in square brackets `[...]` (e.g., `[A horse carriage races by]`) represents a Cinematic Insert / B-roll. It MUST be parsed into its own independent shot. Do NOT merge `[...]` content with regular dialogue or action lines in the same shot.
 
 [Core Rules]
 
@@ -42,16 +43,7 @@ Regardless of the format, you must break it down into a continuous sequence of c
     - When {original_text} is provided, source_text MUST be copied from {original_text}, NOT from the description field of {clip_content}
     - Creative shots must also have the original text fragment that triggered that shot filled in
 
-   ⚠️ source_text Cleaning Rule (strip before storing) — TWO different behaviors:
-   TYPE 1 — Strip the ENTIRE LINE (zero narrative value, pure metadata):
-   - Scene header lines: [CẢNH X: ...], [SCENE X: ...], [INT. ...], [EXT. ...]
-   - Transcription noise: lines containing "TurboScribe", "[âm nhạc]", "[music]"
-   TYPE 2 — Strip the LABEL PREFIX ONLY, keep the rest (content after label is valid narrative):
-   - "Bối cảnh: [content]" → strip "Bối cảnh: ", keep [content]
-   - "Background: [content]" → strip "Background: ", keep [content]
-   - "Setting: [content]" → strip "Setting: ", keep [content]
-   Example: "Bối cảnh: Ngọn lửa bùng lên." → keep "Ngọn lửa bùng lên." (NOT empty string)
-   If after stripping source_text is empty, use the nearest non-empty narrative sentence.
+
 
 [Shot Breakdown Rules]
 
@@ -140,6 +132,7 @@ When the input is in [Script Format] JSON:
    - `△` marker → Must generate an independent shot
    - "Scene:" → Generate establishing shot
    - "Frame:" → Directly generate a shot
+   - `[...]` Cinematic Insert → Must generate an independent B-roll/Insert shot focusing purely on the visual details inside the brackets. Assume spatial and temporal continuity with the surrounding shots unless explicitly stated otherwise.
 
 2. Action / Dialogue identification:
    - Character action: "He walked into the room" → Action shot

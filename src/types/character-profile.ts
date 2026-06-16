@@ -7,6 +7,12 @@ export type RoleLevel = 'S' | 'A' | 'B' | 'C' | 'D'
 
 export type CostumeTier = 1 | 2 | 3 | 4 | 5
 
+export interface ExpectedAppearance {
+    id: number
+    change_reason: string
+    visual_context: string
+}
+
 export interface CharacterProfileData {
     /** 角色重要性层级 */
     role_level: RoleLevel
@@ -38,11 +44,20 @@ export interface CharacterProfileData {
     /** 视觉关键词 */
     visual_keywords: string[]
 
+    /** 情绪氛围关键词 (角色在场景中的情感状态) */
+    mood_keywords?: string[]
+
     /** 性别 */
     gender: string
 
     /** 年龄段描述 */
     age_range: string
+
+    /** 预期外貌变化 (AI分析小说得出，供阶段2 Confirm使用) */
+    expected_appearances?: ExpectedAppearance[]
+
+    /** 故事整体氛围描述 (阶段1 AI分析得出，供阶段2 Confirm使用) */
+    story_atmosphere?: string
 }
 
 /**

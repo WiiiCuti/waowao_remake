@@ -9,7 +9,7 @@
 
 import { useState, useCallback, useMemo } from 'react'
 import { useTranslations } from 'next-intl'
-import { CharacterProfileData, parseProfileData } from '@/types/character-profile'
+import { CharacterProfileData, parseProfileData, validateProfileData } from '@/types/character-profile'
 import {
     useProjectAssets,
     useRefreshProjectAssets,
@@ -89,7 +89,11 @@ export function useProfileManagement({
         characterId: string,
         updatedProfileData?: CharacterProfileData
     ) => {
-        // 🔥 添加到确认中集合
+        if (updatedProfileData && !validateProfileData(updatedProfileData)) {
+            showToast?.(t('characterProfile.parseFailed'), 'error')
+            return
+        }
+
         setConfirmingCharacterIds(prev => new Set(prev).add(characterId))
         try {
             await confirmCharacterProfileMutation.mutateAsync({
