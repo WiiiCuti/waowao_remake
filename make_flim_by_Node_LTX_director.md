@@ -226,7 +226,30 @@ Khi Chunk A kết thúc và Chunk B bắt đầu:
 
 ---
 
-## 9. Lời Kết
+## 9. Giải Quyết Nút Thắt Giao Diện (The UI/UX Mapping Problem)
+
+Một vấn đề cực kỳ hóc búa được đặt ra: **Giao diện hiện tại (Frontend) được thiết kế theo tỷ lệ 1:1 (1 Panel = 1 Video). Nếu chúng ta gom 3 Panel thành 1 Chunk Video 10 giây, làm sao để hiển thị trên giao diện? Chẳng lẽ đập đi xây lại toàn bộ UI?**
+
+Tuyệt đối không cần đập giao diện! Giải pháp hoàn hảo nhất là **"Video Slicing" (Cắt ngược video bằng FFmpeg)** ở tầng Backend.
+
+### Luồng Hoạt Động Cắt Ngược (Reverse Slicing):
+1. **Gom (Chunking):** Node.js gom Panel 1 (3s), Panel 2 (2.5s), Panel 3 (4.5s) thành 1 Chunk gửi lên ComfyUI.
+2. **Render (LTX Director):** ComfyUI trả về 1 video MP4 liền mạch dài 10 giây.
+3. **Cắt ngược (Slicing):** Ngay khi tải video 10s về máy chủ, Node.js dùng công cụ **FFmpeg** để cắt video đó ra làm 3 file MP4 nhỏ dựa trên chính mốc thời gian nó đã tính ở bước 1:
+   - `video_panel_1.mp4`: cắt từ giây 0.0 đến 3.0
+   - `video_panel_2.mp4`: cắt từ giây 3.0 đến 5.5
+   - `video_panel_3.mp4`: cắt từ giây 5.5 đến 10.0
+4. **Lưu Database:** Cập nhật 3 URL video nhỏ này vào 3 Panel tương ứng trên Database.
+
+### Kết Quả Kép Tuyệt Vời:
+- **Đối với Giao Diện (Frontend):** UI không hề biết chuyện gì đã xảy ra. Nó vẫn nhận được 1 video cho 1 panel như bình thường. Chức năng Preview từng panel trên web vẫn hoạt động hoàn hảo 100%. Mọi thứ y như cũ.
+- **Đối với Khán Giả:** Khi Video Compositor ghép các video này lại để xuất file cuối cùng, vì 3 video này được cắt ra từ **cùng một video gốc của LTX Director**, nên khi nối lại, chúng vẫn sẽ mượt mà, khớp nhau đến từng pixel, không hề có độ trễ hay sai lệch bối cảnh!
+
+Bằng giải pháp FFmpeg Slicing này, chúng ta "đánh lừa" được UI, giữ nguyên toàn bộ kiến trúc Frontend, nhưng lại lén "cấy" được sức mạnh điện ảnh của LTX Director vào Backend!
+
+---
+
+## 10. Lời Kết
 
 Bằng cách kết hợp **Cinematic Movie Mode** (từ bỏ Narrator, chỉ dùng thoại thuần và B-roll) với **LTX Director Multi-Panel Chunking** (gom nhóm panel theo thời lượng để sinh video mượt mà liền mạch), chúng ta sẽ xây dựng một hệ thống sản xuất phim AI không giống bất kỳ thứ gì đang tồn tại trên thị trường.
 
