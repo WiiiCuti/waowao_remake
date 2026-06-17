@@ -1,7 +1,7 @@
 # Phân tích thủ công toàn bộ pipeline với truyện "Khoảng Cách Một Chiếc Ô"
 
 ---
-
+Lúc xây dựng thấy nó chạy những bước sau: Plan storyboard ,Generate cinematography rules, Generate acting direction, Refine storyboard details, Analyze voice lines là sao nhỉ
 ## Step 0: Đầu vào
 
 - ~350 từ → **1 Episode** (không cần split, dưới ngưỡng ~650 từ)

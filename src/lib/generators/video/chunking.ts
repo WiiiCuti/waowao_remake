@@ -50,7 +50,7 @@ export function chunkPanels(
           panels: kept,
           totalDurationSeconds: kept.reduce((s, p) => s + p.durationSeconds, 0),
         })
-        currentPanels = [panel, ...rolledBack]
+        currentPanels = [...rolledBack, panel]
         currentDuration = panel.durationSeconds + rolledBack.reduce((s, p) => s + p.durationSeconds, 0)
       } else {
         chunks.push({

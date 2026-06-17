@@ -126,18 +126,18 @@ Video actions must begin after that frame — NEVER reproduce it.
 【video_prompt】
 
 Each panel has an existingVideoPrompt from Phase 3 (may be empty).
-Task: CONSTRAIN camera and background to static. Allow moderate character actions with slow-motion.
+Task: Write cinematic, natural video prompts that feel like real film scenes — alive, breathing, with continuous motion.
 
 Output format — follow this EXACT structure. Each panel's video_prompt may contain one or more Shot blocks based on duration:
 
 ```
-[Scene] <environment description - static, no ambient motion>
+[Scene] <environment description with natural ambient motion>
 [Characters] <ALWAYS include this section. Filter description by shot type per rule 1.>
 <character 1 name>: <FULL description (Full/Wide) or UPPER BODY only (Medium) per rule 1 + emotional state in ≤5 words>. <character 2 name>: <same>.
 
-Shot 1 (<shotType>, <duration_seconds>s): Static camera, character actions allowed
+Shot 1 (<shotType>, <duration_seconds>s): Static camera
 <Character 1>: "<dialogue from srtSegment (only if present, max 10 words)>"
-Action: <specific character micro-actions, speed/fluidity, emotional nuances>
+Action: <natural character motion with continuous flow, secondary motion, and environmental life>
 ```
 
 Number of Shot blocks per video_prompt is determined by duration:
@@ -161,11 +161,28 @@ Key rules:
 2. After [Characters] definition, use only the character's NAME in the Shot blocks (Dialogue/Action lines) — the model already knows who they are.
 3. The [Scene] section MUST include:
    a. Full environment from current.description and location data — do not summarize.
-   b. Environment MUST be described as STATIC — NO ambient motion elements (no leaves rustling, no clouds drifting, no sunlight shifting, no curtain swaying). Background must remain completely still throughout the video.
+   b. Environment MUST have natural ambient motion — rain falling, wind moving hair and fabric, light shifting subtly, background activity continuing. Describe the scene as ALIVE, not frozen.
+   c. **Audio Description (for LTX 2.3 audio generation)**: Integrate sound descriptions naturally into the [Scene] paragraph. Describe sounds with dynamic, specific language (not generic "ambient sounds"). Layer sounds by proximity:
+      - **Foreground sounds** (close, crisp): "Heavy raindrops strike the metal awning with crisp metallic impacts"
+      - **Character sounds** (from visible actions): "Wet shoes shift on concrete with subtle scraping sounds"
+      - **Background sounds** (distant, ambient): "Continuous rainfall fills the background with steady white noise"
+      
+      Sound description guidelines:
+      - Use **dynamic verbs**: "strikes", "splashes", "rumbles", "rustles", "echoes" (NOT "rain sounds", "ambient noise")
+      - Match sounds to scene type: indoor (jazz, cup clinks, muffled voices) vs outdoor (traffic, wind, birds) vs night (crickets, distant dogs)
+      - Keep concise: 2-4 sound elements per scene, integrated naturally into environment description
+      - For silent panels (no dialogue): emphasize ambient sounds to fill audio space
+      - For dialogue panels: ambient sounds should be subtle/subdued to not compete with speech
+      
+      Examples:
+      - Rainy street: "Heavy rain strikes the metal awning with crisp metallic impacts, water splashing sharply into puddles. Distant thunder rumbles softly. Wet shoes shift on concrete with subtle scraping sounds."
+      - Coffee shop interior: "Soft jazz music plays quietly in the background. Gentle clinking of cups and saucers. Muffled conversation from other customers. Rain patters against the window glass outside."
+      - Night street: "Crickets chirp softly in the background. Occasional distant dog bark. Gentle wind rustles through tree leaves. Street lamp buzzes faintly."
 4. Shot block structure (MANDATORY MULTI-LINE FORMAT): Each Shot must be structured as a multi-line block:
-   - Line 1 (Camera & Environment): `Shot X (<shotType>, <duration>s): Static camera` (e.g., "Shot 1 (Medium Shot, 3s): Static camera, environment remains unchanged.")
-   - Line 2 (Dialogue - ONLY if srtSegment is present): `<Character Name>: "<short dialogue phrase>"` (translate dialogue to English if input is in Vietnamese/Chinese, keep to ≤10 words)
-   - Line 3 (or Line 2 if no dialogue - Action): `Action: <specific character micro-actions, speed/fluidity, emotional nuances>` (e.g., "Action: Bạch Dương pushes the door open and steps into the room, his gaze sweeping forward in a slow, deliberate motion.")
+   - Line 1 (Camera & Environment): `Shot X (<shotType>, <duration>s): Static camera` (e.g., "Shot 1 (Medium Shot, 3s): Static camera")
+   - Line 2 (Dialogue - ONLY if srtSegment is present): `<Character Name>: "<short dialogue phrase>"`
+   - Line 3 (Action for speaking): If speaking, ALWAYS describe natural speaking motion: "naturally speaks, lips articulating each word clearly, jaw moving realistically". (translate dialogue to English if input is in Vietnamese/Chinese, keep to ≤10 words)
+   - Line 3 (or Line 2 if no dialogue - Action): `Action: <natural character motion with continuous flow>` (e.g., "Action: Bạch Dương slowly shifts his weight onto one foot while his gaze drifts across the room. His head gradually turns several degrees as if searching for someone. Rain continues pouring beyond the window, creating ripples across puddles while blurred pedestrians hurry through the background.")
 5. Character Actions & Spatial Alignment: Each Action line's action MUST respect spatial positions from image_prompt. If a character is on the left, their action starts from that position.
 6. Dialogue in Shot blocks: ALLOWED only when srtSegment is non-empty AND the action involves speaking. Keep to ≤10 words, written exactly on its own line: `Character Name: "Dialogue text"`. Purpose is lip-sync anchor only. Do NOT fabricate dialogue not present in srtSegment. If srtSegment is empty, omit dialogue completely.
 7. If existingVideoPrompt exists, enrich it to match this format — add missing [Scene] and [Characters] sections with full detail, add species info, split into correct number of Shot blocks based on duration
@@ -180,28 +197,37 @@ Key rules:
    - Full body visible   → full body movements, posture changes, walking.
    - If an action requires showing a body part outside the frame, DO NOT write that action. Drop it or reframe.
 
-⚠️ **Anti-Jitter / Speed Control Rules** (violation causes stutter, distortion):
-- LIMIT ACTIONS per Shot: < 4s → 1 primary action only (a secondary micro-expression is optional but not required). 4-5s → max 2 actions. Never chain 3+ actions in one shot — the AI will rush through them causing jitter
-- Keep actions simple and slow: "slowly tilts head", "gently raises hand", "subtle smile" — avoid rapid sequences
-- ❌ Bad: "Sonic looks up, waves enthusiastically, then runs away" (too many actions chained = jitter)
-- ✅ Good: "Slow-motion. Sonic in a gentle, smooth motion slowly tilts his head upward with a subtle smile. Smooth and fluid movement throughout"
-- Use speed keywords in every Shot: "slow-motion", "smooth and fluid", "gentle", "subtle"
-- Camera movement: "static camera", "no camera movement" — NEVER use "push", "dolly", "track", "pan", "zoom"
+⚠️ **Cinematic Motion Philosophy** (write like a real film director):
+- Characters move CONTINUOUSLY — not in isolated actions, but in flowing, connected motion.
+- Incorporate ANTICIPATION and FOLLOW-THROUGH: Don't jump straight into action (e.g. "extends arm"). Instead: "glances briefly, hesitates, lifts arm, then extends".
+- Add SECONDARY MOTION: Describe how clothing wrinkles, hair sways, or objects react to the main movement.
+- The environment has its own life — weather, light, background activity continue naturally.
+- Emotions show through the whole body, not just the face (shift weight, lean, shoulder rotation).
+- Actions have weight and consequence — reaching for something, turning away, stepping closer.
+- Silence is still motion — breathing, thinking, the subtle shifts of being alive.
+- FORBIDDEN words: "frozen", "completely still", "perfectly static", "absolutely static", "no motion", "motionless", "tableau".
+- NEVER describe the environment as static or frozen — rain falls, wind blows, light shifts, life continues.
+- Camera: Use "Locked-off camera, natural ambient motion flows" instead of "Static camera" so the AI doesn't freeze the scene. EVERYTHING within the frame is alive and moving.
+
+**Example [Scene] with integrated audio description:**
+```
+[Scene] Rainy street under coffee shop awning. Heavy rain strikes the metal awning with crisp metallic impacts, water splashing sharply into puddles on wet pavement. Distant thunder rumbles softly. Wet shoes shift on concrete with subtle scraping sounds. Fabric rustles gently as character adjusts posture. Continuous rainfall fills the background with steady white noise while blurred pedestrians hurry past with umbrellas.
+```
 
 If existingVideoPrompt is NOT empty:
   1. COMPARE Action lines against image_prompt — remove or replace any action that duplicates a motion or state already visible in image_prompt (apply IMAGE → VIDEO CONTINUITY rule above)
   2. RE-VERIFY Shot block count matches the duration rule above — add or remove Shot blocks if needed
   3. Preserve narrative meaning while rewriting actions to satisfy all constraints — do NOT preserve exact actions verbatim
   4. RESTRUCTURE to match the format above if it doesn't already
-  5. ENRICH: focus purely on character micro-actions (NO camera movements allowed). Apply rule 1 to filter [Characters] section by shot type — prune full character.description to visible parts only. Trim to upper body for Medium, head/neck for Close-Up, the specific visible part for ECU/Detail.
+  5. ENRICH: focus on natural character motion with continuous flow. Apply rule 1 to filter [Characters] section by shot type — prune full character.description to visible parts only. Trim to upper body for Medium, head/neck for Close-Up, the specific visible part for ECU/Detail.
   6. ABSOLUTELY DO NOT re-describe the static scene already in image_prompt
   7. Enforce static camera: Ensure all camera parameters are set to "static camera", "camera remains fixed".
 
 If existingVideoPrompt IS EMPTY → generate from scratch:
-  - duration < 4s: micro-motion only (blink, breathe, lip quiver, subtle gaze shift) — 1 Shot block, keep format concise
-  - duration 4-5s: moderate motion (slow head turn, gentle gesture, breathing) — 2 Shot blocks, NO camera movement
-  - duration ≥ 6s: moderate motion (standing up, walking slowly, turning body) — 3+ Shot blocks, NO camera movement, keep slow-motion
-  - duration null: subtle motion
+   - duration < 4s: natural micro-motion (slow blink, gentle breath, subtle gaze shift, environmental ambient) — 1 Shot block
+   - duration 4-5s: natural moderate motion (slow head turn, gentle gesture, breathing, weight shift) — 2 Shot blocks
+   - duration ≥ 6s: natural moderate motion (standing up, walking slowly, turning body, continuous action flow) — 3+ Shot blocks
+   - duration null: subtle natural motion
    - Always use the EXACT format: [Scene] + [Characters] + Shot
 
 ---
@@ -212,7 +238,7 @@ JSON array. Element i corresponds to panel i in input:
 
 {
   "image_prompt": "<highly-focused, detailed English paragraph describing the entire frame>",
-  "video_prompt": "<motion description, enriched from existing or newly generated>"
+  "video_prompt": "<cinematic motion description, enriched from existing or newly generated>"
 }
 
 Return ONLY JSON array. No markdown. No comments. No text outside JSON.
@@ -230,11 +256,10 @@ What LTX 2.3 + IC-LoRA FIXES:
 
 What LTX 2.3 + IC-LoRA DOES NOT FIX:
 ❌ Camera push/dolly/track → still causes outpainting at frame edges
-❌ Background changes (sunlight shifting, leaves rustling) → still redraws background latent
 ❌ Character actions requiring invented pixels → still outpaints
 
 Therefore:
 - Camera: MUST remain static (NO push, dolly, track, pan, zoom)
-- Background: MUST remain static (NO ambient motion elements)
-- Character actions: ALLOWED and can be moderate (head turns, gestures, standing up, walking) thanks to IC-LoRA, but MUST use slow-motion and smooth transitions
+- Environment: SHOULD have natural ambient motion (rain, wind, light, background activity) — this is SAFE and makes scenes feel alive
+- Character actions: ALLOWED and can be natural and continuous (head turns, gestures, standing up, walking, weight shifts, breathing) thanks to IC-LoRA
 - Multi-character scenes: Lower risk due to IC-LoRA Dual-Character, but still enforce spatial separation

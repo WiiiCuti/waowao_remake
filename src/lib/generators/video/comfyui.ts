@@ -330,7 +330,7 @@ export class ComfyUIVideoGenerator extends BaseVideoGenerator {
 
     const segments = params.segments.map((seg, i) => ({
       startFrame: 0,
-      lengthFrame: Math.max(1, Math.round((seg.durationSeconds || 3) * fps)),
+      lengthFrame: Math.max(1, Math.round((seg.durationSeconds || 2) * fps)),
       prompt: seg.prompt,
       imageFile: uploadedImageNames[i] ?? '',
     }))
@@ -468,6 +468,21 @@ export class ComfyUIVideoGenerator extends BaseVideoGenerator {
         const outputs = history[promptId]?.outputs
 
         if (outputs) {
+          pollLogger(`got outputs, dumping node keys:`)
+          for (const nid in outputs) {
+            const keys = Object.keys(outputs[nid])
+            pollLogger(`  node[${nid}]: keys=[${keys.join(', ')}]`)
+            for (const k of keys) {
+              const v = outputs[nid][k]
+              if (Array.isArray(v)) {
+                pollLogger(`    ${k}: array[${v.length}] first={${JSON.stringify(v[0])}}`)
+              } else if (typeof v === 'object' && v !== null) {
+                pollLogger(`    ${k}: obj keys=[${Object.keys(v).join(', ')}] filename=${(v as Record<string,unknown>).filename || 'N/A'}`)
+              } else {
+                pollLogger(`    ${k}: ${typeof v} = ${JSON.stringify(String(v)).slice(0, 100)}`)
+              }
+            }
+          }
           for (const nodeId in outputs) {
             const node = outputs[nodeId]
             if (node?.videos?.length > 0) {
@@ -484,6 +499,34 @@ export class ComfyUIVideoGenerator extends BaseVideoGenerator {
               const videoName = node.gifs[0].filename
               pollLogger(`gif fallback ready: ${videoName}`)
               return `${endpoint}/view?filename=${encodeURIComponent(videoName)}&type=output`
+            }
+          }
+
+          // Universal fallback: scan all output keys for any media filename
+          for (const nodeId in outputs) {
+            const node = outputs[nodeId]
+            for (const key of Object.keys(node)) {
+              const val = node[key]
+              const checkItem = (item: Record<string, unknown>) => {
+                const fn = (item.filename as string) || (item.name as string) || ''
+                if (fn && /\.(mp4|webm|mov|avi|mkv|gif)$/i.test(fn)) return fn
+                return null
+              }
+              if (Array.isArray(val)) {
+                for (const item of val) {
+                  const fn = checkItem(item as Record<string, unknown>)
+                  if (fn) {
+                    pollLogger(`universal fallback found: ${fn} (node:${nodeId}, key:${key})`)
+                    return `${endpoint}/view?filename=${encodeURIComponent(fn)}&type=output`
+                  }
+                }
+              } else if (val && typeof val === 'object') {
+                const fn = checkItem(val as Record<string, unknown>)
+                if (fn) {
+                  pollLogger(`universal fallback found: ${fn} (node:${nodeId}, key:${key})`)
+                  return `${endpoint}/view?filename=${encodeURIComponent(fn)}&type=output`
+                }
+              }
             }
           }
         }

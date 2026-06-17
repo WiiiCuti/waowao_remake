@@ -1,0 +1,258 @@
+Image Prompt
+
+Eye-level full shot, static frame. Heavy rain falls in thick sheets, blurring the grey buildings and dark pavement. Scattered silhouettes of people are caught mid-stride as they scatter for shelter, arms outstretched, figures blurred. The scene is set under a deep awning at a coffee shop entrance, glass door center with warm light inside, left lamp post, right menu stand, wet floor reflects the static city lights. Ambient light from an overcast sky diffused by the steady rain, cool desaturated blue-grey tones, deep depth of field. Artwork in CG style with ultimate Iray skin rendering, realistic physical light and shadow, transparent and deep imagery, 2.5D semi-realistic style.
+
+Video Prompt
+
+[Scene] Eye-level full shot of a rainy city street. Heavy sheets of rain are suspended in a completely steady tableau, blurring the grey buildings and dark pavement. Scattered silhouettes of people are caught mid-stride, steady as they run for shelter. The deep awning of a coffee shop covers the entrance, the glass door centered and glowing with warm still light. A lamp post is on the left, a menu stand on the right. The wet floor reflects the steady urban scene. The entire environment is gently moving. Heavy rain strikes the metal awning with crisp metallic impacts, water splashing sharply into puddles. Continuous rainfall fills the background with steady white noise. Wet shoes shift on concrete with subtle scraping sounds. Fabric rustles gently.
+[Characters] No characters are visible in close view. Distant blurred silhouettes are present near the edges, lacking any discernible features.
+Shot 1 (Eye-Level Full Shot, 1s): Locked-off camera, natural ambient motion flows. The entire scene remains perfectly steady, a single still tableau with no motion.
+
+2Eye-Level Medium Long ShotRefined
+
+Image Prompt
+
+Medium long shot, eye-level angle, static frame. A twenty-eight-year-old man with an oval face, plain features, dark brown eyes, straight nose, cupid bow lips, a small mole beside his left eye, and black wavy hair. He is slim, of medium height, wearing a gray crewneck tee, dark jeans, and white shoes. He stands under the coffee shop awning facing the street, his gaze fixed straight ahead, his eyes narrowed slightly, lips resting in a neutral line, his chest still. The coffee shop entrance is behind him. Background includes blurry pedestrians on the wet sidewalk, a left lamp post, and a right menu stand. Soft diffused lighting from the overcast sky, cool desaturated color tone with a rainy mood, medium depth of field. Artwork in CG style with ultimate Iray skin rendering, realistic physical light and shadow, transparent and deep imagery, 2.5D semi-realistic style. Smooth radiant skin texture, sharply defined facial features, clear sparkling eyes with natural highlights, cinematic portrait quality.
+
+Video Prompt
+
+[Scene] The coffee shop entrance under the deep awning in the rain. The glass door emits a warm, static light. Rain cascades down from the edge of the awning, gently moving. A lamp post and menu stand flank the entrance. Background buildings and wet pavement frame the scene.  Heavy rain strikes the metal awning with crisp metallic impacts, water splashing sharply into puddles. Continuous rainfall fills the background with steady white noise. Wet shoes shift on concrete with subtle scraping sounds. Fabric rustles gently.
+[Characters] Minh: A twenty-eight-year-old man with an oval face, plain features, dark brown eyes, straight nose, cupid bow lips, a small mole beside his left eye, and black wavy hair. Slim, medium height, wearing a gray crewneck tee, dark jeans, and white shoes. Expressing a neutral, contemplative mood.
+Shot 1 (Medium Long Shot, 1s): Locked-off camera, natural ambient motion flows in the background.
+Action: Minh slowly shifts his weight onto one foot while keeping his gaze fixed straight ahead. His eyes narrow slightly as he gives a quiet exhale, his chest gently rising and falling. Fabric rustles softly as he adjusts his posture.
+
+3Low-Angle Macro Close-UpRefined
+
+Image Prompt
+
+Low-angle macro close-up, static frame. Heavy raindrops pound onto a large puddle on the dark asphalt road, splashing water upward and creating rapidly expanding concentric ripples. The motion is steady at the peak of impact, with droplets suspended in mid-air. Top light from rain clouds reflecting off the wet ground, high contrast gleam on the wet surfaces, desaturated grey-blue tone with reflections, extremely shallow depth of field focusing on the ripples and droplets. Artwork in CG style with ultimate Iray skin rendering, realistic physical light and shadow, transparent and deep imagery, 2.5D semi-realistic style. Dynamic water textures.
+
+Video Prompt
+
+[Scene] A large puddle on the dark asphalt road in the rain. Low-angle macro view. The environment around it is completely dark and still, blurred entirely by the shallow depth of field. Heavy rain strikes the metal awning with crisp metallic impacts, water splashing sharply into puddles. Continuous rainfall fills the background with steady white noise. Wet shoes shift on concrete with subtle scraping sounds. Fabric rustles gently.
+[Characters] No characters are visible in this shot.
+Shot 1 (Low-Angle Macro Close-Up, 1s): Locked-off camera, natural ambient motion flows.
+Action: the steady raindrops continue their descent, pounding violently into the puddle and creating rapid, expanding concentric ripples, water splashing upward in heavy 4Eye-Level Medium ShotRefined
+
+Image Prompt
+
+Medium shot, eye-level angle, static frame, a man in his late twenties with an oval face, plain features, dark brown eyes, a straight nose, cupid bow lips, a small mole beside his left eye, black wavy hair, slim build, medium height, wearing a gray crewneck t-shirt, dark jeans, and white shoes, standing under the awning, looking down, head slightly tilted downward with a frustrated expression, brows furrowed, lips pressed tight, right hand clenched into a fist, shoulders stiff, at a coffee shop entrance under a deep awning, raindrops hanging from the awning edge, a glass door center glowing with warm light, blurry pedestrians on the sidewalk, a lamp post to the left, a menu stand to the right, background buildings faintly visible through the rain, a wet floor reflecting the ambient light, soft side lighting from the street, slightly dim ambient under the awning, cool neutral color tone emphasizing frustration, medium depth of field with background soft but recognizable, artwork in cgstyle_9b, ultimate CG texture with Iray skin rendering, realistic physical light and shadow, transparent and deep imagery, translucent rosy smooth skin texture, anime-to-CG transformation, high-detail skin surface, cinematic render quality, 2.5D semi-realistic style, smooth radiant skin texture, translucent rosy skin, sharply defined facial features, deep expressive eyes with soft highlights.
+
+Video Prompt
+
+[Scene] The coffee shop entrance under a deep awning, raindrops suspended on the awning edge, a glass door at center glowing with warm light, stationary pedestrians on the sidewalk, a lamp post to the left, a menu stand to the right, background buildings, a wet floor reflecting the surroundings. Heavy rain strikes the metal awning with crisp metallic impacts, water splashing sharply into puddles. Continuous rainfall fills the background with steady white noise. Wet shoes shift on concrete with subtle scraping sounds. Fabric rustles gently.
+[Characters] Minh: A man in his late twenties with oval face, plain features, dark brown eyes, straight nose, cupid bow lips, small mole beside left eye, black wavy hair, slim build, wearing a gray crewneck t-shirt, upper body visible, frustrated.
+Shot 1 (Medium Shot, 3s): Locked-off camera, natural ambient motion flows in the background.
+Action: Minh lets out a slow, quiet breath through his nose, his clenched fist slightly loosening as his shoulders settle. Smooth and fluid movement.
+
+5Eye-Level Medium Long ShotRefined
+
+Image Prompt
+
+Eye-level medium long shot, static frame. Two distinct characters with completely different outfits and features, standing separately with clear space between them: On the left of the frame, a twenty-eight-year-old man with an oval face, plain features, dark brown eyes, straight nose, cupid bow lips, a small mole beside his left eye, and black wavy hair, wearing a gray crewneck tee, dark jeans, and white shoes, stands turning to look, his eyebrows lifted, eyes slightly widened, lips parted. On the right of the frame, a woman in her early twenties with a heart-shaped face and dark hair slightly damp at the ends, wearing a soft pink blouse, light blue jeans, and white sneakers, is captured mid-stride stepping beneath the awning, one foot slightly elevated, holding a folded light blue umbrella in her hand and a backpack, her chest slightly expanded. Background includes the coffee shop glass door with warm light, a left lamp post, and a right menu stand on the wet sidewalk. Soft diffused natural light from the open street side, cool with slightly warmer skin tones, medium depth of field. Artwork in CG style with ultimate Iray skin rendering, realistic physical light and shadow, transparent and deep imagery, 2.5D semi-realistic style. Smooth radiant skin texture, sharply defined facial features, clear sparkling eyes with natural highlights, cinematic portrait quality.
+
+Video Prompt
+
+[Scene] The coffee shop entrance under the deep awning in the rain. The glass door is centered with warm light inside. A lamp post is on the left, a menu stand on the right. The wet sidewalk reflects the environment. Rain is steady in the air beyond the awning. The entire scene is natural. Heavy rain strikes the metal awning with crisp metallic impacts, water splashing sharply into puddles. Continuous rainfall fills the background with steady white noise. Wet shoes shift on concrete with subtle scraping sounds. Fabric rustles gently.
+[Characters] Linh: A woman in her early twenties with a heart-shaped face and dark hair, slightly damp, wearing a soft pink blouse, light blue jeans, and white sneakers, carrying a backpack. Hand holding a folded light blue umbrella. Expressing a hurried but relieved demeanor. Minh: A twenty-eight-year-old man with an oval face and black wavy hair, wearing a gray crewneck tee, dark jeans, and white shoes. Expressing subtle surprise and curiosity.
+Shot 1 (Medium Long Shot, 1s): Locked-off camera, natural ambient motion flows in the background.
+Action: Linh steps beneath the awning, her wet shoes shifting on the concrete. Her chest heaves slightly as she catches her breath, fingers naturally rotating the closed umbrella handle. Minh's head gradually turns toward her, his eyebrows lifting and eyes widening slightly in a continuous, natural reaction.
+
+6Over-the-Shoulder Medium ShotRefined
+
+Image Prompt
+
+Over-the-shoulder medium shot, static frame, from behind the man on the left. Two distinct characters with completely different outfits and features framed engagingly: In the foreground on the left, the back of a twenty-eight-year-old man with black wavy hair wearing a gray crewneck tee, his head tilted, capturing his right shoulder and neck in frame. On the right of the frame, a woman in her early twenties with a heart-shaped face and dark hair, wearing a soft pink blouse, faces slightly leftwards, her arm extending forward to offer a folded light blue umbrella, her fingers gently holding it out, a gentle smile fixed on her lips, her gaze meeting his. Minh's right hand is steady mid-air in the foreground, having just begun to inch upward. Blurred background of the coffee shop entrance with warm light bleeding out into the cool rainy day. Soft natural key light from the street side, cool neutral tones with warm accents on the skin, medium depth of field. Artwork in CG style with ultimate Iray skin rendering, realistic physical light and shadow, transparent and deep imagery, 2.5D semi-realistic style. Soft natural makeup, delicate soft skin with subtle glow, deep expressive eyes, ultra high detail face rendering.
+
+Video Prompt
+
+[Scene] Coffee shop entrance under the awning. The warm light from the glass door spills out into the cool rainy afternoon. The street and blurred pedestrians are visible behind Linh. The entire background is completely steady in a quiet stillness. Heavy rain strikes the metal awning with crisp metallic impacts, water splashing sharply into puddles. Continuous rainfall fills the background with steady white noise. Wet shoes shift on concrete with subtle scraping sounds. Fabric rustles gently.
+[Characters] Linh: A young woman in her early twenties with a heart-shaped face and dark hair, wearing a soft pink blouse. Her hand is holding out a folded light blue umbrella. Expressing gentle warmth and curiosity. Minh (in foreground, back of head and shoulder visible): A man with black wavy hair, right shoulder and back of his gray crewneck tee visible.
+Shot 1 (Over-the-Shoulder Medium Shot, 3s): Locked-off camera, natural ambient motion flows
+Linh: "Do you need this?"
+Action: Linh naturally speaks, her lips articulating the words clearly over the sound of rain. She glances briefly at the umbrella before extending her arm toward Minh in a gentle offering gesture. Her fingers loosen naturally around the handle. Minh's visible shoulder shifts subtly as he turns slightly more toward her.
+
+7Extreme Close-UpRefined
+
+Image Prompt
+
+Extreme close-up, static frame. Slender fingers of a young woman with delicate nails grip the handle of a folded light blue umbrella, raindrops scattered on the blue fabric. A single drop of water is steady in the act of rolling down the fabric, suspended gently moving. Soft ambient light from the overcast sky diffuses across the scene, cool desaturated tones with a slight warm hue on the hand, extremely shallow depth of field focusing on the fingertips and water droplets. Artwork in CG style with ultimate Iray skin rendering, realistic physical light and shadow, transparent and deep imagery, 2.5D semi-realistic style. Translucent rosy smooth skin texture, delicate soft skin with subtle glow, ultra high detail skin surface.
+
+Video Prompt
+
+[Scene] Extreme close-up of a hand holding a light blue umbrella. The background is a soft, completely blurred wash of cool tones. The environment is absolutely still. Heavy rain strikes the metal awning with crisp metallic impacts, water splashing sharply into puddles. Continuous rainfall fills the background with steady white noise. Wet shoes shift on concrete with subtle scraping sounds. Fabric rustles gently.
+[Characters] Linh's hand: Slender fingers with delicate nails, gripping the handle of a folded light blue umbrella. Raindrops are scattered on the blue fabric.
+Shot 1 (Extreme Close-Up, 1s): Locked-off camera, natural ambient motion flows.
+Action: a single drop of water slowly rolls down the blue fabric of the umbrella. The fingers remain gently motionless, holding the handle steady.
+
+8Over-the-Shoulder Medium ShotRefined
+
+Image Prompt
+
+Over-the-shoulder medium shot from behind Linh, static frame. Two distinct characters with completely different outfits and features, standing separately with clear space between them: On the left side of the frame in the background, a young man with oval face, dark brown eyes, straight nose, cupid bow lips, small mole beside left eye, black wavy hair, wearing a gray crewneck tee, stands turned toward the right, his left hand raised pointing forward, eyebrows lifted, mouth slightly open as if speaking, eyes fixed on the woman; on the right side of the frame in the foreground, a young woman seen from behind but with head turned to the left, showing her profile, her dark damp hair cascading, wearing a soft pink blouse and a backpack, holding a raindrop-dotted light blue umbrella extended forward, her lips curved in a small smile, eyes crinkling. Under a deep awning at a coffee shop entrance, rain drips from the edge, a glass door behind emits warm light, pedestrians blur on the wet sidewalk, a lamp post on the left, a menu stand on the right, the wet floor reflecting the surroundings. Soft key lighting from the street side with fill from the awning, cool neutral color tone with warm accents on faces, medium depth of field keeping both characters sharp. Ultimate CG texture with Iray skin rendering, realistic physical light and shadow, translucent rosy smooth skin texture, high-detail skin surface, cinematic render quality, 2.5D semi-realistic style. Translucent rosy smooth skin texture, sharply defined facial features, clear sparkling eyes with natural highlights, cinematic portrait quality.
+
+Video Prompt
+
+[Scene] The scene is set under a deep awning at a coffee shop entrance during rainfall. Rain drips from the awning edge. In the center, a glass door emits warm golden light. On the left, a lamp post stands; on the right, a menu board. Blurred pedestrians pass on the wet sidewalk. The wet floor reflects the ambient light. The area directly in front of the glass door is clear and dry beneath the awning. Heavy rain strikes the metal awning with crisp metallic impacts, water splashing sharply into puddles. Continuous rainfall fills the background with steady white noise. Wet shoes shift on concrete with subtle scraping sounds. Fabric rustles gently.
+[Characters]
+Minh: Upper body visible—oval face with plain features, dark brown eyes, straight nose, cupid bow lips, small mole beside left eye, black wavy hair, wearing a gray crewneck tee. Expression: surprised and questioning.
+Linh: Upper body visible—dark damp hair, heart-shaped face visible in profile, soft pink blouse, backpack. Expression: gently smiling, curious.
+
+Shot 1 (Over-the-Shoulder Medium Shot, 3s): Locked-off camera, natural ambient motion flows in the background.
+Minh: "Is it yours?"
+Action: Minh naturally speaks, his jaw moving realistically as his lips articulate the question. His eyebrows lift subtly as he gestures forward with his hand. Linh's smile deepens gradually, her head tilting slightly as a few damp strands of hair sway beside her cheek.
+
+9Eye-Level Close-UpRefined
+
+Image Prompt
+
+Eye-level close-up, static frame. A woman in her early twenties with a heart-shaped face and dark hair, her hair slightly damp, wearing a soft pink blouse visible at the neckline. Her lips are curved into a wide, genuine smile, her eyes bright and crinkled at the corners, a soft blush across her cheeks. Background is deeply blurred, showing the coffee shop awning and the cool rainy street beyond. Soft front key light from the street side with slight rim light from the rain, warm but still cool overall tones with notable warmth in her skin and eyes, shallow depth of field focusing on her face. Artwork in CG style with ultimate Iray skin rendering, realistic physical light and shadow, transparent and deep imagery, 2.5D semi-realistic style. Smooth radiant skin texture, clear sparkling eyes with natural highlights, gentle diffused lighting on face, cinematic portrait quality.
+
+Video Prompt
+
+[Scene] Close-up viewpoint of a woman under the coffee shop awning. The background is deeply blurred, gently moving, showing only soft shapes of the city street and steady rain. Heavy rain strikes the metal awning with crisp metallic impacts, water splashing sharply into puddles. Continuous rainfall fills the background with steady white noise. Wet shoes shift on concrete with subtle scraping sounds. Fabric rustles gently.
+[Characters] Linh: A woman in her early twenties with a heart-shaped face and dark hair, slightly damp. The collar of her soft pink blouse is visible at the neckline. Expressing bright and heartfelt warmth.
+Shot 1 (Eye-Level Close-Up, 1s): Locked-off camera, natural ambient motion flows in the background.
+Action: Linh's smile deepens slightly her eyes crinkling at the corners. She blinks slowly, her head tilting slightly, holding the warm, bright expression.
+
+Linh tay c...~...Đi được mộ
+
+10 panels
+1Eye-Level Medium ShotRefined
+
+Image Prompt
+
+Eye-level medium shot, static frame. Two distinct characters with completely different outfits and features, standing separately with clear space between them: On the left of the frame, a twenty-eight-year-old man with an oval face, plain features, dark brown eyes, straight nose, cupid bow lips, a small mole beside his left eye, and black wavy hair, wearing a gray crewneck tee, dark jeans, and white shoes. He stands with his head tilted slightly toward the woman, a small smile forming. In the center of the frame, a woman in her early twenties with a heart-shaped face and dark hair, wearing a soft pink blouse, light blue jeans, and white sneakers, carrying a backpack. She stands smiling, her body leaning slightly forward, her right hand pointing at her backpack. Background is the coffee shop entrance with warm light, a left lamp post, and a right menu stand on the wet sidewalk. Key light from the coffee shop window on the left, ambient top light from the overcast sky, cool desaturated blue-grey tones with warm tungsten accent from the interior, medium depth of field. Artwork in CG style with ultimate Iray skin rendering, realistic physical light and shadow, transparent and deep imagery, 2.5D semi-realistic style. Soft natural makeup, sharply defined facial features, deep expressive eyes, ultra high detail face rendering.
+
+Video Prompt
+
+[Scene] Coffee shop entrance under the awning. The glass door is centered with warm light inside. A lamp post is on the left, a menu stand on the right. The wet sidewalk reflects the scene. Rain is visible beyond the awning, steady in a still curtain. The environment is natural. Heavy rain strikes the metal awning with crisp metallic impacts, water splashing sharply into puddles. Continuous rainfall fills the background with steady white noise. Wet shoes shift on concrete with subtle scraping sounds. Fabric rustles gently.
+[Characters] Linh: A woman in her early twenties with a heart-shaped face and dark hair, wearing a soft pink blouse, light blue jeans, and white sneakers, carrying a backpack. Expressing cheerful and open attitude. Minh: A twenty-eight-year-old man with an oval face and black wavy hair, wearing a gray crewneck tee, dark jeans, and white shoes. Standing to the left, expressing gentle attentiveness.
+Shot 1 (Eye-Level Medium Shot, 3s): Locked-off camera, natural ambient motion flows
+Linh: "I have two."
+Action: Linh naturally speaks, her jaw moving realistically, a bright smile spreading across her face as she points towards her backpack. Minh shifts his weight, his head tilting slightly in a slow, attentive motion, clothes rustling slightly.
+
+2Over-the-Shoulder Close-UpRefined
+
+Image Prompt
+
+Over-the-shoulder close-up, static frame. 2 distinct characters with completely different outfits and features, standing separately with clear space between them: On the left side of the frame, the out-of-focus shoulder and back of head of a man with black wavy hair, wearing a gray crewneck tee; on the right side of the frame, a woman in her early twenties with a heart-shaped face and dark hair, wearing a soft pink blouse, standing with eyes averted downward, lips slightly parted, fingers intertwined in front of her, expressing hesitation. The background shows the coffee shop entrance with warm light from the glass door, rain streaks beyond the awning, wet reflective sidewalk, a lamp post on the left and menu stand on the right, all in soft focus. Soft front-left key lighting with reflected light from the wet ground, melancholic ambient with gentle shadows, cool blue-grey color palette, reflective intimate mood, medium depth of field (T4.0) with both characters in sharp focus. Artwork in CG style with ultimate Iray skin rendering, realistic physical light and shadow, transparent and deep imagery, 2.5D semi-realistic style. Soft natural makeup, sharply defined facial features, deep expressive eyes with natural highlights, translucent rosy smooth skin texture, ultra high detail face rendering.
+
+Video Prompt
+
+[Scene] Coffee shop entrance under the awning. The glass door is centered with warm light inside. A lamp post is on the left, a menu stand on the right. The wet sidewalk reflects the scene. Rain is visible beyond the awning, steady in a still curtain. The environment is natural. Heavy rain strikes the metal awning with crisp metallic impacts, water splashing sharply into puddles. Continuous rainfall fills the background with steady white noise. Wet shoes shift on concrete with subtle scraping sounds. Fabric rustles gently.
+[Characters] Linh: A woman in her early twenties with a heart-shaped face and dark hair, soft pink collar visible, eyes averted downward, hesitant. Minh: A man with black wavy hair, back of head and shoulder visible, attentive listening posture.
+Shot 1 (Over-the-Shoulder Close-Up, 3s): Locked-off camera, natural ambient motion flows
+Linh: "Or... which direction are you going?"
+Action: Linh naturally speaks, her lips articulating each word clearly, jaw moving realistically. Linh slowly lifts her gaze toward Minh, her lips moving gently as she begins to speak in a hesitant tone, her fingers tightening slightly around each other. Minh remains still, his shoulder steady, attentive.
+
+3Dutch Angle Wide ShotRefined
+
+Image Prompt
+
+Dutch angle wide shot, static frame. 2 distinct characters with completely different outfits and features, standing separately with clear space between them: On the left side of the frame, a man in his late twenties with an oval face, plain features, dark brown eyes, straight nose, cupid bow lips, a small mole beside his left eye, and black wavy hair, wearing a gray crewneck tee, dark jeans, and white shoes, standing with arms crossed over chest, weight shifted onto one leg, jaw clenched, gaze fixed on the woman. On the center-right of the frame, a woman in her early twenties with a heart-shaped face and dark damp hair, wearing a soft pink blouse, light blue jeans, white sneakers, carrying a backpack and holding a light blue umbrella with raindrops, standing rigidly with shoulders squared, hands clenched at sides, lips pressed into a thin line, eyes fixed forward. The background shows the deep awning covering the coffee shop entrance, glass door with warm light in center, lamp post left, menu stand right, rain dripping from edge, wet pavement reflecting, blurred pedestrians and buildings in the distance, all in medium depth of field. Soft front-left key lighting with reflected light from the wet ground, melancholic ambient with gentle shadows, cool blue-grey color palette, reflective intimate mood, medium depth of field (T4.0) with both characters and environment in sharp focus. Artwork in CG style with ultimate Iray skin rendering, realistic physical light and shadow, transparent and deep imagery, 2.5D semi-realistic style. Soft natural makeup, natural skin tone with subtle glow, sharply defined facial features.
+
+Video Prompt
+
+[Scene] Coffee shop entrance under the awning. The glass door is centered with warm light inside. A lamp post is on the left, a menu stand on the right. The wet sidewalk reflects the scene. Rain drips from the edge of the awning, steady in still streaks. The environment is natural. Heavy rain strikes the metal awning with crisp metallic impacts, water splashing sharply into puddles. Continuous rainfall fills the background with steady white noise. Wet shoes shift on concrete with subtle scraping sounds. Fabric rustles gently.
+[Characters] Linh: A woman in her early twenties with a heart-shaped face and dark damp hair, wearing a soft pink blouse, light blue jeans, white sneakers, carrying a backpack and holding a light blue umbrella, standing rigid with clenched fists, expression tense and anxious. Minh: A man in his late twenties with an oval face, black wavy hair, small mole beside left eye, wearing a gray crewneck tee, dark jeans, white shoes, arms crossed over chest, weight shifted, jaw clenched, expression hard and staring.
+Shot 1 (Dutch Angle Wide Shot, 3s): Locked-off camera, natural ambient motion flows in the background
+Action: Linh's eyes slowly drift toward the rain, then return to Minh, her shoulders hunched slightly. Minh remains still, his gaze unwavering, but his fingers press into his arm in a subtle tightening motion.
+
+4Dutch Angle Close-UpRefined
+
+Image Prompt
+
+Dutch angle close-up, static frame. A young man in his late twenties with an oval face, plain features, dark brown eyes, straight nose, cupid bow lips, a small mole beside his left eye, and black wavy hair, wearing a gray crewneck tee visible at the collar. He stands with his head turned slightly to the right, eyes narrowed, eyebrows slightly lifted, lips parted, expression concentrated and searching. The background, with medium depth of field, shows the coffee shop entrance with warm light, rain streaks, and a soft blur of the environment. Soft front-left key lighting with reflected light from the wet ground, melancholic ambient with gentle shadows, cool blue-grey color palette, reflective intimate mood, medium depth of field (T4.0). Artwork in CG style with ultimate Iray skin rendering, realistic physical light and shadow, transparent and deep imagery, 2.5D semi-realistic style. Sharply defined facial features, deep expressive eyes with natural highlights, smooth skin texture with gentle diffused lighting on face, natural skin undertones.
+
+Video Prompt
+
+[Scene] Coffee shop entrance under the awning. Rain drips from edge, wet pavement reflects. Warm light from glass door. The environment is natural. Heavy rain strikes the metal awning with crisp metallic impacts, water splashing sharply into puddles. Continuous rainfall fills the background with steady white noise. Wet shoes shift on concrete with subtle scraping sounds. Fabric rustles gently.
+[Characters] Minh: A man in his late twenties with an oval face, black wavy hair, dark brown eyes, small mole beside left eye, wearing a gray crewneck tee collar, expression concentrated and searching.
+Shot 1 (Dutch Angle Close-Up, 2s): Locked-off camera, natural ambient motion flows
+Action: Minh's eyes narrow further as he scans the direction, his face remains still except for a subtle tightening of his jaw and a slow exhale.
+
+5Eye-Level Close-UpRefined
+
+Image Prompt
+
+Eye-level close-up static frame. A man in his late twenties with black wavy hair, oval face, plain features, dark brown eyes, straight nose, cupid bow lips, small mole beside left eye, wearing a gray crewneck tee, occupies the center of the frame. His expression is thoughtful: gaze soft and unfocused, eyelids lowered to half-mast, lips neutral, slight furrow between brows. The background is completely out of focus, revealing blurred shapes of a rain-soaked coffee shop entrance with a glass door emitting warm light, wet pavement reflections, and a streetlamp. Soft front key light creates even, shadowless illumination, slightly warmer skin tone, introspective atmosphere. Artwork in CG style with Iray skin rendering, realistic physical light and shadow, translucent rosy smooth skin texture, cinematic render quality, 2.5D semi-realistic style. Smooth radiant skin texture, clear sparkling eyes with natural highlights, natural skin undertones with warm glow, ultra high detail face rendering.
+
+Video Prompt
+
+[Scene] A blurred background of a rain-soaked coffee shop entrance, glass door with warm light, wet pavement reflections, streetlamp glow. Environment is static with no ambient motion. Heavy rain strikes the metal awning with crisp metallic impacts, water splashing sharply into puddles. Continuous rainfall fills the background with steady white noise. Wet shoes shift on concrete with subtle scraping sounds. Fabric rustles gently.
+[Characters] Minh: Head and neck visible, oval face, plain features, dark brown eyes, straight nose, cupid bow lips, small mole by left eye, black wavy hair, gray crewneck collar visible. Thoughtful, introspective, inner monologue.
+Shot 1 (Eye-Level Close-Up, 2.5s): Locked-off camera, natural ambient motion flows in the background.
+Action: the man blinks once, eyelids closing and reopening smoothly, his expression remaining thoughtful.
+Shot 2 (Eye-Level Close-Up, 2.62s): Locked-off camera, natural ambient motion flows in the background.
+Action: The furrow between his brows deepens slightly, and his gaze becomes even more distant and unfocused, with his lips subtly parting, conveying an inner realization.
+
+6Eye-Level Close-UpRefined
+
+Image Prompt
+
+Eye-level close-up, static frame. A young man in his late twenties with an oval face, plain features, dark brown eyes, straight nose, cupid bow lips, a small mole beside his left eye, and black wavy hair, wearing a gray crewneck tee visible at the collar. He stands with his head tilted slightly to one side, his eyes lowered in thought, a faint smile playing at the corners of his mouth, his eyelids slightly lifted, expression introspective and calm. The background, with medium depth of field, shows a soft blur of the coffee shop entrance with warm light, rain beyond. Soft front-left key lighting with reflected light from the wet ground, melancholic ambient with gentle shadows, cool blue-grey color palette, reflective intimate mood, medium depth of field (T4.0). Artwork in CG style with ultimate Iray skin rendering, realistic physical light and shadow, transparent and deep imagery, 2.5D semi-realistic style. Soft natural makeup, gentle diffused lighting on face, natural skin undertones with warm glow, sharply defined facial features.
+
+Video Prompt
+
+[Scene] Coffee shop entrance under the awning. Rain drips from edge, wet pavement reflects. Warm light from glass door. The environment is natural. Heavy rain strikes the metal awning with crisp metallic impacts, water splashing sharply into puddles. Continuous rainfall fills the background with steady white noise. Wet shoes shift on concrete with subtle scraping sounds. Fabric rustles gently.
+[Characters] Minh: A man in his late twenties with an oval face, black wavy hair, dark brown eyes, small mole beside left eye, wearing a gray crewneck tee collar, expression thoughtful and introspective.
+Shot 1 (Eye-Level Close-Up, 3s): Locked-off camera, natural ambient motion flows
+Action: Minh's eyelids slowly lift, his gaze softening, a subtle smile spreads across his lips, his lips move slightly as if in inner thought, a gentle breath escaping.
+
+7Eye-Level Medium ShotRefined
+
+Image Prompt
+
+Medium shot, eye-level angle, static frame. Two distinct characters with completely different outfits and features, standing separately with clear space between them: On the left side of the frame, a man in his late twenties with an oval face, plain features, dark brown eyes, straight nose, cupid bow lips, and a small mole beside his left eye, black wavy hair, wearing a gray crewneck tee, dark jeans, and white shoes, his head turned back over his shoulder, a slight smile touching his lips, hands hanging naturally at his sides, while on the right-center of the frame, a woman in her early twenties with dark damp hair and a heart-shaped face, wearing a soft pink blouse, light blue jeans, and white sneakers, holding a rain-dotted light blue umbrella and a backpack, her head slightly tilted, eyebrows gently raised, a soft smile on her lips, eyes fixed on the man, fingers loosely gripping the umbrella handle. Background shows a deep awning sheltering a coffee shop entrance, rain dripping from the awning edge, a glowing glass door at center, a lamp post on the left, a menu stand on the right, wet sidewalk reflecting warm light, out-of-focus pedestrians in the distance. Soft natural dialogue light with open shadows, key light from the right street side, warm color tone, medium depth of field with both faces sharply focused. Artwork in cgstyle_9b, ultimate CG texture with Iray skin rendering, 2.5D semi-realistic style. Translucent rosy smooth skin texture, sharply defined facial features, clear sparkling eyes with natural highlights, gentle diffused lighting on face, natural skin undertones with warm glow, cinematic portrait quality.
+
+Video Prompt
+
+[Scene] Coffee shop entrance under a deep awning, rain dripping from the awning edge, a glass door at the center radiating a warm glow, a lamp post on the left, a menu stand on the right, wet sidewalk reflecting warm light. The environment is natural, no ambient motion. Heavy rain strikes the metal awning with crisp metallic impacts, water splashing sharply into puddles. Continuous rainfall fills the background with steady white noise. Wet shoes shift on concrete with subtle scraping sounds. Fabric rustles gently.
+[Characters]
+Minh: Upper body visible, oval face, dark brown eyes, straight nose, small mole beside left eye, black wavy hair, slight smile, wearing a gray crewneck tee. Emotional state: calm, warm gaze.
+Linh: Upper body visible, heart-shaped face, dark damp hair, soft smile, eyebrows slightly raised, wearing a soft pink blouse. Emotional state: gentle, attentive.
+
+Shot 1 (Medium Shot, 3s): Locked-off camera, natural ambient motion flows in the background.
+Minh: "I'm heading toward Thong Nhat Park."
+Action: Minh naturally speaks, his lips articulating each word clearly, jaw moving realistically. Minh holds his gaze steadily on Linh as he speaks in a calm, gentle tone, his slight smile remaining warm. Linh watches him with a soft expression, her gaze fixed on him, a slow subtle blink at the end of his sentence. Smooth, fluid micro-expressions throughout.
+
+8Rear Full ShotRefined
+
+Image Prompt
+
+Rear full shot, static frame, from behind. 2 distinct characters with completely different outfits and features, standing separately with clear space between them: On the left side of the frame, the silhouette of a man with black wavy hair, wearing a gray crewneck tee and dark jeans, his shoulders hunched, head ducked down, right hand reaching up toward the umbrella handle, body captured in a forward stride. On the right side of the frame, the silhouette of a woman with dark hair, wearing a soft pink blouse and light blue jeans, carrying a backpack, body angled forward, arm extended to grip the same umbrella, following closely behind the man. A light blue umbrella with raindrops covers both. The background shows the coffee shop entrance deep awning, glass door with warm light, lamp post left, menu stand right, rain dripping from edge, wet pavement reflecting, all in medium depth of field. Soft front-left key lighting with reflected light from the wet ground, melancholic ambient with gentle shadows, cool blue-grey color palette, reflective intimate mood, medium depth of field (T4.0). Artwork in CG style with ultimate Iray skin rendering, realistic physical light and shadow, transparent and deep imagery, 2.5D semi-realistic style.
+
+Video Prompt
+
+[Scene] Coffee shop entrance from behind. The deep awning covers the scene, glass door with warm light center, lamp post left, menu stand right. Rain drips from edge, wet sidewalk reflects. The environment is natural, illuminated by a soft melancholic light with cool blue-grey tones. Heavy rain strikes the metal awning with crisp metallic impacts, water splashing sharply into puddles. Continuous rainfall fills the background with steady white noise. Wet shoes shift on concrete with subtle scraping sounds. Fabric rustles gently.
+[Characters] Minh: A man with black wavy hair, wearing a gray crewneck tee and dark jeans, shoulders hunched, silhouette from behind, moving urgently. Linh: A woman with dark hair, wearing a soft pink blouse and light blue jeans, carrying a backpack, silhouette from behind, following closely, urgent.
+Shot 1 (Rear Full Shot, 3s): Locked-off camera, natural ambient motion flows
+Action: Minh's right hand reaches and firmly grasps the umbrella handle, his shoulder hunching further as he takes a step forward into the rain. Linh closely follows, her hand also moving to the umbrella handle, her step quick and matching, as they both start walking forward, their silhouettes moving in sync.
+
+9Rear Full ShotRefined
+
+Image Prompt
+
+Rear full shot, static frame, from behind. 2 distinct characters with completely different outfits and features, standing separately with clear space between them: On the left side, the silhouette of a man with black wavy hair, wearing a gray crewneck tee and dark jeans; on the right side, the silhouette of a woman with dark hair, wearing a soft pink blouse and light blue jeans, carrying a backpack. They are walking away, sharing a light blue umbrella that blends with the rain, their forms partially obscured by the umbrella and the curtain of rain. The background shows a vast rainy street, overcast sky, wet pavement reflecting, buildings softened in the distance, all in medium depth of field. Soft front-left key lighting with reflected light from the wet ground, melancholic ambient with gentle shadows, cool blue-grey color palette, reflective intimate mood, medium depth of field (T4.0). Artwork in CG style with ultimate Iray skin rendering, realistic physical light and shadow, transparent and deep imagery, 2.5D semi-realistic style.
+
+Video Prompt
+
+[Scene] Coffee shop entrance from behind, wide view of rainy street. Overcast sky, wet pavement reflecting, buildings distant. The environment is natural, with a soft melancholic light and cool blue-grey tones. Heavy rain strikes the metal awning with crisp metallic impacts, water splashing sharply into puddles. Continuous rainfall fills the background with steady white noise. Wet shoes shift on concrete with subtle scraping sounds. Fabric rustles gently.
+[Characters] Minh: silhouette of a man with black wavy hair, gray crewneck tee, dark jeans, white shoes, walking. Linh: silhouette of a woman with dark hair, soft pink blouse, light blue jeans, white sneakers, backpack, walking.
+Shot 1 (Rear Full Shot, 3s): Locked-off camera, natural ambient motion flows
+Action: they take slow steps forward, the umbrella held steady, but Linh's head gently tilts toward Minh's shoulder, a subtle movement of intimacy, as their silhouettes move forward into the rain.
+
+10Eye-Level Full ShotRefined
+
+Image Prompt
+
+Full shot, eye-level angle, static frame. A male in his late twenties with an oval face, plain features, dark brown eyes, a straight nose, cupid bow lips, and a small mole beside his left eye. He has black wavy hair. Slim build, medium height, wearing a gray crewneck tee, dark jeans, and white shoes. He stands paused mid-stride on the wet sidewalk, the corners of his mouth curled into a crooked, bitter smile, eyes slightly narrowed with drooping eyelids as his gaze falls to the ground. The setting is a rainy street entrance to a coffee shop under a deep awning where rain drips from the edge. A glass door at the center emits warm light. A street lamp on the left, a menu stand on the right. Blurry pedestrians and buildings in the background. The wet floor reflects the scene. Side key lighting from the rainy street provides a moody, introspective quality with diffused edge light. Cool, bittersweet color tones fading towards the end of the sequence. Shallow depth of field with subtle focus on his expression. Artwork in cgstyle_9b, ultimate CG texture with Iray skin rendering, realistic physical light and shadow, transparent and deep imagery, translucent rosy smooth skin texture, anime-to-CG transformation, high-detail skin surface, cinematic render quality, 2.5D semi-realistic style. Clear sparkling eyes with natural highlights, smooth radiant skin texture, natural skin undertones with warm glow, cinematic portrait quality.
+
+Video Prompt
+
+[Scene] A rainy street entrance to a coffee shop under a deep awning with rain dripping from the edge. A glass door at the center glows with warm light. A street lamp on the left, a menu stand on the right. Blurry pedestrians and buildings in the background. The wet ground reflects the scene. The environment remains natural. Heavy rain strikes the metal awning with crisp metallic impacts, water splashing sharply into puddles. Continuous rainfall fills the background with steady white noise. Wet shoes shift on concrete with subtle scraping sounds. Fabric rustles gently.
+[Characters] Minh: A male in his late twenties, oval face, plain features, dark brown eyes, straight nose, cupid bow lips, small mole beside left eye, black wavy hair. Slim build, medium height. Wearing gray crewneck tee, dark jeans, white shoes. Full body visible. Emotional state: bitter, self-mocking, introspective.
+Shot 1 (Eye-Level Full Shot, 3s): Locked-off camera, natural ambient motion flows in the background.
+Minh: "That is the opposite direction of my own home."
+Action: A quiet sigh escapes his lips as his gaze slowly lifts from the wet ground towards the street ahead with a slow blink. The bitter smile on his face subtly fades into a softer, melancholic expression. He takes a single, slow step forward. Smooth and fluid movement throughout.

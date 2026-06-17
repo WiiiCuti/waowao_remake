@@ -1,50 +1,50 @@
 Please follow the prompt rules below to execute the user's character generation request
 【Character Generation Requirements (for image generation)】
 
-1. Generate 1 detailed appearance description in English for AI image generation
+1. Generate 1 EXTREMELY DETAILED appearance description in English for AI image generation
 
-2. The description should highlight character features with detailed texture:
-   - Gender, age range (write specific age ranges, e.g., "approximately twenty-five years old", "forty to forty-five years old", "around fifty years old")
-   - Face: face shape, facial features (specific features such as high-bridged nose, deep-set eyes, thin lips, etc.)
-   - Eyes: shape, size (describing eye color is forbidden)
-   - Hair: color, length, hairstyle, texture (e.g., fluffy curls, silver-gray highlights, slightly curled ends, etc.)
-   - Body type: sense of height, posture, shoulder width, waistline, etc.
-   - Skin: describe only texture and unique markings (e.g., smooth/rough, freckles, birthmarks, scars, tattoos, etc.), describing skin tone is forbidden
-   - Clothing: style, material, color scheme, details (e.g., leather biker jacket, ripped jeans, metal zippers, embroidery patterns, etc.)
-   - Shoes: style, color, material (e.g., black Dr. Martens, white canvas shoes, brown leather Oxford shoes, red-soled high heels, embroidered cloth shoes, etc.)
-   - Accessories: earrings, necklaces, watches, rings, and other personality-defining accessories
+2. The description must be RICH and EXHAUSTIVE, capturing every visual element the user provided:
+
+   ▶ ESSENTIAL — Always include when specified by user:
+   - Gender as FIRST word ("Male" or "Female")
+   - Age range with specific wording
+   - Face: shape, facial features, nose description, facial structure
+   - Eyes: shape, size, eyelash length, eye makeup if relevant (eyeliner, eyeshadow)
+   - Makeup: lip color/form, blush, foundation, any distinctive cosmetic feature
+   - Hair: color, length, STYLE with texture (updo, braid, loose, wavy, straight), part line, hair accessories (pearls, pins, ribbons, flowers)
+   - Body type: height impression, build, posture feel
+   - Clothing: style/silhouette, FABRIC type (silk, cotton, leather), COLOR, LAYERS (outer/inner), collar type, sleeve length, decorative details (embroidery patterns, buttons, zippers, frog closures), belt/sash
+   - Shoes: style, color, material, decorative elements
+   - Accessories: earrings, necklaces, bracelets, rings, hair ornaments — describe material, shape, color
+
+   ▶ ALSO capture:
+   - Jewelry/ornament DETAILS (pearl, jade, gold, silver, material, size, placement)
+   - Fabric TEXTURE (sheer, heavy brocade, flowing silk, crisp cotton)
+   - Layering information (e.g., "white silk inner robe under cream outer hanfu")
+   - Any DISTINCTIVE identifying element (scar, beauty mark, unique accessory)
 
 3. 【Character Type Determination】
    - If the user describes a non-human character (animal, mythical creature, well-known IP character, etc.), it is not restricted by the above human appearance template
    - The description must start with the character name or species name
    - Describe freely based on actual form, preserving core identifying features
 
-    Examples:
-   - Input "Sun Wukong" → Output: "Sun Wukong, golden fur covering body, wearing a headband, dressed in tiger-skin battle kilt, holding the Ruyi Jingu Bang..."
-   - Input "a snail" → Output: "Snail, carrying a spiral hard shell, two feelers extending slender and long..."
-   - Input "Pikachu" → Output: "Pikachu, yellow round body, red cheeks, lightning-shaped tail, pointed ears with black tips..."
-
 4. Description standards:
    - Forbidden: writing expressions, poses, actions
    - Forbidden: writing background/environment/props
    - Do not add emotional adjectives or narrative sentences
-   - 【Forbidden Body Color Descriptions】Describing the color of any body part is forbidden; AI will over-amplify color descriptions, causing distorted results:
+   - 【Forbidden Body Color Descriptions】Describing the color of any body part is forbidden:
      ❌ Skin tone (e.g., yellowish, fair, wheat-toned, bronzed, dark, etc.)
      ❌ Lip color (e.g., rosy, pink, pale, etc.)
      ❌ Eye color (e.g., black, brown, blue pupils, etc.)
      ❌ Facial color (e.g., ruddy, pale, sallow, etc.)
-     ✅ Allowed: skin texture (smooth/rough), unique markings (freckles/scars/tattoos), hair color, clothing color
-   - If the original text describes appearance, prioritize the original text (but color descriptions must still be filtered)
-    - Output in English, length 80-150 characters
+     ✅ Allowed: skin texture (smooth/rough), unique markings (freckles/scars/tattoos), hair color, clothing color, makeup description
+   - If the original text describes appearance, prioritize the original text (but body color descriptions must still be filtered)
+   - Output in English, length 250-500 characters. PRESERVE all distinctive details, do NOT over-compress. Every detail matters for accurate image generation.
    - Do not include art style, painting style, or lighting effect descriptions (added automatically by the system)
-   - 【Period Consistency】Determine the era based on story background (ancient/early modern/modern/futuristic, etc.); character clothing, hairstyles, and accessories must match the era's characteristics
-   - 【Forbidden Uncertain Descriptions】Forbidden to use uncertain words such as "or", "possibly", "maybe", "approximately"; each appearance feature must be explicit and specific
-     ❌ Wrong: "wearing rimless or gold-framed glasses", "height possibly around 1.7 meters"
-     ✅ Correct: "wearing thin gold-framed glasses", "tall stature approximately 1.75 meters"
+   - 【Period Consistency】Determine the era based on story background; character clothing, hairstyles, and accessories must match the era's characteristics
+   - 【Forbidden Uncertain Descriptions】Forbidden to use uncertain words such as "or", "possibly", "maybe"
    - 【Forbidden Abstract Demeanor Descriptions】Forbidden to describe non-visualizable abstract demeanor, aura, expression, or feeling
-     ❌ Wrong: "exudes an air of wealth with every gesture", "powerful presence", "mature and steady aura"
-     ✅ Correct: describe only directly visible appearance features
-   - 【Shoes Required】Every complete character description must include a shoe description; do not omit
+   - 【Shoes Required】Every complete character description must include a shoe description
 
 
 Your goal is to generate a character prompt based on the user's request and the above rules

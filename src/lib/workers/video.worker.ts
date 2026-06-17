@@ -25,7 +25,7 @@ import { generateUniqueKey, uploadObject } from '@/lib/storage'
 import { getProviderConfig, getModelsByType } from '@/lib/api-config'
 import {
   chunkPanels,
-  sliceVideoByPanels,
+  // sliceVideoByPanels,  // TODO: re-enable when UI ready
   ComfyUIVideoGenerator,
 } from '@/lib/generators/video'
 import type { PanelForChunking } from '@/lib/generators/video'
@@ -282,11 +282,26 @@ async function handleVideoPanelTask(job: Job<TaskJobData>) {
   // ComfyUI → always use LTX Director (1 panel or batch)
   const comfyProvider = await resolveComfyUIProvider(job.data.userId, modelId)
   if (comfyProvider) {
+    // Clean up stale placeholders from crashed previous runs
+    await prisma.novelPromotionPanel.updateMany({
+      where: {
+        storyboardId: panel.storyboardId,
+        videoUrl: { startsWith: '__ltx_processing:' },
+      },
+      data: { videoUrl: null },
+    })
+
     const siblings = await prisma.novelPromotionPanel.findMany({
       where: {
         storyboardId: panel.storyboardId,
         imageUrl: { not: null },
         videoUrl: null,
+      },
+      include: {
+        matchedVoiceLines: {
+          select: { audioUrl: true, audioDuration: true },
+          orderBy: { lineIndex: 'asc' },
+        },
       },
       orderBy: { panelIndex: 'asc' },
     })
@@ -305,6 +320,12 @@ async function handleVideoPanelTask(job: Job<TaskJobData>) {
         id: { in: lockedIds },
         videoUrl: placeholder,
       },
+      include: {
+        matchedVoiceLines: {
+          select: { audioUrl: true, audioDuration: true },
+          orderBy: { lineIndex: 'asc' },
+        },
+      },
       orderBy: { panelIndex: 'asc' },
     })
 
@@ -317,13 +338,16 @@ async function handleVideoPanelTask(job: Job<TaskJobData>) {
     for (const p of lockedSiblings) {
       const prompt = (p.videoPrompt || buildVideoPrompt(p) || p.description || '').trim()
       if (!prompt) continue
-      const imageUrl = toSignedUrlIfCos(p.imageUrl ?? '', 3600)
-      if (!imageUrl) continue
+      if (!p.imageUrl) continue
+      const firstVoice = p.matchedVoiceLines?.[0]
       batchPanels.push({
         panelId: p.id,
-        imageUrl,
+        // URLs signed fresh inside chunk loop to avoid expiry
+        imageUrl: p.imageUrl,
         prompt,
-        durationSeconds: typeof p.duration === 'number' && p.duration > 0 ? p.duration : 3,
+        durationSeconds: typeof p.duration === 'number' && p.duration > 0 ? p.duration : 2,
+        audioUrl: firstVoice?.audioUrl ?? undefined,
+        audioDurationSeconds: typeof firstVoice?.audioDuration === 'number' ? firstVoice.audioDuration : undefined,
       })
     }
 
@@ -351,12 +375,33 @@ async function handleVideoPanelTask(job: Job<TaskJobData>) {
         duration: Math.round(chunk.totalDurationSeconds),
       })
 
-      const result = await generator.generateWithLTXDirector(job.data.userId, {
-        segments: chunk.panels.map(p => ({
-          imageUrl: p.imageUrl,
+      let currentOffset = 0
+      const audioSegments: { audioUrl: string; startSeconds: number; durationSeconds: number }[] = []
+
+      const segmentParams = chunk.panels.map(p => {
+        if (p.audioUrl && p.audioDurationSeconds) {
+          const signedAudio = toSignedUrlIfCos(p.audioUrl, 7200)
+          if (signedAudio) {
+            audioSegments.push({
+              audioUrl: signedAudio,
+              startSeconds: currentOffset,
+              durationSeconds: p.audioDurationSeconds,
+            })
+          }
+        }
+        const signedImage = toSignedUrlIfCos(p.imageUrl, 7200)
+        const seg = {
+          imageUrl: signedImage ?? p.imageUrl,
           prompt: p.prompt,
           durationSeconds: p.durationSeconds,
-        })),
+        }
+        currentOffset += p.durationSeconds
+        return seg
+      })
+
+      const result = await generator.generateWithLTXDirector(job.data.userId, {
+        segments: segmentParams,
+        audioSegments: audioSegments.length > 0 ? audioSegments : undefined,
         fps: 24,
       })
 
@@ -366,20 +411,27 @@ async function handleVideoPanelTask(job: Job<TaskJobData>) {
         continue
       }
 
-      const slices = await sliceVideoByPanels(result.videoUrl, chunk.panels, {
-        fps: 24,
-        storageKeyPrefix: `video/ltx/${job.data.projectId}`,
-      })
+      try {
+        await assertTaskActive(job, 'ltx_director_chunk_progress')
 
-      for (const slice of slices) {
-        await prisma.novelPromotionPanel.update({
-          where: { id: slice.panelId },
-          data: {
-            videoUrl: slice.videoUrl,
-            videoGenerationMode: 'ltx_director',
-          },
-        })
-        console.log(`[Video Worker] saved video for panel ${slice.panelId}`)
+        // TODO: re-enable reverse slicing when UI is ready
+        // const slices = await sliceVideoByPanels(result.videoUrl, chunk.panels, { ... })
+        const chunkVideoUrl = result.videoUrl
+
+        for (const p of chunk.panels) {
+          await prisma.novelPromotionPanel.update({
+            where: { id: p.panelId },
+            data: {
+              videoUrl: chunkVideoUrl,
+              videoGenerationMode: 'ltx_director',
+            },
+          })
+          console.log(`[Video Worker] saved chunk video for panel ${p.panelId}`)
+        }
+      } catch (err) {
+        console.error(`[Video Worker] chunk ${ci + 1} slice/update failed:`, err instanceof Error ? err.message : String(err))
+        chunk.panels.forEach(p => failedPanelIds.add(p.panelId))
+        continue
       }
     }
 

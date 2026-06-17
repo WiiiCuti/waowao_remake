@@ -13,7 +13,7 @@ interface ImageGenerationCountConfig {
 
 const IMAGE_GENERATION_COUNT_CONFIG: Record<ImageGenerationCountScope, ImageGenerationCountConfig> = {
   character: {
-    defaultValue: 3,
+    defaultValue: 1,
     min: 1,
     max: 6,
     storageKey: 'image-count:character',
@@ -31,7 +31,7 @@ const IMAGE_GENERATION_COUNT_CONFIG: Record<ImageGenerationCountScope, ImageGene
     storageKey: 'image-count:storyboard-candidates',
   },
   'reference-to-character': {
-    defaultValue: 3,
+    defaultValue: 1,
     min: 1,
     max: 6,
     storageKey: 'image-count:reference-to-character',

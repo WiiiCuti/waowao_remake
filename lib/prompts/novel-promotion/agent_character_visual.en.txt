@@ -28,27 +28,29 @@ Examples:
 ⚠️ Core Principle: Costume ornateness is determined by the character's social identity and plot setting, NOT by importance tier!
 
 S-Tier Characters:
-  - Description length 180-220 characters
+  - Description length 300-500 characters
   - Must have extremely high visual distinctiveness and "protagonist aura"
   - Clothing style determined by character identity (a poor student can wear a simple school uniform, but facial features and temperament must be outstanding, with striking appearance)
+  - Include fabric texture, embroidery/jewelry details, hair accessories, every distinctive element
 
 A-Tier Characters:
-  - Description length 150-180 characters
+  - Description length 250-400 characters
   - Must have distinct personal characteristics and memorable points
+  - Include clothing details, accessories, hairstyle specifics
   - Clothing style determined by character identity
 
 B-Tier Characters:
-  - Description length 120-150 characters
-  - Must have basic identifying features
+  - Description length 180-300 characters
+  - Must have basic identifying features with sufficient visual detail
   - Clothing style matches their social identity
 
 C-Tier Characters:
-  - Description length 80-120 characters
-  - Concise but complete image description
+  - Description length 120-200 characters
+  - Concise but complete image description with key visual elements
 
 D-Tier Characters:
-  - Description length 50-80 characters
-  - Basic image is sufficient
+  - Description length 80-150 characters
+  - Basic image covering gender, face, hair, and visible clothing
 
 【Costume Ornateness Tier Guide】
 Tier 1 (Plain/Uniform) → Tier 2 (Everyday/Ordinary) → Tier 3 (Professional) → Tier 4 (Elite/Aristocracy) → Tier 5 (Royalty/Ultimate Luxury)
@@ -110,6 +112,13 @@ Examples:
    💇 **Hairstyle**: Describe hair color, length, style, and texture.
    👤 **Physique**: Describe body type and height impression.
    👔 **Clothing & Accessories**: Describe top, bottom, required shoes, and tier-appropriate accessories. Use suggested_colors (primary for main clothes, secondary for inner/accessories, third for accents).
+
+   ⚠️ RICH CLOTHING DETAIL (for all S/A-Tier, strongly recommended for others):
+   - Fabric type (silk, cotton, brocade, leather, linen, velvet) — specify for each clothing piece
+   - Layers: describe inner and outer garments separately (e.g., "white silk inner robe under cream outer hanfu")
+   - Decorative elements: embroidery patterns, button type (frog closures, toggles, metal buttons), pleating, ruffles
+   - Jewelry/ornaments: earring material and shape, necklace style, bracelet/ring details, hair ornament type (pearl pins, jade hairpins, ribbon, floral)
+   - Every accessory must specify material (gold, silver, jade, pearl, wood, cloth) and color
 
 ⚠️ **Facial Archetype System (Critical!)**
 
@@ -196,9 +205,9 @@ Sub-appearances (id>=1) only describe the visual change parts, since they will b
 - Prohibited: Repeating full descriptions of basic face/body type features
 
 Examples:
-- Main appearance (id=0): "Male, approximately twenty-five years old, slanted sword-like eyebrows and starry eyes, high nose bridge, tall and athletic build. Voluminous textured short black hair with natural messy bangs grazing the eyebrows. Wearing a deep blue brocade long robe, jade belt at the waist, black leather boots on the feet."
-- Post-bath state (id=1): "Same Male. Same face: black short hair, sharp brows. Changed: damp messy hair falling naturally over the forehead, upper body bare, lower body wrapped in a white bath towel, barefoot."
-- Battle attire (id=2): "Same Male. Same face: black short hair, high nose bridge. Changed: black tactical attire, thick-soled combat boots on the feet."
+- Main appearance (id=0): "Female, early twenties, soft oval face with slim chin, large dark brown almond eyes with subtle eyeliner, refined straight nose, light pink lips with natural blush. Voluminous dark brown hair styled in elegant half-updo, long side braid draped over right shoulder adorned with small white pearl beads, loose wavy tendrils framing the face. Slender graceful build. Wearing off-white cream Hanfu with mandarin collar and traditional frog button closures, delicate cherry blossom embroidery in soft pink tones on chest and cuffs, loose mid-length sleeves. White silk inner robe visible at collar. Matching pearl drop earrings, white embroidered cloth flats."
+- Post-bath state (id=1): "Same Female. Same face: dark brown hair, soft oval face. Changed: damp loose hair cascading over shoulders, upper body wrapped in white towel, barefoot."
+- Battle attire (id=2): "Same Female. Same face: dark brown hair, almond eyes. Changed: braided hair pulled into tight high ponytail, dark fitted battle tunic with leather shoulder guards, dark trousers, black combat boots."
 
 
 【Output Format】
