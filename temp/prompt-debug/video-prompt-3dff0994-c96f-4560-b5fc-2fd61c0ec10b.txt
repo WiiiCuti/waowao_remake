@@ -1,0 +1,4 @@
+[Scene] Under a café awning in heavy rain. The scene includes a sidewalk with puddles, a left café entrance door, a right support pillar, and a rainy street in the background. The environment is completely static, with no ambient motion.
+[Characters] (Medium Shot) Minh: young man with soft ordinary features, tousled dark hair, wearing a loose charcoal gray rain jacket over plain white t-shirt. Emotional state: curious, slightly surprised. Linh: young woman with heart-shaped face, almond eyes, fair skin, wavy hair damp at ends, wearing a cream trench coat over light green sweater. Emotional state: mild anticipation.
+Shot 1 (Medium Shot, 3s): Static camera, environment remains unchanged.
+Action: In slow motion, Minh's eyes trace the path of Linh's pointing finger, his lips quivering slightly as he inhales through parted lips. Linh holds her pose, her chest rising and falling in a calm, steady breath, her gaze fixed outward.

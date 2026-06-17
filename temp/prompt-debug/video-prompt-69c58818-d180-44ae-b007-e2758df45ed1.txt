@@ -1,0 +1,7 @@
+[Scene] A blurred café awning and rainy street background with shallow depth of field, no ambient motion.
+[Characters]
+Minh: A young man in his mid-twenties with soft ordinary features and tousled dark hair, wearing a loose charcoal gray rain jacket collar over a plain white t-shirt neckline, a tight furrow in his brows, eyes cast downward in quiet frustration.
+
+Shot 1 (Eye-Level Close-Up, 3s): Static camera, environment remains unchanged.
+Minh: "Forgot the umbrella again, every time."
+Action: Slow-motion. Minh lets out a slow, silent breath through his nose, his brow shifting into a slightly deeper crease before relaxing, his lips parting just a fraction then pressing shut again in a quiet sigh of resignation. Smooth and fluid movement throughout.

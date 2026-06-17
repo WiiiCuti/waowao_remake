@@ -11,4 +11,12 @@ export { FalVideoGenerator } from '../fal'
 export { ArkSeedanceVideoGenerator, ArkVideoGenerator } from '../ark'
 export { GoogleVeoVideoGenerator } from './google'
 export { OpenAICompatibleVideoGenerator } from './openai-compatible'
-export { ComfyUIVideoGenerator } from './comfyui'
+export {
+  ComfyUIVideoGenerator,
+  type LTXDirectorSegment,
+  type LTXDirectorAudio,
+  type LTXDirectorParams,
+  type LTXDirectorResult,
+} from './comfyui'
+export { chunkPanels, type PanelForChunking, type Chunk } from './chunking'
+export { sliceVideoByPanels, type SliceResult } from './slicer'

@@ -1,13 +1,43 @@
 import { BaseVideoGenerator, VideoGenerateParams, GenerateResult } from '../base'
 import { getProviderConfig } from '@/lib/api-config'
 import { imageUrlToBase64, resolveComfyDimensions } from '@/lib/cos'
+import { toFetchableUrl } from '@/lib/storage'
 import videoNormalTemplate from './video_LTXV-normal.json'
 import videoFlTemplate from './video_LTXV-firstlastframe.json'
 import videoPromptRelayTemplate from './video_LTXV-normal-promptrelay.json'
+import ltxDirectorTemplate from './LTX_Director.json'
 
 const NORMAL_TEMPLATE = videoNormalTemplate as Record<string, unknown>
 const FL_TEMPLATE = videoFlTemplate as Record<string, unknown>
 const PROMPTRELAY_TEMPLATE = videoPromptRelayTemplate as Record<string, unknown>
+const LTX_DIRECTOR_TEMPLATE = ltxDirectorTemplate as Record<string, unknown> & {
+  [key: string]: { class_type: string; inputs: Record<string, unknown>; _meta?: { title: string } }
+}
+
+export interface LTXDirectorSegment {
+  imageUrl: string
+  prompt: string
+  durationSeconds: number
+}
+
+export interface LTXDirectorAudio {
+  audioUrl: string
+  startSeconds: number
+  durationSeconds: number
+}
+
+export interface LTXDirectorParams {
+  segments: LTXDirectorSegment[]
+  audioSegments?: LTXDirectorAudio[]
+  fps?: number
+  globalPrompt?: string
+}
+
+export interface LTXDirectorResult {
+  success: boolean
+  videoUrl?: string       // raw ComfyUI output URL (not base64)
+  error?: string
+}
 
 export class ComfyUIVideoGenerator extends BaseVideoGenerator {
   private readonly providerId?: string
@@ -230,6 +260,236 @@ export class ComfyUIVideoGenerator extends BaseVideoGenerator {
 
         if (i > 0 && i % 60 === 0) {
           pollLogger(`still waiting (${i}s elapsed, outputs: ${outputs ? 'found' : 'none'})`)
+        }
+      } catch (e) {
+        if (i > 0 && i % 60 === 0) {
+          pollLogger(`poll error: ${(e as Error).message}`)
+        }
+      }
+
+      await new Promise(resolve => setTimeout(resolve, interval))
+    }
+
+    throw new Error('ComfyUI video generation timeout')
+  }
+
+  async generateWithLTXDirector(
+    userId: string,
+    params: LTXDirectorParams
+  ): Promise<LTXDirectorResult> {
+    const { baseUrl } = await getProviderConfig(userId, this.providerId || 'comfyui')
+    const endpoint = (baseUrl || 'http://localhost:8188').replace(/\/v1\/?$/, '')
+
+    try {
+      const workflow = await this.buildLTXDirectorWorkflow(endpoint, params)
+      const res = await fetch(`${endpoint}/prompt`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prompt: workflow })
+      })
+
+      if (!res.ok) {
+        const errBody = await res.text().catch(() => '')
+        console.log(`[LTX Director] submit failed: ${res.status} - ${errBody}`)
+        throw new Error(`ComfyUI submit failed: ${res.status}`)
+      }
+
+      const { prompt_id } = await res.json()
+      console.log(`[LTX Director] submitted OK, prompt_id: ${prompt_id}`)
+      const videoUrl = await this.pollForRawResult(endpoint, prompt_id)
+
+      return { success: true, videoUrl }
+    } catch (error) {
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : 'ComfyUI error'
+      }
+    }
+  }
+
+  private async buildLTXDirectorWorkflow(
+    endpoint: string,
+    params: LTXDirectorParams
+  ): Promise<Record<string, unknown>> {
+    const workflow = JSON.parse(JSON.stringify(LTX_DIRECTOR_TEMPLATE))
+    const fps = params.fps || 24
+
+    const uploadedImageNames: string[] = []
+    for (const seg of params.segments) {
+      const name = await this.uploadFileToComfyUI(endpoint, seg.imageUrl, 'image', 'webp')
+      uploadedImageNames.push(name)
+    }
+
+    const uploadedAudioNames: string[] = []
+    if (params.audioSegments) {
+      for (const aud of params.audioSegments) {
+        const name = await this.uploadFileToComfyUI(endpoint, aud.audioUrl, 'audio', 'wav')
+        uploadedAudioNames.push(name)
+      }
+    }
+
+    const segments = params.segments.map((seg, i) => ({
+      startFrame: 0,
+      lengthFrame: Math.max(1, Math.round((seg.durationSeconds || 3) * fps)),
+      prompt: seg.prompt,
+      imageFile: uploadedImageNames[i] ?? '',
+    }))
+
+    let cursorFrame = 0
+    for (const seg of segments) {
+      seg.startFrame = cursorFrame
+      cursorFrame += seg.lengthFrame
+    }
+
+    const totalFrames = cursorFrame
+    const totalSeconds = totalFrames / fps
+
+    const timelineSegments = segments.map((seg, i) => ({
+      id: `seg_${String(i).padStart(3, '0')}`,
+      start: seg.startFrame,
+      length: seg.lengthFrame,
+      prompt: seg.prompt,
+      type: 'image' as const,
+      imageFile: seg.imageFile,
+    }))
+
+    const audioSegments = params.audioSegments
+      ? params.audioSegments.map((aud, i) => ({
+          id: `audio_${String(i).padStart(3, '0')}`,
+          type: 'audio' as const,
+          start: Math.round(aud.startSeconds * fps),
+          length: Math.round(aud.durationSeconds * fps),
+          trimStart: 0,
+          audioDurationFrames: Math.round(aud.durationSeconds * fps),
+          audioFile: uploadedAudioNames[i] ?? '',
+          fileName: uploadedAudioNames[i] ?? '',
+          waveformPeaks: [] as number[],
+        }))
+      : []
+
+    const timelineData = JSON.stringify({
+      segments: timelineSegments,
+      audioSegments,
+    })
+
+    const localPrompts = timelineSegments.map(s => s.prompt).join(' | ')
+    const segmentLengths = timelineSegments.map(s => String(s.length)).join(',')
+    const guideStrength = timelineSegments.map(() => '1.00').join(',')
+
+    const node46 = workflow['46'] as { class_type: string; inputs: Record<string, unknown>; _meta?: { title: string } }
+    if (!node46 || node46.class_type !== 'LTXDirector') {
+      throw new Error('LTX_Director.json does not contain LTXDirector node at key "46"')
+    }
+
+    node46.inputs.timeline_data = timelineData
+    node46.inputs.local_prompts = localPrompts
+    node46.inputs.segment_lengths = segmentLengths
+    node46.inputs.guide_strength = guideStrength
+    node46.inputs.duration_frames = totalFrames
+    node46.inputs.duration_seconds = parseFloat(totalSeconds.toFixed(3))
+    node46.inputs.frame_rate = fps
+    node46.inputs.use_custom_audio = audioSegments.length > 0
+    node46.inputs.global_prompt = params.globalPrompt || ''
+    node46.inputs.epsilon = 0.001
+    node46.inputs.display_mode = 'seconds'
+    node46.inputs.custom_width = 0
+    node46.inputs.custom_height = 0
+    node46.inputs.resize_method = 'maintain aspect ratio'
+    node46.inputs.divisible_by = 32
+    node46.inputs.img_compression = 18
+
+    console.log(`[LTX Director] built workflow: ${timelineSegments.length} segments, ${audioSegments.length} audio, ${totalFrames} frames (${totalSeconds.toFixed(2)}s)`)
+    return workflow
+  }
+
+  private async uploadFileToComfyUI(
+    endpoint: string,
+    url: string,
+    type: 'image' | 'audio',
+    defaultExt: string
+  ): Promise<string> {
+    let buffer: Buffer
+    let filename: string
+
+    if (url.startsWith('data:')) {
+      const mimeEnd = url.indexOf(';')
+      const base64Start = url.indexOf(';base64,')
+      if (base64Start === -1) throw new Error('Invalid data URL')
+
+      const mime = url.slice(5, mimeEnd)
+      const ext = mime.split('/')[1] || defaultExt
+      buffer = Buffer.from(url.slice(base64Start + 8), 'base64')
+      filename = `upload_${Date.now()}_${Math.random().toString(36).slice(2, 8)}.${ext}`
+    } else {
+      const fetchableUrl = toFetchableUrl(url)
+      const response = await fetch(fetchableUrl)
+      buffer = Buffer.from(await response.arrayBuffer())
+
+      const urlObj = new URL(fetchableUrl)
+      const pathName = urlObj.pathname
+      const ext = pathName.split('.').pop() || defaultExt
+      filename = pathName.split('/').pop() || `download_${Date.now()}.${ext}`
+    }
+
+    const boundary = `----ComfyUIUpload${Date.now()}`
+    const contentType = type === 'image' ? 'image/webp' : 'audio/wav'
+    const header = Buffer.from(
+      `--${boundary}\r\nContent-Disposition: form-data; name="image"; filename="${filename}"\r\nContent-Type: ${contentType}\r\n\r\n`
+    )
+    const footer = Buffer.from(`\r\n--${boundary}--\r\n`)
+    const body = Buffer.concat([header, buffer, footer])
+
+    const uploadRes = await fetch(`${endpoint}/upload/image`, {
+      method: 'POST',
+      headers: { 'Content-Type': `multipart/form-data; boundary=${boundary}` },
+      body,
+    })
+
+    if (!uploadRes.ok) {
+      throw new Error(`ComfyUI file upload failed: ${uploadRes.status}`)
+    }
+
+    const result = await uploadRes.json() as { name?: string }
+    if (!result.name) throw new Error('ComfyUI upload returned no filename')
+    return result.name
+  }
+
+  private async pollForRawResult(endpoint: string, promptId: string): Promise<string> {
+    const maxAttempts = 600
+    const interval = 1000
+    const pollLogger = (msg: string) => console.log(`[LTX Director] ${msg} (prompt: ${promptId})`)
+
+    pollLogger(`waiting for result`)
+
+    for (let i = 0; i < maxAttempts; i++) {
+      try {
+        const historyRes = await fetch(`${endpoint}/history/${promptId}`)
+        const history = await historyRes.json()
+        const outputs = history[promptId]?.outputs
+
+        if (outputs) {
+          for (const nodeId in outputs) {
+            const node = outputs[nodeId]
+            if (node?.videos?.length > 0) {
+              const videoName = node.videos[0].filename
+              pollLogger(`video ready: ${videoName}`)
+              return `${endpoint}/view?filename=${encodeURIComponent(videoName)}&type=output`
+            }
+            if (node?.video?.filename) {
+              const videoName = node.video.filename
+              pollLogger(`video (singular) ready: ${videoName}`)
+              return `${endpoint}/view?filename=${encodeURIComponent(videoName)}&type=output`
+            }
+            if (node?.gifs?.length > 0) {
+              const videoName = node.gifs[0].filename
+              pollLogger(`gif fallback ready: ${videoName}`)
+              return `${endpoint}/view?filename=${encodeURIComponent(videoName)}&type=output`
+            }
+          }
+        }
+
+        if (i > 0 && i % 60 === 0) {
+          pollLogger(`still waiting (${i}s elapsed)`)
         }
       } catch (e) {
         if (i > 0 && i % 60 === 0) {

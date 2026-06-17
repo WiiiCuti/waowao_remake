@@ -22,7 +22,13 @@ import { resolveBuiltinCapabilitiesByModelKey } from '@/lib/model-capabilities/l
 import { parseModelKeyStrict } from '@/lib/model-config-contract'
 import { mergePanel, concatAll, ensureFfmpeg } from '@/lib/video-compositor'
 import { generateUniqueKey, uploadObject } from '@/lib/storage'
-import { getProviderConfig } from '@/lib/api-config'
+import { getProviderConfig, getModelsByType } from '@/lib/api-config'
+import {
+  chunkPanels,
+  sliceVideoByPanels,
+  ComfyUIVideoGenerator,
+} from '@/lib/generators/video'
+import type { PanelForChunking } from '@/lib/generators/video'
 
 type AnyObj = Record<string, unknown>
 type VideoOptionValue = string | number | boolean
@@ -230,6 +236,34 @@ async function generateVideoForPanel(
   }
 }
 
+async function resolveComfyUIProvider(userId: string, modelId: string): Promise<string | null> {
+  const models = await getModelsByType(userId, 'video')
+  const match = models.find(m => {
+    const key = `${m.provider}::${m.modelId}`
+    return key === modelId || m.modelId === modelId || m.provider === modelId
+  })
+
+  if (match) {
+    if (match.provider.toLowerCase() === 'comfyui') return match.provider
+    try {
+      const config = await getProviderConfig(userId, match.provider)
+      const url = (config.baseUrl || '').toLowerCase()
+      if (url.includes(':8188') || url.includes('comfyui')) return match.provider
+    } catch {}
+  }
+
+  const parsed = parseModelKeyStrict(modelId)
+  if (parsed?.provider?.toLowerCase() === 'comfyui') return parsed.provider
+
+  try {
+    const config = await getProviderConfig(userId, parsed?.provider || modelId)
+    const url = (config.baseUrl || '').toLowerCase()
+    if (url.includes(':8188') || url.includes('comfyui')) return parsed?.provider || modelId
+  } catch {}
+
+  return null
+}
+
 async function handleVideoPanelTask(job: Job<TaskJobData>) {
   const payload = (job.data.payload || {}) as AnyObj
   const projectModels = await getProjectModels(job.data.projectId, job.data.userId)
@@ -238,7 +272,6 @@ async function handleVideoPanelTask(job: Job<TaskJobData>) {
   if (!modelId) throw new Error('VIDEO_MODEL_REQUIRED: payload.videoModel is required')
 
   const panel = await getPanelForVideoTask(job)
-
   const generationOptions = extractGenerationOptions(payload)
 
   await reportTaskProgress(job, 10, {
@@ -246,13 +279,132 @@ async function handleVideoPanelTask(job: Job<TaskJobData>) {
     panelId: panel.id,
   })
 
+  // ComfyUI → always use LTX Director (1 panel or batch)
+  const comfyProvider = await resolveComfyUIProvider(job.data.userId, modelId)
+  if (comfyProvider) {
+    const siblings = await prisma.novelPromotionPanel.findMany({
+      where: {
+        storyboardId: panel.storyboardId,
+        imageUrl: { not: null },
+        videoUrl: null,
+      },
+      orderBy: { panelIndex: 'asc' },
+    })
+
+    // Lock all siblings IMMEDIATELY to prevent concurrent workers from duplicating work
+    const lockedIds = siblings.map(p => p.id)
+    const placeholder = `__ltx_processing:${job.data.taskId}`
+    await prisma.novelPromotionPanel.updateMany({
+      where: { id: { in: lockedIds }, videoUrl: null },
+      data: { videoUrl: placeholder },
+    })
+
+    // Re-fetch only panels we successfully locked
+    const lockedSiblings = await prisma.novelPromotionPanel.findMany({
+      where: {
+        id: { in: lockedIds },
+        videoUrl: placeholder,
+      },
+      orderBy: { panelIndex: 'asc' },
+    })
+
+    if (lockedSiblings.length === 0) {
+      console.log('[Video Worker] all sibling panels already locked by another worker, skipping')
+      return { panelId: panel.id, videoUrl: '', skipped: true }
+    }
+
+    const batchPanels: PanelForChunking[] = []
+    for (const p of lockedSiblings) {
+      const prompt = (p.videoPrompt || buildVideoPrompt(p) || p.description || '').trim()
+      if (!prompt) continue
+      const imageUrl = toSignedUrlIfCos(p.imageUrl ?? '', 3600)
+      if (!imageUrl) continue
+      batchPanels.push({
+        panelId: p.id,
+        imageUrl,
+        prompt,
+        durationSeconds: typeof p.duration === 'number' && p.duration > 0 ? p.duration : 3,
+      })
+    }
+
+    if (batchPanels.length === 0) {
+      await prisma.novelPromotionPanel.updateMany({
+        where: { id: { in: lockedSiblings.map(p => p.id) }, videoUrl: placeholder },
+        data: { videoUrl: null },
+      })
+      throw new Error('No panels with prompt and image available')
+    }
+
+    const chunks = chunkPanels(batchPanels)
+    console.log(`[Video Worker] LTX Director: ${batchPanels.length} panels → ${chunks.length} chunk(s)`)
+
+    const generator = new ComfyUIVideoGenerator(comfyProvider)
+    const failedPanelIds = new Set<string>()
+
+    for (let ci = 0; ci < chunks.length; ci++) {
+      const chunk = chunks[ci]
+      await reportTaskProgress(job, 15 + Math.round((ci / chunks.length) * 70), {
+        stage: 'ltx_director_chunk',
+        chunkIndex: ci + 1,
+        totalChunks: chunks.length,
+        panelsInChunk: chunk.panels.length,
+        duration: Math.round(chunk.totalDurationSeconds),
+      })
+
+      const result = await generator.generateWithLTXDirector(job.data.userId, {
+        segments: chunk.panels.map(p => ({
+          imageUrl: p.imageUrl,
+          prompt: p.prompt,
+          durationSeconds: p.durationSeconds,
+        })),
+        fps: 24,
+      })
+
+      if (!result.success || !result.videoUrl) {
+        console.error(`[Video Worker] chunk ${ci + 1} failed: ${result.error}`)
+        chunk.panels.forEach(p => failedPanelIds.add(p.panelId))
+        continue
+      }
+
+      const slices = await sliceVideoByPanels(result.videoUrl, chunk.panels, {
+        fps: 24,
+        storageKeyPrefix: `video/ltx/${job.data.projectId}`,
+      })
+
+      for (const slice of slices) {
+        await prisma.novelPromotionPanel.update({
+          where: { id: slice.panelId },
+          data: {
+            videoUrl: slice.videoUrl,
+            videoGenerationMode: 'ltx_director',
+          },
+        })
+        console.log(`[Video Worker] saved video for panel ${slice.panelId}`)
+      }
+    }
+
+    // Unlock failed panels so they can be retried
+    if (failedPanelIds.size > 0) {
+      await prisma.novelPromotionPanel.updateMany({
+        where: { id: { in: [...failedPanelIds] }, videoUrl: placeholder },
+        data: { videoUrl: null },
+      })
+    }
+
+    const refreshed = await prisma.novelPromotionPanel.findUnique({
+      where: { id: panel.id },
+      select: { videoUrl: true },
+    })
+    return {
+      panelId: panel.id,
+      videoUrl: refreshed?.videoUrl ?? '',
+      batched: lockedSiblings.length > 1,
+    }
+  }
+
+  // Non-ComfyUI → old per-panel path
   const { cosKey, generationMode, actualVideoTokens } = await generateVideoForPanel(
-    job,
-    panel,
-    payload,
-    modelId,
-    projectModels.videoRatio,
-    generationOptions,
+    job, panel, payload, modelId, projectModels.videoRatio, generationOptions,
   )
 
   await assertTaskActive(job, 'persist_panel_video')

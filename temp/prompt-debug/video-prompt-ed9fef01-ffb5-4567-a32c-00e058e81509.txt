@@ -1,0 +1,4 @@
+[Scene] A wide view of the rainy street with a café awning in the midground, puddles on the sidewalk, and a blurred cityscape in the background. The environment is completely static, with no ambient motion.
+[Characters] (Extreme Long Shot) Minh and Linh are barely discernible in the distance, their forms reduced to small silhouettes; only the light green umbrella remains identifiable.
+Shot 1 (Extreme Long Shot, 3s): Static camera, environment remains unchanged.
+Action: Slow-motion. The two figures continue their slow walk forward, gradually receding into the white curtain of rain, their umbrella becoming a faint dot before disappearing in the downpour. Rain falls steadily, but no other movement.
