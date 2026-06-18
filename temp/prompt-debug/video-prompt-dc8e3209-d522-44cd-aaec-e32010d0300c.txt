@@ -1,7 +1,0 @@
-[Scene] Under a café awning during rain, the background showing a steady curtain of rain with no movement, a sidewalk with puddles reflecting the scene, a café entrance door on the left and a support pillar on the right, all remaining completely static.
-[Characters] Over-the-Shoulder Medium Shot:
-- Minh: Head with tousled dark hair, face in profile with soft ordinary features, shoulder and upper back visible, wearing a charcoal gray rain jacket over a white t-shirt. Calm and speaking.
-- Linh: Upper body from waist up: heart-shaped face, almond eyes, fair skin, wavy damp hair, wearing a cream trench coat over a light green sweater, holding a light green umbrella. Attentive and still.
-Shot 1 (Over-the-Shoulder Medium Shot, 3s): Static camera, environment remains unchanged.
-Minh: "I'm going to Thống Nhất park."
-Action: Slowly speaks the line, lips moving gently with a calm tone, subtle nod of the head. Smooth and fluid. Linh remains motionless, only a gentle blink as she listens.

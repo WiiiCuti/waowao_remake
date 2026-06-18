@@ -1,9 +1,0 @@
-[Scene] The scene is set at a ring toss booth during the day, with a colorful prize wall in the background, wooden railing, and onlookers near the counter. The environment is static, no ambient motion.
-[Characters]
-Ông chủ: Middle-aged man with sharp brows and narrow eyes, gray hair combed back, wearing a dark green polo, speaking eagerly.
-Bạch Ngưng Băng: Young woman with sharp jawline and slanted phoenix eyes, thin lips, straight black hair, wearing a white button-up with a silver watch, listening attentively.
-Tôi: Young man with heart-shaped face and defined jawline, sparkling almond eyes, high nose bridge, soft full lips, black wavy center-parted hair, wearing a white oxford shirt with rolled sleeves, surprised and tense.
-
-Shot 1 (Medium Shot, 1.96s): Static camera, environment remains unchanged.
-Ông chủ: "That handsome guy over there,"
-Action: In slow motion, Ông chủ continues speaking, his lips moving subtly as the words form; his pointing arm remains extended while his free hand lifts in a small explanatory gesture. Bạch Ngưng Băng slowly tilts her head a bit more, her lips curving into a faint, listening smile. Tôi's eyes remain fixed, his fists tighten fractionally, and he takes a short, sharp breath. All movements are smooth and fluid, maintaining a gentle pace.

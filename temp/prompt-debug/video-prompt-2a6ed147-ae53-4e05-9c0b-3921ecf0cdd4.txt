@@ -1,7 +1,0 @@
-[Scene] The scene is a carnival ring toss booth. The background is a blurred wall of hanging prizes and wooden railings. The environment remains static with no ambient motion.
-[Characters]
-Ông chủ: Middle-aged man with sharp brows, narrow eyes. Gray hair combed back. Visible face and neck, collar of a dark green polo shirt. Emotional state: predatory concentration.
-Tôi: The back and shoulder of a young man in a dark shirt, filling the left foreground. Emotional state: unaware.
-Shot 1 (Over-the-Shoulder Close-Up, 2.9s): Static camera, environment remains unchanged.
-Ông chủ: "Half-lidded eyes scanning, locking the target onto me."
-Action: Ông chủ's lips curl into a faint, knowing smirk as his already-locked gaze intensifies. He blinks slowly, once, holding the stare with predatory focus. Smooth and fluid movement throughout.

@@ -1,9 +1,0 @@
-[Scene] The ring toss booth on a bright, warm day. Foreground onlookers stand by the wooden counter. Midground shows the player area with a wooden railing. The background is filled with rows of colorful prizes on shelves. A small bag rests on the booth floor. The entire environment remains completely static.
-[Characters] 
-A sturdy middle-aged man with sharp brows, narrow eyes, and gray hair combed back, dressed in a dark green polo shirt. He is laughing heartily, right hand raised dismissively, eyes crinkled. Joyful and dismissive.
-A slim young woman with a sharp jawline, slanted phoenix eyes, thin lips, and straight black hair, wearing a white button-up shirt. She holds a ring with both hands, gaze directed downward, lips gently closed. Calm and composed.
-A tall lean young man with a heart-shaped face, defined jawline, wavy black center-parted hair, wearing a white Oxford shirt with rolled sleeves. He stands at the side watching, arms loosely at sides, head tilted slightly. Curious and relaxed.
-
-Shot 1 (Medium Shot, 2.59s): Static camera
-Ông chủ: "It's fine, I'll return your change."
-Action: In slow motion, the man's raised hand flows from a dismissive wave into a relaxed open palm, his hearty laughter softening into a warm, satisfied grin. The young woman gently lifts her gaze from the ring, her posture remaining relaxed with a subtle blink. The young man offers a small, thoughtful nod as he continues watching. Smooth and fluid movement throughout.

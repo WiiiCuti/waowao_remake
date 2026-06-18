@@ -11,7 +11,7 @@ export default getRequestConfig(async ({ requestLocale }) => {
     const locale = await requestLocale;
 
     // 验证传入的 locale 是否有效
-    if (!locale || !locales.includes(locale as Locale)) {
+    if (!locale || !(locales as readonly string[]).includes(locale)) {
         notFound();
     }
 

@@ -1,5 +1,0 @@
-[Scene] The living room is bathed in warm natural light from the window on the right. The gray sofa, wooden coffee table, and electric fan remain completely still; no ambient motion. Environment is static.
-[Characters] Bạch Dương: 25-year-old male, defined jaw, high nose, brows perpetually furrowed, sharp almond eyes, thin lips, short side-parted black hair, tall and slender, wearing a light blue shirt, gray trousers, black shoes, weary and frustrated. Tiểu Hy: 20-year-old female, heart-shaped face with large double-lidded almond eyes, slender arched brows, small straight nose, full lips, long black hair, slim build, moderate height, pink t-shirt, light blue denim shorts, white canvas sneakers, attentive and concerned.
-Shot 1 (Medium Two-Shot, 2.6s): Static camera
-Bạch Dương: "It's hot, why didn't you turn on the AC?"
-Action: Slow-motion. Bạch Dương slowly exhales a heavy sigh, his shoulders sagging further, his voice low and weary as he speaks. Tiểu Hy remains still, her gaze unwavering, a subtle deepening of her brow as she listens.

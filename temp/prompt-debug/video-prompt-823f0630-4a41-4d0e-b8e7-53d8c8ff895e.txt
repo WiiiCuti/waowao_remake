@@ -1,6 +1,0 @@
-[Scene] Wide office with floor-to-ceiling window showing night city skyline, curtain drawn on the left. A black desk occupies the foreground right side, with a desk lamp casting warm light, folders and pen on surface. In the background right, a grey sofa set and glass coffee table. Dark wood floor. Static environment, no ambient motion.
-[Characters] Hạ An: young woman in her mid-twenties, oval face, slender willow-leaf eyebrows, large round almond eyes, high straight nose, full lips, straight black hair with air bangs, white stand-collar blouse with black ribbon (upper body visible); emotional state: nervous, trembling.
-Shot 1 (Over-the-Shoulder Medium Shot, 2.34s): Static camera
-Action: Slow-motion. She stands frozen in place, a single subtle blink, her shoulders trembling unevenly. Smooth and fluid.
-Shot 2 (Over-the-Shoulder Medium Shot, 2.35s): Static camera
-Action: Gentle motion. Her throat moves in a visible swallow, her clasped hands tighten a fraction more, and her lips part slightly. Slow and delicate.

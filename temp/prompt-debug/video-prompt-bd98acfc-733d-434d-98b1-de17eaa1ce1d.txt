@@ -1,7 +1,0 @@
-[Scene] Interior living room in the daytime. A large floor-to-ceiling window on the left wall casts warm slanting sunlight across the room. A standing fan and armchair sit in the left corner. A light-colored sofa and coffee table are in the center. A low TV cabinet and decorative paintings adorn the right wall. The front door is open to a corridor in the distance. The environment is completely static, no ambient motion.
-
-[Characters] Bạch Dương: Mid-twenties male, sharp jawline, furrowed brows, piercing single-lidded eyes, high-bridged nose, thin lips. Short side-parted black hair, slender build. Wears blue henley shirt, white slacks, black canvas sneakers. Cold, stern, and unwavering. Tiểu Hy: Early twenties female, heart-shaped face, innocent big eyes, high nose, soft lips, arched brows. Waist-length silky hair with bangs. Petite frame. Pink sweater, white skirt, cream flats. Fearful and frozen in place.
-
-Shot 1 (Eye-Level Close-Up, 2.66s): Static camera, environment remains unchanged.
-Bạch Dương: "Go to your room and put on proper clothes."
-Action: Slow-motion. Bạch Dương's arm firms in its stiff point for a beat, his jaw giving a tight clench as he delivers the command, then his arm slowly begins to lower in a controlled, deliberate motion, his cold gaze locked forward. In the background, Tiểu Hy remains frozen like a statue, only a faint, shallow tremor of breath subtly disturbing her shoulders. Smooth and fluid throughout.

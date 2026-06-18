@@ -1,9 +1,0 @@
-[Scene] A grand living room in ancient European style, magnificent under the full moon. Moonlight streams through tall arched windows on the left, mixing with warm lamplight from the crystal chandelier and a floor lamp on the right. In the center, a dark European sofa with embroidered pillows rests on a patterned carpet; in front of it, a low coffee table with a candlestick. To the left, a fireplace with an oil painting above. To the right, large floor-to-ceiling windows with silk curtains. Marble surfaces reflect the mixed illumination. The entire environment is completely still, with no ambient motion.
-
-[Characters] None
-
-Shot 1 (High-Angle Extreme Long Shot, 2.18s): Static camera, environment remains unchanged.
-Action: No character movement; the scene remains completely static.
-
-Shot 2 (High-Angle Extreme Long Shot, 2.18s): Static camera, environment remains unchanged.
-Action: No character movement; the scene remains completely static.

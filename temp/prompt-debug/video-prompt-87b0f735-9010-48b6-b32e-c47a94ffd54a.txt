@@ -1,5 +1,0 @@
-[Scene] A warm and comfortable living room bathed in soft daylight streaming through a large window on the left, with white curtains half-drawn. In the center, a standing electric fan is positioned. To the right, a gray fabric sofa and a wooden coffee table are arranged. A TV cabinet is visible at the far end, and the entrance door frame is slightly visible. The ceiling light is off, the floor is light oak. All elements remain perfectly static.
-[Characters] None.
-
-Shot 1 (Full Shot, 3.74s): Static camera, environment remains unchanged.
-Action: No movement; the room stays completely still.

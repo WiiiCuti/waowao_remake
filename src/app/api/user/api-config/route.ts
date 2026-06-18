@@ -736,7 +736,11 @@ function normalizeCustomPricing(
   }
 }
 
-function normalizeStoredModel(raw: unknown, index: number, options?: { strictCustomPricing?: boolean }): StoredModel {
+function normalizeStoredModel(
+  raw: unknown,
+  index: number,
+  options?: { strictCustomPricing?: boolean; stripNonTargetMediaTemplates?: boolean },
+): StoredModel {
   if (!isRecord(raw)) {
     throw new ApiError('INVALID_PARAMS', {
       code: 'MODEL_PAYLOAD_INVALID',
@@ -794,29 +798,42 @@ function normalizeStoredModel(raw: unknown, index: number, options?: { strictCus
   }
   const llmProtocolCheckedAt = readTrimmedString(raw.llmProtocolCheckedAt) || undefined
 
+  const providerKey = getProviderKey(provider)
+  const isTargetModel = providerKey === 'openai-compatible' && (modelType === 'image' || modelType === 'video')
+
   const compatMediaTemplateRaw = raw.compatMediaTemplate
   let compatMediaTemplate: OpenAICompatMediaTemplate | undefined
   if (compatMediaTemplateRaw !== undefined && compatMediaTemplateRaw !== null) {
-    const validated = validateOpenAICompatMediaTemplate(compatMediaTemplateRaw)
-    if (!validated.ok || !validated.template) {
-      throw new ApiError('INVALID_PARAMS', {
-        code: 'MODEL_COMPAT_MEDIA_TEMPLATE_INVALID',
-        field: `models[${index}].compatMediaTemplate`,
-      })
+    if (options?.stripNonTargetMediaTemplates && !isTargetModel) {
+      // Ignore/strip compatMediaTemplate for non-target models when reading from storage
+    } else {
+      const validated = validateOpenAICompatMediaTemplate(compatMediaTemplateRaw)
+      if (!validated.ok || !validated.template) {
+        throw new ApiError('INVALID_PARAMS', {
+          code: 'MODEL_COMPAT_MEDIA_TEMPLATE_INVALID',
+          field: `models[${index}].compatMediaTemplate`,
+        })
+      }
+      compatMediaTemplate = validated.template
     }
-    compatMediaTemplate = validated.template
   }
-  const compatMediaTemplateCheckedAt = readTrimmedString(raw.compatMediaTemplateCheckedAt) || undefined
+  const compatMediaTemplateCheckedAt = options?.stripNonTargetMediaTemplates && !isTargetModel
+    ? undefined
+    : readTrimmedString(raw.compatMediaTemplateCheckedAt) || undefined
   const compatMediaTemplateSourceRaw = raw.compatMediaTemplateSource
   let compatMediaTemplateSource: OpenAICompatMediaTemplateSource | undefined
   if (compatMediaTemplateSourceRaw !== undefined && compatMediaTemplateSourceRaw !== null) {
-    if (!isMediaTemplateSource(compatMediaTemplateSourceRaw)) {
-      throw new ApiError('INVALID_PARAMS', {
-        code: 'MODEL_COMPAT_MEDIA_TEMPLATE_SOURCE_INVALID',
-        field: `models[${index}].compatMediaTemplateSource`,
-      })
+    if (options?.stripNonTargetMediaTemplates && !isTargetModel) {
+      // Ignore/strip compatMediaTemplateSource for non-target models when reading from storage
+    } else {
+      if (!isMediaTemplateSource(compatMediaTemplateSourceRaw)) {
+        throw new ApiError('INVALID_PARAMS', {
+          code: 'MODEL_COMPAT_MEDIA_TEMPLATE_SOURCE_INVALID',
+          field: `models[${index}].compatMediaTemplateSource`,
+        })
+      }
+      compatMediaTemplateSource = compatMediaTemplateSourceRaw
     }
-    compatMediaTemplateSource = compatMediaTemplateSourceRaw
   }
 
   return {
@@ -1505,7 +1522,7 @@ function parseStoredModels(rawModels: string | null | undefined): StoredModel[] 
   }
   const normalized: StoredModel[] = []
   for (let index = 0; index < parsedUnknown.length; index += 1) {
-    normalized.push(withBuiltinCapabilities(normalizeStoredModel(parsedUnknown[index], index)))
+    normalized.push(withBuiltinCapabilities(normalizeStoredModel(parsedUnknown[index], index, { stripNonTargetMediaTemplates: true })))
   }
   return normalized
 }

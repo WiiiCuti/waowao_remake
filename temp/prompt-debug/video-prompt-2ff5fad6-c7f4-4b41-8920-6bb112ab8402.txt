@@ -1,9 +1,0 @@
-[Scene] A bright 30-square-meter living room during daytime with a large window on the left casting sunlight, a gray sofa and wooden table in the center, an electric fan on the right side, and a door in the distance. The entire environment remains completely static with no ambient motion.
-[Characters] Tiểu Hy: Approximate 20-year-old female, heart-shaped face with large double-lidded almond eyes, slender arched brows, small straight nose, full lips. Long black hair streams in the wind. Slim build, moderate height. Pink t-shirt, light blue denim shorts, white canvas sneakers. Current emotional state: curious and eagerly questioning. Bạch Dương: Approximately 25-year-old male, defined jaw, high nose, brows perpetually furrowed, stern look, almond eyes sharp, thin lips, short black hair side-parted, tall, slender. Light blue shirt, gray trousers, black shoes. Current emotional state: mildly exasperated and patient.
-
-Shot 1 (Eye-Level Medium Two-Shot, 2.1s): Static camera, environment remains unchanged.
-Tiểu Hy: "Brother Bach, why all the fuss in this heat?"
-Action: Slow-motion. Tiểu Hy gently lowers her hands to rest in her lap in a smooth, fluid motion, her head tilting playfully as her gaze inquisitively fixes on Bạch Dương.
-
-Shot 2 (Eye-Level Medium Two-Shot, 2.09s): Static camera, environment remains unchanged.
-Action: Slow-motion. Bạch Dương releases a slow, silent breath, his hand gradually lowering from his neck to his side, followed by a gentle, resigned shake of his head.

@@ -1,8 +1,0 @@
-[Scene] A quiet street corner under a café awning. Foreground puddles reflect the dim ambient light. A wooden café entrance is on the left, a support pillar on the right. The street behind is rainy and misty. The entire environment remains completely static without any ambient motion.
-[Characters]
-Linh: Upper body. Heart-shaped face, almond eyes, fair skin, damp wavy hair. Wearing a cream trench coat over a light green sweater. Expression is soft and questioning.
-Minh: Upper body. Side profile, tousled dark hair, visible shoulder and collar of a loose charcoal gray rain jacket. Expression is attentive with a gentle smile.
-
-Shot 1 (Over-the-Shoulder Medium Shot, 3s): Static camera
-Linh: "Do you need it?"
-Action: Slow-motion. As her soft question hangs in the air, Linh's gaze lingers on him, her fingers remaining perfectly still around the umbrella handle. Minh completes his slow nod, his nascent smile spreading into a warm, accepting expression as his shoulders settle completely.

@@ -1,6 +1,0 @@
-[Scene] A 30-square-meter sunlit living room by day with a window on the left casting warm natural light, a grey sofa and wooden table in the center, an electric fan on the right. The entire environment is completely static with no ambient motion.
-[Characters] Bạch Dương: 25-year-old male with short side-parted black hair, defined jaw, high nose, sharp almond-shaped eyes, thin lips, brow perpetually furrowed in a stern look, dressed in a light blue shirt, gray trousers, and black shoes, expressing helpless concern.
-
-Shot 1 (Eye-Level Close-Up, 2.45s): Static camera, environment remains unchanged.
-Bạch Dương: "This girl really doesn't treat me like a man."
-Action: Slow-motion. Bạch Dương's lips gently quiver in a sighing breath as he speaks, his eyes slowly closing in a deep blink before reopening to the distance. Smooth and fluid micro-motion.

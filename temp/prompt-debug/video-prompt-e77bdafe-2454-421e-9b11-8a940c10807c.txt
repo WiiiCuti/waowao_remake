@@ -1,5 +1,0 @@
-[Scene] A bustling temple fair during daytime with red brick pavement, wooden game stalls displaying prizes, and distant temple eaves and ancient trees. The environment is completely static with no ambient motion.
-[Characters] Ông chủ: V-shaped jaw, slanted eyes, high nose, thin lips, thick brows, short gray hair, visible brown jacket collar and gray hoodie neckline, sly triumphant expression. Tôi (right background, heavily blurred): visible wavy hair and light blue shirt collar, surprised expression.
-
-Shot 1 (Close-Up, 2.92s): Static camera, background remains unchanged.
-Action: In slow motion, Ông chủ's sly grin deepens almost imperceptibly, one eyebrow lifting in a subtle, calculated gesture. His gaze holds steady, locked forward, a faint predatory gleam flickering in his narrowed eyes. Tôi remains completely still in the blurred background. Smooth and fluid facial movement throughout.

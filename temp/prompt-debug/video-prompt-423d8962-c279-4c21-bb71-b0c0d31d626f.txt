@@ -1,8 +1,0 @@
-[Scene] The top-floor executive office of Shengshi Group, captured in an extreme wide shot at night. Front floor-to-ceiling windows fully display the sprawling city skyline with the left curtain drawn closed. The dimly lit room features a black wooden desk with a closed folder and pen on the left, a grey sofa set and glass coffee table on the right, and dark hardwood flooring extending towards the windows with a large empty central space. The environment is perfectly static with zero ambient motion, no shifting lights, no curtain movement, and no particles.
-[Characters] No characters are present in this establishing shot.
-
-Shot 1 (High Angle Extreme Long Shot, 2.25s): Static camera, perfectly still scene.
-Action: No motion whatsoever. The entire frame remains a completely static still life.
-
-Shot 2 (High Angle Extreme Long Shot, 2.24s): Static camera, perfectly still scene.
-Action: No motion whatsoever. The entire frame remains completely static with zero changes.

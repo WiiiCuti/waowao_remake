@@ -1,4 +1,0 @@
-[Scene] Under a café awning, a white curtain of rain blurs the background street. A few passersby are frozen mid-stride on the sidewalk. The environment is completely static, with no ambient motion.
-[Characters] A young man with soft ordinary features and tousled dark hair, wearing a loose charcoal gray rain jacket over a plain white t-shirt (upper body visible). He is calm and contemplative, watching the rain.
-Shot 1 (Medium Shot, 2s): Static camera, no camera movement.
-Action: Slow-motion. He gently blinks his eyes once, then returns to a steady gaze, with a subtle rise and fall of his chest indicating slow breathing.

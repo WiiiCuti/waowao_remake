@@ -1,9 +1,0 @@
-[Scene] The Tết festival fairground stretches out on a festive day. The ring toss booth stands in the midground, with decorated stalls and food vendors filling the space. Traditional temple roofs are visible in the far distance. The environment is completely static with no ambient motion.
-[Characters]
-Tôi: Young adult (18-25), Male, early twenties, heart-shaped face defined jawline, sparkling almond eyes, high nose bridge soft full lips. Black wavy center-parted hair falling softly. Tall lean build. White oxford rolled sleeves, navy tailored trousers, white leather sneakers, silver watch. Emotional state: serene gaze, body still upright.
-Bạch Ngưng Băng: Young adult (18-22), Female, early twenties, sharp jawline, slanted phoenix eyes, thin lips. Slim build. Straight black hair. White button-up, blue skirt, silver watch, loafers. Emotional state: calm poised, distant focus.
-Ông chủ: Middle-aged (40-50), Male, middle-aged, sharp brows, narrow eyes. Sturdy. Gray hair combed back. Dark green polo, brown pants, brown shoes. Emotional state: neutral watchful, steady breathing.
-
-Shot 1 (High-Angle Extreme Long Shot, 2.1s): Static camera, environment remains unchanged.
-Tôi: "The Tet festival fairground is crowded with people."
-Action: Tôi's eyes perform a slow, deliberate blink as he stands motionless among the crowd. Smooth and fluid, slow-motion.

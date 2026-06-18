@@ -1,4 +1,0 @@
-[Scene] The interior of a sleek modern executive office at night. A grey ash-colored high-end leather sofa set rests against the right wall, a glass coffee table placed in front of it. The left side reveals a dark wood floor, the edge of a floor-to-ceiling window with a drawn curtain showing the city nightscape, and the corner of a black office desk. The ceiling has recessed lights casting soft, even illumination. The setting is entirely static, with no ambient motion.
-[Characters] None.
-Shot 1 (Medium Shot, 2s): Static camera, environment remains completely unchanged.
-Action: Slow-motion. The entire frame holds perfectly still, the soft ambient light gently washing over the rich leather texture of the grey sofa. No movement occurs, emphasizing the serene and minimalist atmosphere of the night office.

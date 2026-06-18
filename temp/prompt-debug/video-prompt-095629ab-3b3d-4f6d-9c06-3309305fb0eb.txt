@@ -1,6 +1,0 @@
-[Scene] The president's office at night: full window front displaying the city skyline, left curtain drawn aside. Black desk with folders and pen on the left. Gray sofa set with glass coffee table on the right. Ceiling light strips and spotlights, dark wood flooring. The environment remains static, no ambient motion.
-[Characters] Thẩm Mặc: A man in his thirties with sharp jaw, defined face, sharp eagle-like eyes, slanted brows, high nose, thin lips, dark hair combed back, tall athletic build. Wearing a deep blue suit, black shirt, silver tie, black trousers, black oxford shoes. Calm and composed.
-Shot 1 (Medium Shot, 2.1s): Static camera, environment unchanged.
-Action: Slow-motion. Thẩm Mặc sits with upright posture, gaze steady; he begins a subtle, gradual tilt of his head to the side, motion smooth and fluid.
-Shot 2 (Medium Shot, 2.1s): Static camera, environment unchanged.
-Action: Continuing the motion, he completes the head tilt, holding the angle briefly, expression unchanged and composed.

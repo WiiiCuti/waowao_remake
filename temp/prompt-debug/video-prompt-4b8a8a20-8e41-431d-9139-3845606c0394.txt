@@ -1,6 +1,0 @@
-[Scene] Temple fair in daytime, red brick ground, brown railing on the left, a ring-toss stall with prizes on the counter in the center, temple roof and ancient trees visible in the distance, crowd flowing beyond the railings. The environment remains completely static with no ambient motion.
-[Characters] Ông chủ: UPPER BODY only — gray hair, V-shaped jaw, slanted eyes, high nose, thin lips, thick brows, brown jacket over gray hoodie, arm extended pointing. Speaking quickly, emphatic. Bạch Ngưng Băng: UPPER BODY only — delicate oval face, sharp chin, long phoenix eyes, high nose, full lips, black hair in tight bun, white silk shirt under dark blue blazer, silver necklace, holding a cat. Attentive, curious. Tôi: UPPER BODY only — boyish oval face, almond eyes, arched brows, wavy hair with bangs, white t-shirt under light blue shirt. Defensive, questioning.
-
-Shot 1 (Medium Shot, 1.91s): Static camera, environment remains unchanged.
-Ông chủ: "Points his finger toward me,"
-Action: The man's finger lowers slowly as his gaze shifts emphatically from Tôi to Bạch Ngưng Băng, his mouth moving rapidly through the dialogue in smooth, slow-motion motion. Bạch Ngưng Băng holds her head turned, her brow subtly arching, while Tôi remains frozen in his defensive stance, hands raised, eyes watching.

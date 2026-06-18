@@ -1,4 +1,0 @@
-[Scene] Under a café awning in heavy rain. The scene includes a sidewalk with puddles, a left café entrance, a right pillar, and a rainy street in the background. The environment is completely static, with no ambient motion.
-[Characters] (Full Shot from behind) Minh: seen from behind, short tousled dark hair visible, wearing a loose charcoal gray rain jacket, dark blue jeans, worn work boots. Emotional state: walking away. Linh: seen from behind, wavy damp hair, holding a light green umbrella, wearing a cream trench coat, green sweater, cream skirt, blue flats. Emotional state: walking away.
-Shot 1 (Full Shot, 3s): Static camera, environment remains unchanged.
-Action: Slow-motion. The two figures continue walking forward in unison, their steps splashing gently on the wet ground, shadows gliding across the puddles. The umbrella sways slightly with the motion, raindrops streaming off its edge.

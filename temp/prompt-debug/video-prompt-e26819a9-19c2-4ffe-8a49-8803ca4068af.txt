@@ -1,5 +1,0 @@
-[Scene] Outside a café entrance on a rainy day. Awning covers the sidewalk. Foreground: puddle. Midground: entrance door, window on the right. Background: entirely static misty city block with frozen passersby under umbrellas. No ambient motion throughout.
-[Characters] Young man with angular face, sharp jawline, high cheekbones, slanted phoenix eyes, dark brown eyes, thin lips. Black short hair, messy and windswept. A dark blue hoodie collar and white tee are visible at the neck. Emotional state: distant, melancholic realization.
-
-Shot 1 (Eye-Level Close-Up, 2.01s): Static camera, environment remains unchanged.
-Action: Slow-motion. His lips relax from the tight line into a soft, subtle parting. A gentle swallow subtly moves his throat. His distant, unfocused gaze remains fixed forward, carrying a quiet weight of realization. Smooth and fluid movement throughout.

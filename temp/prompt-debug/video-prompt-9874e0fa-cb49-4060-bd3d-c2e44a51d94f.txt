@@ -1,4 +1,0 @@
-[Scene] Under a café awning, a white curtain of rain blurs the background street. The environment is static, no ambient motion.
-[Characters] For medium shot (upper body visible): On the left side, a young woman with heart-shaped face, almond eyes, fair skin, damp wavy hair, wearing a cream trench coat over a light green sweater. She has a tentative smile and curious gaze directed to the right. On the right side, a young man with soft ordinary features, tousled dark hair, wearing a loose charcoal gray rain jacket over a white t-shirt. He is slightly surprised and attentive.
-Shot 1 (Medium Shot, 3s): Static camera, no camera movement.
-Action: Slow-motion. The woman's smile deepens slightly as her eyes shine, and she shifts her weight slowly while holding the umbrella steady. The man's eyebrows relax and his lips close gently as he turns his head slightly back towards the rain.

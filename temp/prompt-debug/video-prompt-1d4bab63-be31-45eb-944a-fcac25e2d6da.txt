@@ -1,6 +1,0 @@
-[Scene] A wide view of a cozy living room. Soft sunlight streams in through a large window on the left wall, white curtains half-drawn. The entrance door frame is slightly visible. A standing fan is positioned in the center. A gray fabric sofa and wooden coffee table are on the right, with a TV cabinet in the far back. Light oak wood floor. The environment is static, completely still, with no ambient motion.
-
-[Characters] Tiểu Hy: A young woman in her twenties, heart-shaped face with large double-lidded almond eyes, slender arched brows, a small straight nose, full lips, long black hair, slim build, moderate height, dressed in thin, light-colored loungewear. Calm and gently relaxed, with a soft smile.
-
-Shot 1 (Full Shot, 3.74s): Static camera, environment remains unchanged.
-Action: In slow motion, Tiểu Hy's smile subtly deepens as her gaze drifts thoughtfully to the side in a serene, fluid movement. Her fingers gently curl inward against her knees.

@@ -1,4 +1,0 @@
-[Scene] A minimalist office interior at night focusing tightly on a glossy black ebony desk placed in the center foreground. A floor-to-ceiling window displays a brightly lit city skyline in the background, with curtains neatly pulled to the left side. On the right side of the room, a grey sofa set and a glass coffee table stand against the wall. Dark wood flooring fills the lower portion of the frame. On the desk, a folder and a pen sit under the warm glow of a desk lamp. The environment remains entirely static with no ambient motion.
-[Characters] No characters are present in this scene.
-Shot 1 (Eye-Level Medium Shot, 3.68s): Static camera, environment remains unchanged.
-Action: The scene holds completely still. Slow-motion. No character movement or ambient animation. Smooth and fluid visual stability throughout. The warm desk light contrasts steadily with the cool ambient light from the window.

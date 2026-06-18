@@ -1,7 +1,0 @@
-[Scene] The scene is set under a café awning on a rainy street. The awning covers the sidewalk, with still puddles in the foreground. The left side of the frame shows the café entrance door, and on the right stands a support pillar. Rain streaks are visible in the background street.
-[Characters]
-Linh: Young woman with a heart-shaped face, almond eyes, fair skin, wavy hair damp at ends, wearing a cream trench coat over a light green sweater, holding a light green umbrella. Friendly, explanatory.
-Minh: Young man with soft ordinary features, tousled dark hair, wearing a loose charcoal gray rain jacket over a plain white t-shirt. Understanding, gentle smile.
-Shot 1 (Eye-Level Medium Shot, 3s): Static camera, environment remains unchanged.
-Linh: "I have two."
-Action: Slow-motion. Linh slowly transitions her pointing hand into an open palm gesture toward Minh, her eyebrows lifting slightly as she speaks. Minh's gaze shifts from the backpack to her face, and he nods slowly with a gentle smile.

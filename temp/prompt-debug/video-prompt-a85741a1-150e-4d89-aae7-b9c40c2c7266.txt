@@ -1,6 +1,0 @@
-[Scene] The spacious 30-square-meter living room during the day, a large window on the left, a gray sofa in the center with a wooden coffee table, an electric fan standing against the right wall, and a door visible in the distance. The entire environment remains completely static, no ambient motion.
-[Characters] Bạch Dương: A 25-year-old male with a defined jaw, high nose, furrowed brows, sharp almond eyes, thin lips, short black side-parted hair, wearing a light blue shirt, gray trousers, and black shoes, stern and intense. Tiểu Hy: A 20-year-old female with a heart-shaped face, large double-lidded almond eyes, slender arched brows, small straight nose, full lips, long black hair, slim build, wearing a pink t-shirt, light blue denim shorts, and white canvas sneakers, defiant and guarded.
-
-Shot 1 (Medium Two-Shot, 2.44s): Static camera, environment remains unchanged.
-Bạch Dương: "Men and women are different, don't you understand?"
-Action: In a slow, smooth movement, Bạch Dương holds his leaning posture, his gaze sharpening and jaw tightening as he speaks, while Tiểu Hy subtly tightens the cross of her arms and shifts her narrowed eyes further to the side, maintaining her defiant pose in a fluid, continuous motion.

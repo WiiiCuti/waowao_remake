@@ -1,6 +1,0 @@
-[Scene] A 30-square-meter living room with sunlight streaming in from a large window on the left, a gray sofa and wooden coffee table in the center, an electric fan on the right, and a distant door in the background. The environment remains completely static with no ambient motion.
-[Characters] Bạch Dương: A 25-year-old male with a defined jaw, high nose, perpetually furrowed brows, sharp almond eyes, thin lips, and short black side-parted hair. He is tall and slender, wearing a light blue shirt, gray trousers, and black shoes. Resigned and somber.
-
-Shot 1 (Medium Shot, 1.88s): Static camera, environment remains unchanged.
-Bạch Dương: "Always without any guard at all."
-Action: Slow-motion. He lets out a long, resigned breath, his lips pressing together tightly while his fingers gently tap against his opposite arm in a smooth, fluid, and subtle motion.

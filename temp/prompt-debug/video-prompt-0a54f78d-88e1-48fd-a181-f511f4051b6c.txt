@@ -1,3 +1,0 @@
-[Scene] A rainy street in gray scale, heavy rain densely filling the air, the café awning visible on one side, puddles on the sidewalk reflecting the gray sky. The entire environment remains completely static with no ambient motion; the rain is a static visual element with no observable change.
-[Characters] None.
-Shot 1 (High-Angle Extreme Long Shot, 2s): Static camera, no camera movement. The scene remains completely still with no movement; the rain streaks do not fall or shift.

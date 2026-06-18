@@ -1,9 +1,0 @@
-[Scene] The spacious living room at night with a dark European-style sofa and low coffee table featuring a candlestick, a fireplace with an oil painting on the left, large floor-to-ceiling silk curtains on the right with a floor lamp, and a crystal chandelier casting warm light from above. The environment is completely static: no wind, no curtains swaying, no light flickering. The warm lamp light from the right and the soft hallway backlight remain steady.
-
-[Characters] Thẩm Mặc: Full body view. A man in his thirties with a sharp jaw, eagle-like eyes, slanted brows, high nose, thin lips, dark hair combed back, athletic build. He wears a deep blue suit, black shirt, silver tie, black trousers, and black oxford shoes. His expression is weary with heavy-lidded eyes.
-
-Shot 1 (Low-Angle Full Shot, 2.5s): Static camera, background remains completely still.
-Action: Slow-motion. Beginning from his paused mid-stride in the arched doorway, he slowly completes the final step into the room, shifting his weight onto his forward foot. The hand resting at his loosened collar gradually lowers to his side in a smooth, tired motion, the suit jacket draped over his other arm swinging slightly with the movement.
-
-Shot 2 (Low-Angle Full Shot, 2.57s): Static camera, environment remains unchanged.
-Action: His heavy-lidded gaze finishes its slow sweep across the dim living room, eventually settling on a fixed point off-screen. His shoulders subtly rise and fall with a single deep, weary, barely visible breath, and his posture settles into a still, hanging stance.

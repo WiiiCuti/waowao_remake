@@ -1,6 +1,0 @@
-[Scene] The temple fair square in daytime. Red brick ground, a ring toss booth on the right with prizes displayed, brown railings on the left, temple eaves and ancient trees in the distance. The scene remains completely static with no ambient movement.
-[Characters] Tôi: Upper body visible, a young man in his twenties with a boyish oval face, almond-shaped sparkling eyes, naturally arched eyebrows, straight nose, full shapely lips, wavy hair with bangs swept across forehead, wearing a white t-shirt under a light blue shirt. Emotional state: curious and amused.
-
-Shot 1 (Medium Shot, 2.18s): Static camera, environment remains unchanged.
-Tôi: "Just young men here to watch pretty girls."
-Action: Tôi speaks the line slowly, his smirk deepening slightly as he gives a subtle nod toward the ring toss booth. The movement is smooth and fluid.

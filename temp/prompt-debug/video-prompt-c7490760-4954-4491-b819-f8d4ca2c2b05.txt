@@ -1,6 +1,0 @@
-[Scene] High-angle extreme long shot of a towering skyscraper at night, its brightly lit top floor standing out against the dark sky. The city lights twinkle in the background. The environment remains completely static with no ambient motion.
-[Characters] None
-Shot 1 (High-Angle Extreme Long Shot, 2.2s): Static camera, environment remains completely unchanged.
-Action: No movement.
-Shot 2 (High-Angle Extreme Long Shot, 2.25s): Static camera, environment remains completely unchanged.
-Action: No movement.

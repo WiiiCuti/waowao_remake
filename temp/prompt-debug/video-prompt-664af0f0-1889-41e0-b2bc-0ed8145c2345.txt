@@ -1,8 +1,0 @@
-[Scene] The scene is set at a Tết festival ring toss booth. In the foreground, a counter with onlookers. The midground consists of a player area bounded by a wooden railing. In the background, a prize wall. A bag lies on the floor. The environment is static and remains unchanged throughout.
-[Characters]
-Bạch Ngưng Băng: Upper body of an early-twenties female with sharp jawline, slanted phoenix eyes, thin lips, straight black hair, wearing a white button-up shirt and silver watch. Emotional state: calm and confident.
-Ông chủ: Upper body of a middle-aged male with sharp brows, narrow eyes, gray hair combed back, sturdy build, wearing a dark green polo shirt. Emotional state: defeated and nervous.
-Tôi: Upper body of an early-twenties male with heart-shaped face, defined jawline, sparkling almond eyes, high nose bridge, soft full lips, black wavy center-parted hair, wearing a white oxford shirt with rolled sleeves. Emotional state: curious and observant.
-Shot 1 (Medium Shot, 3.39s): Static camera, environment remains unchanged.
-Bạch Ngưng Băng: "I bought fifty rings, only threw twenty."
-Action: She delivers the line coolly, her lips moving subtly while her eyebrow remains raised. The booth owner keeps his head bowed, shoulders slumped, hands clasped nervously. In the background, Tôi watches with narrowed eyes, leaning slightly forward.

@@ -1,6 +1,0 @@
-[Scene] The interior of a modern high-rise office at night. Through the floor-to-ceiling windows, the city lights of the skyline are visible. Recessed ceiling lights provide dim interior illumination. The environment remains completely static.
-[Characters] Thẩm Mặc: A man around thirty with a sharply defined face, sharp eagle-like eyes, slanted brows, high nose, thin lips, dark hair combed back. Wearing a deep blue suit jacket, black shirt, and silver tie. Eye-Level Close-Up view, only face, neck, and upper collar visible. Appears cold and intimidating.
-Shot 1 (Eye-Level Close-Up, 2.37s): Static camera, environment remains unchanged.
-Action: Slow-motion. A faint, steady breath subtly shifts the silver tie. Smooth and fluid.
-Shot 2 (Eye-Level Close-Up, 2.37s): Static camera, environment remains unchanged.
-Action: Slow-motion. A deliberate, slow blink crosses his face, his eyelids descending smoothly before slowly raising back to the same cold, focused glare. Smooth and fluid movement throughout.

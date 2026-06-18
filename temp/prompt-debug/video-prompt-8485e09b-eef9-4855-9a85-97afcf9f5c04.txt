@@ -1,8 +1,0 @@
-[Scene] The entrance of a café under a wide awning on a rainy day. A shallow puddle sits in the foreground of the street. The café entrance door, a large window on the right, and a menu board on the left form the midground. The background is a misty city block with silhouettes of passersby under umbrellas. The environment is completely static, no ambient motion.
-[Characters]
-Linh: Upper body visible, heart-shaped face, almond eyes, soft lips, damp brown hair clinging to temples, wearing a light green top and cream cardigan, emotional state is gentle friendly inquiry.
-Minh: Upper body visible, angular face, sharp jawline, slanted dark eyes, messy black hair, wearing a dark blue hoodie, emotional state is mildly surprised attentive.
-
-Shot 1 (Medium Shot, 1.69s): Static camera, environment remains completely unchanged.
-Linh: "Do you need it?"
-Action: Slow-motion. Linh's lips finish the final syllable of her question, the folded umbrella held steadily, and a gentle smile slowly spreads across her face. Minh's eyes drift down to the umbrella then back up to her face, his expression shifting from mild surprise to quiet acknowledgment.

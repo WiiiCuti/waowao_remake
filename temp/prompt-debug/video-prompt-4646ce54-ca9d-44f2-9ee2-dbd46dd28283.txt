@@ -1,4 +1,0 @@
-[Scene] Eye-level medium shot of the quiet office interior, centered on the dark ebony wood desk with its polished surface catching the warm desk lamp glow. In the background, the grey sofa area sits against the right wall while floor-to-ceiling windows show the static nighttime city skyline. The room is minimally decorated with dark wood floors and recessed ceiling lights, held completely still without any ambient motion.
-[Characters] None.
-Shot 1 (Eye-Level Medium Shot, 3.68s): Static camera, environment remains completely unchanged.
-Action: The scene remains perfectly still without any camera movement or environmental shifts. The desk surface continues reflecting the warm lamp light, the background cityscape holds fixed, and no character or element moves.

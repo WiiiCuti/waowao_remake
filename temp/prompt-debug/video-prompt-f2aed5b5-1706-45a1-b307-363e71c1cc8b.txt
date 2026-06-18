@@ -1,6 +1,0 @@
-[Scene] A warmly lit living room with a large window on the left where white curtains are half-drawn, an entrance door frame visible, a central ceiling fan, a grey fabric sofa with a wooden coffee table, and a TV cabinet in the background. The environment remains completely static with no ambient motion.
-[Characters] Bạch Dương: A 25-year-old male with a defined jaw, high nose, short black side-parted hair, perpetually furrowed brows, sharp almond eyes, and thin lips. He wears a light blue shirt, gray trousers, and black shoes. His current emotional state is furious and demanding.
-
-Shot 1 (Close-Up, 3.63s): Static camera, environment remains unchanged.
-Bạch Dương: "What the hell does this have to do with my motives?"
-Action: Slow-motion. In a rigid, deliberate motion, his arms slow from a slice into a trembling freeze at the apex of the gesture, his jaw clenching as the yell subsides into a narrowed, piercing glare. Smooth and fluid.

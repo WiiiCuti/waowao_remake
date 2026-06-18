@@ -1,6 +1,0 @@
-[Scene] The expansive executive office interior from the image prompt, remaining completely static. The floor-to-ceiling windows display the glittering city night view. The environment has absolutely no ambient motion.
-[Characters] No characters are present in this shot.
-Shot 1 (Eye-Level Full Shot, 2.18s): Static camera.
-Action: The entire scene holds perfectly still in a tranquil, static wide shot, maintaining the cool blue lighting and deep focus.
-Shot 2 (Eye-Level Full Shot, 2.18s): Static camera.
-Action: The scene continues without any motion, emphasizing the vast, cinematic stillness of the space.
