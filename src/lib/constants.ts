@@ -150,6 +150,14 @@ export const ART_STYLES = [
     promptEn: 'Modern premium Chinese comic style, rich details, clean sharp line art, full texture, ultra-clear 2D anime aesthetics.'
   },
   {
+    value: 'chinese-comic-cg',
+    label: 'Chinese Comic-CG',
+    preview: 'CC',
+    promptZh: 'artwork in cgstyle_9b, iray风格渲染，物理真实的光影感，2.5D半写实风格，现代高质量国漫风格，细节丰富精致，线条锐利干净，皮肤材质通透红润极其光滑(3S渲染)，柔和赛璐璐上色带细腻光影过渡，质感饱满，超清，干净的画面风格，高质量国漫CG。',
+    promptEn: 'artwork in cgstyle_9b, iray rendering, physically accurate lighting, 2.5D semi-realistic style. Modern premium Chinese comic style, rich details, clean sharp line art, SSS skin with translucent rosy tone, soft cel shading with subtle gradient and rim light, full texture, ultra-clear high-quality Chinese comic CG.'
+  }
+  ,
+  {
     value: 'japanese-anime',
     label: 'Anime Nhật',
     preview: '日',
@@ -157,10 +165,17 @@ export const ART_STYLES = [
     promptEn: 'Modern Japanese anime style, clean crisp line art, beautiful detailed eyes and hair, flat cel shading, visual novel CG look, modern urban street background with soft bokeh, gentle natural lighting, fresh vibrant colors, premium high-quality 2D digital anime.'
   },
   {
+    value: 'japanese-anime-cg',
+    label: 'Anime Nhật-CG',
+    preview: '日',
+    promptZh: 'artwork in cgstyle_9b, 2.5D semi-realistic style，现代日系动漫风格，柔和赛璐璐上色，带细腻光影过渡，清晰干净的线条，视觉小说CG感，精致的眼睛与发丝细节，现代都市街景背景，柔和的自然光影，高饱和度清新色彩，高质量动漫CG。',
+    promptEn: 'artwork in cgstyle_9b, iray rendering, physically accurate lighting, 2.5D semi-realistic style. Modern Japanese anime style, clean crisp line art, beautiful detailed eyes and hair, SSS skin with translucent rosy tone, soft cel shading with subtle gradient and rim light, visual novel CG look, modern urban street background with soft bokeh, gentle natural lighting, fresh vibrant colors, premium high-quality anime CG.'
+  },
+  {
     value: 'cg-2-5d',
     label: 'CG 2.5D Semi-Realistic',
     preview: 'CG',
-    promptZh: 'artwork in cgstyle_9b，极致CG质感与3S皮肤渲染，Iray风格光照，物理真实的光影感，画面通透富有深度，皮肤材质通透红润极其光滑，动漫转CG写实质感，高细节皮肤纹理，电影级渲染品质，2.5D半写实风格。',
+    promptZh: 'artwork in cgstyle_9b, 极致CG质感与3S皮肤渲染，Iray风格光照，物理真实的光影感，画面通透富有深度，皮肤材质通透红润极其光滑，动漫转CG写实质感，高细节皮肤纹理，电影级渲染品质，2.5D半写实风格。',
     promptEn: 'artwork in cgstyle_9b, ultimate CG texture with Iray skin rendering, realistic physical light and shadow, transparent and deep imagery, translucent rosy smooth skin texture, anime-to-CG transformation, high-detail skin surface, cinematic render quality, 2.5D semi-realistic style.'
   },
   {

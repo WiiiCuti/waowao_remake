@@ -6,27 +6,117 @@ The input may be in one of two formats:
 
 Regardless of the format, you must break it down into a continuous sequence of cinematic shots.
 
-[Core Principles - Highest Priority]
-⚠️ Precision coverage! Ensure every key visual has its own shot
-⚠️ Cinematic thinking: Focus on core actions and emotional beats
-⚠️ Hard rule for shot length: Single shot source_text ≤ 24 words (corresponding to 5-6 seconds of video). Exceeding this directly causes video generation failure.
-⚠️ Splitting algorithm: Accumulate word by word; when cumulative count ≥ 18 words, cut at the nearest period / question mark / exclamation mark / square bracket
-⚠️ Short sentences (≤12 words) may be merged where appropriate, keeping the merged total ≤ 24 words; long sentences (>24 words) must be split
-⚠️ Key character actions and dialogue require independent shots
-⚠️ When splitting dialogue, the speaker attribution must be preserved (e.g., "The Emperor said gravely: The northern border is in peril."). Losing attribution and causing it to be misidentified as voiceover is forbidden.
-⚠️ When the same person's continuous speech is split, the source_text of subsequent shots must begin with "Character Name + said/asked/exclaimed/replied + :" to ensure the dialogue analysis phase can correctly identify the speaker.
-⚠️ Forbidden actions: Stuffing 2 or more periods into a single shot, cutting in the middle of a comma, stitching source_text across paragraphs
-⚠️ Cinematic Insert Rule (MANDATORY & UN-DROPPABLE): Any text fully enclosed in square brackets `[...]` (e.g., `[A horse carriage races by]`) represents a Cinematic Insert / B-roll. You are STRICTLY FORBIDDEN from dropping or skipping this text. It MUST be parsed into its own independent shot. Do NOT merge `[...]` content with regular dialogue or action lines.
+[Core Principles - Highest Priority, Read This First]
+
+⚠️ ABSOLUTE PRIORITY ORDER (if any rule below ever seems to conflict with another rule
+in this document, resolve it using this order, highest first):
+  1. Cinematic Insert / B-roll `[...]` handling (never dropped, never split, never merged)
+  2. source_text fidelity (must be copied verbatim from original text, never empty)
+  3. Dialogue / inner-monologue integrity (one full speech turn = one panel)
+  4. Shot length guideline for plain action/narration text (~24 words)
+  5. Shot-count minimization ("quality first", "streamlined establishing shots", etc.)
+This means: word-count guidelines and "minimize shot count" advice NEVER justify
+dropping a B-roll, splitting a dialogue/monologue turn, or leaving source_text empty.
+
+⚠️ B-ROLL IS NEVER OPTIONAL (see full rule in [Cinematic Insert Rule] below):
+Any text fully enclosed in square brackets `[...]` is a mandatory, independent,
+unsplittable panel. No other rule in this document — including "quality first",
+"only important emotional beats need a shot", or any shot-count minimization
+guidance — may be used as a reason to drop, merge, or split a `[...]` block.
+
+⚠️ Precision coverage: Ensure every key visual has its own shot.
+⚠️ Cinematic thinking: Focus on core actions and emotional beats.
+
+⚠️ Shot length guideline (PLAIN ACTION/NARRATION TEXT ONLY): A shot's source_text
+should stay at or below ~24 words (~5-6 seconds of video) when it contains only
+action/narration description with no dialogue, no inner monologue, and no `[...]`
+B-roll. Exceeding this on plain action text risks video generation failure.
+
+⚠️ EXEMPT from the 24-word guideline (do NOT split these regardless of length):
+  - Spoken dialogue: one complete speech turn = one panel
+  - Inner monologue / voiceover: one complete thought = one panel
+  - `[...]` Cinematic Insert / B-roll: always one atomic, unsplittable panel
+  These three content types are never subject to the word-count limit above.
+
+⚠️ Splitting approach for plain action/narration text only: when it exceeds the
+~24-word guideline, cut at the nearest sentence-ending punctuation (period /
+question mark / exclamation mark) at or before the limit. Never cut mid-sentence,
+mid-comma-clause, mid-dialogue-turn, or anywhere inside a `[...]` bracket.
+
+⚠️ Merging short sentences: Two or more consecutive short sentences MAY be merged
+into one panel when they describe the same continuous static scene, the same
+unbroken action, or the same character's unbroken state — even if this means the
+merged panel contains more than one period. This is allowed and encouraged; see
+[Shot Breakdown Rules] section 3 for worked examples.
+
+⚠️ Forbidden actions:
+  - Cutting in the middle of a comma-clause
+  - Cutting inside a `[...]` B-roll bracket (it is always one atomic panel)
+  - Stitching source_text across unrelated paragraphs or unrelated scenes
+  - Merging two genuinely different actions/scenes into one panel just to save a shot
+  (Merging multiple short sentences that describe ONE continuous moment is allowed —
+  see the merging rule above. The distinction is "same moment" vs "different moments".)
+
+⚠️ Key character actions and dialogue require independent shots.
+
+⚠️ Speaker attribution: When splitting dialogue, the speaker attribution must be
+preserved (e.g., "The Emperor said gravely: The northern border is in peril.").
+Losing attribution and causing a line to be misidentified as voiceover is forbidden.
+
+⚠️ When the same person's continuous speech is split across multiple panels (only
+allowed under the Action-Dialogue 24-word override in [Shot Breakdown Rules] 7a —
+never for plain monologue, see exemptions above), the source_text of subsequent
+shots must begin with "Character Name + said/asked/exclaimed/replied + :" so the
+dialogue analysis phase can correctly identify the speaker.
+
+[Cinematic Insert Rule — MANDATORY & UN-DROPPABLE]
+
+Any text fully enclosed in square brackets `[...]` (e.g., `[A horse carriage races
+by]`) represents a Cinematic Insert / B-roll.
+  - It MUST be parsed into its own independent panel. Never drop or skip it.
+  - It is NEVER merged with surrounding dialogue or action lines.
+  - It is NEVER split into two panels, no matter how long it is — copy the entire
+    bracketed content verbatim into one source_text field, brackets included.
+  - This applies even if the insert seems minor, redundant, purely atmospheric, or
+    "not a key emotional beat." That kind of judgment does NOT apply to B-roll.
+
+✅ Correct (entire bracket = one panel, regardless of internal length/commas):
+  Input: "[Góc máy từ phía sau, bóng hai người vội vã bước đi, cùng che chung một
+  chiếc ô xanh nhạt hòa vào màn mưa trắng xóa]"
+  → ONE panel, source_text = the entire bracketed sentence, unsplit.
+
+❌ Wrong (splitting one B-roll into two panels at the internal comma):
+  Panel A: "Góc máy từ phía sau, bóng hai người vội vã bước đi"
+  Panel B: "cùng che chung một chiếc ô xanh nhạt hòa vào màn mưa trắng xóa"
+
+❌ Wrong (dropping a B-roll because it "isn't an emotional climax"):
+  Skipping `[Những giọt mưa lớn xối xả đập xuống vũng nước...]` because no
+  character is present in it. This is forbidden — B-roll is mandatory regardless.
+
+⚠️ SELF-CHECK BEFORE FINALIZING OUTPUT: Count every `[...]` block in the input
+text. Your output array MUST contain exactly that many B-roll panels — no more,
+no fewer. If your count does not match, find the missing panel(s) before returning
+the result.
 
 [Core Rules]
 
 1. Shot Count: Focus on key visuals
-   - Each scene start → 1-2 establishing shots (long shot or medium shot)
+   - Each scene start → 1 establishing shot by default. Use 2 only if the opening
+     genuinely contains two distinct visual beats (e.g. environment, then a
+     character's isolated state) that cannot be merged — see merging guidance in
+     [Shot Breakdown Rules] section 3.
    - Each action description → 1-2 shots (core action + result)
-   - Each dialogue segment → 1 Medium Shot when 2+ characters are interacting. For solo monologue or long emotional speech, may use 1 shot (Close-Up speaker). Do NOT split a single dialogue line into speaker + listener panels — keep them in one frame.
+   - Each dialogue segment → 1 Medium Shot when 2+ characters are interacting. For
+     solo monologue or long emotional speech, 1 shot (Close-Up or Medium Shot of
+     the speaker alone), regardless of length. Do NOT split a single dialogue line
+     into speaker + listener panels — keep them in one frame.
    - Character reactions → Only important emotional beats need a dedicated shot
+     (this guidance applies to character reactions only — it does NOT apply to
+     `[...]` B-roll, which is always mandatory regardless of emotional weight)
    - Emotional climax → May add 1 atmosphere/close-up shot
-   - Quality first: Ensure every shot is meaningful
+   - Quality first: Ensure every shot is meaningful (this is about avoiding
+     redundant near-duplicate shots of the SAME content — it never overrides the
+     mandatory B-roll rule, dialogue integrity, or source_text requirements above)
 
 2. Each shot must include:
    - panel_number: Shot number (1, 2, 3...)
@@ -38,41 +128,77 @@ Regardless of the format, you must break it down into a continuous sequence of c
 
 3. source_text Rules (Extremely Important):
    ⚠️ Every shot must include this; must not be null or an empty string
-    - Each panel must have its own unique source_text fragment. Do NOT reuse the same source_text across multiple panels. Copy distinct fragments from the input content
-    - Copy the original text directly from the input content
-    - When {original_text} is provided, source_text MUST be copied from {original_text}, NOT from the description field of {clip_content}
-    - Creative shots must also have the original text fragment that triggered that shot filled in
-
-
+   - Each panel must have its own unique source_text fragment. Do NOT reuse the
+     same source_text across multiple panels. Copy distinct fragments from the
+     input content
+   - Copy the original text directly from the input content
+   - When {original_text} is provided, source_text MUST be copied from
+     {original_text}, NOT from the description field of {clip_content}
+   - Creative shots must also have the original text fragment that triggered that
+     shot filled in
 
 [Shot Breakdown Rules]
 
 1. Shot size selection (choose one):
-   - "He walked into the room" → Medium shot (pushing door open) + Close-up (expression), OR a long-shot / wide-shot tracking shot covering it all in one take
+   - "He walked into the room" → Medium shot (pushing door open) + Close-up
+     (expression), OR a long-shot / wide-shot tracking shot covering it all in one take
 
 2. Reaction shots (key scenes only):
    - Important emotional turning points → May insert a reaction shot
    - Ordinary dialogue does not need a reaction for every line
 
-3. Establishing shots (streamlined):
-   - Opening: 1 scene-establishing shot is sufficient
+3. Establishing shots and merging consecutive short sentences:
+   - Opening: 1 scene-establishing shot is sufficient by default
    - Midway: Only add an environment shot when the plot requires it
+   - Merge consecutive sentences into ONE panel when they describe the same static
+     scene, the same continuous action, or the same character's unbroken state —
+     with no new character, no new action type, and no scene change introduced.
+
+   ✅ CORRECT (merge — same scene, same mood, no new action):
+     Input: "Hôm nay trời bất chợt đổ mưa. Minh đứng dưới mái hiên quán cà phê,
+     nhìn dòng người vội vã lao qua màn mưa trắng xóa."
+     → ONE panel, source_text = both sentences together.
+     (Both describe the same establishing moment: rain + Minh standing, watching.
+     No new action, no new character → merge into one shot.)
+
+   ❌ WRONG (over-splitting the same static moment into two panels):
+     Panel 1: "Hôm nay trời bất chợt đổ mưa."
+     Panel 2: "Minh đứng dưới mái hiên quán cà phê, nhìn dòng người vội vã lao qua
+     màn mưa trắng xóa."
+     (This wastes a panel on weather alone with no character or action — splitting
+     one continuous establishing beat into two disconnected ones.)
+
+   Only split into separate panels when content describes a FUNDAMENTALLY
+   different visual:
+     - A different action begins (e.g. "stands" → "walks away")
+     - A new character enters or exits
+     - The scene/location changes
+     - A `[...]` B-roll insert appears (always its own panel — see Cinematic Insert Rule)
 
 4. Creative / Atmosphere shots:
    - Consider use at emotional climax points or metaphors (e.g., crows, clocks).
-   - ⚠️ EXCEPTIONS: If the original text contains `[...]` B-roll inserts, you MUST include them regardless of whether it's an emotional climax. NEVER drop `[...]` shots!
+   - This is separate from `[...]` B-roll inserts, which are always mandatory
+     regardless of emotional weight (see Cinematic Insert Rule above).
 
 5. Dialogue handling:
    - Shot/reverse-shot: Continuous dialogue may be merged into one treatment
    - Minor actions: Integrate into the dialogue shot; do not make them separate shots
-   - Highly interactive dialogue: Prefer framing them together in a Medium Shot if they are physically close (e.g., sitting side-by-side, confronting each other), keeping both characters clearly in focus to support emotional acting and visual continuity.
+   - Highly interactive dialogue: Prefer framing them together in a Medium Shot if
+     they are physically close (e.g., sitting side-by-side, confronting each
+     other), keeping both characters clearly in focus to support emotional acting
+     and visual continuity.
 
 6. ⚠️ Dialogue Shot Rule (I2V-compatible):
-   - Dialogue between 2+ characters → frame them together in ONE Medium Shot showing both characters clearly, with the speaker's face visible for lip-sync
-   - Solo monologue or emotional solo speech → 1 shot (Close-Up or Medium Shot of the speaker alone)
-   - Do NOT split a single dialogue exchange into separate speaker + listener panels (no shot/reverse-shot). Keep all interacting characters in one frame
-   - Even when one character speaks and others listen, show them all together — the listener's reaction contributes to emotional storytelling
-   - Only split a long monologue (>24 words) into consecutive panels, each covering a distinct portion of the speech
+   - Dialogue between 2+ characters → frame them together in ONE Medium Shot
+     showing both characters clearly, with the speaker's face visible for lip-sync
+   - Solo monologue or emotional solo speech → ALWAYS 1 shot (Close-Up or Medium
+     Shot of the speaker alone), regardless of word count. Do NOT split a
+     monologue or inner-voice turn into consecutive panels — see exemptions in
+     [Core Principles].
+   - Do NOT split a single dialogue exchange into separate speaker + listener
+     panels (no shot/reverse-shot). Keep all interacting characters in one frame
+   - Even when one character speaks and others listen, show them all together —
+     the listener's reaction contributes to emotional storytelling
 
 7. Compound / Long Sentence Splitting (split reasonably, avoid redundancy):
 
@@ -90,26 +216,35 @@ Regardless of the format, you must break it down into a continuous sequence of c
       — Complex action chain + dialogue (3+ distinct actions):
         Major actions get own panel, dialogue merges with final action
 
-      — ⚠️ 24-word hard limit override: If merging action + dialogue would exceed
-        24 words (Core Principles line 12), merge the action with the first sentence
-        of dialogue only, and split remaining dialogue into a subsequent panel.
-        The subsequent panel uses Medium Shot with the character continuing to speak.
+      — ⚠️ 24-word override (THIS CASE ONLY): If merging action + spoken dialogue
+        would exceed ~24 words, merge the action with the first sentence of
+        dialogue only, and put the remaining dialogue in a subsequent panel
+        (Medium Shot, character continuing to speak, with speaker attribution
+        per [Core Principles]).
+        ⚠️ Scope limit: this override applies ONLY to action+spoken-dialogue
+        merging. It does NOT apply to: solo monologue (always 1 panel, see
+        section 6), inner monologue/voiceover (always 1 panel, see below), or
+        `[...]` B-roll (always 1 panel, never split, see Cinematic Insert Rule).
 
-      — Inner monologue / thoughts: unaffected. Action + voiceover in 1 panel.
-        Character's lips do NOT move (no lip-sync).
+      — Inner monologue / thoughts: unaffected by the 24-word override. Action +
+        voiceover always stays in 1 panel regardless of length. Character's lips
+        do NOT move (no lip-sync).
 
       — Shot type for merged panels: MUST be Medium Shot or Medium Two-Shot
         (environment visible + face visible for lip-sync).
         Do NOT use Close-Up — it loses the environmental context.
 
    b) "Sequential actions" → Merge related actions
-      Example: "He stood up, walked to the door, pushed it open" → 2-3 shots (standing up and walking + pushing the door)
+      Example: "He stood up, walked to the door, pushed it open" → 2-3 shots
+      (standing up and walking + pushing the door)
 
    c) "Multi-character reactions" → Merge same-scene reactions
-      Example: "The Emperor furrowed his brows, the Empress suppressed her emotions" → 1-2 shots (two-shot reaction or intercut)
+      Example: "The Emperor furrowed his brows, the Empress suppressed her
+      emotions" → 1-2 shots (two-shot reaction or intercut)
 
    d) "Single person description" → 1-2 shots
-      Example: "The True Princess's face was weary, she held her head high and chest out" → Medium full-body shot (1), add close-up if needed (1)
+      Example: "The True Princess's face was weary, she held her head high and
+      chest out" → Medium full-body shot (1), add close-up if needed (1)
 
 [Shot Generation Rules]
 
@@ -140,8 +275,10 @@ When the input is in [Script Format] JSON:
    - type: "voiceover" → Voice-over narration; design visuals to accompany the audio
 
 3. Dialogue breakdown:
-   - Follow ⚠️ Dialogue Shot Rule (I2V-compatible) in section 6 — keep dialogue exchanges in ONE Medium Shot
-   - If character performs action while speaking → follow Action-Dialogue Merging (section 7a)
+   - Follow ⚠️ Dialogue Shot Rule (I2V-compatible) in [Shot Breakdown Rules] section
+     6 — keep dialogue exchanges in ONE Medium Shot
+   - If character performs action while speaking → follow Action-Dialogue Merging
+     ([Shot Breakdown Rules] section 7a)
 
 4. Voice-over handling:
    - During voice-over, the visuals should show the relevant scene or flashback
@@ -153,12 +290,16 @@ When the input is in [Script Format] JSON:
    - `△` marker → Must generate an independent shot
    - "Scene:" → Generate establishing shot
    - "Frame:" → Directly generate a shot
-   - `[...]` Cinematic Insert → You are STRICTLY FORBIDDEN from dropping this. You MUST generate an independent B-roll/Insert shot focusing purely on the visual details inside the brackets. Assume spatial and temporal continuity with the surrounding shots.
+   - `[...]` Cinematic Insert → Mandatory, independent, unsplittable panel. See the
+     [Cinematic Insert Rule] above for the full rule, exceptions (none), and
+     self-check requirement. Assume spatial and temporal continuity with the
+     surrounding shots.
 
 2. Action / Dialogue identification:
    - Character action: "He walked into the room" → Action shot
    - Scene change: "Sunlight spilled through the window" → Environment shot
-   - Dialogue: "Character A: (standing up angrily) How could you do this!" → Standing up + angry expression
+   - Dialogue: "Character A: (standing up angrily) How could you do this!" →
+     Standing up + angry expression
 
 [Character Continuity and Scene Integrity Rules]
 
@@ -178,30 +319,43 @@ When the input is in [Script Format] JSON:
    - Extreme close-up: Only the local area needed; no other characters required
 
 4. Character persistence logic:
-   - For a character present in the previous shot, the next shot (if not an extreme close-up) must account for their whereabouts
-   - They can only "disappear" via: explicit exit action, cutting to an extreme close-up, or a scene change
+   - For a character present in the previous shot, the next shot (if not an
+     extreme close-up) must account for their whereabouts
+   - They can only "disappear" via: explicit exit action, cutting to an extreme
+     close-up, or a scene change
 
 [Asset Library Usage Rules]
 
 1. Character selection:
    - characters: [{name: "Character Name", appearance: "Appearance Name"}]
    - name must match the asset library exactly
-   
+
    ⚠️ APPEARANCE PERSISTENCE RULE (this is critical for visual continuity):
-   - The DEFAULT appearance for all panels is the first appearance in {characters_appearance_list}
-   - KEEP the same appearance across consecutive panels unless the source text explicitly describes a clothing/outfit CHANGE
-   - Outfit change triggers in the source text: "changed clothes", "took off her coat", "undressed", "put on armor", "wrapped herself in a towel", "let down her hair", "wore a different dress"
-   - Once you switch to a new appearance, KEEP it for all subsequent panels until another change is described
+   - The DEFAULT appearance for all panels is the first appearance in
+     {characters_appearance_list}
+   - KEEP the same appearance across consecutive panels unless the source text
+     explicitly describes a clothing/outfit CHANGE
+   - Outfit change triggers in the source text: "changed clothes", "took off her
+     coat", "undressed", "put on armor", "wrapped herself in a towel", "let down
+     her hair", "wore a different dress"
+   - Once you switch to a new appearance, KEEP it for all subsequent panels until
+     another change is described
    - Do NOT randomly alternate between appearances — outfit should be persistent
-   - If the source text says nothing about clothing changes for the entire clip → use the SAME appearance for every panel
-   
+   - If the source text says nothing about clothing changes for the entire clip →
+     use the SAME appearance for every panel
+
    ⚠️ PROPOSE NEW APPEARANCE if scene demands an outfit not in the list:
-   - If story context demands a clothing change but no matching appearance exists in {characters_appearance_list}, propose a descriptive name (e.g. "Pajamas", "Armor", "Swimsuit", "Towel wrap") in the appearance field so the system can register it.
-   - If the required appearance is already in the list, use its exact name — do NOT invent a duplicate name
-   
+   - If story context demands a clothing change but no matching appearance exists
+     in {characters_appearance_list}, propose a descriptive name (e.g. "Pajamas",
+     "Armor", "Swimsuit", "Towel wrap") in the appearance field so the system can
+     register it.
+   - If the required appearance is already in the list, use its exact name — do
+     NOT invent a duplicate name
+
    - All characters appearing in the frame must be selected
 
-2. Scene selection: location must be selected from the scene asset library, with an exact name match
+2. Scene selection: location must be selected from the scene asset library, with
+   an exact name match
 
 [Frame Description Format Rules]
 
@@ -218,15 +372,28 @@ When the input is in [Script Format] JSON:
    - Explicit blocking: who is blocking whom
    - Explicit positioning: front/back/left/right, near/far/high/low
 
-   ✅ Correct: "The bodyguard faces Zhang San directly, with his back to the elderly person behind him, both arms spread to block Zhang San from advancing"
+   ✅ Correct: "The bodyguard faces Zhang San directly, with his back to the
+   elderly person behind him, both arms spread to block Zhang San from advancing"
 
 4. Character descriptions in the panel description field:
-   - Use the character name directly. Describe their posture, facial expression, spatial orientation, and movement.
-   - ⚠️ DO NOT include detailed clothing descriptions, colors, or fabrics (e.g., "wearing a blue work shirt", "in green robes") in the description field. This is to prevent hardcoding costume designs in the storyboard text.
-   - The character's specific clothing and visual details are dynamically loaded by the system based on the characters[].appearance field from the Asset Library.
-   - If the story context demands a change of clothing (e.g., character going to bed, wearing armor for battle, or disguising as a beggar), select the appropriate appearance name from {characters_appearance_list}. If that appearance is not yet in the list, propose a clear, descriptive name for the new outfit (e.g., "Pajamas", "Dragon robe", "Beggar disguise", "General armor") in the characters[].appearance field so the system can register and design it.
-   ✅ Correct: "Zhang San pushes the office door open and enters, looking serious." (no hardcoded clothes)
-   ❌ Wrong: "Zhang San wearing a blue work shirt and gray cargo pants pushes the office door open..." (hardcodes clothing colors and styles)
+   - Use the character name directly. Describe their posture, facial expression,
+     spatial orientation, and movement.
+   - ⚠️ DO NOT include detailed clothing descriptions, colors, or fabrics (e.g.,
+     "wearing a blue work shirt", "in green robes") in the description field. This
+     is to prevent hardcoding costume designs in the storyboard text.
+   - The character's specific clothing and visual details are dynamically loaded
+     by the system based on the characters[].appearance field from the Asset Library.
+   - If the story context demands a change of clothing (e.g., character going to
+     bed, wearing armor for battle, or disguising as a beggar), select the
+     appropriate appearance name from {characters_appearance_list}. If that
+     appearance is not yet in the list, propose a clear, descriptive name for the
+     new outfit (e.g., "Pajamas", "Dragon robe", "Beggar disguise", "General
+     armor") in the characters[].appearance field so the system can register and
+     design it.
+   ✅ Correct: "Zhang San pushes the office door open and enters, looking
+   serious." (no hardcoded clothes)
+   ❌ Wrong: "Zhang San wearing a blue work shirt and gray cargo pants pushes the
+   office door open..." (hardcodes clothing colors and styles)
 
 [Shot Continuity and Spatial Anchoring Rules - Core Rule]
 
@@ -234,31 +401,43 @@ When the input is in [Script Format] JSON:
 
 1. **Core Principle**:
    - Determine whether to describe other characters based on **what the shot can actually capture**
-   - Shot plausibility is the priority: when a close-up, reverse-shot, partial shot, etc. **cannot see** other characters, there is no need to forcibly describe them
-   - Only when the shot **can indeed see** other characters should their positions be accounted for
+   - Shot plausibility is the priority: when a close-up, reverse-shot, partial
+     shot, etc. **cannot see** other characters, there is no need to forcibly
+     describe them
+   - Only when the shot **can indeed see** other characters should their
+     positions be accounted for
 
 2. **Handling Different Shot Types**:
-
-   - Wide shot / Long shot: Must account for all present characters; the frame covers a large area, and everyone should be visible
-   - Medium shot: Must account for other characters; typically both speakers or multiple people are visible
-   - Close-up: Depends on the situation; if the camera angle can see the other party, account for them; if not, omit
-   - Reverse-shot: No need to account for the other party, because the reverse-shot is specifically filming one side; the other side is behind the camera
-   - Extreme close-up / Ultra close-up: No need to account for others; only the local area is shown
-   - Over-the-shoulder shot: The foreground shoulder being visible is sufficient; detailed description is not required
+   - Wide shot / Long shot: Must account for all present characters; the frame
+     covers a large area, and everyone should be visible
+   - Medium shot: Must account for other characters; typically both speakers or
+     multiple people are visible
+   - Close-up: Depends on the situation; if the camera angle can see the other
+     party, account for them; if not, omit
+   - Reverse-shot: No need to account for the other party, because the
+     reverse-shot is specifically filming one side; the other side is behind the camera
+   - Extreme close-up / Ultra close-up: No need to account for others; only the
+     local area is shown
+   - Over-the-shoulder shot: The foreground shoulder being visible is sufficient;
+     detailed description is not required
 
 3. **Plausibility Principle**:
 
    ✅ Correct (shot can capture it):
-   "Medium shot: Li Si speaks with furrowed brows; across from him, Zhang San listens quietly" ← Medium shot can see both parties
+   "Medium shot: Li Si speaks with furrowed brows; across from him, Zhang San
+   listens quietly" ← Medium shot can see both parties
 
    ✅ Correct (reverse-shot does not need the other party):
-   "Reverse close-up: Li Si speaks with furrowed brows" ← Reverse-shot only films one side; the other side is behind the camera
+   "Reverse close-up: Li Si speaks with furrowed brows" ← Reverse-shot only films
+   one side; the other side is behind the camera
 
    ✅ Correct (extreme close-up only needs the focal point):
-   "Face extreme close-up: Li Si's brows are tightly knit" ← Extreme close-up does not need to account for others
+   "Face extreme close-up: Li Si's brows are tightly knit" ← Extreme close-up does
+   not need to account for others
 
    ❌ Wrong (medium shot missing a visible character):
-   "Medium shot: Li Si speaks" ← Medium shot should be able to see the other party; why is it not written?
+   "Medium shot: Li Si speaks" ← Medium shot should be able to see the other
+   party; why is it not written?
 
 4. **Continuity Check** (self-check before generating each shot):
    □ Which characters can the current shot type/angle actually capture?
@@ -269,9 +448,12 @@ When the input is in [Script Format] JSON:
 
 Return only a JSON array. Do not output markdown code block markers, comments, or explanations.
 
-Example (highlighting film-aware pacing + action-dialogue merging):
+Example (highlighting film-aware pacing + action-dialogue merging + B-roll handling):
 
-Original text: "Minh stood under the coffee shop awning, rain pouring around him. Linh ran in beside him, holding a light green umbrella, her hair slightly wet. 'Need an umbrella?' She extended it toward him. Minh turned. 'Yours?'"
+Original text: "Minh stood under the coffee shop awning, rain pouring around him.
+[Heavy raindrops slam into a puddle on the asphalt, water splashing up.]
+Linh ran in beside him, holding a light green umbrella, her hair slightly wet.
+'Need an umbrella?' She extended it toward him. Minh turned. 'Yours?'"
 
 [
   {
@@ -284,6 +466,14 @@ Original text: "Minh stood under the coffee shop awning, rain pouring around him
   },
   {
     "panel_number": 2,
+    "description": "Extreme close-up insert: Heavy raindrops strike a puddle on the asphalt, water splashing upward in slow motion.",
+    "characters": [],
+    "location": "Coffee Shop Exterior",
+    "scene_type": "daily",
+    "source_text": "[Heavy raindrops slam into a puddle on the asphalt, water splashing up.]"
+  },
+  {
+    "panel_number": 3,
     "description": "Full shot: Linh runs into frame under the awning, her hair ends damp. She holds a folded light green umbrella in her right hand. She stops and looks toward Minh. Rain blurs the street behind her.",
     "characters": [{"name": "Linh", "appearance": "Default Appearance"}],
     "location": "Coffee Shop Exterior",
@@ -291,7 +481,7 @@ Original text: "Minh stood under the coffee shop awning, rain pouring around him
     "source_text": "Linh ran in beside him, holding a light green umbrella, her hair slightly wet."
   },
   {
-    "panel_number": 3,
+    "panel_number": 4,
     "description": "Medium Two-Shot: Linh extends the green umbrella toward Minh, speaking. Minh (right frame) turns to face her, eyebrows lifting slightly. Rain continues beyond the awning behind them.",
     "characters": [
       {"name": "Linh", "appearance": "Default Appearance"},
@@ -305,8 +495,11 @@ Original text: "Minh stood under the coffee shop awning, rain pouring around him
 
 Note the film-aware pacing in the example:
 - Shot 1 (silent): Establishes scene — rain, Minh alone, mood
-- Shot 2 (silent): Establishes new character entering — Linh appears, audience registers her
-- Shot 3 (merged action+dialogue): Linh extends umbrella + asks + Minh turns + responds — all in one Medium Two-Shot preserving environmental context
+- Shot 2 (silent, mandatory B-roll): The bracketed insert is never dropped — it
+  becomes its own atomic panel even though no character is present in it
+- Shot 3 (silent): Establishes new character entering — Linh appears, audience registers her
+- Shot 4 (merged action+dialogue): Linh extends umbrella + asks + Minh turns +
+  responds — all in one Medium Two-Shot preserving environmental context
 
 [Input Data]
 
@@ -338,8 +531,11 @@ Previous clip end state (carry-over continuity from adjacent clip in same locati
 {previous_clip_end_state}
 
 Rule: If the state above contains character positions and appearances:
-- The FIRST panel of this clip MUST use the SAME character positions, facing directions, and appearances, unless source_text explicitly describes character movement, clothing change, or location change.
-- Shot type may progress naturally (e.g. close-up → medium shot) but character spatial relationships (who is on left vs right) MUST be preserved.
+- The FIRST panel of this clip MUST use the SAME character positions, facing
+  directions, and appearances, unless source_text explicitly describes character
+  movement, clothing change, or location change.
+- Shot type may progress naturally (e.g. close-up → medium shot) but character
+  spatial relationships (who is on left vs right) MUST be preserved.
 - If the state is "None", initialize positions freely based on the text.
 
 [Strict Requirements]
@@ -349,13 +545,41 @@ Rule: If the state above contains character positions and appearances:
 4. Return only a JSON array; no other text is permitted
 5. ⚠️ source_text is required; must not be empty or null
 6. Spatial relationships must be clear (orientation, blocking, positioning)
-7. If the scene description provides a list of standable positions, they should be treated as preferred positional anchors, not as hard boundaries that forcibly cover all possible positions
-8. When a character is stably positioned within a scene, prioritize selecting a slot from the list of standable positions; the value of the slot field must be a direct copy of the full position description. Abbreviation, rewriting, summarizing, or substituting with a short label is forbidden.
-9. When a shot primarily depicts character movement, entering/leaving, crossing a space, transitional areas, path spaces, temporary spaces, blank spaces, imaginary/dream/flashback/abstract spaces, the slot may be omitted, and the position may be freely determined based on the original text and shot logic.
+7. If the scene description provides a list of standable positions, they should be
+   treated as preferred positional anchors, not as hard boundaries that forcibly
+   cover all possible positions
+8. When a character is stably positioned within a scene, prioritize selecting a
+   slot from the list of standable positions; the value of the slot field must be
+   a direct copy of the full position description. Abbreviation, rewriting,
+   summarizing, or substituting with a short label is forbidden.
+9. When a shot primarily depicts character movement, entering/leaving, crossing a
+   space, transitional areas, path spaces, temporary spaces, blank spaces,
+   imaginary/dream/flashback/abstract spaces, the slot may be omitted, and the
+   position may be freely determined based on the original text and shot logic.
 10. Shot continuity: There must be action continuity between consecutive shots
-11. Identity-based terms of address are forbidden: Specific names from the asset library must be used
-12. Subjective emotional words are forbidden: Only visualizable actions and states may be described
-13. Single-shot long sentences are forbidden: Long sentences containing comma-separated multiple actions / dialogue must be split
-14. Dialogue handling: Follow the ⚠️ Dialogue Shot Rule (I2V-compatible) in section 6. Pure dialogue → keep in ONE Medium Shot. Action+dialogue → follow Action-Dialogue Merging (section 7a).
-15. ⚠️ Shot plausibility: Only describe characters that the current shot **can actually capture**; those not capturable (close-up, reverse-shot, etc.) may be omitted
-16. ⚠️ JSON safety: All quotation marks (""''「」etc.) in the original text must be uniformly replaced with 「」within JSON string values; unescaped English double quotation marks are strictly forbidden.
+11. Identity-based terms of address are forbidden: Specific names from the asset
+    library must be used
+12. Subjective emotional words are forbidden: Only visualizable actions and states
+    may be described
+13. Long action/narration sentences containing comma-separated multiple distinct
+    actions must be split (see [Core Principles] for the splitting approach).
+    This does NOT apply to dialogue, inner monologue, or `[...]` B-roll, which are
+    each kept whole in one panel regardless of length (see exemptions above).
+14. Dialogue handling: Follow the ⚠️ Dialogue Shot Rule in [Shot Breakdown Rules]
+    section 6. Pure dialogue → keep in ONE Medium Shot, never split (except under
+    the narrow Action-Dialogue 24-word override in section 7a). Action+dialogue →
+    follow Action-Dialogue Merging (section 7a).
+15. ⚠️ Shot plausibility: Only describe characters that the current shot **can
+    actually capture**; those not capturable (close-up, reverse-shot, etc.) may be omitted
+16. ⚠️ JSON safety: All quotation marks (""''「」etc.) in the original text must be
+    uniformly replaced with 「」within JSON string values; unescaped English
+    double quotation marks are strictly forbidden.
+17. ⚠️ FINAL SELF-CHECK before returning output (perform all three silently):
+    a) Count the `[...]` B-roll blocks in the input. Your output must contain the
+       exact same number of B-roll panels, each unsplit and verbatim.
+    b) Check every dialogue and inner-monologue panel: none should be split into
+       fragments purely due to word count (only the section 7a override may split
+       action+dialogue, and only when it genuinely exceeds ~24 words).
+    c) Check consecutive panels describing the same static moment: if two adjacent
+       panels could be merged per [Shot Breakdown Rules] section 3 without losing
+       a distinct action/character/scene change, merge them.

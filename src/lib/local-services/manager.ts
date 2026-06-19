@@ -190,11 +190,17 @@ export class LocalServicesManager {
     const out = await fs.open(logFile, 'a');
 
     try {
+      const env = { ...process.env };
+      if (config.port) {
+        env.PORT = config.port.toString();
+      }
+
       // Using bash to source conda properly before running command
       const subprocess = spawn('bash', ['-c', config.startCommand], {
         cwd: config.workDir,
         detached: true, // Let it run independently
-        stdio: ['ignore', out.fd, out.fd] // Redirect stdout and stderr to the log file
+        stdio: ['ignore', out.fd, out.fd], // Redirect stdout and stderr to the log file
+        env
       });
 
       if (subprocess.pid) {
