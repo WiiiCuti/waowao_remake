@@ -8,6 +8,8 @@ After analyzing the full set of panels, describe a complete performance directiv
 - Body language and posture
 - Micro-movements and eye line
 
+⚠️ For merged Action+Dialogue panels: Acting direction MUST cover BOTH the physical action (gesture, turn, shift, reaching, etc.) AND the speaking performance (lip articulation, facial expression while talking) in the same sentence. Do NOT omit the action just because the character is speaking — the audience sees both simultaneously.
+
 【Important】The performance for each shot must be independent!
 - The same character may have different emotional changes across different shots
 - Performance style must match scene_type (daily / emotion / action / epic / suspense)
@@ -33,7 +35,8 @@ After analyzing the full set of panels, describe a complete performance directiv
 3. ⚠️ Boundary-Aware Performance: Performance MUST match what is visible in the shot type.
    - For Extreme Close-Up (ECU) or Macro Close-Up: Only allow micro-expressions (blink, pupils contract, lip tremble, swallow, deep breath). ABSOLUTELY NO hand gestures, shoulder movements, head turns, or body posture changes.
    - For Close-Up (CU): Only allow head tilts, nods, and facial expressions. ABSOLUTELY NO hand gestures, walking, standing up, or large body movements.
-   - For Medium Shot (MS): Body language (clenched fists, leaning forward, shrugging shoulders) is permitted. No walking or running.
+   - For Medium Shot (MS): Body language (clenched fists, leaning forward, shrugging shoulders) is permitted. No walking or running — EXCEPT for a character stepping/entering into frame (entrance motion resolves within 1-2s, then character stands stable in MS).
+   - For merged Action+Dialogue panels (always Medium Shot): Describe BOTH the physical action AND the speaking facial expression. The character is not a talking head — they move while talking.
    - For Full/Long Shot: Large movements (walking, stepping back, standing up) are permitted.
 4. ⚠️ Forbid out-of-frame actions: NEVER assign actions like "turn back to face away", "step back", or "walk away" to characters unless their full bodies are clearly visible in the shot type. These force the video model to invent parts of the character that do not exist in the input image, causing severe visual distortion.
 

@@ -49,8 +49,10 @@ You are a top-tier film storyboard artist. Based on the storyboard plan and scen
 【Shot Continuity Rules】
 - Shots must be continuous with no breaks
 - Panels in the same group must progress step by step: Long → Medium → Close or Close → Medium → Long
+  Exception: merged action+dialogue panels stay at Medium Shot for both action and dialogue (no progression to Close-Up)
 - New scenes generally require an establishing Full Shot
 - Panels should be diverse; do not repeat similar shot sizes
+  Exception: consecutive merged action+dialogue panels may repeat Medium Shot, or alternate with Over-the-Shoulder Medium Shot for variety
 
 【video_prompt Writing Philosophy — CINEMATIC NATURALISM】
 
@@ -112,7 +114,8 @@ Example:
     "panel_number": 1,
     "shot_type": "Eye-Level Medium Shot",
     "camera_move": "Static",
-    "description": "Character A stands at the table, both hands pressed on the desk, looking seriously at Character B opposite",
+     "description": "Character A stands at the table, both hands pressed on the desk, looking seriously at Character B opposite",
+    "duration": 4,
     "video_prompt": "penguin young man stands at the table, both hands pressed on the desk, his jaw tightening as he looks up with a stern expression, speaking firmly. The warm ambient light catches the subtle tension in his shoulders. Static camera.",
     "characters": [{"name": "Character A", "appearance": "initial appearance", "slot": "position in front of the dragon throne steps at the center of the palace"}],
     "location": "office",
@@ -135,6 +138,16 @@ Location descriptions:
 Prop descriptions:
 {props_description}
 
+【Duration Rules】
+- Wide Shot / Long Shot (establish scene, no dialogue): duration 4
+- ECU / Extreme Close-Up (B-roll/insert, no dialogue): duration 2
+- Close-Up + scene_type=emotion (emotion beat, no dialogue): duration 3
+- Medium Two-Shot (atmosphere, silence context, no dialogue): duration 4
+- Medium Shot (action only, no dialogue): duration 3
+- Merged action+dialogue panels → omit duration (handled by TTS audio length)
+- Default (no dialogue, no rule match): duration 3
+- Dialogue panels → omit duration field (auto-calculated from audio length)
+
 【Strict Requirements】
 1. Supplement shot_type, camera_move, and video_prompt for each panel
 2. shot_type format: Camera Angle + Shot Size (e.g., "Eye-Level Medium Shot", "Over-the-Shoulder Close-Up", "Low-Angle Full Shot")
@@ -150,3 +163,4 @@ Prop descriptions:
 12. description can be appropriately refined but must not change core content
 13. The source_text field from input panels must be preserved and output verbatim; do not omit or modify
 14. ⚠️ JSON safety: All quotation marks within JSON string values must be uniformly replaced with「」; unescaped ASCII double quotation marks are strictly forbidden
+15. Duration rules: Wide/Long establish → 4, ECU B-roll → 2, emotion CU → 3, atmosphere Two-Shot → 4, action Medium → 3. Dialogue panels → omit. Default → 3.
