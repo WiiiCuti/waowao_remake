@@ -5,7 +5,7 @@ import { toFetchableUrl } from '@/lib/storage'
 import videoNormalTemplate from './video_LTXV-normal.json'
 import videoFlTemplate from './video_LTXV-firstlastframe.json'
 import videoPromptRelayTemplate from './video_LTXV-normal-promptrelay.json'
-import ltxDirectorTemplate from './LTX_Director.json'
+import ltxDirectorTemplate from './LTX_Director_2.json'
 
 const NORMAL_TEMPLATE = videoNormalTemplate as Record<string, unknown>
 const FL_TEMPLATE = videoFlTemplate as Record<string, unknown>
@@ -368,7 +368,18 @@ export class ComfyUIVideoGenerator extends BaseVideoGenerator {
       : []
 
     const timelineData = JSON.stringify({
+      mainTrackEnabled: true,
+      audioTrackEnabled: true,
+      motionTrackEnabled: true,
+      overrideAudio: false,
+      inpaint_audio: true,
+      retakeMode: false,
+      global_prompt: params.globalPrompt || '',
+      retake_global_prompt: '',
+      normalStartFrame: 0,
+      normalDurationFrames: totalFrames,
       segments: timelineSegments,
+      motionSegments: [],
       audioSegments,
     })
 
@@ -376,27 +387,34 @@ export class ComfyUIVideoGenerator extends BaseVideoGenerator {
     const segmentLengths = timelineSegments.map(s => String(s.length)).join(',')
     const guideStrength = timelineSegments.map(() => '1.00').join(',')
 
-    const node46 = workflow['46'] as { class_type: string; inputs: Record<string, unknown>; _meta?: { title: string } }
-    if (!node46 || node46.class_type !== 'LTXDirector') {
-      throw new Error('LTX_Director.json does not contain LTXDirector node at key "46"')
+    const node131 = workflow['131'] as { class_type: string; inputs: Record<string, unknown>; _meta?: { title: string } }
+    if (!node131 || node131.class_type !== 'LTXDirector') {
+      throw new Error('LTX_Director_2.json does not contain LTXDirector node at key "131"')
     }
 
-    node46.inputs.timeline_data = timelineData
-    node46.inputs.local_prompts = localPrompts
-    node46.inputs.segment_lengths = segmentLengths
-    node46.inputs.guide_strength = guideStrength
-    node46.inputs.duration_frames = totalFrames
-    node46.inputs.duration_seconds = parseFloat(totalSeconds.toFixed(3))
-    node46.inputs.frame_rate = fps
-    node46.inputs.use_custom_audio = audioSegments.length > 0
-    node46.inputs.global_prompt = params.globalPrompt || ''
-    node46.inputs.epsilon = 0.001
-    node46.inputs.display_mode = 'seconds'
-    node46.inputs.custom_width = 0
-    node46.inputs.custom_height = 0
-    node46.inputs.resize_method = 'maintain aspect ratio'
-    node46.inputs.divisible_by = 32
-    node46.inputs.img_compression = 18
+    node131.inputs.timeline_data = timelineData
+    node131.inputs.local_prompts = localPrompts
+    node131.inputs.segment_lengths = segmentLengths
+    node131.inputs.guide_strength = guideStrength
+    node131.inputs.start_frame = 0
+    node131.inputs.end_frame = totalFrames
+    node131.inputs.duration_frames = totalFrames
+    node131.inputs.start_second = 0
+    node131.inputs.end_second = parseFloat(totalSeconds.toFixed(3))
+    node131.inputs.duration_seconds = parseFloat(totalSeconds.toFixed(3))
+    node131.inputs.frame_rate = fps
+    node131.inputs.use_custom_audio = audioSegments.length > 0
+    node131.inputs.use_custom_motion = false
+    node131.inputs.inpaint_audio = true
+    node131.inputs.override_audio = false
+    // Removed global_prompt from root inputs since V2 moved it to timeline_data
+    node131.inputs.epsilon = 0.001
+    node131.inputs.display_mode = 'frames'
+    node131.inputs.custom_width = 0
+    node131.inputs.custom_height = 0
+    node131.inputs.resize_method = 'maintain aspect ratio'
+    node131.inputs.divisible_by = 32
+    node131.inputs.img_compression = 18
 
     console.log(`[LTX Director] built workflow: ${timelineSegments.length} segments, ${audioSegments.length} audio, ${totalFrames} frames (${totalSeconds.toFixed(2)}s)`)
     return workflow
