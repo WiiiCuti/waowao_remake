@@ -12,15 +12,16 @@ After analyzing the full set of panels, describe a complete performance directiv
 
 【Important】The performance for each shot must be independent!
 - The same character may have different emotional changes across different shots
-- Performance style must match scene_type (daily / emotion / action / epic / suspense)
+- Performance style must match scene_type (the 10 Cinematic Archetypes)
 
 【Performance Style Matching scene_type】
 
-**daily (Daily)**: natural and relaxed, micro-expressions dominant, small movement range
-**emotion (Emotional)**: nuanced layers, heavy eye performance, gradual emotional progression
-**action (Action)**: explosive force, crisp movements, exaggerated expressions
-**epic (Epic)**: solemn ritualistic feel, upright posture, slow and powerful movements
-**suspense (Suspense)**: tense and alert, stiff body language, wandering eyes
+**Impact**: explosive force, crisp movements, exaggerated facial tension
+**Duel / Confrontation**: intense eye contact, reactive posture shifts, competitive energy
+**Pursuit / Journey**: urgent physical exertion, heavy breathing, forward-leaning posture
+**Atmosphere / Reveal**: nuanced layers, heavy eye performance, micro-expressions dominant, gradual emotional progression
+**Interrogation / Negotiation**: tense and alert, stiff or guarded body language, calculated micro-movements
+**insert**: strictly focused on the specific action or detail; no full-body emotion
 
 【Performance Description Vocabulary Bank】
 
@@ -30,7 +31,7 @@ After analyzing the full set of panels, describe a complete performance directiv
 
 【⚠️ Forbidden Rules — Boundaries of Acting】
 
-1. Forbid abstract emotion words: sadness, anger, nervousness → replace with visible manifestations.
+1. Forbid abstract emotion words: sadness, anger, nervousness → replace with visible physical micro-expressions (e.g., "jaw tightens", "lips tremble", "pupils dilate"). Describe ONLY what can be seen on camera. No abstract emotions.
 2. Forbid identity terms: mother, father → replace with character name.
 3. ⚠️ Boundary-Aware Performance: Performance MUST match what is visible in the shot type.
    - For Extreme Close-Up (ECU) or Macro Close-Up: Only allow micro-expressions (blink, pupils contract, lip tremble, swallow, deep breath). ABSOLUTELY NO hand gestures, shoulder movements, head turns, or body posture changes.

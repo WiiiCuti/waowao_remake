@@ -13,19 +13,19 @@ Each input element contains:
 current contains:
   panelIndex: position in batch
   panelNumber: panel number
-  shotType: shot type (close-up/medium/wide/etc.)
-  cameraMove: camera movement
+  shotType: shot type (close-up/medium/wide/etc.)  ← camelCase, matches code
+  cameraMove: camera movement  ← camelCase, matches code
   description: scene description
   location: location name
   srtSegment: dialogue or narration
   duration: duration in seconds
-  characters[]: {name, appearance, screen_position, posture, acting}
+  characters[]: {name, appearance, screen_position, posture, facing, acting}
   photographyRules: {lighting: {direction, quality}, color_tone, depth_of_field}
-  existingVideoPrompt: pre-existing video_prompt from Phase 3 (may be empty)
+  existingVideoPrompt: pre-existing video_prompt from Phase 3 (may be empty)  ← camelCase
 
 previous contains:
   panelIndex, location, shotType, cameraMove
-  characters[]: {name, appearance, screen_position, posture, acting}
+  characters[]: {name, appearance, screen_position, posture, facing, acting}
   photographyRules: {lighting, color_tone, depth_of_field}
   imagePrompt, videoPrompt
 
@@ -80,7 +80,7 @@ ADJACENT panels + SAME location:
   - Character on the left in previous panel → stays on the left in current panel (unless description shows movement)
   - Character appearance/hair/clothing: KEEP EXACTLY THE SAME across panels
   - Mood/expression: smooth transition, no abrupt jumps
-  - Actions: logically continue from previous.acting (panel-to-panel continuity only — see IMAGE → VIDEO CONTINUITY below)
+  - Actions: logically continue from previous.characters[i].acting (each character's acting state — panel-to-panel continuity only — see IMAGE → VIDEO CONTINUITY below)
 
 DIFFERENT location (scene change):
   - May reset lighting, color tone, camera
@@ -133,7 +133,7 @@ Output format — follow this EXACT structure. Each panel's video_prompt may con
 ```
 [Scene] <environment description with natural ambient motion>
 [Characters] <ALWAYS include this section. Filter description by shot type per rule 1.>
-<character 1 name>: <FULL description (Full/Wide) or UPPER BODY only (Medium) per rule 1 + emotional state in ≤5 words>. <character 2 name>: <same>.
+<character 1 name>: <FULL description (Full/Wide) or UPPER BODY only (Medium) per rule 1 + physical visible state in ≤5 words>. <character 2 name>: <same>.
 
 Shot 1 (<shotType>, <duration_seconds>s): Static camera
 <Character 1>: "<dialogue from srtSegment (only if present, max 10 words)>"
@@ -157,7 +157,7 @@ Key rules:
      - Hand visible → describe hand: fingers, nails, cuff/sleeve end. Nothing else.
      - Eye visible → describe eye: iris, lashes, skin around eye. Nothing else.
      - Lips visible → describe lips: shape, texture. Nothing else.
-   - Always append current emotional state in ≤5 words from current.characters[].acting and srtSegment context. Do NOT invent.
+   - Always append current physical visible state in ≤5 words from current.characters[].acting and srtSegment context. Do NOT invent abstract emotion labels.
 2. After [Characters] definition, use only the character's NAME in the Shot blocks (Dialogue/Action lines) — the model already knows who they are.
 3. The [Scene] section MUST include:
    a. Full environment from current.description and location data — do not summarize.
@@ -203,9 +203,11 @@ Key rules:
 - Add SECONDARY MOTION: Describe how clothing wrinkles, hair sways, or objects react to the main movement.
 - The environment has its own life — weather, light, background activity continue naturally.
 - Emotions show through the whole body, not just the face (shift weight, lean, shoulder rotation).
+- MANDATORY: Use physical micro-expressions for emotions. Do NOT use emotion labels (angry, sad, surprised). Instead of "angry", write "jaw tightens, nostrils flare". Instead of "sad", write "gaze drops, shoulders slump". Describe ONLY what is physically visible.
 - Actions have weight and consequence — reaching for something, turning away, stepping closer.
 - Silence is still motion — breathing, thinking, the subtle shifts of being alive.
 - FORBIDDEN words: "frozen", "completely still", "perfectly static", "absolutely static", "no motion", "motionless", "tableau".
+- FORBIDDEN mechanics: Joint angle descriptions (e.g., "rotate forearm 45°", "bend elbow 90°"). Use intent-based or weight-based descriptions instead (e.g., "throws a heavy punch", "pulls the door open", "slowly turns head").
 - NEVER describe the environment as static or frozen — rain falls, wind blows, light shifts, life continues.
 - Camera: Use "Locked-off camera, natural ambient motion flows" instead of "Static camera" so the AI doesn't freeze the scene. EVERYTHING within the frame is alive and moving.
 
@@ -263,3 +265,27 @@ Therefore:
 - Environment: SHOULD have natural ambient motion (rain, wind, light, background activity) — this is SAFE and makes scenes feel alive
 - Character actions: ALLOWED and can be natural and continuous (head turns, gestures, standing up, walking, weight shifts, breathing) thanks to IC-LoRA
 - Multi-character scenes: Lower risk due to IC-LoRA Dual-Character, but still enforce spatial separation
+
+⚠️ ENGINE HARD CONSTRAINTS (MANDATORY):
+- FORBIDDEN: Mirror, glass, or water reflections. LTX cannot maintain consistency in reflections.
+- FORBIDDEN: Off-screen events. All actions and characters MUST be fully visible in the frame.
+- FORBIDDEN: Exit + re-entry within a single shot. (1 shot = 1 static panel).
+- MAX TRACKING: Keep dynamic actions focused on a maximum of 3 characters per scene.
+- DESTRUCTION: Allowed but keep details minimal (e.g., "debris falls", not complex shattering mechanics).
+- RE-STATE POSITIONS: When generating the image_prompt for the next panel, you must re-state character positions clearly.
+
+【Camera Characteristic Feel → Motion Translation】
+
+The Cinematographer (Phase 2a) may tag a panel's camera characteristic as Handheld, Stabilized
+Tracking, or Crane to express INTENDED CINEMATIC FEEL. Since LTX requires static camera, you
+MUST translate these feels into character and environment motion within the static frame:
+
+| Cinematographer tag   | How to express in video_prompt (static camera only)                        |
+|-----------------------|----------------------------------------------------------------------------|
+| Static                | Calm, controlled character motion; environment has natural ambient life     |
+| Handheld              | Characters move with urgency / tension; sharp, energetic gestures; rapid environmental changes (wind gusts, rain intensifies, crowd surges) — simulate handheld energy through SCENE ENERGY, not camera shake |
+| Stabilized Tracking   | Smooth continuous character movement across the frame (walking, turning, flowing gesture); environment moves fluidly with them |
+| Crane / Aerial        | This is a FRAMING description (high wide angle). Treat as Static. Fill the large visible space with layered environmental motion (multiple background elements moving simultaneously) |
+
+⚠️ NEVER write camera movement verbs (shake, pan, dolly, track, zoom, tilt) in Action lines.
+Convert all movement energy into character body language and environmental dynamism instead.

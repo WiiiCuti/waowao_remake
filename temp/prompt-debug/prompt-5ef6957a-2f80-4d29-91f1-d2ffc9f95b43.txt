@@ -1,0 +1,8 @@
+Minh: Male, twenty-five, symmetrical face with clear almond-shaped dark brown eyes, straight nose, full natural lips. Fair smooth skin. Short dark brown hair, neatly side-parted, softly textured. Slim average-height build. Wearing a light blue Oxford cotton button-down shirt with sleeves rolled to elbow, under a heathered gray merino wool v-neck sweater. Faded slim-fit blue jeans, brown leather low-top sneakers with white soles. A slim silver watch with a brown leather strap on the left wrist. Clean and understated. — position: center of frame, half-body shot, sighing, eyes lowered
+
+Shot: Eye-Level Close-Up | Camera: Static
+Scene: Coffee Shop Eaves_Day_Rain — Close-up of Minh. He clicks his tongue, his eyes dropping, silently thinking about the umbrella he forgot. Rain still falls outside the awning.
+Lighting: Soft side light from the street side，Diffused, no harsh shadows
+Depth of field: Medium DOF (T4.0), focus on character, background slightly blurred
+Color tone: Neutral cool with warm toned face
+Style: artwork in cgstyle_9b, iray rendering, physically accurate lighting, 2.5D semi-realistic style. Modern Japanese anime style, clean crisp line art, beautiful detailed eyes and hair, SSS skin with translucent rosy tone, soft cel shading with subtle gradient and rim light, visual novel CG look, modern urban street background with soft bokeh, gentle natural lighting, fresh vibrant colors, premium high-quality anime CG.

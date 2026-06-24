@@ -1,0 +1,7 @@
+
+Shot: Eye-Level Wide Shot | Camera: Static
+Scene: Coffee Shop Eaves_Day_Rain — Wide shot. Both stand under the eaves. The atmosphere settles between them, only the sound of raindrops tapping on the roof. A still frame.
+Lighting: Ambient overcast light，Soft, flat, muted
+Depth of field: Deep DOF (T8.0), entire space clear
+Color tone: Cool, desaturated, quiet
+Style: artwork in cgstyle_9b, iray rendering, physically accurate lighting, 2.5D semi-realistic style. Modern Japanese anime style, clean crisp line art, beautiful detailed eyes and hair, SSS skin with translucent rosy tone, soft cel shading with subtle gradient and rim light, visual novel CG look, modern urban street background with soft bokeh, gentle natural lighting, fresh vibrant colors, premium high-quality anime CG.

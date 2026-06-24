@@ -1,0 +1,8 @@
+Linh: Female, approximately twenty-five, soft oval face, large almond dark brown eyes, curved brows, straight nose, full lips. Medium-length wavy dark brown hair loose, slightly damp at ends. Slender build. White cotton blouse under light green cardigan, light blue jeans, white canvas sneakers. Gray backpack, holding light green umbrella dotted with rain droplets. — position: left side of frame, moving right, walking, extending hand with umbrella toward right
+
+Shot: Eye-Level Full Shot | Camera: Static
+Scene: Coffee Shop Eaves_Day_Rain — Full shot. Linh hurries under the awning, hair slightly wet at the tips, holding a light blue folded umbrella. She extends her hand toward Minh and stops.
+Lighting: Backlight from the rainy street, creating rim light，Soft, diffused edge light
+Depth of field: Deep DOF (T8.0), clearly rendering the entrance and surroundings
+Color tone: Neutral cool with warm rim on subject
+Style: artwork in cgstyle_9b, iray rendering, physically accurate lighting, 2.5D semi-realistic style. Modern Japanese anime style, clean crisp line art, beautiful detailed eyes and hair, SSS skin with translucent rosy tone, soft cel shading with subtle gradient and rim light, visual novel CG look, modern urban street background with soft bokeh, gentle natural lighting, fresh vibrant colors, premium high-quality anime CG.

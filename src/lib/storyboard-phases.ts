@@ -94,11 +94,12 @@ export type StoryboardPanel = JsonRecord & {
 
 export type PhotographyRule = JsonRecord & {
     panel_number?: number
-    composition?: string
-    lighting?: string
-    color_palette?: string
-    atmosphere?: string
-    technical_notes?: string
+    scene_summary?: string
+    lighting?: unknown
+    depth_of_field?: string
+    color_tone?: string
+    camera_move?: string
+    characters?: unknown[]
 }
 
 export type ActingDirection = JsonRecord & {

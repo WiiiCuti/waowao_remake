@@ -71,14 +71,20 @@ dialogue analysis phase can correctly identify the speaker.
 
 [Cinematic Insert Rule — MANDATORY & UN-DROPPABLE]
 
+1. Explicit Original Text Inserts:
 Any text fully enclosed in square brackets `[...]` (e.g., `[A horse carriage races
-by]`) represents a Cinematic Insert / B-roll.
+by]`) represents an Explicit Cinematic Insert / B-roll.
   - It MUST be parsed into its own independent panel. Never drop or skip it.
   - It is NEVER merged with surrounding dialogue or action lines.
   - It is NEVER split into two panels, no matter how long it is — copy the entire
     bracketed content verbatim into one source_text field, brackets included.
   - This applies even if the insert seems minor, redundant, purely atmospheric, or
     "not a key emotional beat." That kind of judgment does NOT apply to B-roll.
+
+2. AI-Generated Insert Shots (Causal Motivation):
+You may voluntarily add Insert panels (Extreme Close-Ups/B-roll) that are NOT explicitly bracketed in the text to enhance emotion, BUT they must have strict causal motivation.
+  - The insert must be a direct RESULT of the previous action (e.g., Character is knocked down → CUT to insert of their hand gripping the table edge). Do not add random standalone inserts.
+  - Assign these dynamically added panels the archetype `scene_type: "insert"`.
 
 ✅ Correct (entire bracket = one panel, regardless of internal length/commas):
   Input: "[Góc máy từ phía sau, bóng hai người vội vã bước đi, cùng che chung một
@@ -123,7 +129,7 @@ the result.
    - description: Visual description (character actions, scene elements, composition essentials)
    - characters: [{name: "Character Name", appearance: "Appearance Name", slot: "Fixed position description within the scene"}]
    - location: Scene name (selected from the asset library)
-   - scene_type: daily/emotion/action/epic/suspense
+   - scene_type: one of the 10 Cinematic Archetypes — see [Scene Archetype Router] below
    - source_text: Corresponding original text fragment ⚠️ Required, must not be empty
 
 3. source_text Rules (Extremely Important):
@@ -136,6 +142,38 @@ the result.
      {original_text}, NOT from the description field of {clip_content}
    - Creative shots must also have the original text fragment that triggered that
      shot filled in
+
+[Scene Archetype Router]
+
+⚠️ MANDATORY: Before assigning shot_type or splitting panels, you MUST first classify the
+dramatic function of the scene/moment into ONE of the 10 Cinematic Archetypes below.
+Assign that archetype name to the `scene_type` field of every panel in that scene.
+Archetype drives panel count, pacing, and required framing patterns.
+
+Do NOT use old values (daily / emotion / action / epic / suspense) — they are retired.
+
+| Archetype       | Dramatic function         | Panel count guidance    | Required framing pattern |
+|-----------------|--------------------------|------------------------|---------------------------|
+| Impact          | Single decisive action   | 3–5 panels             | Wide (setup) → Medium (decisive moment) → Close-Up (aftermath) |
+| Duel            | Back-and-forth contest   | 4–8 panels             | Alternate low-angle advantage shot; no character holds advantage 2 panels in a row |
+| Pursuit         | Chase / escape           | 3–6 panels             | Wide (distance far) → Medium (distance closing) |
+| Journey         | Travel / exploration     | 2–4 panels             | Tracking or aerial follow; character moves through space |
+| Atmosphere      | Mood / emotional texture | 1–3 panels             | Minimal cuts; static or very slow push; micro-expression is the drama |
+| Reveal          | Discovery / surprise     | 2–4 panels             | Hidden → visible progression (door opening, fog lifting, camera panning); Narrow → Wide |
+| Confrontation   | Tense dialogue / conflict| 3–6 panels             | OTS (over-the-shoulder) framing; power shifts cross the 180° axis |
+| Interrogation   | Asymmetric power dynamic | 3–5 panels             | Low-angle on questioner, high-angle on subject; push-in Close-Up on silence |
+| Negotiation     | Equal-power dialogue     | 2–4 panels             | Symmetrical framing; matched shot sizes; Medium Two-Shot |
+| insert          | B-roll detail / causal insert | 1 panel (always atomic) | Extreme Close-Up or Macro Close-Up; static camera; micro-movement only |
+
+⚠️ Archetype selection rules:
+  - Choose the archetype that best matches the DOMINANT dramatic function of the moment.
+  - A single clip may contain multiple archetypes — assign the correct one per panel.
+  - When in doubt between two archetypes, prefer the one that gives the clearer framing instruction.
+  - Atmosphere panels are always valid for pure silent environment or inner-monologue shots.
+  - Mandatory B-roll `[...]` panels: ALWAYS assign the `insert` archetype, unless the bracketed text explicitly describes a massive wide landscape (in which case use Atmosphere).
+
+⚠️ Archetype self-check: Before finalizing output, scan every panel and confirm each
+  `scene_type` is one of the 10 valid archetype names listed above. Old values are forbidden.
 
 [Shot Breakdown Rules]
 
@@ -461,7 +499,7 @@ Linh ran in beside him, holding a light green umbrella, her hair slightly wet.
     "description": "Medium wide shot: Rain pours on a busy street. Minh stands alone under a coffee shop awning, hands in pockets, watching the rain. Wet pavement reflects city light.",
     "characters": [{"name": "Minh", "appearance": "Default Appearance"}],
     "location": "Coffee Shop Exterior",
-    "scene_type": "daily",
+    "scene_type": "Atmosphere",
     "source_text": "Minh stood under the coffee shop awning, rain pouring around him."
   },
   {
@@ -469,7 +507,7 @@ Linh ran in beside him, holding a light green umbrella, her hair slightly wet.
     "description": "Extreme close-up insert: Heavy raindrops strike a puddle on the asphalt, water splashing upward in slow motion.",
     "characters": [],
     "location": "Coffee Shop Exterior",
-    "scene_type": "daily",
+    "scene_type": "insert",
     "source_text": "[Heavy raindrops slam into a puddle on the asphalt, water splashing up.]"
   },
   {
@@ -477,7 +515,7 @@ Linh ran in beside him, holding a light green umbrella, her hair slightly wet.
     "description": "Full shot: Linh runs into frame under the awning, her hair ends damp. She holds a folded light green umbrella in her right hand. She stops and looks toward Minh. Rain blurs the street behind her.",
     "characters": [{"name": "Linh", "appearance": "Default Appearance"}],
     "location": "Coffee Shop Exterior",
-    "scene_type": "daily",
+    "scene_type": "Reveal",
     "source_text": "Linh ran in beside him, holding a light green umbrella, her hair slightly wet."
   },
   {
@@ -488,7 +526,7 @@ Linh ran in beside him, holding a light green umbrella, her hair slightly wet.
       {"name": "Minh", "appearance": "Default Appearance"}
     ],
     "location": "Coffee Shop Exterior",
-    "scene_type": "daily",
+    "scene_type": "Negotiation",
     "source_text": "Need an umbrella? Minh turned. Yours?"
   }
 ]
@@ -496,7 +534,7 @@ Linh ran in beside him, holding a light green umbrella, her hair slightly wet.
 Note the film-aware pacing in the example:
 - Shot 1 (silent): Establishes scene — rain, Minh alone, mood
 - Shot 2 (silent, mandatory B-roll): The bracketed insert is never dropped — it
-  becomes its own atomic panel even though no character is present in it
+  becomes its own atomic panel with `scene_type: "insert"`, even though no character is present in it
 - Shot 3 (silent): Establishes new character entering — Linh appears, audience registers her
 - Shot 4 (merged action+dialogue): Linh extends umbrella + asks + Minh turns +
   responds — all in one Medium Two-Shot preserving environmental context
@@ -574,7 +612,7 @@ Rule: If the state above contains character positions and appearances:
 16. ⚠️ JSON safety: All quotation marks (""''「」etc.) in the original text must be
     uniformly replaced with 「」within JSON string values; unescaped English
     double quotation marks are strictly forbidden.
-17. ⚠️ FINAL SELF-CHECK before returning output (perform all three silently):
+17. ⚠️ FINAL SELF-CHECK before returning output (perform all four silently):
     a) Count the `[...]` B-roll blocks in the input. Your output must contain the
        exact same number of B-roll panels, each unsplit and verbatim.
     b) Check every dialogue and inner-monologue panel: none should be split into
@@ -583,3 +621,7 @@ Rule: If the state above contains character positions and appearances:
     c) Check consecutive panels describing the same static moment: if two adjacent
        panels could be merged per [Shot Breakdown Rules] section 3 without losing
        a distinct action/character/scene change, merge them.
+    d) ⚠️ Archetype check: Scan every panel's `scene_type`. It MUST be one of the 10
+       valid archetype names: Impact / Duel / Pursuit / Journey / Atmosphere / Reveal /
+       Confrontation / Interrogation / Negotiation / insert. Any old value (daily, emotion,
+       action, epic, suspense) is forbidden and must be replaced before returning.

@@ -1,0 +1,7 @@
+
+Shot: Eye-Level Extreme Close-Up | Camera: Static
+Scene: Coffee Shop Eaves_Day_Rain — Extreme close-up of raindrops hitting a puddle on the asphalt, water splashing in slow motion.
+Lighting: Light from above, diffused by clouds，Soft with specular highlights on water
+Depth of field: Extremely shallow DOF (T1.8), focusing on raindrops, background blurred
+Color tone: Cool, muted, high contrast
+Style: artwork in cgstyle_9b, iray rendering, physically accurate lighting, 2.5D semi-realistic style. Modern Japanese anime style, clean crisp line art, beautiful detailed eyes and hair, SSS skin with translucent rosy tone, soft cel shading with subtle gradient and rim light, visual novel CG look, modern urban street background with soft bokeh, gentle natural lighting, fresh vibrant colors, premium high-quality anime CG.

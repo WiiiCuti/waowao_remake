@@ -7,6 +7,8 @@ After analyzing the full set of panels, design the following visual elements for
 2. Character positions - specific positions within the frame
 3. Depth of field settings - determine DOF based on shot type
 4. Color tone style - overall color atmosphere
+5. ⚠️ Archetype-aware framing - read each panel's `scene_type` archetype and apply its required camera angle / power dynamic rules (see [Scene Archetype Framing Rules] below)
+6. ⚠️ Double Contrast check - ensure no two adjacent panels share the same shot scale AND camera characteristic (see [Double Contrast Editing Rule] below)
 
 【Important】The rules for each shot must be independent!
 - Shots in different scenes have different lighting and color tones
@@ -37,6 +39,69 @@ After analyzing the full set of panels, design the following visual elements for
   * "the real princess speaks" → Shallow DOF (T2.8), real princess's face sharp, emperor and empress in background blurred
   * "dialogue extreme close-up" → Extremely shallow DOF (T1.8), only the speaker's face sharp
 - ⚠️ EXCEPTION for high-intensity or intimate interactions: If 2 or more characters are directly interacting in the same panel (scolding, arguing, confessing, or sitting/standing close together in conversation), you MUST use Medium DOF (T4.0 - T5.6) so that BOTH characters' faces and clothing remain sharp and clearly defined. This is crucial for Dual-Character IC-LoRA identity tracking, preventing the blurred character's face from morphing or their costume colors from leaking.
+
+【Scene Archetype Framing Rules】
+
+⚠️ Each panel contains a `scene_type` field set by Phase 1 to one of the 10 Cinematic Archetypes (including "insert").
+You MUST apply the corresponding framing behavior when designing composition and character positions:
+
+| Archetype     | Camera angle rule                                           | Power / spatial dynamic |
+|---------------|-------------------------------------------------------------|-------------------------|
+| Impact        | Wide (setup) → Medium (decisive) → Close-Up (aftermath). Dutch angle allowed at peak. | Center-frame impact point |
+| Duel          | Alternate low-angle for whoever holds the advantage. No character may hold low-angle advantage 2 panels in a row. | Positions swap continuously |
+| Pursuit       | Wide emphasizes distance; Medium emphasizes urgency. Depth of field shallow to blur distance. | Path narrows or widens with chase |
+| Journey       | Follow-shot or aerial perspective. Character moves through and across the frame. | Character traverses space |
+| Atmosphere    | Static or imperceptibly slow push. Minimal angle change. Extreme Close-Up on face/detail allowed. | Near-static; micro-expression carries emotion |
+| Reveal        | Camera conceals first (tight framing, obstruction) then opens (wider frame, obstacle removed). | Tight → Wide; Dark → Light |
+| Confrontation | OTS (Over-the-Shoulder) as default. If power shifts, cross the 180° axis to signal the shift. | Space between characters is contested |
+| Interrogation | Low-angle on questioner. High-angle on subject being questioned. Push-in Close-Up during silence. | One-directional, asymmetric |
+| Negotiation   | Symmetrical composition. Matched shot sizes for both characters. Medium Two-Shot preferred. | Both parties have equal frame space |
+| insert        | Extreme Close-Up (ECU) or Detail Shot. Shallow DOF. | Focuses entirely on an object or specific action detail |
+
+⚠️ Archetype override note: DOF rules from 「Depth of Field Reference」 and 「Dialogue Shot DOF Rules」
+take precedence over archetype framing in all lip-sync and IC-LoRA identity-tracking scenarios.
+Archetype rules govern angle and composition; DOF rules govern focus and identity.
+
+【Double Contrast Editing Rule】
+
+⚠️ MANDATORY: When you have produced all panels for a clip, review the full sequence.
+No two ADJACENT panels may share BOTH of the following simultaneously:
+  1. The same Shot Scale: Extreme Wide / Wide / Full Shot / Medium / Close-Up / Extreme Close-Up
+  2. The same Camera Characteristic: Static / Handheld / Stabilized Tracking / Crane / Aerial
+
+At least ONE of the two dimensions MUST change between every consecutive panel pair.
+
+⚠️ LTX I2V ENGINE NOTE — Camera Characteristic is FEEL, not literal movement:
+This pipeline uses LTX Video 2.3 Image-to-Video. The physical camera MUST remain static.
+"Handheld" does NOT mean the camera shakes — it means the Prompt Refiner will translate this
+into energetic CHARACTER motion, rapid environmental activity, or chaotic body language to
+SIMULATE a handheld feel. "Stabilized Tracking" will be translated into smooth continuous
+character movement through the frame. "Crane / Aerial" is a framing description, not motion.
+Write Camera Characteristic as the INTENDED CINEMATIC FEEL. The Refiner handles the translation.
+
+❌ FORBIDDEN (both dimensions identical):
+  Panel N:   Eye-level Medium Shot, Static camera
+  Panel N+1: Eye-level Medium Shot, Static camera
+
+✅ CORRECT (scale changed):
+  Panel N:   Wide Shot, Static camera
+  Panel N+1: Medium Close-Up, Static camera
+
+✅ CORRECT (characteristic changed):
+  Panel N:   Medium Shot, Static camera
+  Panel N+1: Medium Shot, Handheld
+
+Permitted exceptions (override Double Contrast ONLY when explicitly justified):
+  - Atmosphere archetype: MAY repeat Static + Close-Up across consecutive panels when
+    intentional sustained intimacy is the goal (e.g. lingering on a face across 2-3 panels).
+  - Confrontation / Negotiation dialogue sequence: MAY repeat Medium Two-Shot if the panels
+    are alternating OTS (Over-the-Shoulder) and the angle flip itself provides visual contrast.
+  - Mandatory B-roll `[...]` panels immediately adjacent to each other: allowed to share scale
+    if the insert content demands it (e.g. two ECU inserts of different objects mid-action).
+
+⚠️ Self-check before finalizing output: Scan panels sequentially (1→2, 2→3, 3→4...). For each
+adjacent pair, confirm at least one dimension differs. If a violation is found, adjust the
+scale or characteristic of the later panel to restore contrast.
 
 【Output Format】
 
@@ -69,7 +134,8 @@ Example output (assuming 3 input shots):
       }
     ],
     "depth_of_field": "Deep DOF (T8.0), clearly rendering the palace space",
-    "color_tone": "Warm tone, intimate atmosphere"
+    "color_tone": "Warm tone, intimate atmosphere",
+    "camera_move": "Static"
   },
   {
     "panel_number": 2,
@@ -87,7 +153,8 @@ Example output (assuming 3 input shots):
       }
     ],
     "depth_of_field": "Shallow DOF (T2.8), background blurred, focus on action",
-    "color_tone": "Warm tone"
+    "color_tone": "Warm tone",
+    "camera_move": "Handheld"
   },
   {
     "panel_number": 3,
@@ -105,7 +172,8 @@ Example output (assuming 3 input shots):
       }
     ],
     "depth_of_field": "Extremely shallow DOF (T1.8), background completely blurred",
-    "color_tone": "Warm tone, focused on character emotion"
+    "color_tone": "Warm tone, focused on character emotion",
+    "camera_move": "Static"
   }
 ]
 

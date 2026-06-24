@@ -60,6 +60,7 @@ type CharDetail = {
   appearance: string
   screen_position: string
   posture: string
+  facing: string
   acting: string
 }
 
@@ -103,6 +104,7 @@ function buildCharDetails(
       appearance: ref.appearance || '',
       screen_position: photo?.screen_position || '',
       posture: photo?.posture || '',
+      facing: photo?.facing || '',
       acting: acting?.acting || '',
     }
   })
